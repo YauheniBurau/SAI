@@ -281,4 +281,27 @@ public class Matrix2dArgbFilter {
     }
 
 
+    public static Matrix2d<ARGB> argbToAlpha(Matrix2d<ARGB> source, ARGB color, int r){
+        int i, j, sizeX, sizeY;
+        ARGB pixel;
+        ARGB black = new ARGB(0x00, 0, 0, 0);
+        ARGB white = new ARGB(0xff, 255, 255, 255);
+        sizeX = source.sizeX;
+        sizeY = source.sizeY;
+        Matrix2d<ARGB> mask = new Matrix2d<ARGB>(ARGB.class, sizeX,sizeY);
+        // for every pixel of source make
+        for (j = 0; j < sizeY; j++) {
+            for (i = 0; i < sizeX; i++) {
+                pixel = source.getValue(i, j);
+                if ( Math.sqrt((color.r-pixel.r)^2+(color.g-pixel.g)^2+(color.b-pixel.b)^2)<r ) {
+                    // change color to mask;
+                    mask.setValue(i, j, white);
+                } else {
+                    //change to empty
+                    mask.setValue(i, j, black);
+                }
+            }
+        }
+        return mask;
+    }
 }

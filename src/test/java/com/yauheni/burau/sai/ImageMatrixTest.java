@@ -22,10 +22,55 @@ import static java.lang.Math.random;
 public class ImageMatrixTest {
 
     String path = "E:\\temp\\result\\";
+//    String imageFile = "game.png";
+
+//    String imageFile = "desktop.png";
+//    String imageFile = "lcd.png";
 //    String imageFile = "anime.png";
-    String imageFile = "table.JPG";
+    String imageFile = "table.png";
+//    String imageFile = "table.JPG";
 //    String imageFile = "nature1.jpeg";
 //    String imageFile = "stown.png";
+
+
+
+    @Test
+    public void argbToAlpha(){
+//        int x = 150;
+//        int y = 591;
+        int x = 676;
+        int y = 386;
+        int r = 16;
+        ARGB color;
+        Matrix2d<ARGB> m = Matrix2dFileReader.loadRGB(path + imageFile);
+        Matrix2d<ARGB> m2d = Matrix2dConverter.matrix2dArgbToColorsNxNxN(m, 2);
+//        Matrix2d<ARGB> m2d = Matrix2dArgbFilter.argbToColorDiff(m);
+        color = m2d.getValue(x,y);
+        Matrix2d<ARGB> m2dMask = Matrix2dArgbFilter.argbToAlpha(m2d, color, r);
+        Matrix2dFileWriter.saveRGB(m2dMask, path + imageFile + "_Alpha16.png", "png");
+    }
+
+    @Test
+    public void argbToReduce(){
+        int x = 879;
+        int y = 297;
+        int r = 5;
+        ARGB color;
+        Matrix2d<ARGB> m1x = Matrix2dFileReader.loadRGB(path + imageFile);
+        Matrix2d<ARGB> m1x2 = Matrix2dTransform.reduce(m1x, 2);
+        Matrix2d<ARGB> m1x4 = Matrix2dTransform.reduce(m1x2, 2);
+        Matrix2d<ARGB> m1x8 = Matrix2dTransform.reduce(m1x4, 2);
+        Matrix2d<ARGB> m1x16 = Matrix2dTransform.reduce(m1x8, 2);
+        Matrix2d<ARGB> m1x32 = Matrix2dTransform.reduce(m1x16, 2);
+        Matrix2d<ARGB> m1x64 = Matrix2dTransform.reduce(m1x32, 2);
+        Matrix2dFileWriter.saveRGB(m1x2, path + imageFile + "1x2.png", "png");
+        Matrix2dFileWriter.saveRGB(m1x4, path + imageFile + "1x4.png", "png");
+        Matrix2dFileWriter.saveRGB(m1x8, path + imageFile + "1x8.png", "png");
+        Matrix2dFileWriter.saveRGB(m1x16, path + imageFile + "1x16.png", "png");
+        Matrix2dFileWriter.saveRGB(m1x32, path + imageFile + "1x32.png", "png");
+        Matrix2dFileWriter.saveRGB(m1x64, path + imageFile + "1x64.png", "png");
+    }
+
 
     @Test
     public void checkLoadSaveRGB(){
@@ -469,7 +514,7 @@ public class ImageMatrixTest {
     public void useMask() {
         Matrix2d<ARGB> m0x = Matrix2dFileReader.loadRGB(path + imageFile);
 //        Matrix2d<ARGB> m1x2 = Matrix2dTransform.argbConvolute2x(m0x);
-        Matrix2d<ARGB> m0 = Matrix2dTransform.argbConvolute2x(m0x);
+        Matrix2d<ARGB> m0 = m0x; //Matrix2dTransform.argbConvolute2x(m0x);
 
         Matrix2d<ARGB> m1 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
         Matrix2d<ARGB> m1_1 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);

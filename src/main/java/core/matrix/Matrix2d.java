@@ -1,6 +1,5 @@
 package core.matrix;
 
-import core.element.ARGB;
 import core.element.BaseMatrixElement;
 
 import java.lang.reflect.Array;
