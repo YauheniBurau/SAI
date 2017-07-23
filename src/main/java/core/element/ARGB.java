@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 01.05.2017.
  */
-public class ARGB extends BaseMatrixElement{
+public class ARGB{
     public final int a;
     public final int r;
     public final int g;
