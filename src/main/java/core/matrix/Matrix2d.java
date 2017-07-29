@@ -5,9 +5,11 @@ import core.exceptions.FileException;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
@@ -116,10 +118,10 @@ public class Matrix2d{
      * @param urlFile
      * @param format
      */
-    public Matrix2d save(String urlFile, String format) {
+    public Matrix2d save(String urlFile, String format, int type) {
         BufferedImage image;
         int x, y;
-        image = new BufferedImage(this.sizeX, this.sizeY, TYPE_INT_ARGB);
+        image = new BufferedImage(this.sizeX, this.sizeY, type);
         y = this.sizeY;
         x = this.sizeX;
         for(int j = 0; j<y; j++){
@@ -193,88 +195,162 @@ public class Matrix2d{
         return m2d;
     }
 
-//    /**
-//     * Reduce size of matrix2d to 1x2-times on axis x and y by count from neighbors
-//     * @return
-//     */
-//    public Matrix2d Convolute1x2(){
-//        int[][] pixels;
-//        int a, r, g, b;
-//        int x = this.sizeX>>1;
-//        int y = this.sizeY>>1;
-//        Matrix2d m2d = new Matrix2d(x, y);
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                pixels = this.get2x2(i*2, j*2);
-//                a = (pixels[0][0].a + pixels[0][1].a + pixels[1][0].a + pixels[1][1].a)/4;
-//                r = (pixels[0][0].r + pixels[0][1].r + pixels[1][0].r + pixels[1][1].r)/4;
-//                g = (pixels[0][0].g + pixels[0][1].g + pixels[1][0].g + pixels[1][1].g)/4;
-//                b = (pixels[0][0].b + pixels[0][1].b + pixels[1][0].b + pixels[1][1].b)/4;
-//                m2d.setValue(i, j, new ARGB(a, r, g, b));
-//            }
-//        }
-//        return m2d;
-//    }
+    /**
+     * average pixel from 3x3 around pixels
+     * @return
+     */
+    public Matrix2d average(){
+        Matrix2d m2d = new Matrix2d(this.sizeX, this.sizeY);
+        int[][] m3x3 = null;
+        int averaged = 0;
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++){
+                m3x3 = this.get3x3(i, j);
+                averaged = m3x3[0][0] | m3x3[0][1] | m3x3[0][2] |
+                        m3x3[1][0] | m3x3[1][1] | m3x3[1][2] |
+                        m3x3[2][0] | m3x3[2][1] | m3x3[2][2];
+                m2d.setValue(i, j, averaged);
+            }
+        }
+        return m2d;
+    }
+
+    /**
+     * average pixel from 3x3 around pixels
+     * @return
+     */
+    public Matrix2d edge(int r){
+        int alpha, red, green, blue;
+        Matrix2d m2d = new Matrix2d(this.sizeX, this.sizeY);
+        int[][] m3x3 = null;
+        int averaged, value;
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++){
+                m3x3 = this.get3x3(i, j);
+                averaged = m3x3[0][0] | m3x3[0][1] | m3x3[0][2] |
+                        m3x3[1][0]         |         m3x3[1][2] |
+                        m3x3[2][0] | m3x3[2][1] | m3x3[2][2];
+                value = ((m3x3[1][1] >>> 24) & 0xff) - ((averaged >>> 24) & 0xff);
+                alpha = Math.abs(value)<=r ? 0 : 255;
+                value = ((m3x3[1][1] >>> 16) & 0xff) - ((averaged >>> 16) & 0xff);
+                red = Math.abs(value)<=r ? 0 : 255;
+                value = ((m3x3[1][1] >>> 8) & 0xff) - ((averaged >>> 8) & 0xff);
+                green = Math.abs(value)<=r ? 0 : 255;
+                value = ((m3x3[1][1] >>> 0) & 0xff) - ((averaged >>> 0) & 0xff);
+                blue = Math.abs(value)<=r ? 0 : 255;
+                value = (((((alpha << 8) + red) << 8) + green) << 8) + blue;
+                m2d.setValue(i, j, value);
+            }
+        }
+        return m2d;
+    }
+
+    public static final int ALPHA = 1;
+    public static final int RED = 2;
+    public static final int GREEN = 3;
+    public static final int BLUE = 4;
+
+    /**
+     * average pixel from 3x3 around pixels
+     * @return
+     */
+    public Matrix2d channel(int channel){
+        int alpha, red, green, blue;
+        Matrix2d m2d = new Matrix2d(this.sizeX, this.sizeY);
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++){
+                if(channel == 1) m2d.setValue(i, j, ((this.getValue(i,j) >>> 24) & 0xff) );
+                if(channel == 2) m2d.setValue(i, j, ((this.getValue(i,j) >>> 16) & 0xff) );
+                if(channel == 3) m2d.setValue(i, j, ((this.getValue(i,j) >>> 8) & 0xff) );
+                if(channel == 4) m2d.setValue(i, j, ((this.getValue(i,j) >>> 0) & 0xff) );
+            }
+        }
+        return m2d;
+    }
+
+    public static Matrix2d and(Matrix2d m1, Matrix2d m2){
+        int sizeX = m1.sizeX;
+        int sizeY = m1.sizeY;
+        Matrix2d m2d = new Matrix2d(sizeX, sizeY);
+        for(int j = 0; j<sizeY; j++){
+            for(int i = 0; i<sizeX; i++){
+                m2d.setValue(i, j, m1.getValue(i,j) & m2.getValue(i,j) );
+            }
+        }
+        return m2d;
+    }
+
+    public static Matrix2d and(Matrix2d m1, Matrix2d m2, Matrix2d m3){
+        int sizeX = m1.sizeX;
+        int sizeY = m1.sizeY;
+        Matrix2d m2d = new Matrix2d(sizeX, sizeY);
+        for(int j = 0; j<sizeY; j++){
+            for(int i = 0; i<sizeX; i++){
+                m2d.setValue(i, j, m1.getValue(i,j) & m2.getValue(i,j) & m3.getValue(i,j));
+            }
+        }
+        return m2d;
+    }
+
+    // TODO: no protection against x<0, x>max, y<0, y>max
+    /**
+     * by chain find all near element with the same value
+     * @param x
+     * @param y
+     * @return
+     */
+    public Matrix2d getShape(int x, int y){
+        Queue<Point2d> fifo = new LinkedList<Point2d>();
+        Point2d point;
+        int up, right, down, left;
+        Matrix2d m2d = new Matrix2d(this.sizeX, this.sizeY);
+        for(int j = 0; j<sizeY; j++){
+            for(int i = 0; i<sizeX; i++){
+                m2d.setValue(i, j, Matrix2d.EMPTY);
+            }
+        }
+        int formValue = m2d.getValue(x, y);
+        fifo.add(new Point2d(x,y));
+        m2d.setValue(x, y, Matrix2d.WHITE);
+        while(!fifo.isEmpty()){
+            point = fifo.remove();
+            // up
+            up = this.getValue(point.x,point.y-1);
+            if( up == formValue && m2d.getValue(point.x, point.y-1)==Matrix2d.EMPTY ){
+                fifo.add(new Point2d(point.x, point.y-1));
+                m2d.setValue(point.x, point.y-1, Matrix2d.WHITE);
+            }else{
+                m2d.setValue(point.x, point.y-1, Matrix2d.WHITE);
+            }
+            // right
+            right = this.getValue(point.x+1,point.y);
+            if( right == formValue && m2d.getValue(point.x+1, point.y)==Matrix2d.EMPTY ){
+                fifo.add(new Point2d(point.x+1,point.y));
+                m2d.setValue(point.x+1, point.y, Matrix2d.WHITE);
+            }else{
+                m2d.setValue(point.x+1,point.y, Matrix2d.WHITE);
+            }
+            // down
+            down = this.getValue(point.x,point.y+1);
+            if( down == formValue && m2d.getValue(point.x, point.y+1)==Matrix2d.EMPTY ){
+                fifo.add(new Point2d(point.x,point.y+1));
+                m2d.setValue(point.x, point.y+1, Matrix2d.WHITE);
+            }else{
+                m2d.setValue(point.x,point.y+1, Matrix2d.WHITE);
+            }
+            // left
+            left = this.getValue(point.x-1,point.y);
+            if( left == formValue && m2d.getValue(point.x-1, point.y)==Matrix2d.EMPTY ){
+                fifo.add(new Point2d(point.x-1,point.y));
+                m2d.setValue(point.x-1, point.y, Matrix2d.WHITE);
+            }else{
+                m2d.setValue(point.x-1,point.y, Matrix2d.WHITE);
+            }
+        }
+        return m2d;
+    }
 
 
-//    public int getMiddleValue(int xPos, int yPos){
-//        int xLeft, yLeft, xRight,yRight, xUp, yUp, xDown, yDown;
-//        xLeft = xPos - 1;
-//        yLeft = yPos;
-//        xRight = xPos + 1;
-//        yRight = yPos;
-//        xUp = xPos;
-//        yUp = yPos -1;
-//        xDown = xPos;
-//        yDown = yPos + 1;
-//        int centerValue, leftValue, rightValue, upValue, downValue;
-//        int leftUpValue, rightUpValue,leftDownValue, rightDownValue;
-//        double middleValue;
-//        centerValue = this.matrix[yPos][xPos];
-//        leftValue = xLeft>=0 ? this.matrix[yLeft][xLeft]: 0;
-//        rightValue = xRight<this.sizeX ? this.matrix[yRight][xRight]: 0;
-//        upValue = yUp>=0 ? this.matrix[yUp][xUp]: 0;
-//        downValue = yDown<this.sizeY ? this.matrix[yDown][xDown]: 0;
-//
-//        leftUpValue = xLeft>=0 &&  yUp>=0 ? this.matrix[yUp][xLeft]: 0;
-//        rightUpValue = xRight<this.sizeX && yUp>=0 ? this.matrix[yUp][xRight]: 0;
-//        leftDownValue = xLeft>=0 && yDown<this.sizeY ? this.matrix[yDown][xLeft]: 0;
-//        rightDownValue = xRight<this.sizeX && yDown<this.sizeY ? this.matrix[yDown][xRight]: 0;
-//
-//        middleValue = (centerValue |
-//                leftValue | rightValue | upValue | downValue |
-//                leftUpValue | rightUpValue | leftDownValue | rightDownValue);
-//        return (int)middleValue;
-//    }
-//
-//    public boolean isEdgeValue(int xPos, int yPos){
-//        int xLeft, yLeft, xRight,yRight, xUp, yUp, xDown, yDown;
-//        xLeft = xPos - 1;
-//        yLeft = yPos;
-//        xRight = xPos + 1;
-//        yRight = yPos;
-//        xUp = xPos;
-//        yUp = yPos -1;
-//        xDown = xPos;
-//        yDown = yPos + 1;
-//        int centerValue, leftValue, rightValue, upValue, downValue;
-//        int leftUpValue, rightUpValue,leftDownValue, rightDownValue;
-//        double middleValue;
-//        centerValue = this.matrix[yPos][xPos];
-//        leftValue = xLeft>=0 ? this.matrix[yLeft][xLeft]: 0;
-//        rightValue = xRight<this.sizeX ? this.matrix[yRight][xRight]: 0;
-//        upValue = yUp>=0 ? this.matrix[yUp][xUp]: 0;
-//        downValue = yDown<this.sizeY ? this.matrix[yDown][xDown]: 0;
-//
-//        leftUpValue = xLeft>=0 &&  yUp>=0 ? this.matrix[yUp][xLeft]: 0;
-//        rightUpValue = xRight<this.sizeX && yUp>=0 ? this.matrix[yUp][xRight]: 0;
-//        leftDownValue = xLeft>=0 && yDown<this.sizeY ? this.matrix[yDown][xLeft]: 0;
-//        rightDownValue = xRight<this.sizeX && yDown<this.sizeY ? this.matrix[yDown][xRight]: 0;
-//
-//        return (centerValue & leftValue & rightValue & upValue & downValue &
-//                leftUpValue & rightUpValue & leftDownValue & rightDownValue)==centerValue;
-//    }
-//
 //    public void analyzeMatrix(){
 //        int maxRed = 0;
 //        int minRed = 255;
@@ -406,38 +482,6 @@ public class Matrix2d{
 //        return new ARGB(a/total, r/total, g/total, b/total);
 //    }
 
-//    public static Matrix2d<ARGB> argbPlusArgb(Matrix2d<ARGB> m2dArgb1, Matrix2d<ARGB> m2dArgb2){
-//        int sizeX = m2dArgb1.sizeX;
-//        int sizeY = m2dArgb1.sizeY;
-//        int a, r, g, b;
-//        ARGB p1, p2;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                p1 = m2dArgb1.getValue(i, j);
-//                p2 = m2dArgb2.getValue(i, j);
-//                m2d.setValue(i, j, new ARGB((p1.a + p2.a)/2, (p1.r + p2.r)/2, (p1.g + p2.g)/2, (p1.b + p2.b)/2));
-//            }
-//        }
-//        return m2d;
-//    }
-//
-//    public static Matrix2d<ARGB> argbPlusArgb(Matrix2d<ARGB> m2dArgb1, Matrix2d<ARGB> m2dArgb2, Matrix2d<ARGB> m2dArgb3){
-//        int sizeX = m2dArgb1.sizeX;
-//        int sizeY = m2dArgb1.sizeY;
-//        int a, r, g, b;
-//        ARGB p1, p2, p3;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                p1 = m2dArgb1.getValue(i, j);
-//                p2 = m2dArgb2.getValue(i, j);
-//                p3 = m2dArgb3.getValue(i, j);
-//                m2d.setValue(i, j, new ARGB((p1.a + p2.a + p3.a)/2, (p1.r + p2.r + p3.r)/2, (p1.g + p2.g + p3.g)/2, (p1.b + p2.b + p3.b)/2));
-//            }
-//        }
-//        return m2d;
-//    }
 //
 //    public static Matrix2d<ARGB> argbMask(Matrix2d<ARGB> m2dArgb, ARGB threshold){
 //        int sizeX = m2dArgb.sizeX;
@@ -457,69 +501,7 @@ public class Matrix2d{
 //        return m2d;
 //    }
 
-//    public static Matrix2d<ARGB> rgbToGrey256(Matrix2d<ARGB> m2dArgb){
-//        int sizeX = m2dArgb.sizeX;
-//        int sizeY = m2dArgb.sizeY;
-//        Matrix2d<ARGB> rMatrix2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        int grey;
-//        ARGB argb;
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                argb = m2dArgb.getValue(i, j);
-//                grey = (argb.b & argb.g & argb.r & 0xFF);
-//                rMatrix2d.setValue(i, j, new ARGB(0xff, grey, grey, grey));
-//            }
-//        }
-//        return rMatrix2d;
-//    }
-//
-//    public static Matrix2d<ARGB> argbToGrey256(Matrix2d<ARGB> m2dArgb){
-//        int sizeX = m2dArgb.sizeX;
-//        int sizeY = m2dArgb.sizeY;
-//        Matrix2d<ARGB> rMatrix2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        int grey;
-//        ARGB argb;
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                argb = m2dArgb.getValue(i, j);
-//                grey = (argb.b & argb.g & argb.r & 0xFF);
-//                rMatrix2d.setValue(i, j, new ARGB(argb.a, grey, grey, grey));
-//            }
-//        }
-//        return rMatrix2d;
-//    }
-//
-//    public static Matrix2d<ARGB> argbToColorDiff(Matrix2d<ARGB> m2dArgb){
-//        int sizeX = m2dArgb.sizeX;
-//        int sizeY = m2dArgb.sizeY;
-//        ARGB empty = new ARGB(0x00, 0, 0, 0);
-//        ARGB[][] pixels;
-//        int a, r, g, b;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                pixels = m2dArgb.get3x3(ARGB.class, i, j, empty);
-//                a = pixels[1][1].a ^ (
-//                        pixels[0][0].a + pixels[0][1].a + pixels[0][2].a +
-//                        pixels[1][0].a +                  pixels[1][2].a +
-//                        pixels[2][0].a + pixels[2][1].a + pixels[2][2].a)/8;
-//                r = pixels[1][1].r ^ (
-//                        pixels[0][0].r + pixels[0][1].r + pixels[0][2].r +
-//                        pixels[1][0].r +                  pixels[1][2].r +
-//                        pixels[2][0].r + pixels[2][1].r + pixels[2][2].r)/8;
-//                g = pixels[1][1].g ^ (
-//                        pixels[0][0].g + pixels[0][1].g + pixels[0][2].g +
-//                        pixels[1][0].g +                  pixels[1][2].g +
-//                        pixels[2][0].g + pixels[2][1].g + pixels[2][2].g)/8;
-//                b = pixels[1][1].b ^ (
-//                        pixels[0][0].b + pixels[0][1].b + pixels[0][2].b +
-//                        pixels[1][0].b +                  pixels[1][2].b +
-//                        pixels[2][0].b + pixels[2][1].b + pixels[2][2].b)/8;
-//                m2d.setValue(i, j, new ARGB(a, r, g, b));
-//            }
-//        }
-//        return m2d;
-//    }
+
 //
 //    public static Matrix2d<ARGB> argbMinMax(Matrix2d<ARGB> m2dArgb, int aMin, int aMax, int rMin, int rMax, int gMin, int gMax, int bMin, int bMax){
 //        int sizeX = m2dArgb.sizeX;
@@ -584,74 +566,6 @@ public class Matrix2d{
 //        }
 //    }
 //
-//    public static Matrix2d<ARGB> argbToGrey2ByRChannel(Matrix2d<ARGB> m2dArgb, ARGB threshold){
-//        int sizeX = m2dArgb.sizeX;
-//        int sizeY = m2dArgb.sizeY;
-//        int iThreshold = threshold.r;
-//        ARGB low = new ARGB(0xff, 0, 0, 0);
-//        ARGB high = new ARGB(0xff, 255, 255, 255);
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        ARGB p;
-//        int pThreshold;
-//        for(int j = 0; j<sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
-//                p = m2dArgb.getValue(i, j);
-//                pThreshold = p.r;
-//                if( pThreshold>=iThreshold){
-//                    m2d.setValue(i, j, high);
-//                }else{
-//                    m2d.setValue(i, j, low);
-//                }
-//            }
-//        }
-//        return m2d;
-//    }
-//
-//    public static Matrix2d<ARGB> argbToGrey2ByGChannel(Matrix2d<ARGB> m2dArgb, ARGB threshold){
-//        int sizeX = m2dArgb.sizeX;
-//        int sizeY = m2dArgb.sizeY;
-//        int iThreshold = threshold.g;
-//        ARGB low = new ARGB(0xff, 0, 0, 0);
-//        ARGB high = new ARGB(0xff, 255, 255, 255);
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        ARGB p;
-//        int pThreshold;
-//        for(int j = 0; j<sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
-//                p = m2dArgb.getValue(i, j);
-//                pThreshold = p.g;
-//                if( pThreshold>=iThreshold){
-//                    m2d.setValue(i, j, high);
-//                }else{
-//                    m2d.setValue(i, j, low);
-//                }
-//            }
-//        }
-//        return m2d;
-//    }
-//
-//    public static Matrix2d<ARGB> argbToGrey2ByBChannel(Matrix2d<ARGB> m2dArgb, ARGB threshold){
-//        int sizeX = m2dArgb.sizeX;
-//        int sizeY = m2dArgb.sizeY;
-//        int iThreshold = threshold.b;
-//        ARGB low = new ARGB(0xff, 0, 0, 0);
-//        ARGB high = new ARGB(0xff, 255, 255, 255);
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        ARGB p;
-//        int pThreshold;
-//        for(int j = 0; j<sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
-//                p = m2dArgb.getValue(i, j);
-//                pThreshold = p.b;
-//                if( pThreshold>=iThreshold){
-//                    m2d.setValue(i, j, high);
-//                }else{
-//                    m2d.setValue(i, j, low);
-//                }
-//            }
-//        }
-//        return m2d;
-//    }
 //
 //    public static Matrix2d<ARGB> argbToGrey2ByAChannel(Matrix2d<ARGB> m2dArgb, ARGB threshold){
 //        int sizeX = m2dArgb.sizeX;
@@ -752,119 +666,7 @@ public class Matrix2d{
 //        return mask;
 //    }
 
-//    public static Matrix2d<ARGB> matrix2dIntToMatrix2dArgb(Matrix2d<Int> matrix2dInt) {
-//        int y = matrix2dInt.sizeY;
-//        int x = matrix2dInt.sizeX;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, x, y);
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                m2d.setValue( i, j, ElementConverter.intToArgb(matrix2dInt.getValue(i, j).value) );
-//            }
-//        }
-//        return m2d;
-//    }
-//
-//    public static Matrix2d<Int> matrix2dArgbToMatrix2dInt(Matrix2d<ARGB> matrix2dArgb) {
-//        int y = matrix2dArgb.sizeY;
-//        int x = matrix2dArgb.sizeX;
-//        Matrix2d<Int> m2d = new Matrix2d<Int>(Int.class, x, y);
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                m2d.setValue( i, j, ElementConverter.argbToInt(matrix2dArgb.getValue(i, j)) );
-//            }
-//        }
-//        return m2d;
-//    }
 
-//    public static Matrix2d<Int> matrix2dArgbToMatrixDiff(Matrix2d<ARGB> matrix2dArgb) {
-//        int y = matrix2dArgb.sizeY;
-//        int x = matrix2dArgb.sizeX;
-//        Matrix2d<Int> m2d = new Matrix2d<Int>(Int.class, x, y);
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                m2d.setValue( i, j, ElementConverter.argbToInt(matrix2dArgb.getValue(i, j)) );
-//            }
-//        }
-//        return m2d;
-//    }
-//
-
-//    public static IMatrix matrix2dTransform(IMatrix matrix2d){
-//        int sizeX = matrix2d.getSizeX();
-//        int sizeY = matrix2d.getSizeY();
-//        IMatrix rMatrix2d = new MatrixInt(sizeX, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                rMatrix2d.setValue(i, j, matrix2d.getMiddleValue(i, j) );
-//            }
-//        }
-//        return rMatrix2d;
-//    }
-//
-//    public static IMatrix matrix2dXor(IMatrix matrix2d_1, IMatrix matrix2d_2){
-//        int sizeX = matrix2d_1.getSizeX();
-//        int sizeY = matrix2d_1.getSizeY();
-//        IMatrix rMatrix2d = new MatrixInt(sizeX, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                rMatrix2d.setValue(i, j, matrix2d_1.getMiddleValue(i, j) ^ matrix2d_2.getMiddleValue(i, j) );
-//            }
-//        }
-//        return rMatrix2d;
-//    }
-//
-
-//    public static Matrix2d<ARGB> matrix2dArgbToColors256(Matrix2d<ARGB> matrix2dArgb){
-//        int sizeX = matrix2dArgb.sizeX;
-//        int sizeY = matrix2dArgb.sizeY;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        int grey;
-//        ARGB argb;
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                argb = matrix2dArgb.getValue(i, j);
-//                grey = (argb.b >>>  0) & 0xFF | (argb.g >>>  8) & 0xFF | (argb.r >>>  16) & 0xFF;
-//                m2d.setValue(i, j, new ARGB( argb.a, grey, grey, grey) );
-//            }
-//        }
-//        return m2d;
-//    }
-
-//    public static Matrix2d<ARGB> matrix2dArgbToColors8(Matrix2d<ARGB> matrix2dArgb){
-//        int sizeX = matrix2dArgb.sizeX;
-//        int sizeY = matrix2dArgb.sizeY;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        int color;
-//        ARGB argb;
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                argb = matrix2dArgb.getValue(i, j);
-//                color = (argb.b >>>  0) & 0xFF | (argb.g >>>  8) & 0xFF | (argb.r >>>  16) & 0xFF;
-//                color=color>>5;
-//                color=color<<5;
-//                m2d.setValue(i, j, new ARGB(argb.a, color, color, color));
-//            }
-//        }
-//        return m2d;
-//    }
-
-//    public static Matrix2d<ARGB> matrix2dArgbToColors4(Matrix2d<ARGB> matrix2dArgb){
-//        int sizeX = matrix2dArgb.sizeX;
-//        int sizeY = matrix2dArgb.sizeY;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
-//        int color;
-//        ARGB argb;
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                argb = matrix2dArgb.getValue(i, j);
-//                color = (argb.b >>>  0) & 0xFF | (argb.g >>>  8) & 0xFF | (argb.r >>>  16) & 0xFF;
-//                color/=64;
-//                color*=64;
-//                m2d.setValue(i, j, new ARGB(argb.a, color, color, color));
-//            }
-//        }
-//        return m2d;
-//    }
 
 //    public static Matrix2d<ARGB> matrix2dArgbToColors2(Matrix2d<ARGB> matrix2dArgb){
 //        int sizeX = matrix2dArgb.sizeX;
@@ -926,25 +728,4 @@ public class Matrix2d{
 //        return rMatrix2d;
 //    }
 //
-
-//
-//    public static IMatrix matrix2dDetectEdges(IMatrix matrix2d){
-//        int sizeX = matrix2d.getSizeX();
-//        int sizeY = matrix2d.getSizeY();
-//        IMatrix rMatrix2d = new MatrixInt(sizeX, sizeY);
-//        int whiteColor = 0x00ffffff;
-//        int blackColor = 0x00000000;
-//        int pixel;
-//        boolean isEdgeValue;
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
-//                isEdgeValue = matrix2d.isEdgeValue(i, j);
-//                if(isEdgeValue) pixel = whiteColor;
-//                else pixel = blackColor;
-//                rMatrix2d.setValue(i, j, pixel);
-//            }
-//        }
-//        return rMatrix2d;
-//    }
-
 }
