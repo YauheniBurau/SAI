@@ -12,6 +12,40 @@ public class Line2d {
         this.p2 = p2;
     }
 
+
+    /**
+     * get angle between line vector (p0,p1) and x-axis
+     * @return
+     */
+    public static double getAngle(Point2d p0, Point2d p1){
+        double angle = 0;
+        if( (p1.x - p0.x == 0) && (p1.y - p0.y > 0) ){ // 90 degree
+            angle = 90;
+        }else
+        if( (p1.x - p0.x == 0) && (p1.y - p0.y < 0) ){ // 270 degree
+            angle = 270;
+        }else
+        if( (p1.x - p0.x > 0) && (p1.y - p0.y == 0) ){ // 0 degree
+            angle =  0;
+        }else
+        if( (p1.x - p0.x < 0) && (p1.y - p0.y == 0) ){ // 180 degree
+            angle = 180;
+        }else
+        if( (p1.x - p0.x > 0) && (p1.y - p0.y > 0) ){ // first quarter
+            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI;
+        }else
+        if( (p1.x - p0.x < 0) && (p1.y - p0.y > 0) ){ // second quarter
+            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI;
+        }else
+        if( (p1.x - p0.x < 0) && (p1.y - p0.y < 0) ){ // third quarter
+            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI + 360;
+        }else
+        if( (p1.x - p0.x > 0) && (p1.y - p0.y < 0) ){ // fourth quarter
+            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI + 360;
+        }
+        return angle;
+    }
+
     /**
      * get center of line
      * @return
@@ -37,6 +71,15 @@ public class Line2d {
     }
 
     /**
+     * get length of line
+     * @return
+     */
+    public static double getLength(Point2d p1, Point2d p2){
+        return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
+    }
+
+
+    /**
      * get angle between line and x-axis
      * @return
      */
@@ -55,7 +98,6 @@ public class Line2d {
         // count angleDiff
         return angle;
     }
-
 
     /**
      * diff in percent angle line2 from line1 [0..180] like [0.00 .. 1.00]

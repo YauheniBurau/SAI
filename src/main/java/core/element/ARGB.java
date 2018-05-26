@@ -16,31 +16,21 @@ public class ARGB{
         this.b = blue;
     }
 
-    /**
-     * convert ARGB to HSV
-     * @return
-     */
-    public HSV toHsv(){
-        int max, min, a, r, g, b, h, s, v;
-        a = this.a;
-        r = this.r;
-        g = this.g;
-        b = this.b;
-        max = Math.max( Math.max(r, g), b );
-        min = Math.min( Math.min(r, g), b );
-        // Hue count
-        if(min == max){ h = 0;}
-        else if(max == r && g>=b){h = 60*(g-b)/(max-min)+0; }
-        else if(max == r && g<b){h = 60*(g-b)/(max-min)+360; }
-        else if(max == g){h = 60*(b-r)/(max-min)+120; }
-        else if(max == b){h = 60*(r-g)/(max-min)+240; }
-        else h = 0;
-        // Saturation count
-        if(max == 0 ){s = 0;}
-        else{ s = (1-min/max)*255;}
-        // Value count
-        v = max;
-        return new HSV(h, s, v);
+
+    public static double getDistance(ARGB p1, ARGB p2){
+        return Math.sqrt( (p2.r - p1.r)*(p2.r - p1.r) + (p2.g - p1.g)*(p2.g - p1.g) + (p2.b - p1.b)*(p2.b - p1.b) );
     }
+
+    public static ARGB countMiddle(ARGB p00, ARGB p01, ARGB p02,
+                                   ARGB p10, ARGB p11, ARGB p12,
+                                   ARGB p20, ARGB p21, ARGB p22){
+        int a, r, g, b;
+        a = (p00.a + p01.a + p02.a + p10.a + p11.a + p12.a + p20.a + p21.a + p22.a)/9;
+        r = (p00.r + p01.r + p02.r + p10.r + p11.r + p12.r + p20.r + p21.r + p22.r)/9;
+        g = (p00.g + p01.g + p02.g + p10.g + p11.g + p12.g + p20.g + p21.g + p22.g)/9;
+        b = (p00.b + p01.b + p02.b + p10.b + p11.b + p12.b + p20.b + p21.b + p22.b)/9;
+        return new ARGB(a, r, g, b);
+    }
+
 
 }

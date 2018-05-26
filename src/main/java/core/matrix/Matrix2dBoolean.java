@@ -1,15 +1,16 @@
 package core.matrix;
 
-import core.element.Color;
-import core.element.Graph;
-import core.element.Point2d;
+import core.element.*;
 import core.exceptions.FileException;
+//import core.element.Image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by anonymous on 05.10.2017.
@@ -23,6 +24,11 @@ public class Matrix2dBoolean{
         this.sizeX = xSize;
         this.sizeY = ySize;
         this.matrix = new boolean[ySize][xSize];
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++) {
+                this.setValue(i, j, false);
+            }
+        }
     }
 
     public void setValue(int xPos, int yPos, boolean value) {
@@ -300,7 +306,17 @@ public class Matrix2dBoolean{
     }
 
     /**
-     * draw lin in binary mask
+     * draw line by two points
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public Matrix2dBoolean drawLine(Point2d p1, Point2d p2) {
+        return this.drawLine(p1.x, p1.y, p2.x, p2.y);
+    }
+
+    /**
+     * draw line in binary mask
      * @param x1
      * @param y1
      * @param x2
@@ -321,6 +337,85 @@ public class Matrix2dBoolean{
         }
         return this;
     }
+
+    // TODO:
+    /**
+     * draw line in binary mask by angle and length
+     * @param x1
+     * @param y1
+     * @param angle
+     * @param length
+     * @return
+     */
+    public Matrix2dBoolean drawLine1(int x1, int y1, int angle, int length){
+        double x = x1, y = y1;
+//        float n = Math.abs(x2-x1)>Math.abs(y2-y1) ? Math.abs(x2-x1) : Math.abs(y2-y1);
+//        double xStep = (x2-x1)/n;
+//        double yStep = (y2-y1)/n;
+//        this.setValue(x1, y1, true);
+//        this.setValue(x2, y2, true);
+//        for (int i = 1; i <= n; i++) {
+//            x += xStep;
+//            y += yStep;
+//            this.setValue( (int)Math.round(x), (int)Math.round(y), true);
+//        }
+        return this;
+    }
+
+    /**
+     * draw arc by
+     * @param rc
+     * @param r
+     * @param angleStart
+     * @param angleEnd
+     * @return
+     */
+    public Matrix2dBoolean drawArc(Point2d rc, double r, int angleStart, int angleEnd){
+        double angle;
+        Point2d p1, p2;
+        int x1, y1, x2, y2;
+        angle = angleStart;
+        while(angle!=angleEnd) {
+            x1 = (int) (rc.x + r * Math.cos(angle * Math.PI / 180));
+            y1 = (int) (rc.y + r * Math.sin(angle * Math.PI / 180));
+            angle += 1;
+            x2 = (int) (rc.x + r * Math.cos(angle * Math.PI / 180));
+            y2 = (int) (rc.y + r * Math.sin(angle * Math.PI / 180));
+            this.drawLine(x1, y1, x2, y2);
+            if(angle == 360){angle = 0;}
+        }
+        return this;
+    }
+
+    /**
+     * draw arc
+     * @param p1 - start point by uncounter clockwise
+     * @param p2 - end point by uncounter clockwise
+     * @param rc coordinates of point of radius
+     * @return
+     */
+    public Matrix2dBoolean drawArc(Point2d p1, Point2d p2, Point2d rc){
+        int angleStart = (int)Line2d.getAngle(rc, p1);
+        int angleEnd = (int)Line2d.getAngle(rc, p2);
+        double r = Line2d.getLength(rc, p1);
+        this.drawArc(rc, r, angleStart, angleEnd);
+        return this;
+    }
+
+
+    // TODO:
+    /**
+     * draw arc
+     * @param p1 - start point by uncounter clockwise
+     * @param pc - coordinates of point of center of circle
+     * @param angle - angle circle sector
+     * @return
+     */
+    public Matrix2dBoolean drawArc(Point2d pc, Point2d p1, int angle){
+
+        return this;
+    }
+
 
 
     /**
@@ -663,5 +758,71 @@ public class Matrix2dBoolean{
         }
         return m2d;
     }
+
+    public static float compareRotation(Matrix2dBoolean etalon, Matrix2dBoolean input){
+        float diff = 0;
+
+
+        return diff;
+    }
+
+    public static float compareRatio(Matrix2dBoolean etalon, Matrix2dBoolean input){
+        float diff = 0;
+
+
+        return diff;
+    }
+
+    // TODO:
+    public static double compareLines(double x1, double y1, double x2, double y2) {
+        double dist = 0;
+        return dist;
+    }
+
+    public static double comparePoints(double x1, double y1, double x2, double y2) {
+        double dist = Math.sqrt(
+                Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2) );
+        return dist;
+    }
+
+
+    public static double comparePoints(Matrix2dBoolean base, Matrix2dBoolean in){
+        double diff = 0;
+        int n = 0;
+        double minDist, dist;
+        double baseXStep = 1/base.sizeX;
+        double baseYStep = 1/base.sizeY;
+        double inXStep = 1/in.sizeX;
+        double inYStep = 1/in.sizeY;
+
+        double baseSizeX = base.sizeX;
+        double baseSizeY = base.sizeY;
+        double inSizeX = in.sizeX;
+        double inSizeY = in.sizeY;
+
+        for(int j = 0; j<baseSizeY; j++){
+            for(int i = 0; i<baseSizeX; i++){
+                if(base.getValue(i,j) == true ){
+                    n++;
+                    minDist = 1;
+                    for(int k = 0; k<inSizeY; k++){
+                        for(int l = 0; l<inSizeX; l++) {
+                            if(in.getValue(l,k) == true ) {
+                                dist = Matrix2dBoolean.comparePoints((double)i/base.sizeX, (double)j/base.sizeY,
+                                        (double)l/in.sizeX, (double)k/in.sizeY );
+                                if(dist<minDist){
+                                    minDist = dist;
+                                }
+                            }
+                        }
+                    }
+                    diff+=minDist;
+                }
+            }
+        }
+        diff /= n;
+        return diff;
+    }
+
 
 }

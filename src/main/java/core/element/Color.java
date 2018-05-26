@@ -33,6 +33,29 @@ public class Color {
     }
 
     /**
+     * convert HSV to int
+     * @param value
+     * @return
+     */
+    public static int hsvToInt(HSV value){
+        int i = 0x00000000;
+        i = i | 0xff;
+        i = i<<8 | value.h;
+        i = i<<8 | value.s;
+        i = i<<8 | value.v;
+        return i;
+    }
+
+    /**
+     * convert int to ARGB
+     * @param value
+     * @return
+     */
+    public static HSV intToHsv(int value){
+        return ElementConverter.argbToHsv( intToArgb(value) );
+    }
+
+    /**
      * convert int to ARGB
      * @param value
      * @return
@@ -67,5 +90,10 @@ public class Color {
                         + Math.pow(color1.g - color2.g,2)
                         + Math.pow(color1.b - color2.b,2) );
     }
+
+    public static int colorDistance(HSV color1, HSV color2){
+        return color1.v - color2.v;
+    }
+
 
 }

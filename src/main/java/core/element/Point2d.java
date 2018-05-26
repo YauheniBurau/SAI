@@ -6,10 +6,25 @@ package core.element;
 public class Point2d {
     public int x;
     public int y;
+    public int value;
 
     public Point2d(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Point2d(int x, int y, int value) {
+        this.x = x;
+        this.y = y;
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     /**

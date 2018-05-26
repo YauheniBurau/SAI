@@ -1,14 +1,16 @@
 package core.matrix;
 
-import core.element.ARGB;
+import core.element.*;
 import core.element.Color;
 import core.exceptions.FileException;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by anonymous on 06.10.2017.
@@ -22,6 +24,11 @@ public class Matrix2dArgb implements IMatrix2d<ARGB>{
         this.sizeX = xSize;
         this.sizeY = ySize;
         this.matrix = new ARGB[ySize][xSize];
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++) {
+                this.setValue(i, j, null);
+            }
+        }
     }
 
     public void setValue(int xPos, int yPos, ARGB value) {
@@ -37,21 +44,6 @@ public class Matrix2dArgb implements IMatrix2d<ARGB>{
         return null;
     }
 
-    /**
-     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
-     * @return
-     */
-    public Matrix2dHsv toHsv(){
-        int sizeX = this.sizeX;
-        int sizeY = this.sizeY;
-        Matrix2dHsv m2d = new Matrix2dHsv(sizeX, sizeY);
-        for(int j = 0; j<sizeY; j++){
-            for(int i = 0; i<sizeX; i++) {
-                m2d.setValue( i,j, this.getValue(i,j).toHsv() );
-            }
-        }
-        return m2d;
-    }
 
     /**
      * load matrix2d from image ARGB-file
@@ -121,6 +113,27 @@ public class Matrix2dArgb implements IMatrix2d<ARGB>{
     }
 
     /**
+     *
+     * @param del
+     * @return
+     */
+    public Matrix2dArgb reduceColors(int del){
+        int x = this.sizeX;
+        int y = this.sizeY;
+        Matrix2dArgb m2d = new Matrix2dArgb(x, y);
+        ARGB oldV, newV;
+        for(int j = 0; j<y; j++){
+            for(int i = 0; i<x; i++){
+                oldV = this.getValue(i, j);
+                newV = new ARGB(oldV.a, oldV.r/del*del, oldV.g/del*del, oldV.b/del*del );
+                m2d.setValue(i, j, newV );
+            }
+        }
+        return m2d;
+    }
+
+
+    /**
      * Stretch size of matrix2d to 2-times on axis x and y by doubling every point
      * @return
      */
@@ -142,6 +155,100 @@ public class Matrix2dArgb implements IMatrix2d<ARGB>{
         }
         return m2d;
     }
+
+
+    /**
+     * count edge by RGB color distance
+     * @return
+     */
+    public Matrix2dArgb removeByColorDistance(int r){
+        ARGB p00, p01, p02, p10, p11, p12, p20, p21, p22;
+        Matrix2dArgb m2d = new Matrix2dArgb(this.sizeX, this.sizeY);
+        ARGB empty = new ARGB(1,0,0,0);
+        for(int j = 0; j<=this.sizeY-1; j++){
+            for(int i = 0; i<=this.sizeX-1; i++){
+                m2d.setValue(i, j, empty);
+            }
+        }
+        for(int j = 1; j<this.sizeY-1; j++){
+            for(int i = 1; i<this.sizeX-1; i++){
+                p00 = this.getValue(i-1, j-1);
+                p01 = this.getValue(i, j-1);
+                p02 = this.getValue(i+1, j-1);
+
+                p10 = this.getValue(i-1, j);
+                p11 = this.getValue(i, j);
+                p12 = this.getValue(i+1, j);
+
+                p20 = this.getValue(i-1, j+1);
+                p21 = this.getValue(i, j+1);
+                p22 = this.getValue(i+1, j+1);
+
+                if( Color.colorDistance(p11, p00)>=r ){
+                    m2d.setValue( i-1, j-1, p00 );
+                }
+                if( Color.colorDistance(p11, p01)>=r ){
+                    m2d.setValue( i, j-1, p01);
+                }
+                if( Color.colorDistance(p11, p02)>=r ){
+                    m2d.setValue( i+1, j-1, p02);
+                }
+
+                if( Color.colorDistance(p11, p10)>=r ){
+                    m2d.setValue( i-1, j, p10);
+                }
+                if( Color.colorDistance(p11, p12)>=r ){
+                    m2d.setValue( i+1, j, p12);
+                }
+
+                if( Color.colorDistance(p11, p20)>=r ){
+                    m2d.setValue( i-1, j+1, p20);
+                }
+                if( Color.colorDistance(p11, p21)>=r ){
+                    m2d.setValue( i, j+1, p21);
+                }
+                if( Color.colorDistance(p11, p22)>=r ){
+                    m2d.setValue( i+1, j+1, p22);
+                }
+            }
+        }
+        return m2d;
+    }
+
+    /**
+     * count edge by RGB color distance
+     * @return
+     */
+    public Matrix2dArgb middleColor(){
+        ARGB p00, p01, p02, p10, p11, p12, p20, p21, p22;
+        Matrix2dArgb m2d = new Matrix2dArgb(this.sizeX, this.sizeY);
+        ARGB empty = new ARGB(1,0,0,0);
+        for(int j = 0; j<=this.sizeY-1; j++){
+            for(int i = 0; i<=this.sizeX-1; i++){
+                m2d.setValue(i, j, empty);
+            }
+        }
+        for(int j = 1; j<this.sizeY-1; j++){
+            for(int i = 1; i<this.sizeX-1; i++){
+                p00 = this.getValue(i-1, j-1);
+                p01 = this.getValue(i, j-1);
+                p02 = this.getValue(i+1, j-1);
+
+                p10 = this.getValue(i-1, j);
+                p11 = this.getValue(i, j);
+                p12 = this.getValue(i+1, j);
+
+                p20 = this.getValue(i-1, j+1);
+                p21 = this.getValue(i, j+1);
+                p22 = this.getValue(i+1, j+1);
+
+                m2d.setValue( i, j, ARGB.countMiddle(p00, p01, p02, p10, p11, p12, p20, p21, p22) );
+            }
+        }
+        return m2d;
+    }
+
+
 
     /**
      * count edge by RGB color distance
@@ -194,6 +301,50 @@ public class Matrix2dArgb implements IMatrix2d<ARGB>{
         }
         return m2d;
     }
+
+    public static ARGB middleColor4Pixels(Matrix2dArgb m2dArgb, int x, int y) {
+        int sizeX = m2dArgb.sizeX;
+        int sizeY = m2dArgb.sizeY;
+        ARGB empty = new ARGB(0xff, 0, 0, 0);
+        ARGB mask = new ARGB(0xff, 255, 255, 255);
+
+        ARGB p11, p12, p21, p22;
+        p11 = m2dArgb.getValue(x, y);
+        p12 = m2dArgb.getValue(x + 1, y);
+        p21 = m2dArgb.getValue(x, y + 1);
+        p22 = m2dArgb.getValue(x + 1, y + 1);
+        if (p11 == null) p11 = empty;
+        if (p12 == null) p12 = empty;
+        if (p21 == null) p21 = empty;
+        if (p22 == null) p22 = empty;
+        return new ARGB( (p11.a +p12.a + p21.a +p22.a)/4,
+                (p11.r +p12.r + p21.r +p22.r)/4,
+                (p11.g +p12.g + p21.g +p22.g)/4,
+                (p11.b +p12.b + p21.b +p22.b)/4);
+    }
+
+
+    public Matrix2dArgb selectByPattern4Pixels(int x, int y, int dist){
+        Matrix2dArgb m2d = new Matrix2dArgb(this.sizeX, this.sizeY);
+        ARGB empty = new ARGB(1,0,0,0);
+        for(int j = 0; j<=this.sizeY-1; j++){
+            for(int i = 0; i<=this.sizeX-1; i++){
+                m2d.setValue(i, j, empty);
+            }
+        }
+        ARGB p1, p2;
+        p1 = this.getValue(x, y);
+        for(int j = 1; j<this.sizeY-1; j++){
+            for(int i = 1; i<this.sizeX-1; i++) {
+                p2 = this.getValue(i, j);
+                if( ARGB.getDistance(p1, p2)<= dist){
+                    m2d.setValue(i, j, new ARGB(p2.a, p2.r, p2.g, p2.b));
+                }
+            }
+        }
+        return m2d;
+    }
+
 
 
 }

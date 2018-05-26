@@ -2,7 +2,6 @@ package core.matrix;
 
 import core.element.Graph;
 import core.element.Point2d;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import java.util.ArrayList;
 
@@ -114,6 +113,7 @@ public class Matrix2dGraph {
         return this;
     }
 
+
     /**
      * convert graph of points and lines into boolean mask image
      * @return
@@ -142,6 +142,32 @@ public class Matrix2dGraph {
         }
         return m2d;
     }
+
+    /**
+     * to boolean only points
+     * @return
+     */
+    public Matrix2dBoolean toBooleanOnlyPoints(){
+        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
+        for (int j = 0; j < sizeY; j++) {
+            for (int i = 0; i < sizeX; i++) {
+                m2d.setValue(i, j, false);
+            }
+        }
+        Graph g;
+        Point2d p;
+        int n = 0;
+        for (int j = 0; j < this.sizeY; j++) {
+            for (int i = 0; i < this.sizeX; i++) {
+                g = this.getValue(i, j);
+                if( g!=null ){
+                    m2d.setValue(i, j, true);
+                }
+            }
+        }
+        return m2d;
+    }
+
 
     /**
      * count number of not null elements
