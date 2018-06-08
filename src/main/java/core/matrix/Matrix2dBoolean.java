@@ -1,21 +1,22 @@
 package core.matrix;
 
+import core.converter.ElementConverter;
 import core.element.*;
 import core.exceptions.FileException;
+import core.old.Color;
 //import core.element.Image;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by anonymous on 05.10.2017.
  */
-public class Matrix2dBoolean{
+public class Matrix2dBoolean {
     private boolean[][] matrix;
     public final int sizeX;
     public final int sizeY;
@@ -24,28 +25,57 @@ public class Matrix2dBoolean{
         this.sizeX = xSize;
         this.sizeY = ySize;
         this.matrix = new boolean[ySize][xSize];
-        for(int j = 0; j<this.sizeY; j++){
-            for(int i = 0; i<this.sizeX; i++) {
+        for (int j = 0; j < this.sizeY; j++) {
+            for (int i = 0; i < this.sizeX; i++) {
                 this.setValue(i, j, false);
             }
         }
     }
 
     public void setValue(int xPos, int yPos, boolean value) {
-        if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
+        if (xPos >= 0 && xPos < this.sizeX && yPos >= 0 && yPos < this.sizeY) {
             this.matrix[yPos][xPos] = value;
         }
     }
 
     public boolean getValue(int xPos, int yPos) {
-        if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
+        if (xPos >= 0 && xPos < this.sizeX && yPos >= 0 && yPos < this.sizeY) {
             return this.matrix[yPos][xPos];
         }
         return false;
     }
 
     /**
+     * load matrix2d from image ARGB-file
+     * @param urlFile
+     * @return
+     */
+    public static Matrix2dBoolean load(String urlFile) {
+        BufferedImage image;
+        int x, y, intColor;
+        boolean color;
+        try {
+            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
+        } catch (IOException e) {
+            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
+        }
+        y = image.getHeight();
+        x = image.getWidth();
+        Matrix2dBoolean matrix2D = new Matrix2dBoolean(x, y);
+        for(int j = 0; j<y; j++){
+            for(int i = 0; i<x; i++){
+                intColor = image.getRGB(i,j);
+                color = ElementConverter.intToBoolean( intColor );
+                matrix2D.setValue(i,j, color);
+            }
+        }
+        return matrix2D;
+    }
+
+
+    /**
      * save matrix to image-file
+     *
      * @param urlFile
      * @param format
      */
@@ -55,9 +85,9 @@ public class Matrix2dBoolean{
         image = new BufferedImage(this.sizeX, this.sizeY, type);
         y = this.sizeY;
         x = this.sizeX;
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                image.setRGB( i, j, Color.booleanToInt(this.getValue(i, j)) );
+        for (int j = 0; j < y; j++) {
+            for (int i = 0; i < x; i++) {
+                image.setRGB(i, j, ElementConverter.booleanToInt(this.getValue(i, j)));
             }
         }
         try {
@@ -68,6 +98,69 @@ public class Matrix2dBoolean{
         return this;
     }
 
+
+    public Matrix2dBoolean getFilledShape() {
+        int y = this.sizeY;
+        int x = this.sizeX;
+        int pi, pj;
+        Matrix2dBoolean isProcessed = new Matrix2dBoolean(x, y);
+        LinkedList<Point2dByte> points;
+        Point2dByte p;
+        // TODO: optimize cycle
+        for (int j = 0; j < y; j++) {
+            for (int i = 0; i < x; i++) {
+                if( this.getValue(i, j) == false && isProcessed.getValue(i, j) == false &&
+                    (i==0 || i == x-1 || j == 0 || j == y-1) ){
+                    points = new LinkedList<Point2dByte>();
+                    points.add( new Point2dByte(i,j, (byte)0) );
+                    isProcessed.setValue(i, j, true);
+                    while(points.size()>0){
+                        p = points.poll();
+                        pi = p.x;
+                        pj = p.y;
+                        if( this.getValue(pi, pj-1) == false && isProcessed.getValue(pi, pj-1) == false
+                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+                            points.add( new Point2dByte(pi,pj-1, (byte)0) );
+                            isProcessed.setValue(pi, pj-1, true);
+                        }
+                        if( this.getValue(pi, pj+1) == false && isProcessed.getValue(pi, pj+1) == false
+                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+                            points.add( new Point2dByte(pi,pj+1, (byte)0) );
+                            isProcessed.setValue(pi, pj+1, true);
+                        }
+                        if( this.getValue(pi-1, pj) == false && isProcessed.getValue(pi-1, pj) == false
+                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+                            points.add( new Point2dByte(pi-1,pj, (byte)0) );
+                            isProcessed.setValue(pi-1, pj, true);
+                        }
+                        if( this.getValue(pi+1, pj) == false && isProcessed.getValue(pi+1, pj) == false
+                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+                            points.add( new Point2dByte(pi+1,pj, (byte)0) );
+                            isProcessed.setValue(pi+1, pj, true);
+                        }
+                    }
+                }
+            }
+        }
+        // invert matrix2dBoolean
+        for (int j = 0; j < y; j++) {
+            for (int i = 0; i < x; i++) {
+                if( isProcessed.getValue(i, j) == false){ isProcessed.setValue(i, j, true);}
+                else{ isProcessed.setValue(i, j, false); }
+            }
+        }
+        return isProcessed;
+    }
+
+
+    public Matrix2dBoolean removeNoise() {
+        return this.replacePoints(true, 0, 2, -1, -1)
+            .replacePoints(false, 5, 8, -1, -1)
+            .replace3x3(263, 262)
+            .replace3x3(29, 28)
+            .replace3x3(113, 112)
+            .replace3x3(449, 448);
+    }
 
     /**
      * skeletize binary image by Zhang Suen algorythm
@@ -167,8 +260,8 @@ public class Matrix2dBoolean{
         v7 = ((outPattern3x3Code & (1<<6)) > 0) ? true : false;
         v8 = ((outPattern3x3Code & (1<<7)) > 0) ? true : false;
         v9 = ((outPattern3x3Code & (1<<8)) > 0) ? true : false;
-        for (int j = 1; j < sizeY-1; j++) {
-            for (int i = 1; i < sizeX - 1; i++) {
+        for (int j = 0; j < sizeY; j++) {
+            for (int i = 0; i < sizeX; i++) {
                 if( m2d.count3x3Pattern(i, j) == inPattern3x3code ){
                     m2d.replace3x3Pattern(i, j, v1, v2, v3, v4, v5, v6, v7, v8, v9);
                 }
@@ -475,8 +568,8 @@ public class Matrix2dBoolean{
 
         do {
             isChanged = false;
-            for (int j = 1; j < sizeY - 1; j++) {
-                for (int i = 1; i < sizeX - 1; i++) {
+            for (int j = 0; j < sizeY; j++) {
+                for (int i = 0; i < sizeX; i++) {
                     if (m2d.getValue(i, j) == oldValue ){
                         v2 = (m2d.getValue(i, j - 1) == true ? 1 : 0);
                         v3 = (m2d.getValue(i + 1, j - 1) == true ? 1 : 0);

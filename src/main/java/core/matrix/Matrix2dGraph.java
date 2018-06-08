@@ -115,7 +115,7 @@ public class Matrix2dGraph {
 
 
     /**
-     * convert graph of points and lines into boolean mask image
+     * convert Graph of points and lines into boolean mask image
      * @return
      */
     public Matrix2dBoolean toBoolean(){

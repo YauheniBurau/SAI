@@ -1,9 +1,9 @@
 package com.yauheni.burau.sai;
 
+import core.comparator.Comparator;
 import core.converter.Converter;
 import core.element.*;
 import core.matrix.*;
-import core.statistic.Statistic;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,71 +18,124 @@ public class ImageMatrixTest {
 
     String dirIn = "E:\\temp\\in\\";
     String dirOut = "E:\\temp\\out\\";
-//    String imageFile = "game.png";
+//    String imageFile = "game.jpeg";
 //    String imageFile = "lcd.png";
 //    String imageFile = "table.png";
 //    String imageFile = "table.JPG";
 //    String imageFile = "nature1.jpeg";
 //    String imageFile = "stown.png";
-//    String imageFile = "alphabet_colors.jpg";
+    String imageFile = "alphabet_colors.jpg";
 //    String imageFile = "nature.jpg";
 //    String imageFile = "anime.jpg";
-    String imageFile = "desktop.png";
+//    String imageFile = "desktop.png";
+//    String imageFile = "text.png";
+//    String imageFile = "Y.dat";
+
+
 
     @Test
-    public void edgeByHsvValueViaMatrix2dByte() {
-        int threshold = 32;
-        Matrix2dHsv hsv = Matrix2dHsv.load(dirIn + imageFile);
-        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
-        Segment baseSegment = Converter.matrix2dByteToSegment(m2dByte);
-        baseSegment.countSubSegmentsByMiddleValue();
-        ArrayList<Segment> subSegments = baseSegment.segments;
-        baseSegment.saveAs2dArgbImage(dirOut + imageFile + baseSegment.id + ".png", "png");
-        baseSegment.saveAs2dBooleanImage(dirOut + imageFile + baseSegment.id + "_b.png", "png");
-        for (Segment seg: subSegments) {
-            seg.countSeparatedSubSegments();
-            seg.removeSegmentsByMinNumberOfPoints(10);
-//            seg.saveAs2dArgbImage(dirOut + imageFile + seg.id + ".png", "png");
-            seg.saveAs2dBooleanImage(dirOut + imageFile + seg.id + "_b.png", "png");
-            for (Segment seg1: seg.segments) {
-//                seg1.saveAs2dArgbImage(dirOut + imageFile + seg1.id + ".png", "png");
-                seg1.saveAs2dBooleanImage(dirOut + imageFile + seg1.id + "_b.png", "png");
-            }
+    public void compare_segments() {
+        ArrayList<Segment> segments = new ArrayList<Segment>();
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "А.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Б.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "В.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Е.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "З.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "К.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Л.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "М.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "П.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Р.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Т.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "У.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Ф.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Ч.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Ш.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Щ.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Э.dat").shiftPoints())) );
+        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Я.dat").shiftPoints())) );
+
+        for (Segment s: segments) {
+            s.saveAs2dBooleanImage(dirOut + imageFile + s.id + ".png", "png");
         }
+
+        Segment testSeg = segments.get(0);
+        double result;
+        for (Segment etalon: segments) {
+            result = Comparator.compareFormSegments(etalon, testSeg, 25, 10);
+            System.out.println("segId:"+etalon.id + "; " + result);
+        }
+
     }
 
     @Test
-    public void countLines() {
-        int threshold = 32;
-        Matrix2dHsv hsv = Matrix2dHsv.load(dirIn + imageFile);
-        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
-        Segment baseSegment = Converter.matrix2dByteToSegment(m2dByte);
-        baseSegment.countSubSegmentsByMiddleValue();
-        ArrayList<Segment> subSegments = baseSegment.segments;
-        for (Segment seg: subSegments) {
-            seg.countSeparatedSubSegments();
-            seg.removeSegmentsByMinNumberOfPoints(10);
-        }
-
-        baseSegment.normalizeShiftPoints().countLines()
-                .save(dirOut + imageFile + baseSegment.id + "_edge.png", "png", TYPE_BYTE_GRAY);
-        for (Segment seg: subSegments) {
-            seg.normalizeShiftPoints().countLines()
-                .save(dirOut + imageFile + seg.id + "_edge.png", "png", TYPE_BYTE_GRAY);
-            for (Segment seg1: seg.segments) {
-                seg1.normalizeShiftPoints().countLines()
-                        .save(dirOut + imageFile + seg1.id + "_edge.png", "png", TYPE_BYTE_GRAY);
-            }
+    public void Matrix2dByte_findSegments() {
+        int maxDiff = 32;
+        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
+        Matrix2dArgb rgb = baseRgb;
+        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(rgb);
+        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByHue(hsv);
+        ArrayList<Segment> segments = m2dByte.findSegments(maxDiff);
+        Segment.removeSegmentsByMinNumberOfPoints(10, segments);
+        for (Segment seg: segments) {
+            seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
         }
 
     }
+
+
+//    @Test
+//    public void Matrix2dByte_findSegment() {
+//        int maxDiff = 32;
+////        int x = 60;
+////        int y = 30;
+//        int x = 160;
+//        int y = 180;
+//        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb rgb = baseRgb.middleColor().middleColor();
+//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(rgb);
+//        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(m2dByte.sizeX, m2dByte.sizeY);
+//        Segment seg = m2dByte.findSegment(isProcessed, maxDiff, x,y);
+//        seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
+//    }
+
+
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!
+    @Test
+    public void segmentate() {
+        int minDiff = 10;
+        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
+        Matrix2dArgb rgb = baseRgb;//.middleColor().middleColor();
+        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(rgb);//.removeCloseValues(32);
+        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByHue(hsv);
+        Segment baseSegment = Converter.matrix2dByteToSegment(m2dByte);
+        baseSegment.segmentate(minDiff).removeSegmentsByMinNumberOfPoints(10);
+        for (Segment seg: baseSegment.childSegments) {
+            seg//.saveAs2dBooleanImage(dirOut + imageFile + seg.id + "_mask.png", "png")
+                .saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png")
+                .save(dirOut + imageFile + seg.id + ".dat");
+        }
+
+        Segment testSeg = new Segment();
+        testSeg.load(dirIn + "Y.dat");
+        testSeg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + "testSegRgb.png", "png");
+        double result;
+        for (Segment etalon: baseSegment.childSegments) {
+            result = Comparator.compareFormSegments(etalon, testSeg, 25, 256);
+            System.out.println("segId:"+etalon.id + "; " + result);
+        }
+
+    }
+
 
 
     @Test
     public void reduceHsvColorsByGistogram() {
         int dist = 16;
         Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        m2d.save(dirOut + imageFile + "_check.png", "png", TYPE_INT_ARGB);
+        m2d.save(dirOut + imageFile + "_check.png", "png");
         Matrix2dHsv m2dHsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
         Matrix2dHsv m2dHsv1 = m2dHsv.reduceColors(dist).reduceColors(dist).reduceColors(dist).reduceColors(dist).reduceColors(dist);
         Matrix2dBoolean m2dBool = m2dHsv1.edgeByColorValue(dist);
@@ -97,56 +150,56 @@ public class ImageMatrixTest {
         }
     }
 
-
-    @Test
-    public void countGistogramByValue() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        m2d.save(dirOut + imageFile + "_check.png", "png", TYPE_INT_ARGB);
-        Matrix2dHsv m2dHsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
-        int[] gist = m2dHsv.countGistogramByValue();
-        Matrix2dBoolean m2dBool = m2dHsv.binarizeByValue(26, 55);
-        m2dBool.save(dirOut + imageFile + "_bin26_55.png", "png", TYPE_BYTE_GRAY);
-
-//        for(int i = 0; i<256; i++) {
-//            if(gist[i]>0) {
-//                Matrix2dBoolean m2dBool = m2dHsv.binarizeByValue(i, i);
-//                m2dBool.save(dirOut + imageFile + "_bin"+i+".png", "png", TYPE_BYTE_GRAY);
-//            }
-//        }
-    }
-
-
-
-    @Test
-    public void edge(){
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
-        Matrix2dByte bt = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
-        m2d = Converter.matrix2dByteValueTomatrix2dArgb(bt);
-        m2d.save(dirOut + imageFile + "_256.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb clr8 = m2d.reduceColors(32).save(dirOut + imageFile + "_clr8.png", "png", TYPE_BYTE_GRAY);
-        clr8.edgeByColorDistance(32).save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
-
-//        m2d.edgeByColorDistance(1).save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(2).save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(4).save(dirOut + imageFile + "_edge4.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(8).save(dirOut + imageFile + "_edge8.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(16).save(dirOut + imageFile + "_edge16.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(64).save(dirOut + imageFile + "_edge64.png", "png", TYPE_BYTE_GRAY);
-//        m2d.edgeByColorDistance(128).save(dirOut + imageFile + "_edge128.png", "png", TYPE_BYTE_GRAY);
-    }
+//
+//    @Test
+//    public void countGistogramByValue() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        m2d.save(dirOut + imageFile + "_check.png", "png", TYPE_INT_ARGB);
+//        Matrix2dHsv m2dHsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
+//        int[] gist = m2dHsv.countGistogramByValue();
+//        Matrix2dBoolean m2dBool = m2dHsv.binarizeByValue(26, 55);
+//        m2dBool.save(dirOut + imageFile + "_bin26_55.png", "png", TYPE_BYTE_GRAY);
+//
+////        for(int i = 0; i<256; i++) {
+////            if(gist[i]>0) {
+////                Matrix2dBoolean m2dBool = m2dHsv.binarizeByValue(i, i);
+////                m2dBool.save(dirOut + imageFile + "_bin"+i+".png", "png", TYPE_BYTE_GRAY);
+////            }
+////        }
+//    }
 
 
-    @Test
-    public void selectByPattern4Pixels(){
-        int x = 645;
-        int y = 1465;
-        int dist = 32;
-        Matrix2dArgb in = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb pattern = in.selectByPattern4Pixels(x, y, dist)
-                .save(dirOut + imageFile + "_ptrn.png", "png", TYPE_INT_ARGB);
-    }
+
+//    @Test
+//    public void edge(){
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
+//        Matrix2dByte bt = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
+//        m2d = Converter.matrix2dByteValueTomatrix2dArgb(bt);
+//        m2d.save(dirOut + imageFile + "_256.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb clr8 = m2d.reduceColors(32).save(dirOut + imageFile + "_clr8.png", "png", TYPE_BYTE_GRAY);
+//        clr8.edgeByColorDistance(32).save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
+//
+////        m2d.edgeByColorDistance(1).save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(2).save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(4).save(dirOut + imageFile + "_edge4.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(8).save(dirOut + imageFile + "_edge8.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(16).save(dirOut + imageFile + "_edge16.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(64).save(dirOut + imageFile + "_edge64.png", "png", TYPE_BYTE_GRAY);
+////        m2d.edgeByColorDistance(128).save(dirOut + imageFile + "_edge128.png", "png", TYPE_BYTE_GRAY);
+//    }
+
+
+//    @Test
+//    public void selectByPattern4Pixels(){
+//        int x = 645;
+//        int y = 1465;
+//        int dist = 32;
+//        Matrix2dArgb in = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb pattern = in.selectByPattern4Pixels(x, y, dist)
+//                .save(dirOut + imageFile + "_ptrn.png", "png", TYPE_INT_ARGB);
+//    }
 
     @Test
     public void comparePointsMethod() {
@@ -201,121 +254,121 @@ public class ImageMatrixTest {
 //    }
 
 
-    @Test
-    public void comparePoints() {
-        Matrix2dArgb base = Matrix2dArgb.load(dirIn + "anime20.png");
-        Matrix2dArgb in = Matrix2dArgb.load(dirIn + "anime.png");
+//    @Test
+//    public void comparePoints() {
+//        Matrix2dArgb base = Matrix2dArgb.load(dirIn + "anime20.png");
+//        Matrix2dArgb in = Matrix2dArgb.load(dirIn + "anime.png");
+//
+//        Matrix2dBoolean baseEdge = base.edgeByColorDistance(16)
+//                .replacePoints(true, 0, 1, -1,-1)
+//                .replacePoints(false, 6, 8, -1,-1)
+//                .skeletize()
+//                .replace3x3(263, 262)
+//                .replace3x3(29, 28)
+//                .replace3x3(113, 112)
+//                .replace3x3(449, 448)
+//                .remove90points()
+//                .save(dirOut + "A_cut" + "_edge.png", "png", TYPE_BYTE_GRAY);
+//
+//        Matrix2dBoolean inEdge = in.edgeByColorDistance(16)
+//                .replacePoints(true, 0, 1, -1,-1)
+//                .replacePoints(false, 6, 8, -1,-1)
+//                .skeletize()
+//                .replace3x3(263, 262)
+//                .replace3x3(29, 28)
+//                .replace3x3(113, 112)
+//                .replace3x3(449, 448)
+//                .remove90points()
+//                .save(dirOut + "A_cut2x" + "_edge.png", "png", TYPE_BYTE_GRAY);
+//
+//        double diff = Matrix2dBoolean.comparePoints(baseEdge, inEdge);
+//
+//        System.out.println("base n-points =" + baseEdge.countPoints() );
+//        System.out.println("in n-points =" + inEdge.countPoints() );
+//        System.out.println("diff = " + diff );
+//    }
 
-        Matrix2dBoolean baseEdge = base.edgeByColorDistance(16)
-                .replacePoints(true, 0, 1, -1,-1)
-                .replacePoints(false, 6, 8, -1,-1)
-                .skeletize()
-                .replace3x3(263, 262)
-                .replace3x3(29, 28)
-                .replace3x3(113, 112)
-                .replace3x3(449, 448)
-                .remove90points()
-                .save(dirOut + "A_cut" + "_edge.png", "png", TYPE_BYTE_GRAY);
-
-        Matrix2dBoolean inEdge = in.edgeByColorDistance(16)
-                .replacePoints(true, 0, 1, -1,-1)
-                .replacePoints(false, 6, 8, -1,-1)
-                .skeletize()
-                .replace3x3(263, 262)
-                .replace3x3(29, 28)
-                .replace3x3(113, 112)
-                .replace3x3(449, 448)
-                .remove90points()
-                .save(dirOut + "A_cut2x" + "_edge.png", "png", TYPE_BYTE_GRAY);
-
-        double diff = Matrix2dBoolean.comparePoints(baseEdge, inEdge);
-
-        System.out.println("base n-points =" + baseEdge.countPoints() );
-        System.out.println("in n-points =" + inEdge.countPoints() );
-        System.out.println("diff = " + diff );
-    }
 
 
-
-    @Test
-    public void removeByColorDistance() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile).stretch2x();
-        Matrix2dArgb edge16 = m2d.removeByColorDistance(16).save(dirOut + imageFile + "_16.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb edge32 = m2d.removeByColorDistance(32).save(dirOut + imageFile + "_32.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb edge64 = m2d.removeByColorDistance(64).save(dirOut + imageFile + "_64.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb edge128 = m2d.removeByColorDistance(128).save(dirOut + imageFile + "_128.png", "png", TYPE_INT_ARGB);
-    }
-
-    @Test
-    public void detectConture() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(16)
-                .replacePoints(true, 0, 1, -1,-1)
-                .replacePoints(false, 6, 8, -1,-1)
-                .skeletize()
-                .replace3x3(263, 262)
-                .replace3x3(29, 28)
-                .replace3x3(113, 112)
-                .replace3x3(449, 448)
-                .remove90points()
-                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
-        System.out.println("n=" + edge.countPoints() );
-        Matrix2dGraph graph = edge.toGraph();
-//        graph.findLines( 0, 5, 135, 180);
+//    @Test
+//    public void removeByColorDistance() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile).stretch2x();
+//        Matrix2dArgb edge16 = m2d.removeByColorDistance(16).save(dirOut + imageFile + "_16.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb edge32 = m2d.removeByColorDistance(32).save(dirOut + imageFile + "_32.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb edge64 = m2d.removeByColorDistance(64).save(dirOut + imageFile + "_64.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb edge128 = m2d.removeByColorDistance(128).save(dirOut + imageFile + "_128.png", "png", TYPE_INT_ARGB);
+//    }
+//
+//    @Test
+//    public void detectConture() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(16)
+//                .replacePoints(true, 0, 1, -1,-1)
+//                .replacePoints(false, 6, 8, -1,-1)
+//                .skeletize()
+//                .replace3x3(263, 262)
+//                .replace3x3(29, 28)
+//                .replace3x3(113, 112)
+//                .replace3x3(449, 448)
+//                .remove90points()
+//                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
+//        System.out.println("n=" + edge.countPoints() );
+//        Matrix2dGraph graph = edge.toGraph();
+////        Graph.findLines( 0, 5, 135, 180);
+////        System.out.println("n=" + Graph.countPoints() );
+//        graph.findLines( 0, Double.MAX_VALUE, 135, 180);
 //        System.out.println("n=" + graph.countPoints() );
-        graph.findLines( 0, Double.MAX_VALUE, 135, 180);
-        System.out.println("n=" + graph.countPoints() );
-        Matrix2dBoolean lines = graph.toBooleanOnlyPoints()
-                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
-    }
-
-
-    @Test
-    public void detectRounds() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(16)
-                .replacePoints(true, 0, 1, -1,-1)
-                .replacePoints(false, 6, 8, -1,-1)
-                .skeletize()
-                .replace3x3(263, 262)
-                .replace3x3(29, 28)
-                .replace3x3(113, 112)
-                .replace3x3(449, 448)
-                .remove90points()
-                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
-        System.out.println("n=" + edge.countPoints() );
-        Matrix2dGraph graph = edge.toGraph();
-//        graph.findLines( 0, 5, 135, 180);
+//        Matrix2dBoolean lines = graph.toBooleanOnlyPoints()
+//                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
+//    }
+//
+//
+//    @Test
+//    public void detectRounds() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(16)
+//                .replacePoints(true, 0, 1, -1,-1)
+//                .replacePoints(false, 6, 8, -1,-1)
+//                .skeletize()
+//                .replace3x3(263, 262)
+//                .replace3x3(29, 28)
+//                .replace3x3(113, 112)
+//                .replace3x3(449, 448)
+//                .remove90points()
+//                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
+//        System.out.println("n=" + edge.countPoints() );
+//        Matrix2dGraph graph = edge.toGraph();
+////        Graph.findLines( 0, 5, 135, 180);
+////        System.out.println("n=" + Graph.countPoints() );
+//        graph.findLines( 0, Double.MAX_VALUE, 135, 180);
 //        System.out.println("n=" + graph.countPoints() );
-        graph.findLines( 0, Double.MAX_VALUE, 135, 180);
-        System.out.println("n=" + graph.countPoints() );
-        Matrix2dBoolean lines = graph.toBoolean()
-                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
-    }
-
-
-    @Test
-    public void detectLine() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(16)
-                .replacePoints(true, 0, 1, -1,-1)
-                .replacePoints(false, 6, 8, -1,-1)
-                .skeletize()
-                .replace3x3(263, 262)
-                .replace3x3(29, 28)
-                .replace3x3(113, 112)
-                .replace3x3(449, 448)
-                .remove90points()
-                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
-        System.out.println("n=" + edge.countPoints() );
-        Matrix2dGraph graph = edge.toGraph();
-//        graph.findLines( 0, 5, 135, 180);
+//        Matrix2dBoolean lines = graph.toBoolean()
+//                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
+//    }
+//
+//
+//    @Test
+//    public void detectLine() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(16)
+//                .replacePoints(true, 0, 1, -1,-1)
+//                .replacePoints(false, 6, 8, -1,-1)
+//                .skeletize()
+//                .replace3x3(263, 262)
+//                .replace3x3(29, 28)
+//                .replace3x3(113, 112)
+//                .replace3x3(449, 448)
+//                .remove90points()
+//                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
+//        System.out.println("n=" + edge.countPoints() );
+//        Matrix2dGraph graph = edge.toGraph();
+////        Graph.findLines( 0, 5, 135, 180);
+////        System.out.println("n=" + Graph.countPoints() );
+//        graph.findLines( 0, Double.MAX_VALUE, 135, 180);
 //        System.out.println("n=" + graph.countPoints() );
-        graph.findLines( 0, Double.MAX_VALUE, 135, 180);
-        System.out.println("n=" + graph.countPoints() );
-        Matrix2dBoolean lines = graph.toBoolean()
-                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
-    }
+//        Matrix2dBoolean lines = graph.toBoolean()
+//                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
+//    }
 
     @Test
     public void lineAngles() {
@@ -329,293 +382,293 @@ public class ImageMatrixTest {
         System.out.println("angle must be 135 : " + angle);
     }
 
-    @Test
-    public void toGraph() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.stretch2x().edgeByColorDistance(32)
-                .save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean clearNoise = edge
-//                .reduceNoisePoints(1).reduceInnerPoints(6).reduceGapPointsInMask(5).reduceGapPointsInMask(5)
-                .replace3x3(263, 262)
-                .replace3x3(29, 28)
-                .replace3x3(113, 112)
-                .replace3x3(449, 448)
-//                .reduceNoisePoints(1).reduceGapPointsInMask(5).reduceNoisePoints(3).reduceGapPointsInMask(5).reduceNoisePoints(3)
-                .save(dirOut + imageFile + "_clearNoise.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean edge2 = clearNoise.edge()
-                .save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean skeleton = edge2.skeletonByZhangSuen()
-//                .reduceNoisePoints(1)
-                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean edge3 = skeleton.remove90points()
-                .save(dirOut + imageFile + "_edge3.png", "png", TYPE_BYTE_GRAY);;
-//        Matrix2dBoolean edge3 = edge2.remove90points()
-//                .save(dirOut + imageFile + "_edge3.png", "png", TYPE_BYTE_GRAY);;
-        // ===========================================================
-        System.out.println("n: " + edge3.countPoints() );
-        // ===========================================================
-        Matrix2dGraph graph = edge3.toGraph();
-        graph.findLines(0, 10, 0.0, 180)
-                .findLines(10, Double.MAX_VALUE, 160.0, 180);
-
-//            .findLines( 0.7, 0, 5, 0.0, 180)
-//            .findLines( 0.7, 0, 5, 0.0, 180)
-//            .findLines( 0.7, 0, 5, 135.0, 180)
-//                .findLines( 0.3, 6, 10)
-//                .findLines( 0.3, 6, 10)
-//                .findLines( 0.3, 6, 10)
-//                .findLines( 0.15, 11, 20)
-//                .findLines( 0.15, 11, 20)
-//                .findLines( 0.15, 11, 10)
-//                .findLines(0.1, 5.0, 20, 135, 180)
-//                .findLines(0.1, 5.0, 30, 135, 180)
-//                .findLines(0.1, 5.0, 45, 135, 180);
-
-        //                .findLines(0.1, 10.0, Double.MAX_VALUE, 135, 180);
-//                .findLines(0.1, 31.0, Double.MAX_VALUE, 135, 180)
-//                .findLines(0.1, 63.0, Double.MAX_VALUE, 135, 180);
-
-        //                .findLines(0.1, 1.0, Double.MAX_VALUE);
-//                .findLines(0.1);
-
-//        graph.findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03)
-//                .findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03);
-        // ========================================================
-        System.out.println("n: " + graph.countPoints() );
-        // ========================================================
-        Matrix2dBoolean lines = graph.toBoolean()
-                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
-    }
-
-    @Test
-    public void binaryEdge() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.stretch2x().edgeByColorDistance(32)
-                .save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean clearNoise = edge
-//                .reduceNoisePoints(1)
-//                .reduceInnerPoints(6)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
+//    @Test
+//    public void toGraph() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.stretch2x().edgeByColorDistance(32)
+//                .save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean clearNoise = edge
+////                .reduceNoisePoints(1).reduceInnerPoints(6).reduceGapPointsInMask(5).reduceGapPointsInMask(5)
 //                .replace3x3(263, 262)
 //                .replace3x3(29, 28)
 //                .replace3x3(113, 112)
 //                .replace3x3(449, 448)
-//                .reduceNoisePoints(1)
-//                .reduceGapPointsInMask(5)
-//                .reduceNoisePoints(3)
-//                .reduceGapPointsInMask(5)
-//                .reduceNoisePoints(3)
-                .save(dirOut + imageFile + "_clearNoise.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean edge2 = clearNoise.edge()
-                .save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean skeleton = edge2.skeletonByZhangSuen()
-//                .reduceNoisePoints(1)
-                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
-    }
+////                .reduceNoisePoints(1).reduceGapPointsInMask(5).reduceNoisePoints(3).reduceGapPointsInMask(5).reduceNoisePoints(3)
+//                .save(dirOut + imageFile + "_clearNoise.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean edge2 = clearNoise.edge()
+//                .save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean skeleton = edge2.skeletonByZhangSuen()
+////                .reduceNoisePoints(1)
+//                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean edge3 = skeleton.remove90points()
+//                .save(dirOut + imageFile + "_edge3.png", "png", TYPE_BYTE_GRAY);;
+////        Matrix2dBoolean edge3 = edge2.remove90points()
+////                .save(dirOut + imageFile + "_edge3.png", "png", TYPE_BYTE_GRAY);;
+//        // ===========================================================
+//        System.out.println("n: " + edge3.countPoints() );
+//        // ===========================================================
+//        Matrix2dGraph graph = edge3.toGraph();
+//        graph.findLines(0, 10, 0.0, 180)
+//                .findLines(10, Double.MAX_VALUE, 160.0, 180);
+//
+////            .findLines( 0.7, 0, 5, 0.0, 180)
+////            .findLines( 0.7, 0, 5, 0.0, 180)
+////            .findLines( 0.7, 0, 5, 135.0, 180)
+////                .findLines( 0.3, 6, 10)
+////                .findLines( 0.3, 6, 10)
+////                .findLines( 0.3, 6, 10)
+////                .findLines( 0.15, 11, 20)
+////                .findLines( 0.15, 11, 20)
+////                .findLines( 0.15, 11, 10)
+////                .findLines(0.1, 5.0, 20, 135, 180)
+////                .findLines(0.1, 5.0, 30, 135, 180)
+////                .findLines(0.1, 5.0, 45, 135, 180);
+//
+//        //                .findLines(0.1, 10.0, Double.MAX_VALUE, 135, 180);
+////                .findLines(0.1, 31.0, Double.MAX_VALUE, 135, 180)
+////                .findLines(0.1, 63.0, Double.MAX_VALUE, 135, 180);
+//
+//        //                .findLines(0.1, 1.0, Double.MAX_VALUE);
+////                .findLines(0.1);
+//
+////        Graph.findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03)
+////                .findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03).findLines(0.03);
+//        // ========================================================
+//        System.out.println("n: " + graph.countPoints() );
+//        // ========================================================
+//        Matrix2dBoolean lines = graph.toBoolean()
+//                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
+//    }
 
-    @Test
-    public void GapAndNoiseAndSkeletonByZhangSuen() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(32)
-                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean gn = edge//.reduceNoisePoints(2)
-//                .reduceNoisePoints(3)
-//                .reduceNoisePoints(3)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-//                .reduceGapPointsInMask(5)
-                .save(dirOut + imageFile + "_gn.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean skeleton = gn.skeletonByZhangSuen()
-                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
+//    @Test
+//    public void binaryEdge() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.stretch2x().edgeByColorDistance(32)
+//                .save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean clearNoise = edge
+////                .reduceNoisePoints(1)
+////                .reduceInnerPoints(6)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .replace3x3(263, 262)
+////                .replace3x3(29, 28)
+////                .replace3x3(113, 112)
+////                .replace3x3(449, 448)
+////                .reduceNoisePoints(1)
+////                .reduceGapPointsInMask(5)
+////                .reduceNoisePoints(3)
+////                .reduceGapPointsInMask(5)
+////                .reduceNoisePoints(3)
+//                .save(dirOut + imageFile + "_clearNoise.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean edge2 = clearNoise.edge()
+//                .save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean skeleton = edge2.skeletonByZhangSuen()
+////                .reduceNoisePoints(1)
+//                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
+//    }
 
-
-
-        int i, j, n;
-        n = 0;
-        int sX = skeleton.sizeX;
-        int sY = skeleton.sizeY;
-        for(j = 0; j<sY;j++ ){
-            for(i = 0; i<sX;i++ ){
-                if( skeleton.getValue(i, j) ) n++;
-            }
-        }
-        System.out.println("white pixels: " + n);
-
-
-        n = 0;
-        sX = gn.sizeX;
-        sY = gn.sizeY;
-        for(j = 0; j<sY;j++ ){
-            for(i = 0; i<sX;i++ ){
-                if( gn.getValue(i, j) ) n++;
-            }
-        }
-        System.out.println("white pixels gn: " + n);
-    }
-
-
-    @Test
-    public void SkeletonByZhangSuen() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(32)
-                .save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dBoolean skeleton = edge.skeletonByZhangSuen()
-                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
-    }
-
-    @Test
-    public void tangen() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        Point2d cp = edge.countCenterOfSymmetry();
-        System.out.println("center( " + cp.x + ", " + cp.y + "° )");
-        int angle = edge.countAngleAxisOfSymmetry(cp);
-        System.out.println(angle + "°");
-    }
-
-    @Test
-    public void tangens() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + "line20.png");
-        Matrix2dBoolean edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        Point2d cp = edge.countCenterOfSymmetry();
-        int angle = edge.countAngleAxisOfSymmetry(cp);
-        System.out.println("20 : " + angle + "°");
-
-        m2d = Matrix2dArgb.load(dirIn + "line45.png");
-        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        cp = edge.countCenterOfSymmetry();
-        angle = edge.countAngleAxisOfSymmetry(cp);
-        System.out.println("45 : " + angle + "°");
-
-        m2d = Matrix2dArgb.load(dirIn + "line60.png");
-        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        cp = edge.countCenterOfSymmetry();
-        angle = edge.countAngleAxisOfSymmetry(cp);
-        System.out.println("60 : " + angle + "°");
-
-        m2d = Matrix2dArgb.load(dirIn + "line100.png");
-        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        cp = edge.countCenterOfSymmetry();
-        angle = edge.countAngleAxisOfSymmetry(cp);
-        System.out.println("100 : " + angle + "°");
-
-        m2d = Matrix2dArgb.load(dirIn + "line135.png");
-        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        cp = edge.countCenterOfSymmetry();
-        angle = edge.countAngleAxisOfSymmetry(cp);
-        System.out.println("135 : " + angle + "°");
-    }
-
-    @Test
-    public void stretchAndEdgeByColorDistance() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb stretched = m2d.stretch2x()
-                .save(dirOut + imageFile + "_2x.png", "png", TYPE_INT_ARGB);
-        stretched.edgeByColorDistance(1).save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(2).save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(4).save(dirOut + imageFile + "_edge4.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(8).save(dirOut + imageFile + "_edge8.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(16).save(dirOut + imageFile + "_edge16.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(64).save(dirOut + imageFile + "_edge64.png", "png", TYPE_BYTE_GRAY);
-        stretched.edgeByColorDistance(128).save(dirOut + imageFile + "_edge128.png", "png", TYPE_BYTE_GRAY);
-    }
+//    @Test
+//    public void GapAndNoiseAndSkeletonByZhangSuen() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(32)
+//                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean gn = edge//.reduceNoisePoints(2)
+////                .reduceNoisePoints(3)
+////                .reduceNoisePoints(3)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+////                .reduceGapPointsInMask(5)
+//                .save(dirOut + imageFile + "_gn.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean skeleton = gn.skeletonByZhangSuen()
+//                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
+//
+//
+//
+//        int i, j, n;
+//        n = 0;
+//        int sX = skeleton.sizeX;
+//        int sY = skeleton.sizeY;
+//        for(j = 0; j<sY;j++ ){
+//            for(i = 0; i<sX;i++ ){
+//                if( skeleton.getValue(i, j) ) n++;
+//            }
+//        }
+//        System.out.println("white pixels: " + n);
+//
+//
+//        n = 0;
+//        sX = gn.sizeX;
+//        sY = gn.sizeY;
+//        for(j = 0; j<sY;j++ ){
+//            for(i = 0; i<sX;i++ ){
+//                if( gn.getValue(i, j) ) n++;
+//            }
+//        }
+//        System.out.println("white pixels gn: " + n);
+//    }
 
 
-    @Test
-    public void countCenterOfSymmetry() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dBoolean edge;
-        Point2d pc;
-        edge = m2d.edgeByColorDistance(1).save(dirOut + imageFile + "_edge1h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(2).save(dirOut + imageFile + "_edge2h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(4).save(dirOut + imageFile + "_edge4h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(8).save(dirOut + imageFile + "_edge8h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(16).save(dirOut + imageFile + "_edge16h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(64).save(dirOut + imageFile + "_edge64h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-        edge = m2d.edgeByColorDistance(128).save(dirOut + imageFile + "_edge128h.png", "png", TYPE_BYTE_GRAY);
-        pc = edge.countCenterOfSymmetry();
-        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
-    }
+//    @Test
+//    public void SkeletonByZhangSuen() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(32)
+//                .save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dBoolean skeleton = edge.skeletonByZhangSuen()
+//                .save(dirOut + imageFile + "_skeleton.png", "png", TYPE_BYTE_GRAY);
+//    }
 
-
-    @Test
-    public void stretchAndEdgeByColorHue() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb stretched = m2d.stretch2x()
-                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
-        hsv.edgeByColorHue(1).save(dirOut + imageFile + "_edge1h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(2).save(dirOut + imageFile + "_edge2h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(4).save(dirOut + imageFile + "_edge4h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(8).save(dirOut + imageFile + "_edge8h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(16).save(dirOut + imageFile + "_edge16h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(32).save(dirOut + imageFile + "_edge32h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(64).save(dirOut + imageFile + "_edge64h.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorHue(128).save(dirOut + imageFile + "_edge128h.png", "png", TYPE_BYTE_GRAY);
-    }
-
-    @Test
-    public void stretchAndEdgeByColorSaturation() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb stretched = m2d.stretch2x()
-                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
-        hsv.edgeByColorSaturation(1).save(dirOut + imageFile + "_edge1s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(2).save(dirOut + imageFile + "_edge2s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(4).save(dirOut + imageFile + "_edge4s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(8).save(dirOut + imageFile + "_edge8s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(16).save(dirOut + imageFile + "_edge16s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(32).save(dirOut + imageFile + "_edge32s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(64).save(dirOut + imageFile + "_edge64s.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorSaturation(128).save(dirOut + imageFile + "_edge128s.png", "png", TYPE_BYTE_GRAY);
-    }
-
-    @Test
-    public void stretchAndEdgeByColorValue() {
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb stretched = m2d.stretch2x()
-                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
-        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
-        hsv.edgeByColorValue(1).save(dirOut + imageFile + "_edge1v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(2).save(dirOut + imageFile + "_edge2v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(4).save(dirOut + imageFile + "_edge4v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(8).save(dirOut + imageFile + "_edge8v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(16).save(dirOut + imageFile + "_edge16v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(32).save(dirOut + imageFile + "_edge32v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(64).save(dirOut + imageFile + "_edge64v.png", "png", TYPE_BYTE_GRAY);
-        hsv.edgeByColorValue(128).save(dirOut + imageFile + "_edge128v.png", "png", TYPE_BYTE_GRAY);
-    }
+//    @Test
+//    public void tangen() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        Point2d cp = edge.countCenterOfSymmetry();
+//        System.out.println("center( " + cp.x + ", " + cp.y + "° )");
+//        int angle = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println(angle + "°");
+//    }
+//
+//    @Test
+//    public void tangens() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + "line20.png");
+//        Matrix2dBoolean edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        Point2d cp = edge.countCenterOfSymmetry();
+//        int angle = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("20 : " + angle + "°");
+//
+//        m2d = Matrix2dArgb.load(dirIn + "line45.png");
+//        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        cp = edge.countCenterOfSymmetry();
+//        angle = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("45 : " + angle + "°");
+//
+//        m2d = Matrix2dArgb.load(dirIn + "line60.png");
+//        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        cp = edge.countCenterOfSymmetry();
+//        angle = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("60 : " + angle + "°");
+//
+//        m2d = Matrix2dArgb.load(dirIn + "line100.png");
+//        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        cp = edge.countCenterOfSymmetry();
+//        angle = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("100 : " + angle + "°");
+//
+//        m2d = Matrix2dArgb.load(dirIn + "line135.png");
+//        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        cp = edge.countCenterOfSymmetry();
+//        angle = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("135 : " + angle + "°");
+//    }
+//
+//    @Test
+//    public void stretchAndEdgeByColorDistance() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb stretched = m2d.stretch2x()
+//                .save(dirOut + imageFile + "_2x.png", "png", TYPE_INT_ARGB);
+//        stretched.edgeByColorDistance(1).save(dirOut + imageFile + "_edge1.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(2).save(dirOut + imageFile + "_edge2.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(4).save(dirOut + imageFile + "_edge4.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(8).save(dirOut + imageFile + "_edge8.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(16).save(dirOut + imageFile + "_edge16.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(64).save(dirOut + imageFile + "_edge64.png", "png", TYPE_BYTE_GRAY);
+//        stretched.edgeByColorDistance(128).save(dirOut + imageFile + "_edge128.png", "png", TYPE_BYTE_GRAY);
+//    }
+//
+//
+//    @Test
+//    public void countCenterOfSymmetry() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dBoolean edge;
+//        Point2d pc;
+//        edge = m2d.edgeByColorDistance(1).save(dirOut + imageFile + "_edge1h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(2).save(dirOut + imageFile + "_edge2h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(4).save(dirOut + imageFile + "_edge4h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(8).save(dirOut + imageFile + "_edge8h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(16).save(dirOut + imageFile + "_edge16h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(64).save(dirOut + imageFile + "_edge64h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//        edge = m2d.edgeByColorDistance(128).save(dirOut + imageFile + "_edge128h.png", "png", TYPE_BYTE_GRAY);
+//        pc = edge.countCenterOfSymmetry();
+//        System.out.println("cx = " + pc.x + "; cy = " + pc.y);
+//    }
+//
+//
+//    @Test
+//    public void stretchAndEdgeByColorHue() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb stretched = m2d.stretch2x()
+//                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
+//        hsv.edgeByColorHue(1).save(dirOut + imageFile + "_edge1h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(2).save(dirOut + imageFile + "_edge2h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(4).save(dirOut + imageFile + "_edge4h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(8).save(dirOut + imageFile + "_edge8h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(16).save(dirOut + imageFile + "_edge16h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(32).save(dirOut + imageFile + "_edge32h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(64).save(dirOut + imageFile + "_edge64h.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorHue(128).save(dirOut + imageFile + "_edge128h.png", "png", TYPE_BYTE_GRAY);
+//    }
+//
+//    @Test
+//    public void stretchAndEdgeByColorSaturation() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb stretched = m2d.stretch2x()
+//                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
+//        hsv.edgeByColorSaturation(1).save(dirOut + imageFile + "_edge1s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(2).save(dirOut + imageFile + "_edge2s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(4).save(dirOut + imageFile + "_edge4s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(8).save(dirOut + imageFile + "_edge8s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(16).save(dirOut + imageFile + "_edge16s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(32).save(dirOut + imageFile + "_edge32s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(64).save(dirOut + imageFile + "_edge64s.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorSaturation(128).save(dirOut + imageFile + "_edge128s.png", "png", TYPE_BYTE_GRAY);
+//    }
+//
+//    @Test
+//    public void stretchAndEdgeByColorValue() {
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb stretched = m2d.stretch2x()
+//                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
+//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
+//        hsv.edgeByColorValue(1).save(dirOut + imageFile + "_edge1v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(2).save(dirOut + imageFile + "_edge2v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(4).save(dirOut + imageFile + "_edge4v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(8).save(dirOut + imageFile + "_edge8v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(16).save(dirOut + imageFile + "_edge16v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(32).save(dirOut + imageFile + "_edge32v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(64).save(dirOut + imageFile + "_edge64v.png", "png", TYPE_BYTE_GRAY);
+//        hsv.edgeByColorValue(128).save(dirOut + imageFile + "_edge128v.png", "png", TYPE_BYTE_GRAY);
+//    }
 
 //    @Test
 //    public void stretchAndEdgeBrightness() {
@@ -632,19 +685,19 @@ public class ImageMatrixTest {
 //        brightness.edgeByBrightness(128).save(dirOut + imageFile + "_edge128b.png", "png", TYPE_BYTE_GRAY);
 //    }
 
-    @Test
-    public void checkReduce(){
-        int x = 879;
-        int y = 297;
-        int r = 5;
-        Matrix2dArgb m1x = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb m1x2 = m1x.reduce(2).save(dirOut + imageFile + "1x2.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb m1x4 = m1x2.reduce(2).save(dirOut + imageFile + "1x4.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb m1x8 = m1x4.reduce(2).save(dirOut + imageFile + "1x8.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb m1x16 = m1x8.reduce(2).save(dirOut + imageFile + "1x16.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb m1x32 = m1x16.reduce(2).save(dirOut + imageFile + "1x32.png", "png", TYPE_INT_ARGB);
-        Matrix2dArgb m1x64 = m1x32.reduce(2).save(dirOut + imageFile + "1x64.png", "png", TYPE_INT_ARGB);
-    }
+//    @Test
+//    public void checkReduce(){
+//        int x = 879;
+//        int y = 297;
+//        int r = 5;
+//        Matrix2dArgb m1x = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb m1x2 = m1x.reduce(2).save(dirOut + imageFile + "1x2.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb m1x4 = m1x2.reduce(2).save(dirOut + imageFile + "1x4.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb m1x8 = m1x4.reduce(2).save(dirOut + imageFile + "1x8.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb m1x16 = m1x8.reduce(2).save(dirOut + imageFile + "1x16.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb m1x32 = m1x16.reduce(2).save(dirOut + imageFile + "1x32.png", "png", TYPE_INT_ARGB);
+//        Matrix2dArgb m1x64 = m1x32.reduce(2).save(dirOut + imageFile + "1x64.png", "png", TYPE_INT_ARGB);
+//    }
 
 //    @Test
 //    public void average(){

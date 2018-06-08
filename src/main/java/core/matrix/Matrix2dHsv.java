@@ -1,7 +1,9 @@
 package core.matrix;
 
+import core.converter.ElementConverter;
 import core.element.*;
 import core.exceptions.FileException;
+import core.old.Color;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
@@ -9,8 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 
 /**
  * Created by anonymous on 06.10.2017.
@@ -55,7 +55,6 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
         }
     }
 
-
     public void setValue(int xPos, int yPos, HSV value) {
         if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
             this.matrix[yPos][xPos] = value;
@@ -68,7 +67,6 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
         }
         return null;
     }
-
 
     /**
      * load matrix2d from image ARGB-file
@@ -89,7 +87,7 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
         Matrix2dHsv matrix2D = new Matrix2dHsv(x, y);
         for(int j = 0; j<y; j++){
             for(int i = 0; i<x; i++){
-                color = Color.intToHsv( image.getRGB(i,j) );
+                color = ElementConverter.intToHsv( image.getRGB(i,j) );
                 matrix2D.setValue(i,j, color);
             }
         }
@@ -109,7 +107,7 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
         x = this.sizeX;
         for(int j = 0; j<y; j++){
             for(int i = 0; i<x; i++){
-                image.setRGB( i, j, Color.hsvToInt(this.getValue(i, j)) );
+                image.setRGB( i, j, ElementConverter.hsvToInt(this.getValue(i, j)) );
             }
         }
         try {

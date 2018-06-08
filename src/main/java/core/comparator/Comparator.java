@@ -1,12 +1,15 @@
 package core.comparator;
 
 import core.element.Point2dByte;
+import core.element.Segment;
+import core.matrix.Matrix2dBoolean;
 //import core.element.Image;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
+// TODO: refactor all class
 /**
  * Created by anonymous on 02.03.2018.
  */
@@ -101,14 +104,14 @@ public class Comparator {
 //        return i/n;
 //    }
 
-    /**
-     * compare images by absolute points distance and absolute points value
-     * @param base
-     * @param in
-     * @param distEpsilon
-     * @param valueEpsilon
-     * @return
-     */
+//    /**
+//     * compare images by absolute points distance and absolute points value
+//     * @param base
+//     * @param in
+//     * @param distEpsilon
+//     * @param valueEpsilon
+//     * @return
+//     */
 //    public static double compareImages(Image base, Image in, int distEpsilon, int valueEpsilon){
 //        double i = 0;
 //        ArrayList<Point2dByte> basePoints = base.toArrayOfPoint2dByte();
@@ -124,5 +127,48 @@ public class Comparator {
 //        }
 //        return i/n;
 //    }
+
+
+
+    private static Segment NormalizeSegmentPoints(Segment s){
+        s.countShiftAndSize();
+        Segment seg = new Segment();
+        int x, y;
+        double stepX = s.width/256.0;
+        double stepY = s.high/256.0;
+        for (Point2dByte p: s.points) {
+            x = (int)((p.x-s.width)/stepX);
+            y = (int)((p.y - s.high)/stepY);
+            seg.points.add( new Point2dByte( x, y, p.value) );
+        }
+        return seg;
+    }
+
+    /**
+     *
+     * @param etalon
+     * @param in
+     * @param distEpsilon 0..256
+     * @param valueEpsilon 0..256
+     * @return
+     */
+    public static double compareFormSegments(Segment etalon, Segment in, int distEpsilon, int valueEpsilon){
+        double i = 0;
+        int n = etalon.points.size();
+        ArrayList<Point2dByte> etalonPoints = Comparator.NormalizeSegmentPoints(etalon).points;
+        ArrayList<Point2dByte> inPoints = Comparator.NormalizeSegmentPoints(in).points;
+        for(Point2dByte etalonPoint : etalonPoints){
+            for(Point2dByte inPoint : inPoints){
+                if( Comparator.comparePoints(etalonPoint, inPoint, distEpsilon, valueEpsilon)==true){
+                    i++;
+                    break;
+                }
+            }
+        }
+        return i/n;
+    }
+
+
+
 
 }

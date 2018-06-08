@@ -2,11 +2,13 @@ package core.converter;
 
 import core.element.*;
 import core.matrix.*;
-import core.neurons.Neuron;
-import core.neurons.NeuronBuilder;
+import core.old.Matrix2dNeuron;
+import core.old.neurons.Neuron;
+import core.old.neurons.NeuronBuilder;
 
 import java.util.ArrayList;
 
+// TODO: refactor all class
 /**
  * Created by anonymous on 03.02.2018.
  */
@@ -27,8 +29,14 @@ public class Converter {
         return i;
     }
 
+    /**
+     * convert Matrix2dByte to Segment
+     * @param m2d
+     * @return
+     */
     public static Segment matrix2dByteToSegment(Matrix2dByte m2d){
         Segment segment = new Segment();
+        segment.mainM2d = m2d;
         ArrayList<Point2dByte> points = segment.points;
         int sizeX = m2d.sizeX;
         int sizeY = m2d.sizeY;
@@ -39,6 +47,30 @@ public class Converter {
         }
         return segment;
     }
+
+    /**
+     * convert Matrix2dByte to Segment
+     * @param m2d
+     * @return
+     */
+    public static Segment matrix2dByteToBinSegment(Matrix2dByte m2d){
+        Segment segment = new Segment();
+        segment.mainM2d = m2d;
+        ArrayList<Point2dByte> points = segment.points;
+        int sizeX = m2d.sizeX;
+        int sizeY = m2d.sizeY;
+        byte v;
+        for (int j = 0; j < sizeY; j++) {
+            for (int i = 0; i < sizeX; i++) {
+                v = m2d.getValue(i, j);
+                if(v!=-128) v = 127;
+                points.add( new Point2dByte(i, j, v) );
+            }
+        }
+        return segment;
+
+    }
+
 
     // TODO: now converts only Point2dNeuron-es
     /**
@@ -311,6 +343,38 @@ public class Converter {
      * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
      * @return
      */
+    public static Matrix2dByte matrix2dHsvToMatrix2dByteByHue(Matrix2dHsv in){
+        int sizeX = in.sizeX;
+        int sizeY = in.sizeY;
+        Matrix2dByte m2d = new Matrix2dByte(sizeX, sizeY);
+        for(int j = 0; j<sizeY; j++){
+            for(int i = 0; i<sizeX; i++) {
+                m2d.setValue( i,j, intToByte(in.getValue(i,j).h) );
+            }
+        }
+        return m2d;
+    }
+
+    /**
+     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+     * @return
+     */
+    public static Matrix2dByte matrix2dHsvToMatrix2dByteBySaturation(Matrix2dHsv in){
+        int sizeX = in.sizeX;
+        int sizeY = in.sizeY;
+        Matrix2dByte m2d = new Matrix2dByte(sizeX, sizeY);
+        for(int j = 0; j<sizeY; j++){
+            for(int i = 0; i<sizeX; i++) {
+                m2d.setValue( i,j, intToByte(in.getValue(i,j).s) );
+            }
+        }
+        return m2d;
+    }
+
+    /**
+     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+     * @return
+     */
     public static Matrix2dArgb matrix2dByteValueTomatrix2dArgb(Matrix2dByte in){
         int sizeX = in.sizeX;
         int sizeY = in.sizeY;
@@ -319,7 +383,7 @@ public class Converter {
         for(int j = 0; j<sizeY; j++){
             for(int i = 0; i<sizeX; i++) {
                 v = byteToInt(in.getValue(i,j));
-                m2d.setValue( i,j, new ARGB( Color.ARGB_WHITE, v, v, v) );
+                m2d.setValue( i,j, new ARGB( 0xffffffff, v, v, v) );
             }
         }
         return m2d;
@@ -346,6 +410,32 @@ public class Converter {
      */
     public static int byteToInt(byte in) {
         return in + 128;
+    }
+
+    /**
+     * convert Segment to Matrix2dByte
+     * @return
+     */
+    public static Matrix2dByte segmentToMatrix2dByte(Segment in){
+        if(in.points.size()==0) return null;
+        int l = Integer.MAX_VALUE;
+        int u = Integer.MAX_VALUE;
+        int r = Integer.MIN_VALUE;
+        int d = Integer.MIN_VALUE;
+        for(Point2dByte p : in.points){
+            if( p.x < l ) l = p.x;
+            if( p.y < u ) u = p.y;
+            if( p.x > r ) r = p.x;
+            if( p.y > d ) d = p.y;
+        }
+
+        int sizeX = r+1;
+        int sizeY = d+1;
+        Matrix2dByte m2d = new Matrix2dByte(sizeX, sizeY, (byte)-128);
+        for(Point2dByte p: in.points){
+            m2d.setValue(p.x, p.y, p.value);
+        }
+        return m2d;
     }
 
 }
