@@ -1,22 +1,10 @@
-package core.matrix;
-
-import core.converter.ElementConverter;
-import core.element.*;
-import core.exceptions.FileException;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+package core.element;
 
 /**
  * Created by anonymous on 06.10.2017.
  */
 public class Matrix2dArgb implements IMatrix2d<ARGB>{
-    private ARGB[][] matrix;
+    public ARGB[][] matrix;
     public final int sizeX;
     public final int sizeY;
 
@@ -45,56 +33,7 @@ public class Matrix2dArgb implements IMatrix2d<ARGB>{
     }
 
 
-    /**
-     * load matrix2d from image ARGB-file
-     * @param urlFile
-     * @return
-     */
-    public static Matrix2dArgb load(String urlFile) {
-        BufferedImage image;
-        int x, y;
-        ARGB color;
-        try {
-            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
-        } catch (IOException e) {
-            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
-        }
-        y = image.getHeight();
-        x = image.getWidth();
-        Matrix2dArgb matrix2D = new Matrix2dArgb(x, y);
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                color = ElementConverter.intToArgb( image.getRGB(i,j) );
-                matrix2D.setValue(i,j, color);
-            }
-        }
-        return matrix2D;
-    }
 
-    /**
-     * save matrix to image-file
-     * @param urlFile
-     * @param format
-     */
-    public Matrix2dArgb save(String urlFile, String format) {
-        BufferedImage image;
-        int type = TYPE_INT_ARGB;
-        int x, y;
-        image = new BufferedImage(this.sizeX, this.sizeY, type);
-        y = this.sizeY;
-        x = this.sizeX;
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                image.setRGB( i, j, ElementConverter.argbToInt(this.getValue(i, j)) );
-            }
-        }
-        try {
-            ImageIO.write(image, format, new File(urlFile));
-        } catch (IOException e) {
-            throw new FileException("Can't write matrix2d to image file", e);
-        }
-        return this;
-    }
 
 //    /**
 //     * Reduce size of matrix2d to n-times on axis x and y by selecting every nx-element

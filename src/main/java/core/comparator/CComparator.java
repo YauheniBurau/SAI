@@ -1,19 +1,18 @@
 package core.comparator;
 
+import core.element.Point;
 import core.element.Point2dByte;
 import core.element.Segment;
-import core.matrix.Matrix2dBoolean;
-//import core.element.Image;
+//import core.old.ElementImage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 // TODO: refactor all class
 /**
  * Created by anonymous on 02.03.2018.
  */
-public class Comparator {
+public class CComparator {
 
     public static double comparePoints(Point2dByte p1, Point2dByte p2){
         double dist = Math.sqrt(
@@ -63,7 +62,7 @@ public class Comparator {
 
 
 //    // TODO:
-//    public static double compareImages(Image base, Image in){
+//    public static double compareImages(ElementImage base, ElementImage in){
 //        double diff = 0;
 //        double minDist, dist;
 //        HashMap<String, IElement> basePoints = base.elements;
@@ -72,7 +71,7 @@ public class Comparator {
 //        for(Point2dByte basePoint : basePoints.values()){
 //            minDist = 127;
 //            for(Point2dByte inPoint : inPoints.values()){
-//                dist = Comparator.comparePoints(basePoint, inPoint);
+//                dist = CComparator.comparePoints(basePoint, inPoint);
 //                if(dist<minDist && dist<=127){ minDist = dist; }
 //            }
 //            diff+=minDist;
@@ -82,7 +81,7 @@ public class Comparator {
 //        return diff;
 //    }
 
-//    public static double compareImages(Image base, Image in, byte epsilon){
+//    public static double compareImages(ElementImage base, ElementImage in, byte epsilon){
 //        double diff = 0;
 //        double minDist, dist;
 //        double i = 0;
@@ -93,7 +92,7 @@ public class Comparator {
 //        for(Point2dByte basePoint : basePoints.values()){
 //            minDist = 127;
 //            for(Point2dByte inPoint : inPoints.values()){
-//                dist = Comparator.comparePoints(basePoint, inPoint);
+//                dist = CComparator.comparePoints(basePoint, inPoint);
 //                if(dist<minDist && dist<=127){ minDist = dist; }
 //            }
 //            if(minDist<=epsilon) {
@@ -112,14 +111,14 @@ public class Comparator {
 //     * @param valueEpsilon
 //     * @return
 //     */
-//    public static double compareImages(Image base, Image in, int distEpsilon, int valueEpsilon){
+//    public static double compareImages(ElementImage base, ElementImage in, int distEpsilon, int valueEpsilon){
 //        double i = 0;
 //        ArrayList<Point2dByte> basePoints = base.toArrayOfPoint2dByte();
 //        ArrayList<Point2dByte> inPoints = in.toArrayOfPoint2dByte();
 //        double n = basePoints.size();
 //        for(Point2dByte basePoint : basePoints){
 //            for(Point2dByte inPoint : inPoints){
-//                if( Comparator.comparePoints(basePoint, inPoint, distEpsilon, valueEpsilon)==true){
+//                if( CComparator.comparePoints(basePoint, inPoint, distEpsilon, valueEpsilon)==true){
 //                    i++;
 //                    break;
 //                }
@@ -130,43 +129,43 @@ public class Comparator {
 
 
 
-    private static Segment NormalizeSegmentPoints(Segment s){
-        s.countShiftAndSize();
-        Segment seg = new Segment();
-        int x, y;
-        double stepX = s.width/256.0;
-        double stepY = s.high/256.0;
-        for (Point2dByte p: s.points) {
-            x = (int)((p.x-s.width)/stepX);
-            y = (int)((p.y - s.high)/stepY);
-            seg.points.add( new Point2dByte( x, y, p.value) );
-        }
-        return seg;
-    }
+//    private static Segment NormalizeSegmentPoints(Segment s){
+//        s.countShiftAndSize();
+//        Segment seg = new Segment();
+//        int x, y;
+//        double stepX = s.width/256.0;
+//        double stepY = s.high/256.0;
+//        for (Point p: s.points) {
+//            x = (int)((p.x-s.width)/stepX);
+//            y = (int)((p.y - s.high)/stepY);
+//            seg.points.add( new Point( x, y, 0, p.value) );
+//        }
+//        return seg;
+//    }
 
-    /**
-     *
-     * @param etalon
-     * @param in
-     * @param distEpsilon 0..256
-     * @param valueEpsilon 0..256
-     * @return
-     */
-    public static double compareFormSegments(Segment etalon, Segment in, int distEpsilon, int valueEpsilon){
-        double i = 0;
-        int n = etalon.points.size();
-        ArrayList<Point2dByte> etalonPoints = Comparator.NormalizeSegmentPoints(etalon).points;
-        ArrayList<Point2dByte> inPoints = Comparator.NormalizeSegmentPoints(in).points;
-        for(Point2dByte etalonPoint : etalonPoints){
-            for(Point2dByte inPoint : inPoints){
-                if( Comparator.comparePoints(etalonPoint, inPoint, distEpsilon, valueEpsilon)==true){
-                    i++;
-                    break;
-                }
-            }
-        }
-        return i/n;
-    }
+//    /**
+//     *
+//     * @param etalon
+//     * @param in
+//     * @param distEpsilon 0..256
+//     * @param valueEpsilon 0..256
+//     * @return
+//     */
+//    public static double compareFormSegments(Segment etalon, Segment in, int distEpsilon, int valueEpsilon){
+//        double i = 0;
+//        int n = etalon.points.size();
+//        ArrayList<Point2dByte> etalonPoints = CComparator.NormalizeSegmentPoints(etalon).points;
+//        ArrayList<Point2dByte> inPoints = CComparator.NormalizeSegmentPoints(in).points;
+//        for(Point2dByte etalonPoint : etalonPoints){
+//            for(Point2dByte inPoint : inPoints){
+//                if( CComparator.comparePoints(etalonPoint, inPoint, distEpsilon, valueEpsilon)==true){
+//                    i++;
+//                    break;
+//                }
+//            }
+//        }
+//        return i/n;
+//    }
 
 
 

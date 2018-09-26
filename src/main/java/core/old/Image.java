@@ -1,11 +1,8 @@
-package core.element;
+package core.old;
 
-import core.exceptions.FileException;
-import core.matrix.*;
-
-import java.io.*;
+import core.element.AbstractElement;
+import core.element.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by anonymous on 02.03.2018.
@@ -15,35 +12,43 @@ import java.util.HashMap;
  * this class only for preserving data
  * at the beginning, processing of data must be realised through another classes
  */
-public class Image extends AbstractElement{
+public class Image extends AbstractElement {
     // main data of images
-    public String sId = ""; // for saving in files
-    public static int countId = 0;
+    public String sId = ""; // for saving in files and its unique id for image
+    public static int countId = 0; // for loading images from ssd to memory
     public int id; // for identification object in memory
     public ArrayList<Point> points = new ArrayList<Point>();
-    public ArrayList<Line> lines = new ArrayList<Line>();
-    public ArrayList<Arc> arcs = new ArrayList<Arc>();
-    public ArrayList<Texture> textures = new ArrayList<Texture>();
-    //public ArrayList<IElement> elements = new ArrayList<IElement>(); // points, lines, arcs, textures
-    public ArrayList<Image> subImages = new ArrayList<Image>();
-    public ArrayList<ImageConnection> subImageConnections = new ArrayList<ImageConnection>();
+//    public ArrayList<Line> lines = new ArrayList<Line>();
+//    public ArrayList<Arc> arcs = new ArrayList<Arc>();
+//    public ArrayList<Texture> textures = new ArrayList<Texture>();
+//    //public ArrayList<IElement> elements = new ArrayList<IElement>(); // points, lines, arcs, textures
+//    public ArrayList<ElementImage> subImages = new ArrayList<ElementImage>();
+//    public ArrayList<ImageConnection> subImageConnections = new ArrayList<ImageConnection>();
 
-    // temporal set of support matrix for calculations and transformations
-    public Matrix2dInt m2dIntValues = null;
-    public Matrix2dHsv m2dHsvValues = null;
-    public Matrix2dArgb m2dArgbValues = null;
-    public Matrix2dByte m2dByteValues = null;
-    public Matrix2dBoolean m2dBooleanValues = null;
+//    // temporal set of support matrix for calculations and transformations
+//    public Matrix2dArgb m2dArgbValues = null;
+//    public Matrix2dInt m2dIntValues = null; // for saving id of segments
+//    public Matrix2dByte m2dByteValues = null; // byte matrix for processing
+//    public Matrix2dBoolean m2dBooleanValues = null; // for creating temp mask
+//    public ArrayList<Segment> segments = null;
 
-    public Image loadPictureInM2dArgb(String urlFile){
-        this.m2dArgbValues = Matrix2dArgb.load(urlFile);
-        return this;
-    }
+//    public ElementImage loadPictureInM2dArgb(String urlFile){
+//        this.m2dArgbValues = Matrix2dArgb.load(urlFile);
+//        return this;
+//    }
+//
+//    /**
+//     * find all segments
+//     * @param maxDiff
+//     * @return
+//     */
+//    public ArrayList<Segment> findSegments(int maxDiff) {
+////        this.m2dByteValues = MatrixConverter.matrix2dArgbToMatrix2dByte(this.m2dArgbValues);
+//        ArrayList<Segment> segments = this.m2dByteValues.findSegments(maxDiff);
+//        return segments;
+//    }
 
-    public Image loadPictureInM2dHsv(String urlFile){
-        this.m2dHsvValues = Matrix2dHsv.load(urlFile);
-        return this;
-    }
+
 
 
     //    public void removeElement(String id){
@@ -92,8 +97,8 @@ public class Image extends AbstractElement{
 //        }
 //    }
 //
-//    public static Image load(String path, String id){
-//        Image img = new Image();
+//    public static ElementImage load(String path, String id){
+//        ElementImage img = new ElementImage();
 //        img.id = id;
 //        File file = new File(path + id);
 //        FileInputStream fis;

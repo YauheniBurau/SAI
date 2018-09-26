@@ -1,15 +1,11 @@
 package com.yauheni.burau.sai;
 
-import core.comparator.Comparator;
-import core.converter.Converter;
+import core.element.Matrix2dArgbSensor;
+import core.converter.ElementConverter;
 import core.element.*;
-import core.matrix.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
-import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 /**
  * Created by anonymous on 08.10.2016.
@@ -24,65 +20,269 @@ public class ImageMatrixTest {
 //    String imageFile = "table.JPG";
 //    String imageFile = "nature1.jpeg";
 //    String imageFile = "stown.png";
-    String imageFile = "alphabet_colors.jpg";
+//    String imageFile = "alphabet_colors.jpg";
 //    String imageFile = "nature.jpg";
-//    String imageFile = "anime.jpg";
+//    String imageFile = "anime.png";
+//    String imageFile = "alphabet_number.png";
 //    String imageFile = "desktop.png";
 //    String imageFile = "text.png";
 //    String imageFile = "Y.dat";
+//    String imageFile = "Б.png";
+//    String imageFile = "square.png";
+//    String imageFile = "square1.png";
+    String imageFile = "star.png";
+
+//    @Test
+//    public void findContures() {
+//        int maxDiff = 32;
+//
+//        PngFile pngFile = new PngFile(dirIn + imageFile);
+//        Matrix2dArgbSensor sensor = null;
+//        sensor = ElementConverter.convert(pngFile, sensor);
+//
+//        Matrix2dByte m2dByte = null;
+//        m2dByte = ElementConverter.convert(sensor, m2dByte);
+//
+//        ArrayList<ElementImage> images = null;
+//        images = ElementConverter.convert(m2dByte, images, maxDiff);
+//
+//        ElementImage image = images.get(0);
+//        Matrix2dBoolean m2dBoolean = null;
+//        m2dBoolean = ElementConverter.convert(image, m2dBoolean);
+//        Matrix2dBoolean m2dEdge = m2dBoolean.removeNoise().edge();
+//
+//        Matrix2dGraph m2dGraph = null;
+//        m2dGraph = ElementConverter.convert(m2dEdge, m2dGraph);
+//
+//        ArrayList<Conture> contures = null;
+//        contures = ElementConverter.convert(m2dGraph, contures);
+//        Conture c = contures.get(0);
+//
+//    }
 
 
 
-    @Test
-    public void compare_segments() {
-        ArrayList<Segment> segments = new ArrayList<Segment>();
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "А.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Б.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "В.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Е.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "З.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "К.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Л.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "М.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "П.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Р.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Т.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "У.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Ф.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Ч.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Ш.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Щ.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Э.dat").shiftPoints())) );
-        segments.add( Converter.matrix2dByteToBinSegment(Converter.segmentToMatrix2dByte(Segment.load(dirIn + "Я.dat").shiftPoints())) );
+//    @Test
+//    public void Image_compare2dForms() {
+//        int maxDiff = 32;
+//
+//        Matrix2dArgbSensor sensor = new Matrix2dArgbSensor();
+//
+//        PngFile pngSquare = new PngFile(dirIn + "square.png");
+//        PngFile pngSquare1 = new PngFile(dirIn + "square1.png");
+//        PngFile pngStar = new PngFile(dirIn + "star.png");
+//
+//        ElementImage imgSquare = new ElementImage();
+//        ElementImage imgSquare1 = new ElementImage();
+//        ElementImage imgStar = new ElementImage();
+//
+//        sensor = ElementConverter.convert(pngSquare, sensor);
+//        Matrix2dByte m2dSquare = null;
+//        m2dSquare = ElementConverter.convert(sensor, m2dSquare);
+//
+//        sensor = ElementConverter.convert(pngSquare1, sensor);
+//        Matrix2dByte m2dSquare1 = null;
+//        m2dSquare1 = ElementConverter.convert(sensor, m2dSquare1);
+//
+//        sensor = ElementConverter.convert(pngStar, sensor);
+//        Matrix2dByte m2dStar = null;
+//        m2dStar = ElementConverter.convert(sensor, m2dStar);
+//
+//        ArrayList<ElementImage> squareImages = null;
+//        squareImages = ElementConverter.convert(m2dSquare, squareImages, maxDiff);
+//        ArrayList<ElementImage> square1Images = null;
+//        square1Images = ElementConverter.convert(m2dSquare1, square1Images, maxDiff);
+//        ArrayList<ElementImage> starImages = null;
+//        starImages = ElementConverter.convert(m2dStar, starImages, maxDiff);
+//
+//        ElementConverter.convert(squareImage)
+        //        for (ElementImage img: squareImages) {
+//            ElementConverter.convert(img, new PngFile(dirOut + "square_" + img.id + ".png"));
+//        }
+//        for (ElementImage img1: square1Images) {
+//            ElementConverter.convert(img1, new PngFile(dirOut + "square1_" + img1.id + ".png"));
+//        }
+//        for (ElementImage img2: starImages) {
+//            ElementConverter.convert(img2, new PngFile(dirOut + "star_" + img2.id + ".png"));
+//        }
+//    }
 
-        for (Segment s: segments) {
-            s.saveAs2dBooleanImage(dirOut + imageFile + s.id + ".png", "png");
-        }
+//    @Test
+//    public void Image_findSegments() {
+//        int maxDiff = 32;
+//        double d = 0.10; // % of deviation from etalon line or arc
+//        double minPoints = 0.90;
+//        ArrayList<Curve> curves = new ArrayList<Curve>();
+//        ElementImage img = new ElementImage();
+//        img.loadPictureInM2dArgb(dirIn + imageFile);
+//        ArrayList<Segment> segments = img.findSegments(maxDiff);
+//        Segment.removeSegmentsByMinNumberOfPoints(10, segments);
+//        for (Segment seg: segments) {
+//            curves = new ArrayList<Curve>();
+//            curves.addAll(Curve.findCurves2d(seg.points, d, minPoints) );
+//            for(Curve c: curves) {
+//                c.saveAs2dArgbImage(img.m2dArgbValues,dirOut + imageFile + seg.id + "_" + c.id + "_rgb.png", "png");
+//            }
+//            seg.saveAs2dArgbImage(img.m2dArgbValues,dirOut + imageFile + seg.id + "_rgb.png", "png");
+//        }
+//    }
 
-        Segment testSeg = segments.get(0);
-        double result;
-        for (Segment etalon: segments) {
-            result = Comparator.compareFormSegments(etalon, testSeg, 25, 10);
-            System.out.println("segId:"+etalon.id + "; " + result);
-        }
+//    @Test
+//    public void findLine2dAngleGrade() {
+//        Point c = new Point(0,0);
+//        double r = 100;
+//        Point p;
+//        double angle;
+//        for (int grade = 0; grade<360; grade+=1) {
+//            p = Curve.f_radCircle(c, r, grade*Math.PI/180);
+//            angle = Curve.findLine2dAngleGrade(c, p);
+//            System.out.println(p.x + "," + p.y + " : " + angle);
+//        }
+//    }
 
-    }
 
-    @Test
-    public void Matrix2dByte_findSegments() {
-        int maxDiff = 32;
-        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb rgb = baseRgb;
-        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(rgb);
-        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByHue(hsv);
-        ArrayList<Segment> segments = m2dByte.findSegments(maxDiff);
-        Segment.removeSegmentsByMinNumberOfPoints(10, segments);
-        for (Segment seg: segments) {
-            seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
-        }
+//    @Test
+//    public void findLine2dStandartDeviation(){
+//        Point p1 = new Point(298, 300);
+//        Point p2 = new Point(506, 118);
+//        double k = Geometry.findDirectLineCoeffK(p1, p2);
+//        double b = Geometry.findDirectLineCoeffB(p2, k);
+//        ArrayList<Point> points = new ArrayList<Point>();
+//        for (int x =298; x<506; x++) {
+//            points.add( new Point(x, (int)(k*x +b + 1)) );
+//        }
+//        double d = Curve.findLine2dStandartDeviation(points, p1, p2);
+//        System.out.println("deviation: " + d);
+//        // vertical line
+//        p1 = new Point(298, 300);
+//        p2 = new Point(298, 118);
+//        points = new ArrayList<Point>();
+//        int x;
+//        for (int y = p2.y; y<=p1.y; y++) {
+//            x = p1.x;
+//            points.add( new Point(x+1, y) );
+//        }
+//        d = Curve.findLine2dStandartDeviation(points, p1, p2);
+//        System.out.println("deviation: " + d);
+//    }
+//
+//    @Test
+//    public void findArc2dStandartDeviation(){
+//        int startAngle =25;
+//        int endAngle = 90;
+//        Point p1 = new Point(402, 43);
+//        Point p2 = new Point(263, 281);
+//        Point p3 = new Point(492, 337);
+//        Point c = Curve.findCircleRadius(p1, p2, p3);
+//        double r = Curve.findPointsDistance(p1, c);
+//        ArrayList<Point> points = new ArrayList<Point>();
+//        Point p;
+//        for(int angle = startAngle; angle<endAngle; angle++) {
+//            p = Curve.f_gradeCircle(c, r, angle);
+//            p.x+=1;
+//            p.y+=1;
+//            points.add( p );
+//        }
+//        double d = Curve.findArc2dStandartDeviation(points, c, r, startAngle, endAngle);
+//        System.out.println("deviation: " + d);
+//    }
+//
+//
+//    @Test
+//    public void findCircle2dStandartDeviation(){
+//        Point p1 = new Point(402, 43);
+//        Point p2 = new Point(263, 281);
+//        Point p3 = new Point(492, 337);
+//        Point c = Curve.findCircleRadius(p1, p2, p3);
+//        double r = Curve.findPointsDistance(p1, c);
+//        ArrayList<Point> points = new ArrayList<Point>();
+//        Point p;
+//        for(int angle = 25; angle<100; angle++) {
+//            p = Curve.f_gradeCircle(c, r, angle);
+//            p.x+=1;
+//            p.y+=1;
+//            points.add( p );
+//        }
+//        double d = Curve.findArc2dStandartDeviation(points, c, p1, p2);
+//        System.out.println("deviation: " + d);
+//    }
+//
+//
+//    @Test
+//    public void findCenterBy3Points() {
+//        Point p1 = new Point(402, 43);
+//        Point p2 = new Point(263, 281);
+//        Point p3 = new Point(492, 337);
+//        Point c = Curve.findCircleRadius(p1, p2, p3);
+//        if(c == null){
+//            System.out.println("no center");
+//        }else {
+//            System.out.println("x:" + c.x + ",y:" + c.y);
+//        }
+//    }
+//
+//
+//    @Test
+//    public void CurveGraph() {
+//        CurveGraph graph = new CurveGraph();
+//    }
 
-    }
 
+//    @Test
+//    public void Matrix2dArgbToMatrix2dHsv() {
+//        Matrix2dArgb rgb = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(rgb);
+//        rgb = MatrixConverter.matrix2dHsvToMatrix2dArgb(hsv);
+//        rgb.save(dirOut + imageFile + "_rgb.png", "png");
+//    }
+
+//    @Test
+//    public void compare_segments() {
+//        ArrayList<Segment> segments = new ArrayList<Segment>();
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "А.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Б.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "В.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Е.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "З.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "К.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Л.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "М.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "П.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Р.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Т.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "У.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Ф.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Ч.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Ш.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Щ.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Э.dat").shiftPoints())) );
+//        segments.add( MatrixConverter.matrix2dByteToBinSegment(MatrixConverter.segmentToMatrix2dByte(Segment.load(dirIn + "Я.dat").shiftPoints())) );
+//
+//        for (Segment s: segments) {
+//            s.saveAs2dBooleanImage(dirOut + imageFile + s.id + ".png", "png");
+//        }
+//
+//        Segment testSeg = segments.get(0);
+//        double result;
+//        for (Segment etalon: segments) {
+//            result = CComparator.compareFormSegments(etalon, testSeg, 25, 10);
+//            System.out.println("segId:"+etalon.id + "; " + result);
+//        }
+//
+//    }
+
+//    @Test
+//    public void Matrix2dByte_findSegments() {
+//        int maxDiff = 32;
+//        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb rgb = baseRgb;
+//        Matrix2dByte m2dByte = MatrixConverter.matrix2dArgbToMatrix2dByte(rgb);
+//        ArrayList<Segment> segments = m2dByte.findSegments(maxDiff);
+//        Segment.removeSegmentsByMinNumberOfPoints(10, segments);
+//        for (Segment seg: segments) {
+//            seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
+//        }
+//    }
 
 //    @Test
 //    public void Matrix2dByte_findSegment() {
@@ -93,69 +293,69 @@ public class ImageMatrixTest {
 //        int y = 180;
 //        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
 //        Matrix2dArgb rgb = baseRgb.middleColor().middleColor();
-//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(rgb);
-//        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(rgb);
+//        Matrix2dByte m2dByte = MatrixConverter.matrix2dHsvToMatrix2dByteByValue(hsv);
 //        Matrix2dBoolean isProcessed = new Matrix2dBoolean(m2dByte.sizeX, m2dByte.sizeY);
 //        Segment seg = m2dByte.findSegment(isProcessed, maxDiff, x,y);
 //        seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
 //    }
 
 
+//
+//    // !!!!!!!!!!!!!!!!!!!!!!!!!!
+//    @Test
+//    public void segmentate() {
+//        int minDiff = 10;
+//        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
+//        Matrix2dArgb rgb = baseRgb;//.middleColor().middleColor();
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(rgb);//.removeCloseValues(32);
+//        Matrix2dByte m2dByte = MatrixConverter.matrix2dHsvToMatrix2dByteByHue(hsv);
+//        Segment baseSegment = MatrixConverter.matrix2dByteToSegment(m2dByte);
+//        baseSegment.segmentate(minDiff).removeSegmentsByMinNumberOfPoints(10);
+//        for (Segment seg: baseSegment.childSegments) {
+//            seg//.saveAs2dBooleanImage(dirOut + imageFile + seg.id + "_mask.png", "png")
+//                .saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png")
+//                .save(dirOut + imageFile + seg.id + ".dat");
+//        }
+//
+//        Segment testSeg = new Segment();
+//        testSeg.load(dirIn + "Y.dat");
+//        testSeg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + "testSegRgb.png", "png");
+//        double result;
+//        for (Segment etalon: baseSegment.childSegments) {
+//            result = CComparator.compareFormSegments(etalon, testSeg, 25, 256);
+//            System.out.println("segId:"+etalon.id + "; " + result);
+//        }
+//
+//    }
+//
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!
-    @Test
-    public void segmentate() {
-        int minDiff = 10;
-        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
-        Matrix2dArgb rgb = baseRgb;//.middleColor().middleColor();
-        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(rgb);//.removeCloseValues(32);
-        Matrix2dByte m2dByte = Converter.matrix2dHsvToMatrix2dByteByHue(hsv);
-        Segment baseSegment = Converter.matrix2dByteToSegment(m2dByte);
-        baseSegment.segmentate(minDiff).removeSegmentsByMinNumberOfPoints(10);
-        for (Segment seg: baseSegment.childSegments) {
-            seg//.saveAs2dBooleanImage(dirOut + imageFile + seg.id + "_mask.png", "png")
-                .saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png")
-                .save(dirOut + imageFile + seg.id + ".dat");
-        }
-
-        Segment testSeg = new Segment();
-        testSeg.load(dirIn + "Y.dat");
-        testSeg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + "testSegRgb.png", "png");
-        double result;
-        for (Segment etalon: baseSegment.childSegments) {
-            result = Comparator.compareFormSegments(etalon, testSeg, 25, 256);
-            System.out.println("segId:"+etalon.id + "; " + result);
-        }
-
-    }
-
-
-
-    @Test
-    public void reduceHsvColorsByGistogram() {
-        int dist = 16;
-        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-        m2d.save(dirOut + imageFile + "_check.png", "png");
-        Matrix2dHsv m2dHsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
-        Matrix2dHsv m2dHsv1 = m2dHsv.reduceColors(dist).reduceColors(dist).reduceColors(dist).reduceColors(dist).reduceColors(dist);
-        Matrix2dBoolean m2dBool = m2dHsv1.edgeByColorValue(dist);
-        m2dBool.save(dirOut + imageFile + "_bin.png", "png", TYPE_BYTE_GRAY);
-
-        int[] gist = m2dHsv1.countGistogramByValue();
-        for(int i = 0; i<256; i++) {
-            if(gist[i]>0) {
-                m2dBool = m2dHsv1.binarizeByValue(i, i);
-                m2dBool.save(dirOut + imageFile + "_bin"+i+".png", "png", TYPE_BYTE_GRAY);
-            }
-        }
-    }
+//
+//    @Test
+//    public void reduceHsvColorsByGistogram() {
+//        int dist = 16;
+//        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
+//        m2d.save(dirOut + imageFile + "_check.png", "png");
+//        Matrix2dHsv m2dHsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(m2d);
+//        Matrix2dHsv m2dHsv1 = m2dHsv.reduceColors(dist).reduceColors(dist).reduceColors(dist).reduceColors(dist).reduceColors(dist);
+//        Matrix2dBoolean m2dBool = m2dHsv1.edgeByColorValue(dist);
+//        m2dBool.save(dirOut + imageFile + "_bin.png", "png", TYPE_BYTE_GRAY);
+//
+//        int[] gist = m2dHsv1.countGistogramByValue();
+//        for(int i = 0; i<256; i++) {
+//            if(gist[i]>0) {
+//                m2dBool = m2dHsv1.binarizeByValue(i, i);
+//                m2dBool.save(dirOut + imageFile + "_bin"+i+".png", "png", TYPE_BYTE_GRAY);
+//            }
+//        }
+//    }
 
 //
 //    @Test
 //    public void countGistogramByValue() {
 //        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
 //        m2d.save(dirOut + imageFile + "_check.png", "png", TYPE_INT_ARGB);
-//        Matrix2dHsv m2dHsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
+//        Matrix2dHsv m2dHsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(m2d);
 //        int[] gist = m2dHsv.countGistogramByValue();
 //        Matrix2dBoolean m2dBool = m2dHsv.binarizeByValue(26, 55);
 //        m2dBool.save(dirOut + imageFile + "_bin26_55.png", "png", TYPE_BYTE_GRAY);
@@ -173,9 +373,9 @@ public class ImageMatrixTest {
 //    @Test
 //    public void edge(){
 //        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
-//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(m2d);
-//        Matrix2dByte bt = Converter.matrix2dHsvToMatrix2dByteByValue(hsv);
-//        m2d = Converter.matrix2dByteValueTomatrix2dArgb(bt);
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(m2d);
+//        Matrix2dByte bt = MatrixConverter.matrix2dHsvToMatrix2dByteByValue(hsv);
+//        m2d = MatrixConverter.matrix2dByteValueTomatrix2dArgb(bt);
 //        m2d.save(dirOut + imageFile + "_256.png", "png", TYPE_INT_ARGB);
 //        Matrix2dArgb clr8 = m2d.reduceColors(32).save(dirOut + imageFile + "_clr8.png", "png", TYPE_BYTE_GRAY);
 //        clr8.edgeByColorDistance(32).save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
@@ -212,8 +412,8 @@ public class ImageMatrixTest {
 //        Matrix2dArgb in = Matrix2dArgb.load(dirIn + imageFile);
 //        Matrix2dBoolean edge = in.edgeByColorDistance(16)
 //                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
-//        Image img1 = Converter.matrix2dBooleanToImage(edge);
-//        Matrix2dBoolean out = Converter.imageToMatrix2dBoolean(img1)
+//        ElementImage img1 = MatrixConverter.matrix2dBooleanToImage(edge);
+//        Matrix2dBoolean out = MatrixConverter.imageToMatrix2dBoolean(img1)
 //            .save(dirOut + imageFile + "_img.png", "png", TYPE_BYTE_GRAY);
 //    }
 
@@ -232,7 +432,7 @@ public class ImageMatrixTest {
 //                .replace3x3(449, 448)
 //                .remove90points()
 //                .save(dirOut + "A_cut" + "_edge.png", "png", TYPE_BYTE_GRAY);
-//        Image img1 = Converter.matrix2dBooleanToImage(baseEdge);
+//        ElementImage img1 = MatrixConverter.matrix2dBooleanToImage(baseEdge);
 //
 //        Matrix2dBoolean inEdge = in.edgeByColorDistance(16)
 //                .replacePoints(true, 0, 1, -1,-1)
@@ -244,9 +444,9 @@ public class ImageMatrixTest {
 //                .replace3x3(449, 448)
 //                .remove90points()
 //                .save(dirOut + "A_cut2x" + "_edge.png", "png", TYPE_BYTE_GRAY);
-//        Image img2 = Converter.matrix2dBooleanToImage(inEdge);
+//        ElementImage img2 = MatrixConverter.matrix2dBooleanToImage(inEdge);
 //
-//        double diff = Comparator.compareImages(img1, img2);
+//        double diff = CComparator.compareImages(img1, img2);
 //
 //        System.out.println("base n-points =" + baseEdge.countPoints() );
 //        System.out.println("in n-points =" + inEdge.countPoints() );
@@ -370,17 +570,17 @@ public class ImageMatrixTest {
 //                .save(dirOut + imageFile + "_lines.png", "png", TYPE_BYTE_GRAY);
 //    }
 
-    @Test
-    public void lineAngles() {
-        double angle;
-        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 10) );
-        System.out.println("angle must be 90 : " + angle);
-        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 20) );
-        System.out.println("angle must be 45 : " + angle);
-
-        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(1, 10), new Point2d(20, 20) );
-        System.out.println("angle must be 135 : " + angle);
-    }
+//    @Test
+//    public void lineAngles() {
+//        double angle;
+//        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 10) );
+//        System.out.println("angle must be 90 : " + angle);
+//        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 20) );
+//        System.out.println("angle must be 45 : " + angle);
+//
+//        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(1, 10), new Point2d(20, 20) );
+//        System.out.println("angle must be 135 : " + angle);
+//    }
 
 //    @Test
 //    public void toGraph() {
@@ -627,7 +827,7 @@ public class ImageMatrixTest {
 //        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
 //        Matrix2dArgb stretched = m2d.stretch2x()
 //                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
-//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(stretched);
 //        hsv.edgeByColorHue(1).save(dirOut + imageFile + "_edge1h.png", "png", TYPE_BYTE_GRAY);
 //        hsv.edgeByColorHue(2).save(dirOut + imageFile + "_edge2h.png", "png", TYPE_BYTE_GRAY);
 //        hsv.edgeByColorHue(4).save(dirOut + imageFile + "_edge4h.png", "png", TYPE_BYTE_GRAY);
@@ -643,7 +843,7 @@ public class ImageMatrixTest {
 //        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
 //        Matrix2dArgb stretched = m2d.stretch2x()
 //                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
-//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(stretched);
 //        hsv.edgeByColorSaturation(1).save(dirOut + imageFile + "_edge1s.png", "png", TYPE_BYTE_GRAY);
 //        hsv.edgeByColorSaturation(2).save(dirOut + imageFile + "_edge2s.png", "png", TYPE_BYTE_GRAY);
 //        hsv.edgeByColorSaturation(4).save(dirOut + imageFile + "_edge4s.png", "png", TYPE_BYTE_GRAY);
@@ -659,7 +859,7 @@ public class ImageMatrixTest {
 //        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + imageFile);
 //        Matrix2dArgb stretched = m2d.stretch2x()
 //                .save(dirOut + imageFile + "_2x.png", "png", TYPE_BYTE_GRAY);
-//        Matrix2dHsv hsv = Converter.matrix2dArgbToMatrix2dHsv(stretched);
+//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(stretched);
 //        hsv.edgeByColorValue(1).save(dirOut + imageFile + "_edge1v.png", "png", TYPE_BYTE_GRAY);
 //        hsv.edgeByColorValue(2).save(dirOut + imageFile + "_edge2v.png", "png", TYPE_BYTE_GRAY);
 //        hsv.edgeByColorValue(4).save(dirOut + imageFile + "_edge4v.png", "png", TYPE_BYTE_GRAY);

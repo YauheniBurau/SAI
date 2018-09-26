@@ -1,23 +1,28 @@
 package core.element;
 
+import core.math.Geometry;
+
 /**
  * Created by anonymous on 22.10.2017.
  */
 public class Line2d {
-    public Point2d p1;
-    public Point2d p2;
+    public Point p1;
+    public Point p2;
+    public double k; // coeff of y=k*x+b
+    public double b; // coeff of y=k*x+b
 
-    public Line2d(Point2d p1, Point2d p2) {
+    public Line2d(Point p1, Point p2) {
         this.p1 = p1;
         this.p2 = p2;
+        this.k = Geometry.findDirectLineCoeffK(p1, p2);
+        this.b = Geometry.findDirectLineCoeffB(p2, k);
     }
-
 
     /**
      * get angle between line vector (p0,p1) and x-axis
      * @return
      */
-    public static double getAngle(Point2d p0, Point2d p1){
+    public static double getAngle(Point p0, Point p1){
         double angle = 0;
         if( (p1.x - p0.x == 0) && (p1.y - p0.y > 0) ){ // 90 degree
             angle = 90;
@@ -50,7 +55,7 @@ public class Line2d {
      * get center of line
      * @return
      */
-    public Point2d getCenter(){
+    public Point getCenter(){
         int x, y;
         if(p1.x>=p2.x){ x = p2.x + (p1.x - p2.x)/2; }
         else{ x = p1.x + (p2.x - p1.x)/2; }
@@ -59,7 +64,7 @@ public class Line2d {
         }else{
             y = p1.y + (p2.y - p1.y)/2;
         }
-        return new Point2d(x,y);
+        return new Point(x,y, 0,0);
     }
 
     /**
@@ -70,21 +75,13 @@ public class Line2d {
         return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
     }
 
-    /**
-     * get length of line
-     * @return
-     */
-    public static double getLength(Point2d p1, Point2d p2){
-        return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
-    }
-
 
     /**
      * get angle between line and x-axis
      * @return
      */
     public double getAngle(){
-        Point2d c, a, b;
+        Point c, a, b;
         double angle;
         if(this.p1.y <= this.p2.y){
             c = this.p1;
@@ -93,8 +90,8 @@ public class Line2d {
             c = this.p2;
             a = this.p1;
         }
-        b = new Point2d(a.x, c.y);
-        angle = Point2d.findAngle(c, a, b);
+        b = new Point(a.x, c.y, 0,0);
+        angle = Point.findAngle(c, a, b);
         // count angleDiff
         return angle;
     }
@@ -131,7 +128,7 @@ public class Line2d {
      * @return
      */
     public static double distanceDiff(Line2d line, Line2d base){
-        Point2d p1, p2;
+        Point p1, p2;
         double length1, length2;
         p1 = line.getCenter();
         p2 = base.getCenter();

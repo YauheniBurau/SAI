@@ -1,15 +1,5 @@
-package core.matrix;
+package core.element;
 
-import core.converter.ElementConverter;
-import core.element.*;
-import core.exceptions.FileException;
-import core.old.Color;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -68,60 +58,61 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
         return null;
     }
 
-    /**
-     * load matrix2d from image ARGB-file
-     * @param urlFile
-     * @return
-     */
-    public static Matrix2dHsv load(String urlFile) {
-        BufferedImage image;
-        int x, y;
-        HSV color;
-        try {
-            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
-        } catch (IOException e) {
-            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
-        }
-        y = image.getHeight();
-        x = image.getWidth();
-        Matrix2dHsv matrix2D = new Matrix2dHsv(x, y);
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                color = ElementConverter.intToHsv( image.getRGB(i,j) );
-                matrix2D.setValue(i,j, color);
-            }
-        }
-        return matrix2D;
-    }
+//    /**
+//     * load matrix2d from image ARGB-file
+//     * @param urlFile
+//     * @return
+//     */
+//    public static Matrix2dHsv load(String urlFile) {
+//        BufferedImage image;
+//        int x, y;
+//        HSV color;
+//        try {
+//            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
+//        } catch (IOException e) {
+//            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
+//        }
+//        y = image.getHeight();
+//        x = image.getWidth();
+//        Matrix2dHsv matrix2D = new Matrix2dHsv(x, y);
+//        for(int j = 0; j<y; j++){
+//            for(int i = 0; i<x; i++){
+//                color = ElementConverter.intToHsv( image.getRGB(i,j) );
+//                matrix2D.setValue(i,j, color);
+//            }
+//        }
+//        return matrix2D;
+//    }
 
-    /**
-     * save matrix to image-file
-     * @param urlFile
-     * @param format
-     */
-    public Matrix2dHsv save(String urlFile, String format, int type) {
-        BufferedImage image;
-        int x, y;
-        image = new BufferedImage(this.sizeX, this.sizeY, type);
-        y = this.sizeY;
-        x = this.sizeX;
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                image.setRGB( i, j, ElementConverter.hsvToInt(this.getValue(i, j)) );
-            }
-        }
-        try {
-            ImageIO.write(image, format, new File(urlFile));
-        } catch (IOException e) {
-            throw new FileException("Can't save to 2d image file", e);
-        }
-        return this;
-    }
+//    /**
+//     * save matrix to image-file
+//     * @param urlFile
+//     * @param format
+//     */
+//    public Matrix2dHsv save(String urlFile, String format) {
+//        BufferedImage image;
+//        int type = TYPE_INT_ARGB;
+//        int x, y;
+//        image = new BufferedImage(this.sizeX, this.sizeY, type);
+//        y = this.sizeY;
+//        x = this.sizeX;
+//        for(int j = 0; j<y; j++){
+//            for(int i = 0; i<x; i++){
+//                image.setRGB( i, j, ElementConverter.argbToInt(ElementConverter.hsvToArgb(this.getValue(i, j))) );
+//            }
+//        }
+//        try {
+//            ImageIO.write(image, format, new File(urlFile));
+//        } catch (IOException e) {
+//            throw new FileException("Can't save to 2d image file", e);
+//        }
+//        return this;
+//    }
 
-    public ArrayList<Point2dGeneric<HSV>> getShapePoints(ArrayList<Point2d> points){
+    public ArrayList<Point2dGeneric<HSV>> getShapePoints(ArrayList<Point> points){
         ArrayList<Point2dGeneric<HSV>> pointsHSV = new ArrayList<Point2dGeneric<HSV>>();
         HSV hsv;
-        for (Point2d p: points) {
+        for (Point p: points) {
             hsv = this.getValue(p.x, p.y);
             pointsHSV.add( new Point2dGeneric<HSV>(p.x, p.y, new HSV(hsv.h, hsv.s, hsv.v)) );
         }
@@ -465,7 +456,7 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
 //            }
 //        }
 //        // 2. SORT EDGES
-//        edges.sort(new Comparator<Edge>() { public int compare(Edge o1, Edge o2) { return o1.compareTo(o2); } });
+//        edges.sort(new CComparator<Edge>() { public int compare(Edge o1, Edge o2) { return o1.compareTo(o2); } });
 //        // 3. CREATE SEGMENTS FOR EVERY POINT
 //        Matrix2dInt m2dSegmIds = new Matrix2dInt(this.sizeX, this.sizeY); // segmentId in matrix of points
 //        HashMap<Integer, Segment> segments = new HashMap<Integer, Segment>(); // segment number, segment;

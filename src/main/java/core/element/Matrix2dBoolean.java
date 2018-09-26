@@ -1,16 +1,7 @@
-package core.matrix;
+package core.element;
 
-import core.converter.ElementConverter;
-import core.element.*;
-import core.exceptions.FileException;
-import core.old.Color;
-//import core.element.Image;
+//import core.old.ElementImage;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -45,60 +36,228 @@ public class Matrix2dBoolean {
         return false;
     }
 
-    /**
-     * load matrix2d from image ARGB-file
-     * @param urlFile
-     * @return
-     */
-    public static Matrix2dBoolean load(String urlFile) {
-        BufferedImage image;
-        int x, y, intColor;
-        boolean color;
-        try {
-            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
-        } catch (IOException e) {
-            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
-        }
-        y = image.getHeight();
-        x = image.getWidth();
-        Matrix2dBoolean matrix2D = new Matrix2dBoolean(x, y);
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                intColor = image.getRGB(i,j);
-                color = ElementConverter.intToBoolean( intColor );
-                matrix2D.setValue(i,j, color);
-            }
-        }
-        return matrix2D;
-    }
+//    /**
+//     * load matrix2d from image ARGB-file
+//     * @param urlFile
+//     * @return
+//     */
+//    public static Matrix2dBoolean load(String urlFile) {
+//        BufferedImage image;
+//        int x, y, intColor;
+//        boolean color;
+//        try {
+//            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
+//        } catch (IOException e) {
+//            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
+//        }
+//        y = image.getHeight();
+//        x = image.getWidth();
+//        Matrix2dBoolean matrix2D = new Matrix2dBoolean(x, y);
+//        for(int j = 0; j<y; j++){
+//            for(int i = 0; i<x; i++){
+//                intColor = image.getRGB(i,j);
+//                color = ElementConverter.intToBoolean( intColor );
+//                matrix2D.setValue(i,j, color);
+//            }
+//        }
+//        return matrix2D;
+//    }
+
+//    /**
+//     * save matrix to image-file
+//     *
+//     * @param urlFile
+//     * @param format
+//     */
+//    public Matrix2dBoolean save(String urlFile, String format, int type) {
+//        BufferedImage image;
+//        int x, y;
+//        image = new BufferedImage(this.sizeX, this.sizeY, type);
+//        y = this.sizeY;
+//        x = this.sizeX;
+//        for (int j = 0; j < y; j++) {
+//            for (int i = 0; i < x; i++) {
+//                image.setRGB(i, j, ElementConverter.booleanToInt(this.getValue(i, j)));
+//            }
+//        }
+//        try {
+//            ImageIO.write(image, format, new File(urlFile));
+//        } catch (IOException e) {
+//            throw new FileException("Can't write matrix2d to image file", e);
+//        }
+//        return this;
+//    }
+//
+//    public Matrix2dBoolean skeletize(){
+//        Matrix2dBoolean result = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        boolean p00, p01, p02, p10, p11, p12, p20, p21, p22;
+//        for(int j = 0; j<this.sizeY; j++){
+//            for(int i = 0; i<this.sizeX; i++){
+//                p00 = this.getValue(i-1, j-1);
+//                p01 = this.getValue(i, j-1);
+//                p02 = this.getValue(i+1, j-1);
+//                p10 = this.getValue(i-1, j);
+//                p11 = this.getValue(i, j);
+//                p12 = this.getValue(i+1, j);
+//                p20 = this.getValue(i-1, j+1);
+//                p21 = this.getValue(i, j+1);
+//                p22 = this.getValue(i+1, j+1);
+//                if( p11 == true &&
+//                        (p00 == false || p01 == false || p02 == false ||
+//                                p10 == false         ||         p12 == false ||
+//                                p20 == false || p21 == false || p22 == false) ){
+//                    result.setValue( i, j, true);
+//                }
+//            }
+//        }
+//        return result;
+//    }
+
+//    /**
+//     * find curve by coordinates of one of the point
+//     * @param x
+//     * @param y
+//     * @return
+//     */
+//    public Curve findCurve(int x, int y){
+//        Curve c = new Curve();
+//
+//        return c;
+//    }
+
+//    public ArrayList<Curve> countBaseCurves(){
+//        // ===== COUNT BASE CURVES =====
+//        ArrayList<Curve> curves = new ArrayList<Curve>();
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Point p1, p2;
+//        Curve curve;
+//        ArrayList<Point> curvePoints;
+//        int n;
+//        for(int j = 0; j<this.sizeY; j++){
+//            for(int i = 0; i<this.sizeX; i++) {
+//                if(this.getValue(i, j)==true && isProcessed.getValue(i, j) == false){
+//                    // 1. find horizontal base lines
+//                    p1 = new Point(i, j, 0, 0, 0);
+//                    p2 = new Point(i, j, 0, 0, 0);
+//                    curvePoints = new ArrayList<Point>();
+//                    curvePoints.add(new Point(i, j, 0, 0, 0));
+//                    n = 1;
+//                    while(this.getValue(i-n, j)==true ){
+//                        p1.x = i-n;
+//                        isProcessed.setValue(i-n, j, true);
+//                        curvePoints.add(new Point(i-n,j, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    n = 1;
+//                    while(this.getValue(i+n, j)==true ){
+//                        p2.x = i+n;
+//                        isProcessed.setValue(i+n, j, true);
+//                        curvePoints.add(new Point(i+n,j, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    curve = new Curve(p1, p2, null);
+//                    curve.points = curvePoints;
+//                    curves.add(curve);
+//                    // 2. find vertical base lines
+//                    p1 = new Point(i, j, 0, 0, 0);
+//                    p2 = new Point(i, j, 0, 0, 0);
+//                    curvePoints = new ArrayList<Point>();
+//                    curvePoints.add(new Point(i, j, 0, 0, 0));
+//                    n = 1;
+//                    while(this.getValue(i, j-n)==true ){
+//                        p1.y = j-n;
+//                        isProcessed.setValue(i, j-n, true);
+//                        curvePoints.add(new Point(i, j-n, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    n = 1;
+//                    while(this.getValue(i, j+n)==true ){
+//                        p2.y = j+n;
+//                        isProcessed.setValue(i, j+n, true);
+//                        curvePoints.add(new Point(i, j+n, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    curve = new Curve(p1, p2, null);
+//                    curve.points = curvePoints;
+//                    curves.add(curve);
+//                    // 3. find diagonal 45o base lines
+//                    p1 = new Point(i, j, 0, 0, 0);
+//                    p2 = new Point(i, j, 0, 0, 0);
+//                    curvePoints = new ArrayList<Point>();
+//                    curvePoints.add(new Point(i, j, 0, 0, 0));
+//                    n = 1;
+//                    while(this.getValue(i-n, j+n)==true ){
+//                        p1.x = i-n;
+//                        p1.y = j+n;
+//                        isProcessed.setValue(i-n, j+n, true);
+//                        curvePoints.add(new Point(i-n, j+n, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    n = 1;
+//                    while(this.getValue(i+n, j-n)==true ){
+//                        p2.x = i+n;
+//                        p2.y = j-n;
+//                        isProcessed.setValue(i+n, j-n, true);
+//                        curvePoints.add(new Point(i+n, j-n, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    curve = new Curve(p1, p2, null);
+//                    curve.points = curvePoints;
+//                    curves.add(curve);
+//                    // 4. find diagonal 135o base lines
+//                    p1 = new Point(i, j, 0, 0, 0);
+//                    p2 = new Point(i, j, 0, 0, 0);
+//                    curvePoints = new ArrayList<Point>();
+//                    curvePoints.add(new Point(i, j, 0, 0, 0));
+//                    n = 1;
+//                    while(this.getValue(i-n, j-n)==true ){
+//                        p1.x = i-n;
+//                        p1.y = j-n;
+//                        isProcessed.setValue(i-n, j-n, true);
+//                        curvePoints.add(new Point(i-n, j-n, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    n = 1;
+//                    while(this.getValue(i+n, j+n)==true ){
+//                        p2.x = i+n;
+//                        p2.y = j+n;
+//                        isProcessed.setValue(i+n, j+n, true);
+//                        curvePoints.add(new Point(i+n, j+n, 0, 0, 0));
+//                        n+=1;
+//                    }
+//                    curve = new Curve(p1, p2, null);
+//                    curve.points = curvePoints;
+//                    curves.add(curve);
+//                    // finish point processing
+//                    isProcessed.setValue(i, j, true);
+//                }
+//            }
+//        }
+//        // ===== REMOVE OVERWHELMING LINES =====
+//        Collections.sort(curves, new CurveByLengthDescComparator());
+//        boolean isLine;
+//        ArrayList<Curve> curvesResult = new ArrayList<Curve>();
+//        isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        for (Curve c: curves){
+//            isLine = false;
+//            for (Point p: c.points) {
+//                if(isProcessed.getValue(p.x, p.y)==false){
+//                    isLine = true;
+//                }
+//                isProcessed.setValue(p.x, p.y, true);
+//            }
+//            if(isLine == true){
+//                curvesResult.add(c);
+//            }else{
+//                break;
+//            }
+//        }
+//        return curvesResult;
+//    }
 
 
-    /**
-     * save matrix to image-file
-     *
-     * @param urlFile
-     * @param format
-     */
-    public Matrix2dBoolean save(String urlFile, String format, int type) {
-        BufferedImage image;
-        int x, y;
-        image = new BufferedImage(this.sizeX, this.sizeY, type);
-        y = this.sizeY;
-        x = this.sizeX;
-        for (int j = 0; j < y; j++) {
-            for (int i = 0; i < x; i++) {
-                image.setRGB(i, j, ElementConverter.booleanToInt(this.getValue(i, j)));
-            }
-        }
-        try {
-            ImageIO.write(image, format, new File(urlFile));
-        } catch (IOException e) {
-            throw new FileException("Can't write matrix2d to image file", e);
-        }
-        return this;
-    }
 
-
+    // ================================ OLD =============================================
     public Matrix2dBoolean getFilledShape() {
         int y = this.sizeY;
         int x = this.sizeX;
@@ -170,7 +329,7 @@ public class Matrix2dBoolean {
         int i, j;
         int sX = this.sizeX;
         int sY = this.sizeY;
-        ArrayList<Point2d> points = new ArrayList<Point2d>();
+        ArrayList<Point> points = new ArrayList<Point>();
         // copy
         Matrix2dBoolean m2d = new Matrix2dBoolean(sX, sY);
         for(j = 0; j<sY;j++ ){
@@ -188,7 +347,7 @@ public class Matrix2dBoolean {
         boolean isChanged;
         do{
             isChanged = false;
-            points = new ArrayList<Point2d>();
+            points = new ArrayList<Point>();
             // find skeleton
             for (j = 1; j < sY-1; j++) {
                 for (i = 1; i < sX-1; i++) {
@@ -215,16 +374,16 @@ public class Matrix2dBoolean {
                         if (v9 == 0 && v2 == 1) move01 += 1;
 
                         if (sum >= 2 && sum <= 6 && move01 == 1 && v2 * v4 * v6 == 0 && v4 * v6 * v8 == 0) {
-                            points.add(new Point2d(i,j));
+                            points.add(new Point(i,j, 0, 0));
                         }
                         if (sum >= 2 && sum <= 6 && move01 == 1 && v2 * v4 * v8 == 0 && v2 * v6 * v8 == 0) {
-                            points.add(new Point2d(i,j));
+                            points.add(new Point(i,j, 0, 0));
                         }
                     }
                 }
             }
             if(points.size()>0){isChanged = true;}
-            for (Point2d p: points) {
+            for (Point p: points) {
                 m2d.setValue(p.x, p.y, false);
             }
 //        }while(false);
@@ -301,53 +460,53 @@ public class Matrix2dBoolean {
         return m2d;
     }
 
-    /**
-     * count skeleton of image where removed pixels not broke connectivity
-     * @return
-     */
-    public Matrix2dBoolean skeletize(){
-        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
-        boolean isChanged;
-        boolean v2, v3, v4, v5, v6, v7, v8, v9;
-        int n;
-        for (int j = 0; j < sizeY; j++) {
-            for (int i = 0; i < sizeX; i++) {
-                m2d.setValue(i, j, this.getValue(i, j));
-            }
-        }
-        do {
-            isChanged = false;
-            for (int j = 1; j < sizeY - 1; j++) {
-                for (int i = 1; i < sizeX - 1; i++) {
-                    if (m2d.getValue(i, j) == true ){
-                        v2 = m2d.getValue(i, j - 1);
-                        v3 = m2d.getValue(i + 1, j - 1);
-                        v4 = m2d.getValue(i + 1, j);
-                        v5 = m2d.getValue(i + 1, j + 1);
-                        v6 = m2d.getValue(i, j + 1);
-                        v7 = m2d.getValue(i - 1, j + 1);
-                        v8 = m2d.getValue(i - 1, j);
-                        v9 = m2d.getValue(i - 1, j - 1);
-                        // count and check connectivity. If pixel doesn't broke connection we can remove it
-                        n = 0;
-                        if( (v2 == false && v3 == true) ) n++;
-                        if( (v3 == false && v4 == true) ) n++;
-                        if( (v4 == false && v5 == true) ) n++;
-                        if( (v5 == false && v6 == true) ) n++;
-                        if( (v6 == false && v7 == true) ) n++;
-                        if( (v7 == false && v8 == true) ) n++;
-                        if( (v8 == false && v9 == true) ) n++;
-                        if( (v9 == false && v2 == true) ) n++;
-                        if ( n==1 ) {
-                            m2d.setValue(i, j, false);
-                            isChanged = true;
-                        }
-                    }
-                }
-            }
-        }while(isChanged);
-        return m2d;
-    }
+//    /**
+//     * count skeleton of image where removed pixels not broke connectivity
+//     * @return
+//     */
+//    public Matrix2dBoolean skeletize(){
+//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        boolean isChanged;
+//        boolean v2, v3, v4, v5, v6, v7, v8, v9;
+//        int n;
+//        for (int j = 0; j < sizeY; j++) {
+//            for (int i = 0; i < sizeX; i++) {
+//                m2d.setValue(i, j, this.getValue(i, j));
+//            }
+//        }
+//        do {
+//            isChanged = false;
+//            for (int j = 1; j < sizeY - 1; j++) {
+//                for (int i = 1; i < sizeX - 1; i++) {
+//                    if (m2d.getValue(i, j) == true ){
+//                        v2 = m2d.getValue(i, j - 1);
+//                        v3 = m2d.getValue(i + 1, j - 1);
+//                        v4 = m2d.getValue(i + 1, j);
+//                        v5 = m2d.getValue(i + 1, j + 1);
+//                        v6 = m2d.getValue(i, j + 1);
+//                        v7 = m2d.getValue(i - 1, j + 1);
+//                        v8 = m2d.getValue(i - 1, j);
+//                        v9 = m2d.getValue(i - 1, j - 1);
+//                        // count and check connectivity. If pixel doesn't broke connection we can remove it
+//                        n = 0;
+//                        if( (v2 == false && v3 == true) ) n++;
+//                        if( (v3 == false && v4 == true) ) n++;
+//                        if( (v4 == false && v5 == true) ) n++;
+//                        if( (v5 == false && v6 == true) ) n++;
+//                        if( (v6 == false && v7 == true) ) n++;
+//                        if( (v7 == false && v8 == true) ) n++;
+//                        if( (v8 == false && v9 == true) ) n++;
+//                        if( (v9 == false && v2 == true) ) n++;
+//                        if ( n==1 ) {
+//                            m2d.setValue(i, j, false);
+//                            isChanged = true;
+//                        }
+//                    }
+//                }
+//            }
+//        }while(isChanged);
+//        return m2d;
+//    }
 
     /**
      * count edge in binary mask
@@ -404,7 +563,7 @@ public class Matrix2dBoolean {
      * @param p2
      * @return
      */
-    public Matrix2dBoolean drawLine(Point2d p1, Point2d p2) {
+    public Matrix2dBoolean drawLine(Point p1, Point p2) {
         return this.drawLine(p1.x, p1.y, p2.x, p2.y);
     }
 
@@ -463,9 +622,9 @@ public class Matrix2dBoolean {
      * @param angleEnd
      * @return
      */
-    public Matrix2dBoolean drawArc(Point2d rc, double r, int angleStart, int angleEnd){
+    public Matrix2dBoolean drawArc(Point rc, double r, int angleStart, int angleEnd){
         double angle;
-        Point2d p1, p2;
+        Point p1, p2;
         int x1, y1, x2, y2;
         angle = angleStart;
         while(angle!=angleEnd) {
@@ -480,36 +639,20 @@ public class Matrix2dBoolean {
         return this;
     }
 
-    /**
-     * draw arc
-     * @param p1 - start point by uncounter clockwise
-     * @param p2 - end point by uncounter clockwise
-     * @param rc coordinates of point of radius
-     * @return
-     */
-    public Matrix2dBoolean drawArc(Point2d p1, Point2d p2, Point2d rc){
-        int angleStart = (int)Line2d.getAngle(rc, p1);
-        int angleEnd = (int)Line2d.getAngle(rc, p2);
-        double r = Line2d.getLength(rc, p1);
-        this.drawArc(rc, r, angleStart, angleEnd);
-        return this;
-    }
-
-
-    // TODO:
-    /**
-     * draw arc
-     * @param p1 - start point by uncounter clockwise
-     * @param pc - coordinates of point of center of circle
-     * @param angle - angle circle sector
-     * @return
-     */
-    public Matrix2dBoolean drawArc(Point2d pc, Point2d p1, int angle){
-
-        return this;
-    }
-
-
+//    /**
+//     * draw arc
+//     * @param p1 - start point by uncounter clockwise
+//     * @param p2 - end point by uncounter clockwise
+//     * @param rc coordinates of point of radius
+//     * @return
+//     */
+//    public Matrix2dBoolean drawArc(Point p1, Point p2, Point rc){
+//        int angleStart = (int)Line2d.getAngle(rc, p1);
+//        int angleEnd = (int)Line2d.getAngle(rc, p2);
+//        double r = Line2d.getLength(rc, p1);
+//        this.drawArc(rc, r, angleStart, angleEnd);
+//        return this;
+//    }
 
     /**
      * count number for pattern 3x3
@@ -636,172 +779,44 @@ public class Matrix2dBoolean {
         this.setValue(i, j + 1, v4);
     }
 
-    /**
-     * convert Matrix2dBoolean binary mask into Matrix2dGraph
-     * @return
-     */
-    public Matrix2dGraph toGraph() {
-        int sizeX = this.sizeX;
-        int sizeY = this.sizeY;
-        Graph g1, g2, g3, g4, g5, g6, g7, g8, g9;
-        Matrix2dGraph m2d = new Matrix2dGraph(sizeX, sizeY);
-        for (int j = 1; j < sizeY-1; j++) {
-            for (int i = 1; i < sizeX-1; i++) {
-                if(this.getValue(i, j)==true) m2d.setValue(i, j, new Graph( new Point2d(i, j)));
-            }
-        }
-        for (int j = 1; j < sizeY-1; j++) {
-            for (int i = 1; i < sizeX-1; i++) {
-                g1 = m2d.getValue(i, j);
-                if(g1 != null ) {
-                    g2 = m2d.getValue(i, j - 1);
-                    g3 = m2d.getValue(i + 1, j - 1);
-                    g4 = m2d.getValue(i + 1, j);
-                    g5 = m2d.getValue(i + 1, j + 1);
-                    g6 = m2d.getValue(i, j + 1);
-                    g7 = m2d.getValue(i - 1, j + 1);
-                    g8 = m2d.getValue(i - 1, j);
-                    g9 = m2d.getValue(i - 1, j - 1);
-                    if (g2 != null) {
-                        if (!g1.getPoints().contains(g2)) {
-                            g1.getPoints().add(g2);
-                            g2.getPoints().add(g1);
-                        }
-                    }
-                    if (g3 != null) {
-                        if (!g1.getPoints().contains(g3)) {
-                            g1.getPoints().add(g3);
-                            g3.getPoints().add(g1);
-                        }
-                    }
-                    if (g4 != null) {
-                        if (!g1.getPoints().contains(g4)) {
-                            g1.getPoints().add(g4);
-                            g4.getPoints().add(g1);
-                        }
-                    }
-                    if (g5 != null) {
-                        if (!g1.getPoints().contains(g5)) {
-                            g1.getPoints().add(g5);
-                            g5.getPoints().add(g1);
-                        }
-                    }
-                    if (g6 != null) {
-                        if (!g1.getPoints().contains(g6)) {
-                            g1.getPoints().add(g6);
-                            g6.getPoints().add(g1);
-                        }
-                    }
-                    if (g7 != null) {
-                        if (!g1.getPoints().contains(g7)) {
-                            g1.getPoints().add(g7);
-                            g7.getPoints().add(g1);
-                        }
-                    }
-                    if (g8 != null) {
-                        if (!g1.getPoints().contains(g8)) {
-                            g1.getPoints().add(g8);
-                            g8.getPoints().add(g1);
-                        }
-                    }
-                    if (g9 != null) {
-                        if (!g1.getPoints().contains(g9)) {
-                            g1.getPoints().add(g9);
-                            g9.getPoints().add(g1);
-                        }
-                    }
-                }
-            }
-        }
-        return m2d;
-    }
 
-    @Deprecated
-    /**
-     * count center of weight
-     * @return
-     */
-    public Point2d countCenterOfSymmetry(){
-        int x, y;
-        int n = 0;
-        int cx = 0;
-        int cy = 0;
-        y = this.sizeY;
-        x = this.sizeX;
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                if( this.getValue(i, j)==true){
-                    n +=1;
-                    cx += i;
-                    cy += j;
-                }
-            }
-        }
-        if(n>0) {
-            cx /= n;
-            cy /= n;
-        }
-        return new Point2d(cx, cy);
-    }
 
-    @Deprecated
-    /**
-     * remember in calculation used X axis from left to right and y axis from top to bottom
-     * count angle of main axis of symmetry
-     * @return
-     */
-    public int countAngleAxisOfSymmetry(Point2d center){
-        int x, y;
-        int n = 0;
-        int cx = center.x;
-        int cy = center.y;
-        int dx = 0, dy = 0;
-        int angle = 0;
-        int a;
-        y = this.sizeY;
-        x = this.sizeX;
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                if( this.getValue(i, j)==true){
-//                    if((i-cx)==0 ){
-//                        n +=1;
-//                        angle +=90;
-//                    }
-//                    else{
-//                        n +=1;
-//                        // cy-j because of picture non standart y-axis
-//                        a = (int) Math.round( Math.atan2((j-cy),(i-cx))*180/Math.PI );
-//                        if(a<0){ a+=360; }
-//                        if(a> 180){ a-=180;}
-//                        angle += a ;
-//                    }
+//    @Deprecated
+//    /**
+//     * remember in calculation used X axis from left to right and y axis from top to bottom
+//     * count angle of main axis of symmetry
+//     * @return
+//     */
+//    public int countAngleAxisOfSymmetry(Point center){
+//        int x, y;
+//        int n = 0;
+//        int cx = center.x;
+//        int cy = center.y;
+//        int dx = 0, dy = 0;
+//        int angle = 0;
+//        int a;
+//        y = this.sizeY;
+//        x = this.sizeX;
+//
+//        for(int j = 0; j<y; j++) {
+//            for (int i = 0; i < x; i++) {
+//                if (this.getValue(i, j) == true) {
+//                    dx += (i - cx);
+//                    dy += (j - cy);
 //                }
 //            }
 //        }
-//        if(n>0) {
-//            angle /= n;
-//
+//        if(dx==0){
+//            angle =90;
+//        }else{
+//            a = (int) Math.round( Math.atan2(dy,dx)*180/Math.PI );
+//            if(a<0){ a+=360; }
+//            if(a> 180){ a-=180;}
+//            angle = a;
 //        }
-
-        for(int j = 0; j<y; j++) {
-            for (int i = 0; i < x; i++) {
-                if (this.getValue(i, j) == true) {
-                    dx += (i - cx);
-                    dy += (j - cy);
-                }
-            }
-        }
-        if(dx==0){
-            angle =90;
-        }else{
-            a = (int) Math.round( Math.atan2(dy,dx)*180/Math.PI );
-            if(a<0){ a+=360; }
-            if(a> 180){ a-=180;}
-            angle = a;
-        }
-
-        return angle;
-    }
+//
+//        return angle;
+//    }
 
 
     /**
@@ -852,32 +867,12 @@ public class Matrix2dBoolean {
         return m2d;
     }
 
-    public static float compareRotation(Matrix2dBoolean etalon, Matrix2dBoolean input){
-        float diff = 0;
-
-
-        return diff;
-    }
-
-    public static float compareRatio(Matrix2dBoolean etalon, Matrix2dBoolean input){
-        float diff = 0;
-
-
-        return diff;
-    }
-
-    // TODO:
-    public static double compareLines(double x1, double y1, double x2, double y2) {
-        double dist = 0;
-        return dist;
-    }
 
     public static double comparePoints(double x1, double y1, double x2, double y2) {
         double dist = Math.sqrt(
                 Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2) );
         return dist;
     }
-
 
     public static double comparePoints(Matrix2dBoolean base, Matrix2dBoolean in){
         double diff = 0;
@@ -915,6 +910,174 @@ public class Matrix2dBoolean {
         }
         diff /= n;
         return diff;
+    }
+
+
+    private static final int _0_45 = 1;
+    private static final int _46_90 = 2;
+    private static final int _91_135 = 3;
+    private static final int _136_179 = 4;
+
+    private static final int FIND_LEFT_POINT = 10;
+    private static final int FIND_RIGHT_POINT = 11;
+
+    private static final int P0 = 0;
+    private static final int P1 = 1;
+    private static final int P2 = 2;
+    private static final int P3 = 3;
+    private static final int P4 = 4;
+    private static final int P5 = 5;
+    private static final int P6 = 6;
+    private static final int P7 = 7;
+    private static final int P8 = 8;
+
+    /**
+     * p8 p1 p2
+     * p7 p0 p3
+     * p6 p5 p4
+     * @param pStart - is p0
+     * @param pAroundIndex are p1, p2, p3, p4, p5, p6, p7, p8
+     * @return
+     */
+    private Point findPointExist(Point pStart, int pAroundIndex){
+        Point p = null;
+//        switch(pAroundIndex) {
+//            case P1:
+//                if (this.getValue(p.x, p.y - 1) == true) {
+//                    p = new Point(p.x, p.y - 1);
+//                }
+//                break;
+//            case P2:
+//                if (this.getValue(p.x+1, p.y - 1) == true) {
+//                    p = new Point(p.x+1, p.y - 1);
+//                }
+//                break;
+//            case P3:
+//                if (this.getValue(p.x+1, p.y) == true) {
+//                    p = new Point(p.x+1, p.y);
+//                }
+//                break;
+//            case P4:
+//                if (this.getValue(p.x+1, p.y+1) == true) {
+//                    p = new Point(p.x+1, p.y+1);
+//                }
+//                break;
+//            case P5:
+//                if (this.getValue(p.x, p.y+1) == true) {
+//                    p = new Point(p.x, p.y+1);
+//                }
+//                break;
+//            case P6:
+//                if (this.getValue(p.x-1, p.y+1) == true) {
+//                    p = new Point(p.x-1, p.y+1);
+//                }
+//                break;
+//            case P7:
+//                if (this.getValue(p.x-1, p.y) == true) {
+//                    p = new Point(p.x-1, p.y);
+//                }
+//                break;
+//            case P8:
+//                if (this.getValue(p.x-1, p.y-1) == true) {
+//                    p = new Point(p.x-1, p.y-1);
+//                }
+//                break;
+//            default: p = null;
+//        }
+        return p;
+    }
+
+    /**
+     * Find Point for prolonging line
+     * @param p point around to find linePoint
+     * @param directionLine from _0 to _136_179 constants
+     * @param directionLine FIND_LEFT_POINT or FIND_RIGHT_POINT
+     * @return Point
+     */
+    private Point findMorthPoint(Point p, int directionLine, int findPoint){
+        Point pNext = null;
+//        if(findPoint == FIND_LEFT_POINT){
+//            switch(directionLine){
+//                case _0: if(this.getValue(p.x-1, p.y)==true){
+//                    pNext = new Point(p.x-1, p.y);
+//                }
+//                break;
+//
+//                case _1_44: break;
+//
+//                case _45: if(this.getValue(p.x-1, p.y+1)==true){
+//                    pNext = new Point(p.x-1, p.y+1);
+//                }
+//                break;
+//                case _46_89: break;
+//                case _90: if(this.getValue(p.x, p.y-1)==true){
+//                    pNext = new Point(p.x, p.y-1);
+//                }
+//                break;
+//                case _91_134: break;
+//                case _135: if(this.getValue(p.x-1, p.y-1)==true){
+//                    pNext = new Point(p.x-1, p.y-1);
+//                }
+//                break;
+//                case _136_179: break;
+//            }
+//        }
+//        if(findPoint == FIND_RIGHT_POINT){
+//            switch(directionLine){
+//                case _0: break;
+//                case _1_44: break;
+//                case _45: break;
+//                case _46_89: break;
+//                case _90: break;
+//                case _91_134: break;
+//                case _135: break;
+//                case _136_179: break;
+//            }
+//        }
+//
+        return pNext;
+    }
+
+    private MorthLine findMorthLine(Point pStart, int directionLine){
+        MorthLine mLine = new MorthLine();
+        Point p1, p2;
+        p1 = pStart;
+        p2 = pStart;
+        boolean isNextPointAvailable = false;
+//        do{
+//
+//        }while();
+
+
+        return mLine;
+    }
+
+
+    /**
+     * find all morthological lines on 2d boolean matrix
+     * @return
+     */
+    public ArrayList<MorthLine> findMorthLines(){
+        ArrayList<MorthLine> lines = new ArrayList<MorthLine>();
+        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+
+//        Point p1, p2;
+//        Curve curve;
+//        ArrayList<Point> curvePoints;
+//        int n;
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++) {
+                if(this.getValue(i, j)==true && isProcessed.getValue(i, j) == false) {
+//
+//                    while(){
+//
+//
+//                    }
+                }
+            }
+        }
+
+        return lines;
     }
 
 

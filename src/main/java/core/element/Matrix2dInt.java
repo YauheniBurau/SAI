@@ -1,4 +1,4 @@
-package core.matrix;
+package core.element;
 
 /**
  * Created by anonymous on 05.10.2017.

@@ -1,6 +1,6 @@
 package core.old;
 
-import core.matrix.IMatrix2d;
+import core.element.IMatrix2d;
 
 /**
  * Created by anonymous on 06.10.2017.

@@ -1,7 +1,4 @@
-package core.matrix;
-
-import core.element.Graph;
-import core.element.Point2d;
+package core.element;
 
 import java.util.ArrayList;
 
@@ -39,7 +36,7 @@ public class Matrix2dGraph {
      * @param b
      * @return
      */
-    public static double findAngle(Point2d c, Point2d a, Point2d b ){
+    public static double findAngle(Point c, Point a, Point b ){
         double bx, by, ax, ay;
         double angle;
         bx = c.x - b.x;
@@ -69,7 +66,7 @@ public class Matrix2dGraph {
         Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
         boolean isChanged;
         Graph a, b, c;
-        Point2d pa, pb, pc;
+        Point pa, pb, pc;
         double lb, lc;
         double angle;
         do {
@@ -155,7 +152,7 @@ public class Matrix2dGraph {
             }
         }
         Graph g;
-        Point2d p;
+        Point p;
         int n = 0;
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {
@@ -175,7 +172,7 @@ public class Matrix2dGraph {
      */
     public int countPoints(){
         Graph g;
-        Point2d p;
+        Point p;
         int n = 0;
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {
@@ -187,5 +184,7 @@ public class Matrix2dGraph {
         }
         return n;
     }
+
+
 
 }

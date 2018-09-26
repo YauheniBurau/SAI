@@ -1,13 +1,5 @@
 package core.old;
 
-import core.converter.Converter;
-import core.matrix.Matrix2dArgb;
-import core.matrix.Matrix2dBoolean;
-import core.old.Matrix2dNeuron;
-import org.junit.Test;
-
-import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
-
 /**
  * Created by anonymous on 04.02.2018.
  */
@@ -52,8 +44,8 @@ public class NeuronsTests {
 //                .edge()
 //                .save(dirOut + imageFile + "_edge.png", "png", TYPE_BYTE_GRAY);
 //        System.out.println("n=" + edge.countPoints() );
-//        Matrix2dNeuron m2dN = Converter.booleanToNeurons(edge);
-//        Matrix2dBoolean m2dB = Converter.neuronToBoolean(m2dN);
+//        Matrix2dNeuron m2dN = MatrixConverter.booleanToNeurons(edge);
+//        Matrix2dBoolean m2dB = MatrixConverter.neuronToBoolean(m2dN);
 //        m2dB.save(dirOut + imageFile + "_point2dNeurons.png", "png", TYPE_BYTE_GRAY);
 //    }
 

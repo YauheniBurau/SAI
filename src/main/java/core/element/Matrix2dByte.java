@@ -1,13 +1,6 @@
-package core.matrix;
-
-import core.element.Edge;
-import core.element.Point2d;
-import core.element.Point2dByte;
-import core.element.Segment;
+package core.element;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
@@ -75,9 +68,9 @@ public class Matrix2dByte implements IMatrix2d<Byte> {
         int n = 0;
         Segment s = new Segment();
         s.mainM2d = this;
-        Point2dByte p;
-        LinkedList<Point2dByte> points = new LinkedList<Point2dByte>();
-        points.add( new Point2dByte(x, y, this.getValue(x, y)) );
+        Point p;
+        LinkedList<Point> points = new LinkedList<Point>();
+        points.add( new Point(x, y, 0, this.getValue(x, y)) );
         isProcessed.setValue(x, y, true);
         summ += this.getValue(x, y);
         n += 1;
@@ -95,50 +88,50 @@ public class Matrix2dByte implements IMatrix2d<Byte> {
             v8 = this.getValue(pi-1, pj);
             v9 = this.getValue(pi-1, pj-1);
             if( v2 != null && isProcessed.getValue(pi, pj-1) == false && Math.abs(summ/n - v2) <= maxDiff) {
-                points.add( new Point2dByte(pi,pj-1, v2) );
+                points.add( new Point(pi,pj-1, 0, v2) );
                 isProcessed.setValue(pi, pj-1, true);
                 summ += v2;
                 n += 1;
             }
             if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && Math.abs(summ/n - v3) <= maxDiff) {
-                points.add( new Point2dByte(pi+1,pj-1, v3) );
+                points.add( new Point(pi+1,pj-1, 0, v3) );
                 isProcessed.setValue(pi+1, pj-1, true);
                 summ += v3;
                 n += 1;
             }
             if( v4 != null && isProcessed.getValue(pi+1, pj) == false && Math.abs(summ/n - v4) <= maxDiff) {
-                points.add( new Point2dByte(pi+1,pj, v4 ) );
+                points.add( new Point(pi+1,pj, 0, v4) );
                 isProcessed.setValue(pi+1, pj, true);
                 summ += v4;
                 n += 1;
             }
             if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && Math.abs(summ/n - v5) <= maxDiff) {
-                points.add( new Point2dByte(pi+1,pj+1, v5 ) );
+                points.add( new Point(pi+1,pj+1, 0, v5) );
                 isProcessed.setValue(pi+1, pj+1, true);
                 summ += v5;
                 n += 1;
             }
             if( v6 != null && isProcessed.getValue(pi, pj+1) == false && Math.abs(summ/n - v6) <= maxDiff) {
-                points.add( new Point2dByte(pi,pj+1, v6) );
+                points.add( new Point(pi,pj+1, 0, v6) );
                 isProcessed.setValue(pi, pj+1, true);
                 summ += v6;
                 n += 1;
             }
 
             if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && Math.abs(summ/n - v7) <= maxDiff) {
-                points.add( new Point2dByte(pi-1,pj+1, v7) );
+                points.add( new Point(pi-1,pj+1, 0, v7) );
                 isProcessed.setValue(pi-1, pj+1, true);
                 summ += v7;
                 n += 1;
             }
             if( v8 != null && isProcessed.getValue(pi-1, pj) == false && Math.abs(summ/n - v8) <= maxDiff) {
-                points.add( new Point2dByte(pi-1,pj, v8) );
+                points.add( new Point(pi-1,pj, 0, v8) );
                 isProcessed.setValue(pi-1, pj, true);
                 summ += v8;
                 n += 1;
             }
             if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && Math.abs(summ/n - v9) <= maxDiff) {
-                points.add( new Point2dByte(pi-1,pj-1, v9) );
+                points.add( new Point(pi-1,pj-1, 0, v9) );
                 isProcessed.setValue(pi-1, pj-1, true);
                 summ += v9;
                 n += 1;
@@ -160,7 +153,7 @@ public class Matrix2dByte implements IMatrix2d<Byte> {
             for(int i = 0; i<this.sizeX; i++) {
                 if( isProcessed.getValue(i, j) == false ){
                     seg = this.findSegment(isProcessed, maxDiff, i, j);
-                    for(Point2dByte p: seg.points){
+                    for(Point p: seg.points){
                         isProcessed.setValue(p.x, p.y, true);
                     }
                     segments.add(seg);
@@ -175,7 +168,7 @@ public class Matrix2dByte implements IMatrix2d<Byte> {
      * count center of weight
      * @return
      */
-    public Point2d countCenterOfSymmetry(){
+    public Point countCenterOfSymmetry(){
 //        int x, y, n = 0, cx = 0, cy = 0;
 //        y = this.sizeY;
 //        x = this.sizeX;
