@@ -32,7 +32,7 @@ public class ElementSaver {
 //    }
 
 
-    //    public PngFile convert(Matrix2dArgb in, PngFile out, String urlFile){
+    //    public PngFile transform(Matrix2dArgb in, PngFile out, String urlFile){
 //        // 1. find shift by x and y
 //        if(points.size()==0) return this;
 //        int l = Integer.MAX_VALUE;

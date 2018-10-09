@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 01.05.2017.
  */
-public class HSV{
+public class HSV extends AbstractElement{
     public int h;
     public int s;
     public int v;

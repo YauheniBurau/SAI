@@ -3,12 +3,12 @@ package core.element;
 /**
  * Created by anonymous on 23.09.2018.
  */
-public class PolarPoint {
-    public double angle;
+public class PolarPoint extends AbstractElement{
+    public double a;
     public double r;
 
     public PolarPoint(double angle, double r) {
-        this.angle = angle;
+        this.a = angle;
         this.r = r;
     }
 

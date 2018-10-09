@@ -8,7 +8,7 @@ import core.element.HSV;
  */
 public class Color {
     /**
-     * get RGB and convert to brightness
+     * get RGB and transform to brightness
      * @param value
      * @return
      */

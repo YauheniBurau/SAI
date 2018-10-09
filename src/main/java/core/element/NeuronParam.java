@@ -6,7 +6,7 @@ import core.old.neurons.NeuronParamEnum;
 /**
  * Created by anonymous on 09.02.2018.
  */
-public class NeuronParam {
+public class NeuronParam  extends AbstractElement{
     private NeuronParamEnum type;
     private byte bytes[];
 

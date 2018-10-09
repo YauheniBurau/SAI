@@ -5,10 +5,27 @@ package core.element;
  */
 public class Matrix2dArgb implements IMatrix2d<ARGB>{
     public ARGB[][] matrix;
-    public final int sizeX;
-    public final int sizeY;
+    public int sizeX;
+    public int sizeY;
+
+    public Matrix2dArgb() {
+        this.sizeX = 0;
+        this.sizeY = 0;
+        this.matrix = null;
+    }
 
     public Matrix2dArgb(int xSize, int ySize) {
+        this.sizeX = xSize;
+        this.sizeY = ySize;
+        this.matrix = new ARGB[ySize][xSize];
+        for(int j = 0; j<this.sizeY; j++){
+            for(int i = 0; i<this.sizeX; i++) {
+                this.setValue(i, j, null);
+            }
+        }
+    }
+
+    public void setSizeXY(int xSize, int ySize) {
         this.sizeX = xSize;
         this.sizeY = ySize;
         this.matrix = new ARGB[ySize][xSize];

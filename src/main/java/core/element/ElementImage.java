@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 20.09.2018.
  */
-public class ElementImage {
+public class ElementImage extends AbstractElement{
     // main data of images
     public String UID = ""; // for saving in files and its unique id for image
     public static int count = 0; // for loading images from HardRam to TempRam

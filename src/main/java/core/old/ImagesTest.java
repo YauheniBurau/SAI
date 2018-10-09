@@ -69,8 +69,8 @@ public class ImagesTest {
 //
 //        Point2d p = edge.countCenterOfSymmetry();
 //        System.out.println("center symmetry: " + p.x + ", " + p.y );
-//        int angle = edge.countAngleAxisOfSymmetry(p);
-//        System.out.println("angle of axis of symmetry: " + angle );
+//        int a = edge.countAngleAxisOfSymmetry(p);
+//        System.out.println("a of axis of symmetry: " + a );
 //
 //        ElementImage image = MatrixConverter.matrix2dBooleanToImage(edge);
 //        String id = "saveTextureBooleanAsData";

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 13.05.2018.
  */
-public class Segment {
+public class Segment extends AbstractElement{
     public static int countId = 0;
     public int id; // unique segment number
     public Matrix2dByte mainM2d = null;
@@ -270,7 +270,7 @@ public class Segment {
 //        ARGB v;
 //        for(Point p : points) {
 //            v = mainM2d.getValue(p.x, p.y);
-//            image.setRGB(  p.x - l, p.y - u, ElementConverter.argbToInt(v) );
+//            image.setRGB(  p.x - l, p.y - u, Transformer.argbToInt(v) );
 //        }
 //        // 4. Save
 //        try {

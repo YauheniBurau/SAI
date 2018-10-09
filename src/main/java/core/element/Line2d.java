@@ -5,7 +5,7 @@ import core.math.Geometry;
 /**
  * Created by anonymous on 22.10.2017.
  */
-public class Line2d {
+public class Line2d extends AbstractElement{
     public Point p1;
     public Point p2;
     public double k; // coeff of y=k*x+b
@@ -19,7 +19,7 @@ public class Line2d {
     }
 
     /**
-     * get angle between line vector (p0,p1) and x-axis
+     * get a between line vector (p0,p1) and x-axis
      * @return
      */
     public static double getAngle(Point p0, Point p1){
@@ -77,7 +77,7 @@ public class Line2d {
 
 
     /**
-     * get angle between line and x-axis
+     * get a between line and x-axis
      * @return
      */
     public double getAngle(){
@@ -97,7 +97,7 @@ public class Line2d {
     }
 
     /**
-     * diff in percent angle line2 from line1 [0..180] like [0.00 .. 1.00]
+     * diff in percent a line2 from line1 [0..180] like [0.00 .. 1.00]
      * @param angle
      * @param base
      * @return

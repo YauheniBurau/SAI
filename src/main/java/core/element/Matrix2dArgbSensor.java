@@ -5,7 +5,7 @@ import core.element.ARGB;
 /**
  * Created by anonymous on 20.09.2018.
  */
-public class Matrix2dArgbSensor {
+public class Matrix2dArgbSensor extends AbstractElement{
     public ARGB[][] matrix;
     public int sizeX;
     public int sizeY;

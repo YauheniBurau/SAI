@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 21.09.2018.
  */
-public class Matrix2dInt256x256 {
+public class Matrix2dInt256x256 extends AbstractElement{
     private Integer[][] matrix;
     public final int sizeX = 256;
     public final int sizeY = 256;

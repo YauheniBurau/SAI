@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 12.10.2017.
  */
-public class Graph {
+public class Graph  extends AbstractElement{
     private Point point;
     private ArrayList<Graph> points = new ArrayList<Graph>();
 

@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 27.09.2018.
  */
-public class Matrix2dBoolean256x256 {
+public class Matrix2dBoolean256x256 extends AbstractElement{
     private boolean[][] matrix;
     public final int sizeX = 256;
     public final int sizeY = 256;

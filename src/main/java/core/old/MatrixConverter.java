@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MatrixConverter {
 
 //    /**
-//     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
 //     */
 //    public static Matrix2dHsv matrix2dArgbToMatrix2dHsv(Matrix2dArgb in){
@@ -23,14 +23,14 @@ public class MatrixConverter {
 //        Matrix2dHsv m2d = new Matrix2dHsv(sizeX, sizeY);
 //        for(int j = 0; j<sizeY; j++){
 //            for(int i = 0; i<sizeX; i++) {
-//                m2d.setValue( i,j, ElementConverter.argbToHsv(in.getValue(i,j)) );
+//                m2d.setValue( i,j, Transformer.argbToHsv(in.getValue(i,j)) );
 //            }
 //        }
 //        return m2d;
 //    }
 
 //    /**
-//     * convert Matrix2dHsv into matrix2dArgb where new value = argb from HSV color
+//     * transform Matrix2dHsv into matrix2dArgb where new value = argb from HSV color
 //     * @return
 //     */
 //    public static Matrix2dArgb matrix2dHsvToMatrix2dArgb(Matrix2dHsv in){
@@ -39,7 +39,7 @@ public class MatrixConverter {
 //        Matrix2dArgb m2d = new Matrix2dArgb(sizeX, sizeY);
 //        for(int j = 0; j<sizeY; j++){
 //            for(int i = 0; i<sizeX; i++) {
-//                m2d.setValue( i,j, ElementConverter.hsvToArgb(in.getValue(i,j)) );
+//                m2d.setValue( i,j, Transformer.hsvToArgb(in.getValue(i,j)) );
 //            }
 //        }
 //        return m2d;
@@ -64,7 +64,7 @@ public class MatrixConverter {
 //    }
 
 //    /**
-//     * convert Matrix2dByte to Segment
+//     * transform Matrix2dByte to Segment
 //     * @param m2d
 //     * @return
 //     */
@@ -83,7 +83,7 @@ public class MatrixConverter {
 //    }
 
 //    /**
-//     * convert Matrix2dByte to Segment
+//     * transform Matrix2dByte to Segment
 //     * @param m2d
 //     * @return
 //     */
@@ -108,7 +108,7 @@ public class MatrixConverter {
 
 //    // TODO: now converts only Point2dNeuron-es
 //    /**
-//     * convert Matrix2d of point2d, arc2d, line2d neurons into boolean mask image
+//     * transform Matrix2d of point2d, arc2d, line2d neurons into boolean mask image
 //     * @return
 //     */
 //    public static Matrix2dBoolean neuronToBoolean(Matrix2dNeuron m2d){
@@ -188,7 +188,7 @@ public class MatrixConverter {
 //        // здесь должно быть преобразование точек и поворот их, чтобы выровнять ось симметрии вертикеально
 //
 //        Point2d c = m2d.countCenterOfSymmetry();
-//        int angle = m2d.countAngleAxisOfSymmetry(c);
+//        int a = m2d.countAngleAxisOfSymmetry(c);
 //        int l = c.x;
 //        int r = c.x;
 //        int u = c.y;
@@ -230,7 +230,7 @@ public class MatrixConverter {
 //        // здесь должно быть преобразование точек и поворот их, чтобы выровнять ось симметрии вертикеально
 //
 //        //        Point2d c = m2d.countCenterOfSymmetry();
-//        //        int angle = m2d.countAngleAxisOfSymmetry(c);
+//        //        int a = m2d.countAngleAxisOfSymmetry(c);
 //        // TODO: number of points in matrix must be more than 0;
 //        Point2d c = points.get(0);
 //        int l = c.x;
@@ -326,7 +326,7 @@ public class MatrixConverter {
 
 
 //    /**
-//     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
 //     */
 //    public static Matrix2dByte matrix2dHsvToMatrix2dByteByValue(Matrix2dHsv in){
@@ -342,7 +342,7 @@ public class MatrixConverter {
 //    }
 
 //    /**
-//     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
 //     */
 //    public static Matrix2dByte matrix2dHsvToMatrix2dByteByHue(Matrix2dHsv in){
@@ -358,7 +358,7 @@ public class MatrixConverter {
 //    }
 //
 //    /**
-//     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
 //     */
 //    public static Matrix2dByte matrix2dHsvToMatrix2dByteBySaturation(Matrix2dHsv in){
@@ -374,7 +374,7 @@ public class MatrixConverter {
 //    }
 //
 //    /**
-//     * convert matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
+//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
 //     */
 //    public static Matrix2dArgb matrix2dByteValueTomatrix2dArgb(Matrix2dByte in){
@@ -393,7 +393,7 @@ public class MatrixConverter {
 
 
 //    /**
-//     * convert int to byte
+//     * transform int to byte
 //     * @param in
 //     * @return
 //     */
@@ -406,7 +406,7 @@ public class MatrixConverter {
 //    }
 //
 //    /**
-//     * convert byte to int
+//     * transform byte to int
 //     * @param in
 //     * @return
 //     */
@@ -415,7 +415,7 @@ public class MatrixConverter {
 //    }
 //
 //    /**
-//     * convert Segment to Matrix2dByte
+//     * transform Segment to Matrix2dByte
 //     * @return
 //     */
 //    public static Matrix2dByte segmentToMatrix2dByte(Segment in){

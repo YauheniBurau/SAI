@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 06.10.2017.
  */
-public class Matrix2dHsv implements IMatrix2d<HSV> {
+public class Matrix2dHsv extends AbstractElement implements IMatrix2d<HSV> {
     private HSV[][] matrix;
     public final int sizeX;
     public final int sizeY;
@@ -77,7 +77,7 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
 //        Matrix2dHsv matrix2D = new Matrix2dHsv(x, y);
 //        for(int j = 0; j<y; j++){
 //            for(int i = 0; i<x; i++){
-//                color = ElementConverter.intToHsv( image.getRGB(i,j) );
+//                color = Transformer.intToHsv( image.getRGB(i,j) );
 //                matrix2D.setValue(i,j, color);
 //            }
 //        }
@@ -98,7 +98,7 @@ public class Matrix2dHsv implements IMatrix2d<HSV> {
 //        x = this.sizeX;
 //        for(int j = 0; j<y; j++){
 //            for(int i = 0; i<x; i++){
-//                image.setRGB( i, j, ElementConverter.argbToInt(ElementConverter.hsvToArgb(this.getValue(i, j))) );
+//                image.setRGB( i, j, Transformer.argbToInt(Transformer.hsvToArgb(this.getValue(i, j))) );
 //            }
 //        }
 //        try {

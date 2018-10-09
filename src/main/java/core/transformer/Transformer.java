@@ -1,5 +1,6 @@
-package core.converter;
+package core.transformer;
 
+import core.application.model.Model;
 import core.element.Matrix2dArgbSensor;
 import core.element.*;
 import core.exceptions.FileException;
@@ -9,6 +10,8 @@ import core.element.Matrix2dBoolean;
 import core.element.Matrix2dByte;
 import core.element.Graph;
 import core.math.Geometry;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -26,11 +29,10 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 /**
  * Created by anonymous on 24.03.2018.
  */
-public class ElementConverter {
-    public static final String PNG = "png";
-
+public class Transformer {
+    // ================================ TYPES CONVERSION ===============================================
     /**
-     * convert Int to Byte
+     * transform Int to Byte
      * int must be in dipazon [0..255]
      * @param value
      * @return
@@ -43,7 +45,7 @@ public class ElementConverter {
     }
 
     /**
-     * convert Double to Byte
+     * transform Double to Byte
      * int must be in dipazon [0..255]
      * @param value
      * @return
@@ -55,6 +57,92 @@ public class ElementConverter {
         return (byte)(value-128);
     }
 
+    /**
+     * transform model data accordingly list of command transformation
+     */
+    public static void transform(Model model, Transformation transformation){
+        TransformResults tr = null;
+        for (TransformationStep ts: transformation.transformationSteps) {
+            // Matrix2dArgb -> PngFile
+            if(ts.inType == Matrix2dArgb.class && ts.outType == PngFile.class){
+                Matrix2dArgb in = model.matrix2dArgbList.get(ts.inKey);
+                PngFile out = model.pngFileList.get(ts.outKey);
+                tr = Transformer.transform(in, out, ts.transformParams);
+                continue;
+            }
+            // PngFile -> Matrix2dArgb
+            if(ts.inType == PngFile.class && ts.outType == Matrix2dArgb.class){
+                PngFile in = model.pngFileList.get(ts.inKey);
+                Matrix2dArgb out = model.matrix2dArgbList.get(ts.outKey);
+                tr = Transformer.transform(in, out, ts.transformParams);
+                continue;
+            }
+            // JavaFX.scene.image.WritableImage -> JavaFX.scene.canvas.Canvas
+            if(ts.inType == WritableImage.class && ts.outType == Canvas.class) {
+                WritableImage in = model.writableImageList.get(ts.inKey);
+                Canvas out = model.canvasList.get(ts.outKey);
+                tr = Transformer.transform(in, out, ts.transformParams);
+                continue;
+            }
+            // Matrix2dBoolean -> JavaFX.scene.image.WritableImage
+            if(ts.inType == Matrix2dBoolean.class && ts.outType == WritableImage.class) {
+                Matrix2dBoolean in = model.matrix2dBooleanList.get(ts.inKey);
+                WritableImage out = model.writableImageList.get(ts.outKey);
+                tr = Transformer.transform(in, out, ts.transformParams);
+                continue;
+            }
+            // Matrix2dArgb -> JavaFX.scene.image.WritableImage
+            if(ts.inType == Matrix2dArgb.class && ts.outType == WritableImage.class) {
+                Matrix2dArgb in = model.matrix2dArgbList.get(ts.inKey);
+                WritableImage out = model.writableImageList.get(ts.outKey);
+                tr = Transformer.transform(in, out, ts.transformParams);
+                continue;
+            }
+            // Matrix2dArgb -> JavaFX.scene.canvas.Canvas
+            if(ts.inType == Matrix2dArgb.class && ts.outType == Canvas.class) {
+                Matrix2dArgb in = model.matrix2dArgbList.get(ts.inKey);
+                Canvas out = model.canvasList.get(ts.outKey);
+                WritableImage wi = new WritableImage(in.sizeX, in.sizeY);
+                Transformer.transform(in, wi, ts.transformParams);
+                tr = Transformer.transform(wi, out, ts.transformParams);
+                continue;
+            }
+            // if no appropriate data transform method
+            if(true){
+                throw new InputParamException("Data transformation is not available:" + ts.inType + " ->" + ts.outType);
+            }
+        }
+    }
+
+
+    // ==============================ELEMENTS DATA CONVERSION ==========================================
+    /**
+     * PngFile -> Matrix2dArgb
+     * @param in
+     * @param out
+     * @return
+     */
+    public static TransformResults transform(PngFile in, Matrix2dArgb out, TransformParams params) {
+        BufferedImage image;
+        ARGB argb = null;
+        int x, y;
+        ARGB color;
+        try {
+            image = ImageIO.read(new FileImageInputStream(new File(in.urlFile)));
+        } catch (IOException e) {
+            throw new FileException("Can't read image file into matrix2dArgb", e);
+        }
+        y = image.getHeight();
+        x = image.getWidth();
+        out.setSizeXY(x,y);
+        for(int j = 0; j<y; j++){
+            for(int i = 0; i<x; i++){
+                color = Transformer.transform( image.getRGB(i,j), argb );
+                out.setValue(i,j, color);
+            }
+        }
+        return new TransformResults();
+    }
 
     /**
      * save matrix2dArgb to Png-file
@@ -62,7 +150,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static PngFile convert(Matrix2dArgb in, PngFile out) {
+    public static TransformResults transform(Matrix2dArgb in, PngFile out, TransformParams params) {
         BufferedImage image;
         Integer I = null;
         int type = TYPE_INT_ARGB;
@@ -72,11 +160,101 @@ public class ElementConverter {
         x = in.sizeX;
         for(int j = 0; j<y; j++){
             for(int i = 0; i<x; i++){
-                image.setRGB( i, j, ElementConverter.convert(in.getValue(i, j), I) );
+                image.setRGB( i, j, Transformer.transform(in.getValue(i, j), I) );
             }
         }
         try {
-            ImageIO.write(image, PNG, new File(out.urlFile));
+            ImageIO.write(image, "png", new File(out.urlFile));
+        } catch (IOException e) {
+            throw new FileException("Can't write matrix2d to image file", e);
+        }
+        return new TransformResults();
+    }
+
+    /**
+     * JavaFX.scene.image.WritableImage -> JavaFX.scene.canvas.Canvas
+     * @param in
+     * @param out
+     * @param params
+     * @return
+     */
+    public static TransformResults transform(WritableImage in, Canvas out, TransformParams params) {
+        out.setHeight(in.getHeight());
+        out.setWidth(in.getWidth());
+        GraphicsContext gc = out.getGraphicsContext2D();
+        gc.drawImage(in, 0,0);
+        return new TransformResults();
+    }
+
+    /**
+     * Matrix2dBoolean -> javafx.scene.image.WritableImage
+     * @param in
+     * @param out
+     * @return
+     */
+    public static TransformResults transform(Matrix2dBoolean in, WritableImage out, TransformParams params) {
+        PixelWriter pw = out.getPixelWriter();
+        boolean v;
+        ARGB argb = null;
+        Integer argbInt = null;
+        for(int j = 0; j<in.sizeY; j++){
+            for(int i = 0; i<in.sizeX; i++) {
+                v = in.getValue( i, j);
+                argb = Transformer.transform(v, argb);
+                argbInt = Transformer.transform(argb, argbInt);
+                pw.setArgb(i, j, argbInt);
+            }
+        }
+        return new TransformResults();
+    }
+
+    /**
+     * Matrix2dArgb -> javafx.scene.image.WritableImage
+     * @param in
+     * @param out
+     * @return
+     */
+    public static TransformResults transform(Matrix2dArgb in, WritableImage out, TransformParams params) {
+        PixelWriter pw = out.getPixelWriter();
+        ARGB argb;
+        Integer argbInt = null;
+        for(int j = 0; j<in.sizeY; j++){
+            for(int i = 0; i<in.sizeX; i++) {
+                argb = in.getValue( i, j);
+                argbInt = Transformer.transform(argb, argbInt);
+                pw.setArgb(i, j, argbInt);
+            }
+        }
+        return new TransformResults();
+    }
+
+
+
+    //  -------------------------------------REFACTOR -------------------------------------------------- //
+    //  -------------------------------------REFACTOR -------------------------------------------------- //
+    //  -------------------------------------REFACTOR -------------------------------------------------- //
+    //  -------------------------------------REFACTOR -------------------------------------------------- //
+    /**
+     * save matrix2dArgb to Png-file
+     * @param in
+     * @param out
+     * @return
+     */
+    public static PngFile transform(Matrix2dArgb in, PngFile out) {
+        BufferedImage image;
+        Integer I = null;
+        int type = TYPE_INT_ARGB;
+        int x, y;
+        image = new BufferedImage(in.sizeX, in.sizeY, type);
+        y = in.sizeY;
+        x = in.sizeX;
+        for(int j = 0; j<y; j++){
+            for(int i = 0; i<x; i++){
+                image.setRGB( i, j, Transformer.transform(in.getValue(i, j), I) );
+            }
+        }
+        try {
+            ImageIO.write(image, "png", new File(out.urlFile));
         } catch (IOException e) {
             throw new FileException("Can't write matrix2d to image file", e);
         }
@@ -89,7 +267,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static PngFile convert(Matrix2dBoolean in, PngFile out) {
+    public static PngFile transform(Matrix2dBoolean in, PngFile out) {
         BufferedImage image;
         ARGB argb = null;
         Integer I = null;
@@ -100,12 +278,12 @@ public class ElementConverter {
         x = in.sizeX;
         for(int j = 0; j<y; j++){
             for(int i = 0; i<x; i++){
-                argb = ElementConverter.convert(in.getValue(i, j), argb);
-                image.setRGB(i, j, ElementConverter.convert(argb, I));
+                argb = Transformer.transform(in.getValue(i, j), argb);
+                image.setRGB(i, j, Transformer.transform(argb, I));
             }
         }
         try {
-            ImageIO.write(image, PNG, new File(out.urlFile));
+            ImageIO.write(image, "png", new File(out.urlFile));
         } catch (IOException e) {
             throw new FileException("Can't write matrix2d to image file", e);
         }
@@ -118,7 +296,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static PngFile convert(Matrix2dByte in, PngFile out) {
+    public static PngFile transform(Matrix2dByte in, PngFile out) {
         BufferedImage image;
         ARGB argb = null;
         Integer I = null;
@@ -129,12 +307,12 @@ public class ElementConverter {
         x = in.sizeX;
         for(int j = 0; j<y; j++){
             for(int i = 0; i<x; i++){
-                argb = ElementConverter.convert(in.getValue(i, j), argb);
-                image.setRGB(i, j, ElementConverter.convert(argb, I));
+                argb = Transformer.transform(in.getValue(i, j), argb);
+                image.setRGB(i, j, Transformer.transform(argb, I));
             }
         }
         try {
-            ImageIO.write(image, PNG, new File(out.urlFile));
+            ImageIO.write(image, "png", new File(out.urlFile));
         } catch (IOException e) {
             throw new FileException("Can't write matrix2d to image file", e);
         }
@@ -147,7 +325,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static PngFile convert(ElementImage in, PngFile out) {
+    public static PngFile transform(ElementImage in, PngFile out) {
         // 1. find shift by x and y
         if(in.points.size()==0) return out;
         int l = Integer.MAX_VALUE;
@@ -179,7 +357,7 @@ public class ElementConverter {
         }
         // 4. Save
         try {
-            ImageIO.write(image, PNG, new File(out.urlFile));
+            ImageIO.write(image, "png", new File(out.urlFile));
         } catch (IOException e) {
             throw new FileException("Can't write ElementImage -> PngFile", e);
         }
@@ -190,7 +368,7 @@ public class ElementConverter {
      * Matrix2dArgbSensor -> Matrix2dByte
      * @return
      */
-    public static Matrix2dByte convert(Matrix2dArgbSensor in, Matrix2dByte out){
+    public static Matrix2dByte transform(Matrix2dArgbSensor in, Matrix2dByte out){
         int sizeX = in.sizeX;
         int sizeY = in.sizeY;
         byte v;
@@ -201,7 +379,7 @@ public class ElementConverter {
             for(int i = 0; i<sizeX; i++) {
                 argb = in.getValue(i, j);
                 iv = (argb.a + argb.r + argb.g + argb.b)/4;
-                v = ElementConverter.int0_255ToByte(iv);
+                v = Transformer.int0_255ToByte(iv);
                 m2d.setValue( i,j, v );
             }
         }
@@ -216,7 +394,7 @@ public class ElementConverter {
      * @param y
      * @return
      */
-    public static ElementImage convert(Matrix2dByte in, ElementImage out, Matrix2dBoolean isProcessed, int maxDiff, int x, int y){
+    public static ElementImage transform(Matrix2dByte in, ElementImage out, Matrix2dBoolean isProcessed, int maxDiff, int x, int y){
         int pi, pj;
         Byte v2, v3, v4, v5, v6, v7, v8, v9;
         double summ = 0;
@@ -299,14 +477,14 @@ public class ElementConverter {
      * @param maxDiff
      * @return
      */
-    public static ArrayList<ElementImage> convert(Matrix2dByte in, ArrayList<ElementImage> out, int maxDiff) {
+    public static ArrayList<ElementImage> transform(Matrix2dByte in, ArrayList<ElementImage> out, int maxDiff) {
         ArrayList<ElementImage> images = new ArrayList<ElementImage>();
         Matrix2dBoolean isProcessed = new Matrix2dBoolean(in.sizeX, in.sizeY);
         ElementImage img = null;
         for(int j = 0; j<in.sizeY; j++){
             for(int i = 0; i<in.sizeX; i++) {
                 if( isProcessed.getValue(i, j) == false ){
-                    img = ElementConverter.convert(in, img, isProcessed, maxDiff, i, j);
+                    img = Transformer.transform(in, img, isProcessed, maxDiff, i, j);
                     for(Point p: img.points){
                         isProcessed.setValue(p.x, p.y, true);
                     }
@@ -318,40 +496,12 @@ public class ElementConverter {
     }
 
     /**
-     * PngFile -> Matrix2dArgb
-     * @param in
-     * @param out
-     * @return
-     */
-    public static Matrix2dArgb convert(PngFile in, Matrix2dArgb out) {
-        BufferedImage image;
-        ARGB argb = null;
-        int x, y;
-        ARGB color;
-        try {
-            image = ImageIO.read(new FileImageInputStream(new File(in.urlFile)));
-        } catch (IOException e) {
-            throw new FileException("Can't read image file into matrix2dArgb", e);
-        }
-        y = image.getHeight();
-        x = image.getWidth();
-        Matrix2dArgb m2d = new Matrix2dArgb(x, y);
-        for(int j = 0; j<y; j++){
-            for(int i = 0; i<x; i++){
-                color = ElementConverter.convert( image.getRGB(i,j), argb );
-                m2d.setValue(i,j, color);
-            }
-        }
-        return m2d;
-    }
-
-    /**
      * Matrix2dArgb -> Matrix2dArgbSensor
      * @param in
      * @param out
      * @return
      */
-    public static Matrix2dArgbSensor convert(Matrix2dArgb in, Matrix2dArgbSensor out) {
+    public static Matrix2dArgbSensor transform(Matrix2dArgb in, Matrix2dArgbSensor out) {
         Matrix2dArgbSensor s = new Matrix2dArgbSensor(in.sizeX, in.sizeY);
         ARGB argb;
         for(int j = 0; j<in.sizeY; j++){
@@ -363,18 +513,18 @@ public class ElementConverter {
         return s;
     }
 
-    /**
-     * PngFile -> Matrix2dArgbSensor
-     * @param in
-     * @param out
-     * @return
-     */
-    public static Matrix2dArgbSensor convert(PngFile in, Matrix2dArgbSensor out) {
-        Matrix2dArgb m2d = null;
-        m2d = ElementConverter.convert(in, m2d);
-        Matrix2dArgbSensor s = null;
-        return ElementConverter.convert(m2d, out);
-    }
+//    /**
+//     * PngFile -> Matrix2dArgbSensor
+//     * @param in
+//     * @param out
+//     * @return
+//     */
+//    public static Matrix2dArgbSensor transform(PngFile in, Matrix2dArgbSensor out) {
+//        Matrix2dArgb m2d = null;
+//        m2d = Transformer.transform(in, m2d);
+//        Matrix2dArgbSensor s = null;
+//        return Transformer.transform(m2d, out);
+//    }
 
     /**
      * ARGB -> Integer
@@ -382,7 +532,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static Integer convert(ARGB in, Integer out){
+    public static Integer transform(ARGB in, Integer out){
         int i = 0x00000000;
         i = i | in.a;
         i = i<<8 | in.r;
@@ -397,7 +547,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static ARGB convert(Byte in, ARGB out){
+    public static ARGB transform(Byte in, ARGB out){
         int v = in +128;
         ARGB argb = new ARGB(0xff, v, v, v);
         return argb;
@@ -409,7 +559,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static ARGB convert(Boolean in, ARGB out){
+    public static ARGB transform(Boolean in, ARGB out){
         ARGB argb;
         if(in == false) argb = new ARGB(0,0,0,0);
         else argb = new ARGB(255,255,255,255);
@@ -417,12 +567,12 @@ public class ElementConverter {
     }
 
     /**
-     * convert Integer -> ARGB
+     * transform Integer -> ARGB
      * @param in
      * @param out
      * @return
      */
-    public static ARGB convert(Integer in, ARGB out){
+    public static ARGB transform(Integer in, ARGB out){
         int alpha, red, green, blue;
         alpha = (in >>> 24) & 0xff;
         red = (in >>> 16) & 0xff;
@@ -437,7 +587,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static ImageCenter convert(ElementImage in, ImageCenter out){
+    public static ImageCenter transform(ElementImage in, ImageCenter out){
         int n = 0;
         double cx = 0;
         double cy = 0;
@@ -462,7 +612,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static ContureCenter convert(Conture in, ContureCenter out){
+    public static ContureCenter transform(Conture in, ContureCenter out){
         int n = 0;
         double cx = 0;
         double cy = 0;
@@ -487,7 +637,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static Matrix2dInt convert(ElementImage in, Matrix2dInt out){
+    public static Matrix2dInt transform(ElementImage in, Matrix2dInt out){
         // 1. find shift by x and y
         if(in.points.size()==0) return out;
         int l = Integer.MAX_VALUE;
@@ -525,7 +675,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static Matrix2dBoolean convert(ElementImage in, Matrix2dBoolean out){
+    public static Matrix2dBoolean transform(ElementImage in, Matrix2dBoolean out){
         // 1. find shift by x and y
         if(in.points.size()==0) return out;
         int l = Integer.MAX_VALUE;
@@ -553,10 +703,10 @@ public class ElementConverter {
     }
 
     /**
-     * convert Matrix2dBoolean -> Matrix2dGraph
+     * transform Matrix2dBoolean -> Matrix2dGraph
      * @return
      */
-    public static Matrix2dGraph convert(Matrix2dBoolean in, Matrix2dGraph out) {
+    public static Matrix2dGraph transform(Matrix2dBoolean in, Matrix2dGraph out) {
         int sizeX = in.sizeX;
         int sizeY = in.sizeY;
         Graph g1, g2, g3, g4, g5, g6, g7, g8, g9;
@@ -638,7 +788,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static ArrayList<Conture> convert(Matrix2dGraph in, ArrayList<Conture> out){
+    public static ArrayList<Conture> transform(Matrix2dGraph in, ArrayList<Conture> out){
         ArrayList<Conture> contures = new ArrayList<Conture>();
         Matrix2dBoolean isProcessed = new Matrix2dBoolean(in.sizeX, in.sizeY);
         Conture c;
@@ -700,7 +850,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static PngFile convert(Conture in, PngFile out){
+    public static PngFile transform(Conture in, PngFile out){
         // 1. find shift by x and y
         if(in.points.size()==0) return out;
         int l = Integer.MAX_VALUE;
@@ -733,7 +883,7 @@ public class ElementConverter {
         }
         // 4. Save
         try {
-            ImageIO.write(image, PNG, new File(out.urlFile));
+            ImageIO.write(image, "png", new File(out.urlFile));
         } catch (IOException e) {
             throw new FileException("Can't write Conture -> PngFile", e);
         }
@@ -746,19 +896,20 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static PolarConture convert(Conture in, PolarConture out) {
+    public static PolarConture transform(Conture in, PolarConture out) {
         ContureCenter cc = null;
-        cc = ElementConverter.convert(in, cc);
-        PolarConture polarConture = new PolarConture();
+        cc = Transformer.transform(in, cc);
+        if(out == null){ out = new PolarConture();}
+
         double d;
         double angle;
         // count max distance and find distance from center to points
         for(Point p: in.points) {
             angle = Geometry.findLine2dAngleGrade( new Point((int)cc.x, (int)cc.y), p);
             d = Math.sqrt((cc.x - p.x)*(cc.x - p.x) + (cc.y - p.y)*(cc.y - p.y));
-            polarConture.points.add( new PolarPoint(angle, d) );
+            out.points.add( new PolarPoint(angle, d) );
         }
-        return polarConture;
+        return out;
     }
 
     /**
@@ -768,7 +919,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static NormalizedPolarConture convert(PolarConture in, NormalizedPolarConture out) {
+    public static NormalizedPolarConture transform(PolarConture in, NormalizedPolarConture out) {
         NormalizedPolarConture normalizedPolarConture = new NormalizedPolarConture();
         double dist, angle, maxDistance = 0;
         byte a, r;
@@ -779,13 +930,121 @@ public class ElementConverter {
         }
         for(PolarPoint v: in.points) {
             dist = (v.r/maxDistance)*255;
-            r = ElementConverter.double0_255ToByte(dist);
-            angle = v.angle /360 * 255;
-            a = ElementConverter.double0_255ToByte(angle);
+            r = Transformer.double0_255ToByte(dist);
+            angle = v.a /360 * 255;
+            a = Transformer.double0_255ToByte(angle);
             normalizedPolarConture.points.add( new NormalizedPolarPoint(a, r) );
         }
         return normalizedPolarConture;
     }
+
+    /**
+     * NormalizedPolarPoint -> polarPoint where a value ={0..360}; r value = {0..255}
+     * @param in
+     * @param out
+     * @return
+     */
+    public static PolarPoint transform(NormalizedPolarPoint in, PolarPoint out){
+        double a = 360.0 / 255.0 * (in.a + 128);
+        double r = (in.r +128);
+        return new PolarPoint(a, r);
+    }
+
+    /**
+     * PolarPoint where a value ={0..360}; r value = {0..255} -> Point2d where x and y ={-128..+127}
+     * @param in
+     * @param out
+     * @return
+     */
+    public static Point2d transform(PolarPoint in, Point2d out){
+        int x = (int) Math.floor( (in.r * Math.cos(in.a * Math.PI / 180))/2 );
+        int y = (int) Math.floor( (in.r * Math.sin(in.a * Math.PI / 180))/2 );
+        return new Point2d(x, y);
+    }
+
+    /**
+     * NormalizedPolarPoint -> PolarPoint -> Point2d
+     * @param in
+     * @param out
+     * @return
+     */
+    public static Point2d transform(NormalizedPolarPoint in, Point2d out){
+        PolarPoint pp = null;
+        pp = Transformer.transform(in, pp);
+        Point2d p2d = null;
+        p2d = Transformer.transform(pp, p2d);
+        return p2d;
+    }
+
+    /**
+     * NormalizedPolarConture -> transform to Matrix2dBoolean as picture
+     * @param in
+     * @param out
+     * @return
+     */
+    public static Matrix2dBoolean transform(NormalizedPolarConture in, Matrix2dBoolean out) {
+        Matrix2dBoolean m2d = new Matrix2dBoolean(256, 256);
+        // draw contureLine in Matrix
+        NormalizedPolarPoint nppFirst, nppLast, npp1, npp2;
+        nppFirst = in.points.get(0);
+        nppLast = in.points.get(0);
+        npp1 = nppFirst;
+        Point2d p1 = null, p2 = null;
+        for (NormalizedPolarPoint npp: in.points){
+            npp2 = npp;
+            p1 = Transformer.transform(npp1, p1);
+            p2 = Transformer.transform(npp2, p2);
+            m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
+            npp1 = npp2;
+            nppLast = npp2;
+        }
+        p1 = Transformer.transform(nppFirst, p1);
+        p2 = Transformer.transform(nppLast, p2);
+        m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
+        return m2d;
+    }
+
+    //    /**
+//     * NormalizedPolarConture -> NormalizedPolarConture, where all cell under conture line are fullfilled
+//     * @param in
+//     * @param out
+//     * @return
+//     */
+//    public static Matrix2dBoolean transform(NormalizedPolarConture in, Matrix2dBoolean out) {
+//        Matrix2dBoolean m2d = new Matrix2dBoolean(256, 256);
+//        // draw contureLine in Matrix
+//        NormalizedPolarPoint npp1, npp2;
+//        npp1 = in.points.get(0);
+//        for (NormalizedPolarPoint npp: in.points){
+//            npp2 = npp;
+//            if(Math.abs(npp1.a - npp2.a)>128){
+//                // TODO: Make  it cicle from last point to firstPoint of LinkedList
+//            }
+//            else{
+//                m2d.drawLine(npp1.a+128, npp1.r+128, npp2.a+128, npp2.r+128);
+//            }
+//            npp1 = npp2;
+//        }
+//        // fulfill cells under conture line
+//        boolean fill, prevValue, currValue;
+//        for(int i=0; i<256; i++){
+//            fill = false;
+//            prevValue = m2d.getValue(i,255);
+//            currValue = m2d.getValue(i,255);
+//            for(int j=255; j>=0; j--) {
+//                currValue = m2d.getValue(i,j);
+//                if(prevValue == true && currValue == false) {
+//                    fill = !fill;
+//                }
+//                if(currValue == false && fill == true){
+//                    m2d.setValue(i, j, fill);
+//                }
+//                prevValue = currValue;
+//            }
+//        }
+//        return m2d;
+//    }
+
 
     // ====================================== JAVAFX ============================================
     /**
@@ -795,12 +1054,12 @@ public class ElementConverter {
      * @param seriesName
      * @return
      */
-    public static XYChart.Series convert(NormalizedPolarConture in, XYChart.Series out, String seriesName) {
+    public static XYChart.Series transform(NormalizedPolarConture in, XYChart.Series out, String seriesName) {
         XYChart.Series series = new XYChart.Series();
         series.setName(seriesName);
         //populating the series with data
         for(NormalizedPolarPoint pp: in.points) {
-            series.getData().add(new XYChart.Data(pp.angle, pp.r));
+            series.getData().add(new XYChart.Data(pp.a, pp.r));
         }
         return series;
     }
@@ -811,7 +1070,7 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static WritableImage convert(Matrix2dByte in, WritableImage out) {
+    public static WritableImage transform(Matrix2dByte in, WritableImage out) {
         WritableImage img = new WritableImage(in.sizeX, in.sizeY);
         PixelWriter pw = img.getPixelWriter();
         Byte v;
@@ -820,8 +1079,8 @@ public class ElementConverter {
         for(int j = 0; j<in.sizeY; j++){
             for(int i = 0; i<in.sizeX; i++) {
                 v = in.getValue( i, j);
-                argb = ElementConverter.convert(v, argb);
-                argbInt = ElementConverter.convert(argb, argbInt);
+                argb = Transformer.transform(v, argb);
+                argbInt = Transformer.transform(argb, argbInt);
                 pw.setArgb(i, j, argbInt);
             }
         }
@@ -836,20 +1095,51 @@ public class ElementConverter {
      * @param out
      * @return
      */
-    public static Double convert(NormalizedPolarConture in1, NormalizedPolarConture in2, Double out) {
+    public static Double transform(NormalizedPolarConture in1, NormalizedPolarConture in2, Double out) {
         int n;
         double dMin, d;
         double sum = 0;
+        if(out == null) out = new Double(0.0);
         for (NormalizedPolarPoint npp1: in1.points) {
             dMin = 255;
             for (NormalizedPolarPoint npp2: in2.points) {
-                d = Math.sqrt((npp1.angle - npp2.angle)*(npp1.angle - npp2.angle) + (npp1.r - npp2.r)*(npp1.r - npp2.r));
-                if(d<dMin){dMin = d;}
+                //d = Math.sqrt((npp1.a - npp2.a)*(npp1.a - npp2.a) + (npp1.r - npp2.r)*(npp1.r - npp2.r));
+                d = (Math.abs(npp1.a - npp2.a) + Math.abs(npp1.r - npp2.r))/2;
+                if(d<dMin){
+                    dMin = d;
+                }
             }
-            sum+= dMin;
+            sum += dMin;
         }
         n = in1.points.size();
         return sum/n;
+    }
+
+    /**
+     * Compare two Matrix2dBoolean -> and return ComparisonResult
+     * @param in1
+     * @param in2
+     * @param out
+     * @return
+     */
+    public static ComparisonResult transform(Matrix2dBoolean in1, Matrix2dBoolean in2, ComparisonResult out){
+        double nNotEqual = 0.0, nEqual = 0.0, nMax = in1.sizeX * in1.sizeY;
+        boolean v1, v2;
+        for (int j = 0; j < in1.sizeY; j++) {
+            for (int i = 0; i < in1.sizeX; i++) {
+                v1 = in1.getValue(i, j);
+                v2 = in2.getValue(i, j);
+                if(v1 == true && v2 == true) {
+                    nEqual += 1;
+                }
+                if(v1!=v2){
+                        nNotEqual+=1;
+                }
+            }
+        }
+        ComparisonResult cr = new ComparisonResult();
+        cr.form = nEqual/(nEqual + nNotEqual);
+        return cr;
     }
 
 
@@ -860,7 +1150,7 @@ public class ElementConverter {
 //    Image image = new Image(input);
 
 
-//    public static Transformation convert(Matrix2dInt256x256 in, Transformation out, Matrix2dInt256x256 ethalon){
+//    public static Transformation transform(Matrix2dInt256x256 in, Transformation out, Matrix2dInt256x256 ethalon){
 //        Transformation tr = new Transformation();
 //
 //
@@ -870,7 +1160,7 @@ public class ElementConverter {
 
 
 //    /**
-//     * convert Int ARGB to Boolean
+//     * transform Int ARGB to Boolean
 //     * @param value
 //     * @return
 //     */
@@ -879,7 +1169,7 @@ public class ElementConverter {
 //    }
 
 //    /**
-//     * convert Boolean color to int Color
+//     * transform Boolean color to int Color
 //     * @param value
 //     * @return
 //     */
@@ -891,16 +1181,16 @@ public class ElementConverter {
 
 
 //    /**
-//     * convert int ARGB into HSV
+//     * transform int ARGB into HSV
 //     * @param value
 //     * @return
 //     */
 //    public static HSV intToHsv(int value){
-//        return ElementConverter.argbToHsv( intToArgb(value) );
+//        return Transformer.argbToHsv( intToArgb(value) );
 //    }
 
 //   /**
-//     * convert ARGB to HSV
+//     * transform ARGB to HSV
 //     * @return
 //     */
 //    public static HSV argbToHsv(ARGB in){
@@ -960,7 +1250,7 @@ public class ElementConverter {
 //    }
 
 //    /**
-//     * convert HSV to ARGB
+//     * transform HSV to ARGB
 //     * @return
 //     */
 //    public static ARGB hsvToArgb(HSV in){
@@ -1014,7 +1304,7 @@ public class ElementConverter {
 //    }
 
 //    /**
-//     * convert HSV to int
+//     * transform HSV to int
 //     * @param value
 //     * @return
 //     */

@@ -31,7 +31,7 @@ public class Matrix2dNeuron {
     }
 
 //    /**
-//     * count angle by 3 points
+//     * count a by 3 points
 //     * @param c
 //     * @par am a
 //     * @param b
@@ -39,16 +39,16 @@ public class Matrix2dNeuron {
 //     */
 //    public static double findAngle(Point2d c, Point2d a, Point2d b ){
 //        double bx, by, ax, ay;
-//        double angle;
+//        double a;
 //        bx = c.x - b.x;
 //        by = c.y - b.y;
 //        ax = c.x - a.x;
 //        ay = c.y - a.y;
-//        angle = Math.acos(
+//        a = Math.acos(
 //                (bx * ax + by * ay) /
 //                        ( Math.sqrt( bx*bx + by*by )* Math.sqrt(ax*ax + ay*ay) ) )
 //                *180/Math.PI;
-//        return angle;
+//        return a;
 //    }
 //
 //    /**
@@ -69,7 +69,7 @@ public class Matrix2dNeuron {
 //        Graph a, b, c;
 //        Point2d pa, pb, pc;
 //        double lb, lc;
-//        double angle;
+//        double a;
 //        do {
 //            for (int j = 0; j < this.sizeY; j++) {
 //                for (int i = 0; i < this.sizeX; i++) {
@@ -89,11 +89,11 @@ public class Matrix2dNeuron {
 //                            pc = c.getPoint();
 //                            lb = Math.sqrt( (pb.x-pa.x)*(pb.x-pa.x) + (pb.y-pa.y)*(pb.y-pa.y) );
 //                            lc = Math.sqrt( (pa.x-pc.x)*(pa.x-pc.x) + (pa.y-pc.y)*(pa.y-pc.y) );
-//                            // angle between two lines
-//                            angle = this.findAngle(pa, pb, pc);
+//                            // a between two lines
+//                            a = this.findAngle(pa, pb, pc);
 //                            if( lb >= lengthMin && lb <= lengthMax
 //                                    && lc >= lengthMin && lc <= lengthMax
-//                                    && angle>=angleMin && angle <= angleMax){
+//                                    && a>=angleMin && a <= angleMax){
 //                                isChanged = true;
 //                                b.getPoints().remove(a);
 //                                c.getPoints().remove(a);
@@ -113,7 +113,7 @@ public class Matrix2dNeuron {
 //
 //
 //    /**
-//     * convert Graph of points and lines into boolean mask image
+//     * transform Graph of points and lines into boolean mask image
 //     * @return
 //     */
 //    public Matrix2dBoolean toBoolean(){

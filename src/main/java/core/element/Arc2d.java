@@ -6,7 +6,7 @@ import core.math.Geometry;
  * Created by anonymous on 22.12.2017.
  */
 // TODO: remove later
-public class Arc2d {
+public class Arc2d extends AbstractElement{
 //    public Point p1; // from p1 to p2 by counter clockwise
 //    public Point p2;
 //    public Point pc; // center of circle of arc

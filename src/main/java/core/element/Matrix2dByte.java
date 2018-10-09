@@ -10,7 +10,7 @@ import java.util.LinkedList;
 /**
  * matrix of values byte[0.255]
  */
-public class Matrix2dByte implements IMatrix2d<Byte> {
+public class Matrix2dByte extends AbstractElement implements IMatrix2d<Byte> {
     private Byte[][] matrix;
 
     public final int sizeX;

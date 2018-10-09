@@ -113,8 +113,8 @@ public class Geometry {
     }
 
     /**
-     * find angle of line by point and center point
-     * angle starts from -180 to 180
+     * find a of line by point and center point
+     * a starts from -180 to 180
      *          0
      *          |
      *  -90 ----|---- 90
@@ -122,7 +122,7 @@ public class Geometry {
      *     -180 | 180
      * @param pc
      * @param p
-     * @return angle in grades
+     * @return a in grades
      */
     public static double findLine2dAngleGrade(Point pc, Point p){
         double angle;

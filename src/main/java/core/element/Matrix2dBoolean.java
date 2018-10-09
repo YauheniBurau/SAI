@@ -7,15 +7,15 @@ import java.util.*;
 /**
  * Created by anonymous on 05.10.2017.
  */
-public class Matrix2dBoolean {
-    private boolean[][] matrix;
+public class Matrix2dBoolean extends AbstractElement{
+    private Boolean[][] matrix;
     public final int sizeX;
     public final int sizeY;
 
     public Matrix2dBoolean(int xSize, int ySize) {
         this.sizeX = xSize;
         this.sizeY = ySize;
-        this.matrix = new boolean[ySize][xSize];
+        this.matrix = new Boolean[ySize][xSize];
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {
                 this.setValue(i, j, false);
@@ -23,17 +23,17 @@ public class Matrix2dBoolean {
         }
     }
 
-    public void setValue(int xPos, int yPos, boolean value) {
+    public void setValue(int xPos, int yPos, Boolean value) {
         if (xPos >= 0 && xPos < this.sizeX && yPos >= 0 && yPos < this.sizeY) {
             this.matrix[yPos][xPos] = value;
         }
     }
 
-    public boolean getValue(int xPos, int yPos) {
+    public Boolean getValue(int xPos, int yPos) {
         if (xPos >= 0 && xPos < this.sizeX && yPos >= 0 && yPos < this.sizeY) {
             return this.matrix[yPos][xPos];
         }
-        return false;
+        return null;
     }
 
 //    /**
@@ -56,7 +56,7 @@ public class Matrix2dBoolean {
 //        for(int j = 0; j<y; j++){
 //            for(int i = 0; i<x; i++){
 //                intColor = image.getRGB(i,j);
-//                color = ElementConverter.intToBoolean( intColor );
+//                color = Transformer.intToBoolean( intColor );
 //                matrix2D.setValue(i,j, color);
 //            }
 //        }
@@ -77,7 +77,7 @@ public class Matrix2dBoolean {
 //        x = this.sizeX;
 //        for (int j = 0; j < y; j++) {
 //            for (int i = 0; i < x; i++) {
-//                image.setRGB(i, j, ElementConverter.booleanToInt(this.getValue(i, j)));
+//                image.setRGB(i, j, Transformer.booleanToInt(this.getValue(i, j)));
 //            }
 //        }
 //        try {
@@ -255,61 +255,130 @@ public class Matrix2dBoolean {
 //        return curvesResult;
 //    }
 
-
-
-    // ================================ OLD =============================================
-    public Matrix2dBoolean getFilledShape() {
-        int y = this.sizeY;
-        int x = this.sizeX;
+    /**
+     * @param x
+     * @param y
+     * @return
+     */
+    public Matrix2dBoolean findFilledShape(int x, int y){
+        Boolean colorValue = this.getValue(x, y);
+        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
         int pi, pj;
-        Matrix2dBoolean isProcessed = new Matrix2dBoolean(x, y);
-        LinkedList<Point2dByte> points;
-        Point2dByte p;
-        // TODO: optimize cycle
-        for (int j = 0; j < y; j++) {
-            for (int i = 0; i < x; i++) {
-                if( this.getValue(i, j) == false && isProcessed.getValue(i, j) == false &&
-                    (i==0 || i == x-1 || j == 0 || j == y-1) ){
-                    points = new LinkedList<Point2dByte>();
-                    points.add( new Point2dByte(i,j, (byte)0) );
-                    isProcessed.setValue(i, j, true);
-                    while(points.size()>0){
-                        p = points.poll();
-                        pi = p.x;
-                        pj = p.y;
-                        if( this.getValue(pi, pj-1) == false && isProcessed.getValue(pi, pj-1) == false
-                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-                            points.add( new Point2dByte(pi,pj-1, (byte)0) );
-                            isProcessed.setValue(pi, pj-1, true);
-                        }
-                        if( this.getValue(pi, pj+1) == false && isProcessed.getValue(pi, pj+1) == false
-                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-                            points.add( new Point2dByte(pi,pj+1, (byte)0) );
-                            isProcessed.setValue(pi, pj+1, true);
-                        }
-                        if( this.getValue(pi-1, pj) == false && isProcessed.getValue(pi-1, pj) == false
-                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-                            points.add( new Point2dByte(pi-1,pj, (byte)0) );
-                            isProcessed.setValue(pi-1, pj, true);
-                        }
-                        if( this.getValue(pi+1, pj) == false && isProcessed.getValue(pi+1, pj) == false
-                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-                            points.add( new Point2dByte(pi+1,pj, (byte)0) );
-                            isProcessed.setValue(pi+1, pj, true);
-                        }
-                    }
-                }
+        Boolean v2, v3, v4, v5, v6, v7, v8, v9;
+        Point2dGeneric<Boolean> p;
+        LinkedList<Point2dGeneric<Boolean>> points = new LinkedList<Point2dGeneric<Boolean>>();
+        points.add( new Point2dGeneric<Boolean>(x, y, this.getValue(x, y)) );
+        isProcessed.setValue(x, y, true);
+        while(points.size()>0){
+            p = points.poll();
+            pi = p.x;
+            pj = p.y;
+            v2 = this.getValue(pi, pj-1);
+//            v3 = this.getValue(pi+1, pj-1);
+            v4 = this.getValue(pi+1, pj);
+//            v5 = this.getValue(pi+1, pj+1);
+            v6 = this.getValue(pi, pj+1);
+//            v7 = this.getValue(pi-1, pj+1);
+            v8 = this.getValue(pi-1, pj);
+//            v9 = this.getValue(pi-1, pj-1);
+            if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v2 == colorValue) {
+                points.add( new Point2dGeneric<Boolean>(pi, pj-1, v2) );
+                isProcessed.setValue(pi, pj-1, true);
             }
-        }
-        // invert matrix2dBoolean
-        for (int j = 0; j < y; j++) {
-            for (int i = 0; i < x; i++) {
-                if( isProcessed.getValue(i, j) == false){ isProcessed.setValue(i, j, true);}
-                else{ isProcessed.setValue(i, j, false); }
+//            if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && Math.abs(summ/n - v3) <= maxDiff) {
+//                points.add( new Point(pi+1,pj-1, 0, v3) );
+//                isProcessed.setValue(pi+1, pj-1, true);
+//                summ += v3;
+//                n += 1;
+//            }
+            if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v4 == colorValue) {
+                points.add( new Point2dGeneric<Boolean>(pi+1, pj, v4) );
+                isProcessed.setValue(pi+1, pj, true);
             }
+//            if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && Math.abs(summ/n - v5) <= maxDiff) {
+//                points.add( new Point(pi+1,pj+1, 0, v5) );
+//                isProcessed.setValue(pi+1, pj+1, true);
+//                summ += v5;
+//                n += 1;
+//            }
+            if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v6 == colorValue) {
+                points.add( new Point2dGeneric<Boolean>(pi,pj+1, v6) );
+                isProcessed.setValue(pi, pj+1, true);
+            }
+//            if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && Math.abs(summ/n - v7) <= maxDiff) {
+//                points.add( new Point(pi-1,pj+1, 0, v7) );
+//                isProcessed.setValue(pi-1, pj+1, true);
+//                summ += v7;
+//                n += 1;
+//            }
+            if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v8 == colorValue) {
+                points.add( new Point2dGeneric<Boolean>(pi-1,pj, v8) );
+                isProcessed.setValue(pi-1, pj, true);
+            }
+//            if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && Math.abs(summ/n - v9) <= maxDiff) {
+//                points.add( new Point(pi-1,pj-1, 0, v9) );
+//                isProcessed.setValue(pi-1, pj-1, true);
+//                summ += v9;
+//                n += 1;
+//            }
         }
         return isProcessed;
     }
+
+
+    // ================================ OLD =============================================
+//    public Matrix2dBoolean getFilledShape() {
+//        int y = this.sizeY;
+//        int x = this.sizeX;
+//        int pi, pj;
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(x, y);
+//        LinkedList<Point2dByte> points;
+//        Point2dByte p;
+//        // TODO: optimize cycle
+//        for (int j = 0; j < y; j++) {
+//            for (int i = 0; i < x; i++) {
+//                if( this.getValue(i, j) == false && isProcessed.getValue(i, j) == false &&
+//                    (i==0 || i == x-1 || j == 0 || j == y-1) ){
+//                    points = new LinkedList<Point2dByte>();
+//                    points.add( new Point2dByte(i,j, (byte)0) );
+//                    isProcessed.setValue(i, j, true);
+//                    while(points.size()>0){
+//                        p = points.poll();
+//                        pi = p.x;
+//                        pj = p.y;
+//                        if( this.getValue(pi, pj-1) == false && isProcessed.getValue(pi, pj-1) == false
+//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+//                            points.add( new Point2dByte(pi,pj-1, (byte)0) );
+//                            isProcessed.setValue(pi, pj-1, true);
+//                        }
+//                        if( this.getValue(pi, pj+1) == false && isProcessed.getValue(pi, pj+1) == false
+//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+//                            points.add( new Point2dByte(pi,pj+1, (byte)0) );
+//                            isProcessed.setValue(pi, pj+1, true);
+//                        }
+//                        if( this.getValue(pi-1, pj) == false && isProcessed.getValue(pi-1, pj) == false
+//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+//                            points.add( new Point2dByte(pi-1,pj, (byte)0) );
+//                            isProcessed.setValue(pi-1, pj, true);
+//                        }
+//                        if( this.getValue(pi+1, pj) == false && isProcessed.getValue(pi+1, pj) == false
+//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
+//                            points.add( new Point2dByte(pi+1,pj, (byte)0) );
+//                            isProcessed.setValue(pi+1, pj, true);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        // invert matrix2dBoolean
+//        for (int j = 0; j < y; j++) {
+//            for (int i = 0; i < x; i++) {
+//                if( isProcessed.getValue(i, j) == false){ isProcessed.setValue(i, j, true);}
+//                else{ isProcessed.setValue(i, j, false); }
+//            }
+//        }
+//        return isProcessed;
+//    }
 
 
     public Matrix2dBoolean removeNoise() {
@@ -582,17 +651,15 @@ public class Matrix2dBoolean {
         double yStep = (y2-y1)/n;
         this.setValue(x1, y1, true);
         this.setValue(x2, y2, true);
-        for (int i = 1; i <= n; i++) {
-            x += xStep;
-            y += yStep;
-            this.setValue( (int)Math.round(x), (int)Math.round(y), true);
+        for (int i = 1; i < n; i++) {
+            this.setValue( (int)Math.floor(x + xStep*i), (int)Math.floor(y + yStep*i), true);
         }
         return this;
     }
 
     // TODO:
     /**
-     * draw line in binary mask by angle and length
+     * draw line in binary mask by a and length
      * @param x1
      * @param y1
      * @param angle
@@ -661,15 +728,15 @@ public class Matrix2dBoolean {
     */
     private int count3x3Pattern(int i, int j){
         int v1, v2, v3, v4, v5, v6, v7, v8, v9, n;
-        v1 = (this.getValue(i, j) == true ? 1 : 0);
-        v2 = (this.getValue(i, j - 1) == true ? 1 : 0);
-        v3 = (this.getValue(i + 1, j - 1) == true ? 1 : 0);
-        v4 = (this.getValue(i + 1, j) == true ? 1 : 0);
-        v5 = (this.getValue(i + 1, j + 1) == true ? 1 : 0);
-        v6 = (this.getValue(i, j + 1) == true ? 1 : 0);
-        v7 = (this.getValue(i - 1, j + 1) == true ? 1 : 0);
-        v8 = (this.getValue(i - 1, j) == true ? 1 : 0);
-        v9 = (this.getValue(i - 1, j - 1) == true ? 1 : 0);
+        v1 = this.getValue(i, j) !=null && this.getValue(i, j) == true ? 1 : 0;
+        v2 = this.getValue(i, j-1) !=null && this.getValue(i, j - 1) == true ? 1 : 0;
+        v3 = this.getValue(i+1, j-1) !=null && this.getValue(i + 1, j - 1) == true ? 1 : 0;
+        v4 = this.getValue(i+1, j) !=null && this.getValue(i + 1, j) == true ? 1 : 0;
+        v5 = this.getValue(i+1, j+1) !=null && this.getValue(i + 1, j + 1) == true ? 1 : 0;
+        v6 = this.getValue(i, j+1) !=null && this.getValue(i, j + 1) == true ? 1 : 0;
+        v7 = this.getValue(i-1, j+1) !=null && this.getValue(i - 1, j + 1) == true ? 1 : 0;
+        v8 = this.getValue(i-1, j) !=null && this.getValue(i - 1, j) == true ? 1 : 0;
+        v9 = this.getValue(i-1, j-1) !=null && this.getValue(i - 1, j - 1) == true ? 1 : 0;
         n = ((((((((((((((((v9<<1)+v8)<<1)+v7)<<1)+v6)<<1)+v5)<<1)+v4)<<1)+v3)<<1)+v2)<<1)+v1);
         return n;
     }
@@ -714,14 +781,14 @@ public class Matrix2dBoolean {
             for (int j = 0; j < sizeY; j++) {
                 for (int i = 0; i < sizeX; i++) {
                     if (m2d.getValue(i, j) == oldValue ){
-                        v2 = (m2d.getValue(i, j - 1) == true ? 1 : 0);
-                        v3 = (m2d.getValue(i + 1, j - 1) == true ? 1 : 0);
-                        v4 = (m2d.getValue(i + 1, j) == true ? 1 : 0);
-                        v5 = (m2d.getValue(i + 1, j + 1) == true ? 1 : 0);
-                        v6 = (m2d.getValue(i, j + 1) == true ? 1 : 0);
-                        v7 = (m2d.getValue(i - 1, j + 1) == true ? 1 : 0);
-                        v8 = (m2d.getValue(i - 1, j) == true ? 1 : 0);
-                        v9 = (m2d.getValue(i - 1, j - 1) == true ? 1 : 0);
+                        v2 = m2d.getValue(i, j - 1) != null && m2d.getValue(i, j - 1) == true ? 1 : 0;
+                        v3 = m2d.getValue(i+1, j - 1) != null && m2d.getValue(i + 1, j - 1) == true ? 1 : 0;
+                        v4 = m2d.getValue(i+1, j) != null && m2d.getValue(i + 1, j) == true ? 1 : 0;
+                        v5 = m2d.getValue(i+1, j + 1) != null && m2d.getValue(i + 1, j + 1) == true ? 1 : 0;
+                        v6 = m2d.getValue(i, j + 1) != null && m2d.getValue(i, j + 1) == true ? 1 : 0;
+                        v7 = m2d.getValue(i-1, j + 1) != null && m2d.getValue(i - 1, j + 1) == true ? 1 : 0;
+                        v8 = m2d.getValue(i-1, j) != null && m2d.getValue(i - 1, j) == true ? 1 : 0;
+                        v9 = m2d.getValue(i-1, j - 1) != null && m2d.getValue(i - 1, j - 1) == true ? 1 : 0;
                         n = v2 + v3 + v4 + v5 + v6 + v7 + v8 + v9;
                         if ( (n >= minWhite && n<=maxWhite) || ((8-n)>= minBlack && (8-n)<=maxBlack) ) {
                             m2d.setValue(i, j, !oldValue);
@@ -784,7 +851,7 @@ public class Matrix2dBoolean {
 //    @Deprecated
 //    /**
 //     * remember in calculation used X axis from left to right and y axis from top to bottom
-//     * count angle of main axis of symmetry
+//     * count a of main axis of symmetry
 //     * @return
 //     */
 //    public int countAngleAxisOfSymmetry(Point center){
@@ -793,7 +860,7 @@ public class Matrix2dBoolean {
 //        int cx = center.x;
 //        int cy = center.y;
 //        int dx = 0, dy = 0;
-//        int angle = 0;
+//        int a = 0;
 //        int a;
 //        y = this.sizeY;
 //        x = this.sizeX;
@@ -807,15 +874,15 @@ public class Matrix2dBoolean {
 //            }
 //        }
 //        if(dx==0){
-//            angle =90;
+//            a =90;
 //        }else{
 //            a = (int) Math.round( Math.atan2(dy,dx)*180/Math.PI );
 //            if(a<0){ a+=360; }
 //            if(a> 180){ a-=180;}
-//            angle = a;
+//            a = a;
 //        }
 //
-//        return angle;
+//        return a;
 //    }
 
 

@@ -1,11 +1,7 @@
 package com.yauheni.burau.sai;
 
-import core.element.Matrix2dArgbSensor;
-import core.converter.ElementConverter;
 import core.element.*;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 /**
  * Created by anonymous on 08.10.2016.
@@ -38,24 +34,24 @@ public class ImageMatrixTest {
 //
 //        PngFile pngFile = new PngFile(dirIn + imageFile);
 //        Matrix2dArgbSensor sensor = null;
-//        sensor = ElementConverter.convert(pngFile, sensor);
+//        sensor = Transformer.transform(pngFile, sensor);
 //
 //        Matrix2dByte m2dByte = null;
-//        m2dByte = ElementConverter.convert(sensor, m2dByte);
+//        m2dByte = Transformer.transform(sensor, m2dByte);
 //
 //        ArrayList<ElementImage> images = null;
-//        images = ElementConverter.convert(m2dByte, images, maxDiff);
+//        images = Transformer.transform(m2dByte, images, maxDiff);
 //
 //        ElementImage image = images.get(0);
 //        Matrix2dBoolean m2dBoolean = null;
-//        m2dBoolean = ElementConverter.convert(image, m2dBoolean);
+//        m2dBoolean = Transformer.transform(image, m2dBoolean);
 //        Matrix2dBoolean m2dEdge = m2dBoolean.removeNoise().edge();
 //
 //        Matrix2dGraph m2dGraph = null;
-//        m2dGraph = ElementConverter.convert(m2dEdge, m2dGraph);
+//        m2dGraph = Transformer.transform(m2dEdge, m2dGraph);
 //
 //        ArrayList<Conture> contures = null;
-//        contures = ElementConverter.convert(m2dGraph, contures);
+//        contures = Transformer.transform(m2dGraph, contures);
 //        Conture c = contures.get(0);
 //
 //    }
@@ -76,34 +72,34 @@ public class ImageMatrixTest {
 //        ElementImage imgSquare1 = new ElementImage();
 //        ElementImage imgStar = new ElementImage();
 //
-//        sensor = ElementConverter.convert(pngSquare, sensor);
+//        sensor = Transformer.transform(pngSquare, sensor);
 //        Matrix2dByte m2dSquare = null;
-//        m2dSquare = ElementConverter.convert(sensor, m2dSquare);
+//        m2dSquare = Transformer.transform(sensor, m2dSquare);
 //
-//        sensor = ElementConverter.convert(pngSquare1, sensor);
+//        sensor = Transformer.transform(pngSquare1, sensor);
 //        Matrix2dByte m2dSquare1 = null;
-//        m2dSquare1 = ElementConverter.convert(sensor, m2dSquare1);
+//        m2dSquare1 = Transformer.transform(sensor, m2dSquare1);
 //
-//        sensor = ElementConverter.convert(pngStar, sensor);
+//        sensor = Transformer.transform(pngStar, sensor);
 //        Matrix2dByte m2dStar = null;
-//        m2dStar = ElementConverter.convert(sensor, m2dStar);
+//        m2dStar = Transformer.transform(sensor, m2dStar);
 //
 //        ArrayList<ElementImage> squareImages = null;
-//        squareImages = ElementConverter.convert(m2dSquare, squareImages, maxDiff);
+//        squareImages = Transformer.transform(m2dSquare, squareImages, maxDiff);
 //        ArrayList<ElementImage> square1Images = null;
-//        square1Images = ElementConverter.convert(m2dSquare1, square1Images, maxDiff);
+//        square1Images = Transformer.transform(m2dSquare1, square1Images, maxDiff);
 //        ArrayList<ElementImage> starImages = null;
-//        starImages = ElementConverter.convert(m2dStar, starImages, maxDiff);
+//        starImages = Transformer.transform(m2dStar, starImages, maxDiff);
 //
-//        ElementConverter.convert(squareImage)
+//        Transformer.transform(squareImage)
         //        for (ElementImage img: squareImages) {
-//            ElementConverter.convert(img, new PngFile(dirOut + "square_" + img.id + ".png"));
+//            Transformer.transform(img, new PngFile(dirOut + "square_" + img.id + ".png"));
 //        }
 //        for (ElementImage img1: square1Images) {
-//            ElementConverter.convert(img1, new PngFile(dirOut + "square1_" + img1.id + ".png"));
+//            Transformer.transform(img1, new PngFile(dirOut + "square1_" + img1.id + ".png"));
 //        }
 //        for (ElementImage img2: starImages) {
-//            ElementConverter.convert(img2, new PngFile(dirOut + "star_" + img2.id + ".png"));
+//            Transformer.transform(img2, new PngFile(dirOut + "star_" + img2.id + ".png"));
 //        }
 //    }
 
@@ -132,11 +128,11 @@ public class ImageMatrixTest {
 //        Point c = new Point(0,0);
 //        double r = 100;
 //        Point p;
-//        double angle;
+//        double a;
 //        for (int grade = 0; grade<360; grade+=1) {
 //            p = Curve.f_radCircle(c, r, grade*Math.PI/180);
-//            angle = Curve.findLine2dAngleGrade(c, p);
-//            System.out.println(p.x + "," + p.y + " : " + angle);
+//            a = Curve.findLine2dAngleGrade(c, p);
+//            System.out.println(p.x + "," + p.y + " : " + a);
 //        }
 //    }
 
@@ -177,8 +173,8 @@ public class ImageMatrixTest {
 //        double r = Curve.findPointsDistance(p1, c);
 //        ArrayList<Point> points = new ArrayList<Point>();
 //        Point p;
-//        for(int angle = startAngle; angle<endAngle; angle++) {
-//            p = Curve.f_gradeCircle(c, r, angle);
+//        for(int a = startAngle; a<endAngle; a++) {
+//            p = Curve.f_gradeCircle(c, r, a);
 //            p.x+=1;
 //            p.y+=1;
 //            points.add( p );
@@ -197,8 +193,8 @@ public class ImageMatrixTest {
 //        double r = Curve.findPointsDistance(p1, c);
 //        ArrayList<Point> points = new ArrayList<Point>();
 //        Point p;
-//        for(int angle = 25; angle<100; angle++) {
-//            p = Curve.f_gradeCircle(c, r, angle);
+//        for(int a = 25; a<100; a++) {
+//            p = Curve.f_gradeCircle(c, r, a);
 //            p.x+=1;
 //            p.y+=1;
 //            points.add( p );
@@ -572,14 +568,14 @@ public class ImageMatrixTest {
 
 //    @Test
 //    public void lineAngles() {
-//        double angle;
-//        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 10) );
-//        System.out.println("angle must be 90 : " + angle);
-//        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 20) );
-//        System.out.println("angle must be 45 : " + angle);
+//        double a;
+//        a = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 10) );
+//        System.out.println("a must be 90 : " + a);
+//        a = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(10, 20), new Point2d(20, 20) );
+//        System.out.println("a must be 45 : " + a);
 //
-//        angle = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(1, 10), new Point2d(20, 20) );
-//        System.out.println("angle must be 135 : " + angle);
+//        a = Matrix2dGraph.findAngle(new Point2d(10, 10), new Point2d(1, 10), new Point2d(20, 20) );
+//        System.out.println("a must be 135 : " + a);
 //    }
 
 //    @Test
@@ -737,8 +733,8 @@ public class ImageMatrixTest {
 //        Matrix2dBoolean edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
 //        Point2d cp = edge.countCenterOfSymmetry();
 //        System.out.println("center( " + cp.x + ", " + cp.y + "° )");
-//        int angle = edge.countAngleAxisOfSymmetry(cp);
-//        System.out.println(angle + "°");
+//        int a = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println(a + "°");
 //    }
 //
 //    @Test
@@ -746,32 +742,32 @@ public class ImageMatrixTest {
 //        Matrix2dArgb m2d = Matrix2dArgb.load(dirIn + "line20.png");
 //        Matrix2dBoolean edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
 //        Point2d cp = edge.countCenterOfSymmetry();
-//        int angle = edge.countAngleAxisOfSymmetry(cp);
-//        System.out.println("20 : " + angle + "°");
+//        int a = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("20 : " + a + "°");
 //
 //        m2d = Matrix2dArgb.load(dirIn + "line45.png");
 //        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
 //        cp = edge.countCenterOfSymmetry();
-//        angle = edge.countAngleAxisOfSymmetry(cp);
-//        System.out.println("45 : " + angle + "°");
+//        a = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("45 : " + a + "°");
 //
 //        m2d = Matrix2dArgb.load(dirIn + "line60.png");
 //        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
 //        cp = edge.countCenterOfSymmetry();
-//        angle = edge.countAngleAxisOfSymmetry(cp);
-//        System.out.println("60 : " + angle + "°");
+//        a = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("60 : " + a + "°");
 //
 //        m2d = Matrix2dArgb.load(dirIn + "line100.png");
 //        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
 //        cp = edge.countCenterOfSymmetry();
-//        angle = edge.countAngleAxisOfSymmetry(cp);
-//        System.out.println("100 : " + angle + "°");
+//        a = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("100 : " + a + "°");
 //
 //        m2d = Matrix2dArgb.load(dirIn + "line135.png");
 //        edge = m2d.edgeByColorDistance(32).save(dirOut + imageFile + "_edge32.png", "png", TYPE_BYTE_GRAY);
 //        cp = edge.countCenterOfSymmetry();
-//        angle = edge.countAngleAxisOfSymmetry(cp);
-//        System.out.println("135 : " + angle + "°");
+//        a = edge.countAngleAxisOfSymmetry(cp);
+//        System.out.println("135 : " + a + "°");
 //    }
 //
 //    @Test

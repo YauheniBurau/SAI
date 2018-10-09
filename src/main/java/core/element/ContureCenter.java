@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 22.09.2018.
  */
-public class ContureCenter {
+public class ContureCenter extends AbstractElement{
     public double x;
     public double y;
     public double z;

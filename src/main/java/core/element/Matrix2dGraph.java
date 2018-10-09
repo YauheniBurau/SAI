@@ -30,7 +30,7 @@ public class Matrix2dGraph {
     }
 
     /**
-     * count angle by 3 points
+     * count a by 3 points
      * @param c
      * @par am a
      * @param b
@@ -88,7 +88,7 @@ public class Matrix2dGraph {
                             pc = c.getPoint();
                             lb = Math.sqrt( (pb.x-pa.x)*(pb.x-pa.x) + (pb.y-pa.y)*(pb.y-pa.y) );
                             lc = Math.sqrt( (pa.x-pc.x)*(pa.x-pc.x) + (pa.y-pc.y)*(pa.y-pc.y) );
-                            // angle between two lines
+                            // a between two lines
                             angle = this.findAngle(pa, pb, pc);
                             if( lb >= lengthMin && lb <= lengthMax
                                     && lc >= lengthMin && lc <= lengthMax
@@ -112,7 +112,7 @@ public class Matrix2dGraph {
 
 
     /**
-     * convert Graph of points and lines into boolean mask image
+     * transform Graph of points and lines into boolean mask image
      * @return
      */
     public Matrix2dBoolean toBoolean(){

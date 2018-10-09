@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 13.05.2018.
  */
-public class Point2dGeneric<E> {
+public class Point2dGeneric<E> extends AbstractElement{
     public E value;
     public int x;
     public int y;

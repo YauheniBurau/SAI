@@ -4,22 +4,15 @@ package com.yauheni.burau.sai;
  * Created by anonymous on 25.09.2018.
  */
 
-import core.converter.ElementConverter;
+import core.transformer.Transformer;
 import core.element.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 /**
  * Created by anonymous on 24.09.2018.
@@ -36,19 +29,20 @@ public class DrawMatrix2dInWindow extends Application {
     public Matrix2dByte count(String imageFile){
         int maxDiff = 32;
 
-        PngFile pngFile = new PngFile(dirIn + imageFile);
-        Matrix2dArgbSensor sensor = null;
-        sensor = ElementConverter.convert(pngFile, sensor);
+//        PngFile pngFile = new PngFile(dirIn + imageFile);
+//        Matrix2dArgbSensor sensor = null;
+//        sensor = Transformer.transform(pngFile, sensor);
 
-        Matrix2dByte m2dByte = null;
-        m2dByte = ElementConverter.convert(sensor, m2dByte);
-        return m2dByte;
+//        Matrix2dByte m2dByte = null;
+//        m2dByte = Transformer.transform(sensor, m2dByte);
+//        return m2dByte;
+        return null;
     }
 
     @Override public void start(Stage stage) {
         Matrix2dByte m2d = count(imageFile1);
         WritableImage writableImage = null;
-        writableImage = ElementConverter.convert(m2d, writableImage);
+        writableImage = Transformer.transform(m2d, writableImage);
 
         stage.setTitle("Matrix2d drawing");
         Group root = new Group();

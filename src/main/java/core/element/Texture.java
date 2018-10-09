@@ -3,5 +3,5 @@ package core.element;
 /**
  * Created by anonymous on 08.06.2018.
  */
-public class Texture implements IElement {
+public class Texture extends AbstractElement{
 }

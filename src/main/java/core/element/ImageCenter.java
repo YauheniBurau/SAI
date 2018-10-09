@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 21.09.2018.
  */
-public class ImageCenter {
+public class ImageCenter extends AbstractElement{
     public double x;
     public double y;
     public double z;

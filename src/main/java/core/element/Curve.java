@@ -8,7 +8,7 @@ import java.util.Collections;
 /**
  * Created by anonymous on 14.06.2018.
  */
-public class Curve {
+public class Curve extends AbstractElement{
     public static final int CURVE_UNDEFINED = 0;
     public static final int CURVE_LINE = 1;
     public static final int CURVE_ARC = 2;
@@ -239,10 +239,10 @@ public class Curve {
 
 
     /**
-     * find angle of line by point and center point
+     * find a of line by point and center point
      * @param pc
      * @param p
-     * @return angle in radians
+     * @return a in radians
      */
     public static double findLine2dAngleRad(Point pc, Point p){
         double angle;
@@ -260,7 +260,7 @@ public class Curve {
     }
 
     /**
-     * function circle y = f(rad); where rad is angle in radians
+     * function circle y = f(rad); where rad is a in radians
      * @return
      */
     public static Point f_radCircle(Point c, double r, double rad){
@@ -271,7 +271,7 @@ public class Curve {
     }
 
     /**
-     * function circle y = f(grade); where rad is angle in grades
+     * function circle y = f(grade); where rad is a in grades
      * @return
      */
     public static Point f_gradeCircle(Point c, double r, double grade){
@@ -285,7 +285,7 @@ public class Curve {
     @Deprecated
     /**
      * remember in calculation used X axis from left to right and y axis from top to bottom
-     * count angle of main axis of symmetry
+     * count a of main axis of symmetry
      * @return
      */
     public int countAngleAxisOfSymmetry(Point center, ArrayList<Point> points){
@@ -439,7 +439,7 @@ public class Curve {
 //        ARGB v;
 //        for(Point p : points) {
 //            v = mainM2d.getValue(p.x, p.y);
-//            image.setRGB(  p.x - l, p.y - u, ElementConverter.argbToInt(v) );
+//            image.setRGB(  p.x - l, p.y - u, Transformer.argbToInt(v) );
 //        }
 //        // 4. Save
 //        try {
@@ -494,12 +494,12 @@ public class Curve {
 //
 //
 //    /**
-//     * get angle between line and x-axis
+//     * get a between line and x-axis
 //     * @return
 //     */
 //    public double getAngle(){
 //        Point c, a, b;
-//        double angle;
+//        double a;
 //        if(this.p1.y <= this.p2.y){
 //            c = this.p1;
 //            a = this.p2;
@@ -508,8 +508,8 @@ public class Curve {
 //            a = this.p1;
 //        }
 //        b = new Point(a.x, c.y, 0,0,0);
-//        angle = Point.findAngle(c, a, b);
-//        return angle;
+//        a = Point.findAngle(c, a, b);
+//        return a;
 //    }
 
 }

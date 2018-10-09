@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 08.06.2018.
  */
-public class Point implements IElement{
+public class Point extends AbstractElement{
     public int x;
     public int y;
     public int z;
@@ -15,7 +15,7 @@ public class Point implements IElement{
         this.y = y;
         this.z = 0;
         this.value = 0;
-//        this.angle = 0;
+//        this.a = 0;
     }
 
     public Point(int x, int y, int z, int value) {
@@ -39,7 +39,7 @@ public class Point implements IElement{
     }
 
     /**
-     * count angle by 3 points
+     * count a by 3 points
      * @param c
      * @par am a
      * @param b

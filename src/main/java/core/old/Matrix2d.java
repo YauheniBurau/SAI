@@ -8,8 +8,8 @@ import core.element.*;
 public class Matrix2d{
 
 //    /**
-//     * rotate matrix for angle alpha
-//     * @param n - angle for rotation matrix
+//     * rotate matrix for a alpha
+//     * @param n - a for rotation matrix
 //     * @return
 //     */
 //    public Matrix2d rotate(int n) {

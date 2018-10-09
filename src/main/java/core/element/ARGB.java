@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 01.05.2017.
  */
-public class ARGB{
+public class ARGB extends AbstractElement{
     public final int a;
     public final int r;
     public final int g;

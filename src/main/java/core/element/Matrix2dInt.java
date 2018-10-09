@@ -3,7 +3,7 @@ package core.element;
 /**
  * Created by anonymous on 05.10.2017.
  */
-public class Matrix2dInt implements IMatrix2d<Integer> {
+public class Matrix2dInt extends AbstractElement implements IMatrix2d<Integer> {
     private Integer[][] matrix;
     public final int sizeX;
     public final int sizeY;
