@@ -1,6 +1,6 @@
 package core.old;
 
-//import core.element.ElementImage;
+//import core.application.dataElement.ElementImage;
 
 /**
  * Created by anonymous on 03.03.2018.

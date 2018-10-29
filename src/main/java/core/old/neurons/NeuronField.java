@@ -1,7 +1,7 @@
 package core.old.neurons;
 
-import core.exceptions.InputParamException;
-import core.exceptions.SetDataException;
+import core.application.exceptions.InputParamException;
+import core.application.exceptions.SetDataException;
 
 /**
  * Created by anonymous on 13.02.2018.

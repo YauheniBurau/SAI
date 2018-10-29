@@ -1,7 +1,7 @@
 package core.old;
 
-import core.element.AbstractElement;
-import core.element.Point;
+import core.application.dataElement.AbstractElement;
+import core.application.dataElement.Point;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +21,7 @@ public class Image extends AbstractElement {
 //    public ArrayList<Line> lines = new ArrayList<Line>();
 //    public ArrayList<Arc> arcs = new ArrayList<Arc>();
 //    public ArrayList<Texture> textures = new ArrayList<Texture>();
-//    //public ArrayList<IElement> elements = new ArrayList<IElement>(); // points, lines, arcs, textures
+//    //public ArrayList<IDataElement> elements = new ArrayList<IDataElement>(); // points, lines, arcs, textures
 //    public ArrayList<ElementImage> subImages = new ArrayList<ElementImage>();
 //    public ArrayList<ImageConnection> subImageConnections = new ArrayList<ImageConnection>();
 
@@ -59,8 +59,8 @@ public class Image extends AbstractElement {
 //
 //    public ArrayList<Point2dByte> toArrayOfPoint2dByte() {
 //        ArrayList<Point2dByte> points = new ArrayList<Point2dByte>();
-//        for(IElement element: elements.values()) {
-//            points.addAll(element.toArrayOfPoint2dByte());
+//        for(IDataElement dataElement: elements.values()) {
+//            points.addAll(dataElement.toArrayOfPoint2dByte());
 //        }
 //        return points;
 //    }
@@ -68,8 +68,8 @@ public class Image extends AbstractElement {
 //    public byte[] toData() {
 //        byte[] data;
 //        ArrayList<Byte> bytes = new ArrayList<Byte>();
-//        for (IElement element: elements.values()) {
-//            data = element.toData();
+//        for (IDataElement dataElement: elements.values()) {
+//            data = dataElement.toData();
 //            for(int j = 0; j<data.length; j++) {
 //                bytes.add(data[j]);
 //            }
@@ -87,7 +87,7 @@ public class Image extends AbstractElement {
 //        FileOutputStream fos;
 //        try {
 //            fos = new FileOutputStream(file);
-//            for (IElement e: this.elements.values() ) {
+//            for (IDataElement e: this.elements.values() ) {
 //                fos.write( e.toData() );
 //            }
 //            fos.flush();

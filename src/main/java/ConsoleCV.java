@@ -5,7 +5,7 @@ import org.apache.commons.cli.*;
  *
  * '-in' file
  * '-out' file
- * '-transform' - transformation name
+ * '-transform' - algorithm name
  */
 public class ConsoleCV {
     public static void main ( String [] arguments ) {
@@ -13,12 +13,12 @@ public class ConsoleCV {
         Options options = new Options();
         options.addRequiredOption("i", "in", true, "source in");
         options.addRequiredOption("o", "out", true, "source out");
-        options.addRequiredOption("t", "transform", true, "transformation");
-        options.addOption("p1", true, "transformation parameter1");
-        options.addOption("p2", true, "transformation parameter2");
-        options.addOption("p3", true, "transformation parameter3");
-        options.addOption("p4", true, "transformation parameter4");
-        options.addOption("p5", true, "transformation parameter5");
+        options.addRequiredOption("t", "transform", true, "algorithm");
+        options.addOption("p1", true, "algorithm parameter1");
+        options.addOption("p2", true, "algorithm parameter2");
+        options.addOption("p3", true, "algorithm parameter3");
+        options.addOption("p4", true, "algorithm parameter4");
+        options.addOption("p5", true, "algorithm parameter5");
         CommandLine commandLine;
         CommandLineParser parser = new DefaultParser();
         try {

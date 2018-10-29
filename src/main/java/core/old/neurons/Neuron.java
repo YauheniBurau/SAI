@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * Created by anonymous on 02.02.2018.
- * base element for the AI
+ * base dataElement for the AI
  */
 public class Neuron {
     private String id;

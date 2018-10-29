@@ -166,42 +166,4 @@ public class Matrix2dNeuron {
 //        return m2d;
 //    }
 
-
-    /**
-     * count number of not null elements
-     * @return
-     */
-    public int countNeurons(){
-        Neuron neuron;
-        int n = 0;
-        for (int j = 0; j < this.sizeY; j++) {
-            for (int i = 0; i < this.sizeX; i++) {
-                neuron = this.getValue(i, j);
-                if( neuron!=null ){
-                    n++;
-                }
-            }
-        }
-        return n;
-    }
-
-    // TODO:
-    /**
-     * count number of not null elements
-     * @return
-     */
-    public int countNeuronConections(){
-        Neuron neuron;
-        int n = 0;
-        for (int j = 0; j < this.sizeY; j++) {
-            for (int i = 0; i < this.sizeX; i++) {
-                neuron = this.getValue(i, j);
-                if( neuron!=null ){
-                    // TODO:
-                }
-            }
-        }
-        return n;
-    }
-
 }

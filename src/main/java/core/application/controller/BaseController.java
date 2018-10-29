@@ -1,8 +1,7 @@
 package core.application.controller;
 
-import core.application.model.Model;
-import core.exceptions.MethodException;
-import core.transformer.Transformation;
+import core.application.algorithm.process.InterfaceAlgorithm;
+import core.application.exceptions.MethodException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -10,12 +9,10 @@ import javafx.event.EventHandler;
  * Created by anonymous on 09.10.2018.
  */
 public class BaseController  implements EventHandler<ActionEvent> {
-    protected Model model = null;
-    protected Transformation transformation = null;
+    protected InterfaceAlgorithm algorithm = null;
 
-    public BaseController(Model model, Transformation transformation) {
-        this.model = model;
-        this.transformation = transformation;
+    public BaseController(InterfaceAlgorithm algorithm) {
+        this.algorithm = algorithm;
     }
 
     public void handle(ActionEvent event) {

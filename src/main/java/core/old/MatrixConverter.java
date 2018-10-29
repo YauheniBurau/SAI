@@ -1,12 +1,5 @@
 package core.old;
 
-import core.element.*;
-import core.old.Matrix2dNeuron;
-import core.old.neurons.Neuron;
-import core.old.neurons.NeuronBuilder;
-
-import java.util.ArrayList;
-
 // TODO: refactor all class
 /**
  * Created by anonymous on 03.02.2018.
@@ -45,13 +38,6 @@ public class MatrixConverter {
 //        return m2d;
 //    }
 //
-
-
-
-//    // TODO:
-//    public static Matrix2dNeuron argbToNeuron(Matrix2dArgb m2d){
-//        return null;
-//    }
 
 //    public static int byteToArgbInt(byte value){
 //        int v = value + 128;

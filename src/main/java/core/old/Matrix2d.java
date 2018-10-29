@@ -1,7 +1,5 @@
 package core.old;
 
-import core.element.*;
-
 /**
  * Created by anonymous on 27.04.2017.
  */

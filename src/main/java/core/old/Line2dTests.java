@@ -1,7 +1,7 @@
 package core.old;
 
-import core.element.Line2d;
-import core.element.Point;
+import core.application.dataElement.Line2d;
+import core.application.dataElement.Point;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -23,9 +24,9 @@ public class View {
      * @param extensions
      * @return
      */
-    public FileChooser.ExtensionFilter createFileChooserExtensionFilter(String comment, String... extensions){
+    public static FileChooser.ExtensionFilter createFileChooserExtensionFilter(String comment, String... extensions){
         FileChooser.ExtensionFilter extFilter =
-                new FileChooser.ExtensionFilter("TEXT files (*.txt)", extensions);
+                new FileChooser.ExtensionFilter(comment, extensions);
         return extFilter;
     }
 
@@ -36,7 +37,7 @@ public class View {
      * @param extFilter
      * @return
      */
-    public FileChooser createFileChooser(String title, File initialDirectory, FileChooser.ExtensionFilter extFilter){
+    public static FileChooser createFileChooser(String title, File initialDirectory, FileChooser.ExtensionFilter extFilter){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.setInitialDirectory(initialDirectory);
@@ -45,15 +46,40 @@ public class View {
     }
 
     /**
+     * create FileChooser for showOpenDialog(), showOpenMultipleDialog(), showSaveDialog()
+     * @param title
+     * @param initialDirectory
+     * @param comment
+     * @param extensions
+     * @return
+     */
+    public static FileChooser createFileChooser(String title, File initialDirectory, String comment, String... extensions){
+        FileChooser.ExtensionFilter extFilter = View.createFileChooserExtensionFilter(comment, extensions);
+        return View.createFileChooser(title, initialDirectory, extFilter);
+    }
+
+    /**
      * create button with setted up eventHandler onClick event
      * @param title
      * @param controller
      * @return
      */
-    public Button createButton(String title, EventHandler controller) {
+    public static Button createButton(String title, EventHandler controller) {
         Button btn = new Button(title);
         btn.setOnAction(controller);
         return btn;
+    }
+
+    /**
+     * create JavaFX ImageView
+     * @return
+     */
+    public static ImageView createImageView(int sizeX, int sizeY) {
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(sizeX);
+        imageView.setFitHeight(sizeY);
+        imageView.setPreserveRatio(true);
+        return imageView;
     }
 
 

@@ -1,7 +1,7 @@
 package core.old;
 
-import core.element.ARGB;
-import core.element.HSV;
+import core.application.dataElement.color.ARGB;
+import core.application.dataElement.color.HSV;
 
 /**
  * Created by anonymous on 03.10.2017.
