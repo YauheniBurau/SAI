@@ -1,5 +1,6 @@
 package core.application.dataElement;
 
+import core.old.Point;
 import core.old.math.Geometry;
 
 /**

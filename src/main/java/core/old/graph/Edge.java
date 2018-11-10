@@ -3,10 +3,10 @@ package core.old.graph;
 /**
  * Created by anonymous on 07.05.2018.
  */
-public class Edge<E, V> {
+public class Edge<V,E> {
     public E value;
-    public Vertex<E,V> v1;
-    public Vertex<E,V> v2;
+    public Vertex<V,E> v1;
+    public Vertex<V,E> v2;
 
     public Edge(E value) {
         this.value = value;
@@ -14,7 +14,7 @@ public class Edge<E, V> {
         this.v2 = null;
     }
 
-    public Edge(E value, Vertex<E,V> v1, Vertex<E,V> v2) {
+    public Edge(E value, Vertex<V,E> v1, Vertex<V,E> v2) {
         this.value = value;
         this.v1 = v1;
         this.v2 = v2;
@@ -28,19 +28,19 @@ public class Edge<E, V> {
         this.value = value;
     }
 
-    public Vertex<E,V> getV1() {
+    public Vertex<V,E> getV1() {
         return v1;
     }
 
-    public void setV1(Vertex<E,V> v1) {
+    public void setV1(Vertex<V,E> v1) {
         this.v1 = v1;
     }
 
-    public Vertex<E,V> getV2() {
+    public Vertex<V,E> getV2() {
         return v2;
     }
 
-    public void setV2(Vertex<E,V> v2) {
+    public void setV2(Vertex<V,E> v2) {
         this.v2 = v2;
     }
 }

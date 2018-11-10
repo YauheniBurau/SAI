@@ -1,6 +1,6 @@
 package core.old.neurons;
 
-import core.application.dataElement.NeuronParam;
+import core.old.NeuronParam;
 
 /**
  * Created by anonymous on 10.02.2018.

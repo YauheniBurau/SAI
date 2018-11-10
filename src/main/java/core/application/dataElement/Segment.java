@@ -3,11 +3,14 @@ package core.application.dataElement;
 //import core.old.comparator.CurveByLengthDescComparator;
 //import core.old.graph.Vertex;
 
+import core.old.Point;
+
 import java.util.ArrayList;
 
 //import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
 
 
+// TODO: remove later
 /**
  * Created by anonymous on 13.05.2018.
  */
@@ -37,7 +40,7 @@ public class Segment extends AbstractElement{
     }
 
     protected Matrix2dBoolean pointsToMatrix2dBoolean() {
-        // Count 1 px contures
+        // Count 1 px contoures
         this.countShiftAndSize();
         Matrix2dBoolean m2d = new Matrix2dBoolean(this.width, this.high);
         Matrix2dBoolean result = new Matrix2dBoolean(this.width, this.high);
@@ -53,7 +56,7 @@ public class Segment extends AbstractElement{
 //        Matrix2dBoolean m2d = this.pointsToMatrix2dBoolean();
 //        Matrix2dBoolean skeletized = m2d.skeletize();
 //
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(skeletized.sizeX, skeletized.sizeY);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(skeletized.size, skeletized.sizeY);
 //        this.points = new ArrayList<Point2dByte>();
 //    }
 
@@ -61,10 +64,10 @@ public class Segment extends AbstractElement{
 //        ArrayList<Curve> curves = new ArrayList<Curve>();
 //        Matrix2dBoolean m2d = this.pointsToMatrix2dBoolean();
 //        Matrix2dBoolean skeletized = m2d.skeletize();
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(skeletized.sizeX, skeletized.sizeY);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(skeletized.size, skeletized.sizeY);
 //        this.points = new ArrayList<Point2dByte>();
 //        int x, y;
-//        x = skeletized.sizeX;
+//        x = skeletized.size;
 //        y = skeletized.sizeY;
 //        Curve newCurve = null;
 //        double eps = 0;
@@ -90,7 +93,7 @@ public class Segment extends AbstractElement{
 //        ArrayList<Curve> longCurves = new ArrayList<Curve>();
 
 
-//        Matrix2dBoolean conture = new Matrix2dBoolean(result.sizeX, result.sizeY);
+//        Matrix2dBoolean conture = new Matrix2dBoolean(result.size, result.sizeY);
 //        for (Curve c: curvesResult){
 //            for (Point p: c.points) {
 //                conture.setValue(p.x, p.y, true);
@@ -282,7 +285,7 @@ public class Segment extends AbstractElement{
 //    }
 
     /**
-     * if number point in subsegment less then "min" - remove this subsegment
+     * if number coords in subsegment less then "min" - remove this subsegment
      * @param min
      */
     public static ArrayList<Segment> removeSegmentsByMinNumberOfPoints(int min, ArrayList<Segment> segments){
@@ -626,7 +629,7 @@ public class Segment extends AbstractElement{
 //    }
 
 //    /**
-//     * if number point in subsegment less then "min" - remove this subsegment
+//     * if number coords in subsegment less then "min" - remove this subsegment
 //     * @param min
 //     */
 //    public void removeSegmentsByMinNumberOfPoints(int min){

@@ -2,6 +2,9 @@ package core.application.dataElement;
 
 //import core.old.ElementImage;
 
+import core.application.dataElement.points.Point2d;
+import core.old.Point;
+
 import java.util.*;
 
 /**
@@ -64,7 +67,7 @@ public class Matrix2dBoolean implements IDataElement{
 //    }
 
 //    /**
-//     * save matrix to image-file
+//     * save values to image-file
 //     *
 //     * @param urlFile
 //     * @param format
@@ -72,9 +75,9 @@ public class Matrix2dBoolean implements IDataElement{
 //    public Matrix2dBoolean save(String urlFile, String format, int type) {
 //        BufferedImage image;
 //        int x, y;
-//        image = new BufferedImage(this.sizeX, this.sizeY, type);
+//        image = new BufferedImage(this.size, this.sizeY, type);
 //        y = this.sizeY;
-//        x = this.sizeX;
+//        x = this.size;
 //        for (int j = 0; j < y; j++) {
 //            for (int i = 0; i < x; i++) {
 //                image.setRGB(i, j, Transformer.booleanToInt(this.getValue(i, j)));
@@ -89,10 +92,10 @@ public class Matrix2dBoolean implements IDataElement{
 //    }
 //
 //    public Matrix2dBoolean skeletize(){
-//        Matrix2dBoolean result = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Matrix2dBoolean result = new Matrix2dBoolean(this.size, this.sizeY);
 //        boolean p00, p01, p02, p10, p11, p12, p20, p21, p22;
 //        for(int j = 0; j<this.sizeY; j++){
-//            for(int i = 0; i<this.sizeX; i++){
+//            for(int i = 0; i<this.size; i++){
 //                p00 = this.getValue(i-1, j-1);
 //                p01 = this.getValue(i, j-1);
 //                p02 = this.getValue(i+1, j-1);
@@ -114,7 +117,7 @@ public class Matrix2dBoolean implements IDataElement{
 //    }
 
 //    /**
-//     * find curve by coordinates of one of the point
+//     * find curve by coordinates of one of the coords
 //     * @param x
 //     * @param y
 //     * @return
@@ -128,13 +131,13 @@ public class Matrix2dBoolean implements IDataElement{
 //    public ArrayList<Curve> countBaseCurves(){
 //        // ===== COUNT BASE CURVES =====
 //        ArrayList<Curve> curves = new ArrayList<Curve>();
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.size, this.sizeY);
 //        Point p1, p2;
 //        Curve curve;
 //        ArrayList<Point> curvePoints;
 //        int n;
 //        for(int j = 0; j<this.sizeY; j++){
-//            for(int i = 0; i<this.sizeX; i++) {
+//            for(int i = 0; i<this.size; i++) {
 //                if(this.getValue(i, j)==true && isProcessed.getValue(i, j) == false){
 //                    // 1. find horizontal base lines
 //                    p1 = new Point(i, j, 0, 0, 0);
@@ -228,7 +231,7 @@ public class Matrix2dBoolean implements IDataElement{
 //                    curve = new Curve(p1, p2, null);
 //                    curve.points = curvePoints;
 //                    curves.add(curve);
-//                    // finish point processing
+//                    // finish coords processing
 //                    isProcessed.setValue(i, j, true);
 //                }
 //            }
@@ -237,7 +240,7 @@ public class Matrix2dBoolean implements IDataElement{
 //        Collections.sort(curves, new CurveByLengthDescComparator());
 //        boolean isLine;
 //        ArrayList<Curve> curvesResult = new ArrayList<Curve>();
-//        isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        isProcessed = new Matrix2dBoolean(this.size, this.sizeY);
 //        for (Curve c: curves){
 //            isLine = false;
 //            for (Point p: c.points) {
@@ -265,9 +268,9 @@ public class Matrix2dBoolean implements IDataElement{
         Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
         int pi, pj;
         Boolean v2, v3, v4, v5, v6, v7, v8, v9;
-        Point2dGeneric<Boolean> p;
-        LinkedList<Point2dGeneric<Boolean>> points = new LinkedList<Point2dGeneric<Boolean>>();
-        points.add( new Point2dGeneric<Boolean>(x, y, this.getValue(x, y)) );
+        Point2d<Boolean, Integer> p;
+        LinkedList<Point2d<Boolean, Integer>> points = new LinkedList<Point2d<Boolean, Integer>>();
+        points.add( new Point2d<Boolean, Integer>(x, y, this.getValue(x, y)) );
         isProcessed.setValue(x, y, true);
         while(points.size()>0){
             p = points.poll();
@@ -282,7 +285,7 @@ public class Matrix2dBoolean implements IDataElement{
             v8 = this.getValue(pi-1, pj);
 //            v9 = this.getValue(pi-1, pj-1);
             if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v2 == colorValue) {
-                points.add( new Point2dGeneric<Boolean>(pi, pj-1, v2) );
+                points.add( new Point2d<Boolean, Integer>(pi, pj-1, v2) );
                 isProcessed.setValue(pi, pj-1, true);
             }
 //            if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && Math.abs(summ/n - v3) <= maxDiff) {
@@ -292,7 +295,7 @@ public class Matrix2dBoolean implements IDataElement{
 //                n += 1;
 //            }
             if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v4 == colorValue) {
-                points.add( new Point2dGeneric<Boolean>(pi+1, pj, v4) );
+                points.add( new Point2d<Boolean, Integer>(pi+1, pj, v4) );
                 isProcessed.setValue(pi+1, pj, true);
             }
 //            if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && Math.abs(summ/n - v5) <= maxDiff) {
@@ -302,7 +305,7 @@ public class Matrix2dBoolean implements IDataElement{
 //                n += 1;
 //            }
             if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v6 == colorValue) {
-                points.add( new Point2dGeneric<Boolean>(pi,pj+1, v6) );
+                points.add( new Point2d<Boolean, Integer>(pi,pj+1, v6) );
                 isProcessed.setValue(pi, pj+1, true);
             }
 //            if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && Math.abs(summ/n - v7) <= maxDiff) {
@@ -312,7 +315,7 @@ public class Matrix2dBoolean implements IDataElement{
 //                n += 1;
 //            }
             if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v8 == colorValue) {
-                points.add( new Point2dGeneric<Boolean>(pi-1,pj, v8) );
+                points.add( new Point2d<Boolean, Integer>(pi-1,pj, v8) );
                 isProcessed.setValue(pi-1, pj, true);
             }
 //            if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && Math.abs(summ/n - v9) <= maxDiff) {
@@ -329,7 +332,7 @@ public class Matrix2dBoolean implements IDataElement{
     // ================================ OLD =============================================
 //    public Matrix2dBoolean getFilledShape() {
 //        int y = this.sizeY;
-//        int x = this.sizeX;
+//        int x = this.size;
 //        int pi, pj;
 //        Matrix2dBoolean isProcessed = new Matrix2dBoolean(x, y);
 //        LinkedList<Point2dByte> points;
@@ -534,19 +537,19 @@ public class Matrix2dBoolean implements IDataElement{
 //     * @return
 //     */
 //    public Matrix2dBoolean skeletize(){
-//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.size, this.sizeY);
 //        boolean isChanged;
 //        boolean v2, v3, v4, v5, v6, v7, v8, v9;
 //        int n;
 //        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
+//            for (int i = 0; i < size; i++) {
 //                m2d.setValue(i, j, this.getValue(i, j));
 //            }
 //        }
 //        do {
 //            isChanged = false;
 //            for (int j = 1; j < sizeY - 1; j++) {
-//                for (int i = 1; i < sizeX - 1; i++) {
+//                for (int i = 1; i < size - 1; i++) {
 //                    if (m2d.getValue(i, j) == true ){
 //                        v2 = m2d.getValue(i, j - 1);
 //                        v3 = m2d.getValue(i + 1, j - 1);
@@ -708,9 +711,9 @@ public class Matrix2dBoolean implements IDataElement{
 
 //    /**
 //     * draw arc
-//     * @param p1 - start point by uncounter clockwise
-//     * @param p2 - end point by uncounter clockwise
-//     * @param rc coordinates of point of radius
+//     * @param p1 - start coords by uncounter clockwise
+//     * @param p2 - end coords by uncounter clockwise
+//     * @param rc coordinates of coords of radius
 //     * @return
 //     */
 //    public Matrix2dBoolean drawArc(Point p1, Point p2, Point rc){
@@ -724,7 +727,7 @@ public class Matrix2dBoolean implements IDataElement{
     /**
      * count number for pattern 3x3
      * j = 1; j < sizeY-1;
-     * i = 1; i < sizeX-1;
+     * i = 1; i < size-1;
     */
     private int count3x3Pattern(int i, int j){
         int v1, v2, v3, v4, v5, v6, v7, v8, v9, n;
@@ -744,7 +747,7 @@ public class Matrix2dBoolean implements IDataElement{
     /**
      * count number for pattern 2x2
      * j = 0; j < sizeY-1;
-     * i = 0; i < sizeX-1;
+     * i = 0; i < size-1;
      */
     private int count2x2Pattern(int i, int j){
         int v1, v2, v3, v4, n;
@@ -863,7 +866,7 @@ public class Matrix2dBoolean implements IDataElement{
 //        int a = 0;
 //        int a;
 //        y = this.sizeY;
-//        x = this.sizeX;
+//        x = this.size;
 //
 //        for(int j = 0; j<y; j++) {
 //            for (int i = 0; i < x; i++) {
@@ -901,7 +904,7 @@ public class Matrix2dBoolean implements IDataElement{
     }
 
     /**
-     * binary get matrix = m1 & m2 by values
+     * binary get values = m1 & m2 by values
      * @param m1
      * @return
      */
@@ -918,7 +921,7 @@ public class Matrix2dBoolean implements IDataElement{
     }
 
     /**
-     * binary get matrix = m1 | m2 by values
+     * binary get values = m1 | m2 by values
      * @param m1
      * @return
      */
@@ -1056,7 +1059,7 @@ public class Matrix2dBoolean implements IDataElement{
 
     /**
      * Find Point for prolonging line
-     * @param p point around to find linePoint
+     * @param p coords around to find linePoint
      * @param directionLine from _0 to _136_179 constants
      * @param directionLine FIND_LEFT_POINT or FIND_RIGHT_POINT
      * @return Point
@@ -1103,48 +1106,6 @@ public class Matrix2dBoolean implements IDataElement{
 //        }
 //
         return pNext;
-    }
-
-    private MorthLine findMorthLine(Point pStart, int directionLine){
-        MorthLine mLine = new MorthLine();
-        Point p1, p2;
-        p1 = pStart;
-        p2 = pStart;
-        boolean isNextPointAvailable = false;
-//        do{
-//
-//        }while();
-
-
-        return mLine;
-    }
-
-
-    /**
-     * find all morthological lines on 2d boolean matrix
-     * @return
-     */
-    public ArrayList<MorthLine> findMorthLines(){
-        ArrayList<MorthLine> lines = new ArrayList<MorthLine>();
-        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
-
-//        Point p1, p2;
-//        Curve curve;
-//        ArrayList<Point> curvePoints;
-//        int n;
-        for(int j = 0; j<this.sizeY; j++){
-            for(int i = 0; i<this.sizeX; i++) {
-                if(this.getValue(i, j)==true && isProcessed.getValue(i, j) == false) {
-//
-//                    while(){
-//
-//
-//                    }
-                }
-            }
-        }
-
-        return lines;
     }
 
 

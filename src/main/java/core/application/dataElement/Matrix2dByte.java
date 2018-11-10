@@ -1,11 +1,13 @@
 package core.application.dataElement;
 
+import core.old.Point;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * Created by anonymous on 24.03.2018.
- * matrix of values byte[0..255]
+ * values of values byte[0..255]
  */
 public class Matrix2dByte extends AbstractElement {
     private Byte[][] matrix;
@@ -168,7 +170,7 @@ public class Matrix2dByte extends AbstractElement {
     public Point countCenterOfSymmetry(){
 //        int x, y, n = 0, cx = 0, cy = 0;
 //        y = this.sizeY;
-//        x = this.sizeX;
+//        x = this.size;
 //        for(int j = 0; j<y; j++){
 //            for(int i = 0; i<x; i++){
 //                if( this.getValue(i, j)==true){

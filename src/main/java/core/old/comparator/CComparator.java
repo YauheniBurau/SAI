@@ -1,6 +1,6 @@
 package core.old.comparator;
 
-import core.application.dataElement.Point2dByte;
+import core.old.Point2dByte;
 
 // TODO: Remove later
 /**
@@ -15,7 +15,7 @@ public class CComparator {
     }
 
     /**
-     * Compare point by distanceEpsilon and valueEpsilon between two points
+     * Compare coords by distanceEpsilon and valueEpsilon between two points
      * where distanceEpsilon and valueEpsilon are absolute values
      * @param p1
      * @param p2
@@ -35,7 +35,7 @@ public class CComparator {
     }
 
     /**
-     * Compare point by distanceEpsilon and valueEpsilon between two points
+     * Compare coords by distanceEpsilon and valueEpsilon between two points
      * where distanceEpsilon and valueEpsilon are percent values [0.00..1.00]
      * @param p1
      * @param p2

@@ -1,5 +1,6 @@
 package core.application.dataElement;
 
+import core.old.Point;
 import core.old.comparator.CurveByLengthDescComparator;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Curve extends AbstractElement{
     public int curveType = Curve.CURVE_UNDEFINED;
     // draw arc by counter clockwise from p1 to p2
     public Point p1 = null; // begin, end of line
-    public Point pC = null; // center radius point for arc, null - if line
+    public Point pC = null; // center radius coords for arc, null - if line
     public Point p2 = null; // end, begin of line
 
     public ArrayList<Point> points = new ArrayList<Point>();
@@ -72,7 +73,7 @@ public class Curve extends AbstractElement{
     /**
      * find center coordinates of arc of circle by 3 points on arc
      * @param p1
-     * @param p2 middle point
+     * @param p2 middle coords
      * @param p3
      * @return
      */
@@ -239,7 +240,7 @@ public class Curve extends AbstractElement{
 
 
     /**
-     * find a of line by point and center point
+     * find a of line by coords and center coords
      * @param pc
      * @param p
      * @return a in radians

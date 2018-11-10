@@ -1,6 +1,6 @@
 package core.old.math;
 
-import core.application.dataElement.Point;
+import core.old.Point;
 import java.util.ArrayList;
 
 // TODO: Remove later
@@ -12,7 +12,7 @@ public class Geometry {
     /**
      * find center coordinates of arc of circle by 3 points on arc
      * @param p1
-     * @param p2 middle point
+     * @param p2 middle coords
      * @param p3
      * @return
      */
@@ -113,7 +113,7 @@ public class Geometry {
     }
 
     /**
-     * find a of line by point and center point
+     * find a of line by coords and center coords
      * a starts from -180 to 180
      *          0
      *          |

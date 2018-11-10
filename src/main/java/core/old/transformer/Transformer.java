@@ -1,13 +1,17 @@
 package core.old.transformer;
 
-import core.application.algorithm.helper.UnsignedDoubleToSignedByte;
+import core.application.helper.UnsignedDoubleToSignedByte;
 import core.application.dataElement.*;
 import core.application.dataElement.color.ARGB;
 import core.application.dataElement.file.PngFile;
+import core.application.dataElement.matrix.Matrix2d;
+import core.application.dataElement.points.Point2d;
 import core.application.exceptions.FileException;
 import core.application.dataElement.Matrix2dBoolean;
 import core.application.dataElement.Matrix2dByte;
 import core.application.dataElement.Graph;
+import core.old.Matrix2dInt;
+import core.old.Point;
 import core.old.math.Geometry;
 import javafx.scene.chart.XYChart;
 import javax.imageio.ImageIO;
@@ -32,7 +36,7 @@ public class Transformer {
      * @param maxPercentImgDiff
      * @return
      */
-    public static Matrix2dBoolean transform2(Matrix2dArgb in, Matrix2dArgb out, double maxColorDiff, double maxPercentImgDiff) {
+    public static Matrix2dBoolean transform2(Matrix2d<ARGB> in, Matrix2d<ARGB> out, double maxColorDiff, double maxPercentImgDiff) {
         // 1-st stage
         int n = in.sizeX * in.sizeY;
         ARGB v, vMin, vMax;
@@ -63,7 +67,6 @@ public class Transformer {
         System.out.println("vMax(" + vMax.a + ", " + vMax.r + ", " + vMax.g + ", " + vMax.b + ")");
         System.out.println("vMin(" + vMin.a + ", " + vMin.r + ", " + vMin.g + ", " + vMin.b + ")");
         // 2-nd stage
-        Matrix2dInt m2dDiff = new Matrix2dInt(in.sizeX, in.sizeY, 0);
         out.setSizeXY(in.sizeX, in.sizeY);
         int i, j, pi, pj;
         ARGB v1, v2, v3, v4, v5, v6, v7, v8, v9, newV;
@@ -145,7 +148,7 @@ public class Transformer {
      * @param maxPercentImgDiff
      * @return
      */
-    public static Matrix2dBoolean transform(Matrix2dArgb in, Matrix2dArgb out, double maxColorDiff, double maxPercentImgDiff) {
+    public static Matrix2dBoolean transform(Matrix2d<ARGB> in, Matrix2d<ARGB> out, double maxColorDiff, double maxPercentImgDiff) {
         // 1-st stage
         int n = in.sizeX * in.sizeY;
         ARGB v, vMin, vMax;
@@ -176,7 +179,6 @@ public class Transformer {
         System.out.println("vMax(" + vMax.a + ", " + vMax.r + ", " + vMax.g + ", " + vMax.b + ")");
         System.out.println("vMin(" + vMin.a + ", " + vMin.r + ", " + vMin.g + ", " + vMin.b + ")");
         // 2-nd stage
-        Matrix2dInt m2dDiff = new Matrix2dInt(in.sizeX, in.sizeY, 0);
         out.setSizeXY(in.sizeX, in.sizeY);
         int i, j, pi, pj;
         ARGB v1, v2, v3, v4, v5, v6, v7, v8, v9, newV;
@@ -262,7 +264,7 @@ public class Transformer {
      * @param in
      * @return
      */
-    public static int countMatrix2dArgbColorsNumber(Matrix2dArgb in){
+    public static int countMatrix2dArgbColorsNumber(Matrix2d<ARGB> in){
         int n = 0;
         int[][][] colors = new int[256][256][256];
         int ir, ig, ib;
@@ -309,9 +311,9 @@ public class Transformer {
 //        Integer I = null;
 //        int type = TYPE_INT_ARGB;
 //        int x, y;
-//        image = new BufferedImage(in.sizeX, in.sizeY, type);
+//        image = new BufferedImage(in.size, in.sizeY, type);
 //        y = in.sizeY;
-//        x = in.sizeX;
+//        x = in.size;
 //        for(int j = 0; j<y; j++){
 //            for(int i = 0; i<x; i++){
 //                image.setRGB(i, j, ArgbToIntegerArgb.transform(in.getValue(i, j)));
@@ -457,7 +459,7 @@ public class Transformer {
     }
 
     /**
-     * find all point images in Matrix2dByte
+     * find all coords images in Matrix2dByte
      * @param maxDiff
      * @return
      */
@@ -790,7 +792,7 @@ public class Transformer {
     }
 
     /**
-     * works only for 2d contures
+     * works only for 2d contoures
      * @param in
      * @param out
      * @return
@@ -813,7 +815,7 @@ public class Transformer {
 
     /**
      * PolarConture (absolute values) -> NormalizedPolarConture( values in range [-128 +127] )
-     * works only for 2d contures
+     * works only for 2d contoures
      * @param in
      * @param out
      * @return
@@ -893,13 +895,13 @@ public class Transformer {
             npp2 = npp;
             p1 = Transformer.transform(npp1, p1);
             p2 = Transformer.transform(npp2, p2);
-            m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
+//            m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
             npp1 = npp2;
             nppLast = npp2;
         }
         p1 = Transformer.transform(nppFirst, p1);
         p2 = Transformer.transform(nppLast, p2);
-        m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
+//        m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
         return m2d;
     }
 
@@ -917,7 +919,7 @@ public class Transformer {
 //        for (NormalizedPolarPoint npp: in.points){
 //            npp2 = npp;
 //            if(Math.abs(npp1.a - npp2.a)>128){
-//                // TODO: Make  it cicle from last point to firstPoint of LinkedList
+//                // TODO: Make  it cicle from last coords to firstPoint of LinkedList
 //            }
 //            else{
 //                m2d.drawLine(npp1.a+128, npp1.r+128, npp2.a+128, npp2.r+128);
@@ -965,7 +967,7 @@ public class Transformer {
 
     // ===================================== COMPARE ============================================
     /**
-     * Compare two NormalizedPolarConture -> and return double from 0..1 where 1.0 - %100 is equal contures
+     * Compare two NormalizedPolarConture -> and return double from 0..1 where 1.0 - %100 is equal contoures
      * @param in1
      * @param in2
      * @param out
@@ -998,7 +1000,7 @@ public class Transformer {
      * @param out
      * @return
      */
-    public static ComparisonResult transform(Matrix2dBoolean in1, Matrix2dBoolean in2, ComparisonResult out){
+    public static void transform(Matrix2dBoolean in1, Matrix2dBoolean in2){
         double nNotEqual = 0.0, nEqual = 0.0, nMax = in1.sizeX * in1.sizeY;
         boolean v1, v2;
         for (int j = 0; j < in1.sizeY; j++) {
@@ -1013,9 +1015,9 @@ public class Transformer {
                 }
             }
         }
-        ComparisonResult cr = new ComparisonResult();
-        cr.form = nEqual/(nEqual + nNotEqual);
-        return cr;
+        //ComparisonResult cr = new ComparisonResult();
+        //cr.form = nEqual/(nEqual + nNotEqual);
+        //return null;
     }
 
 

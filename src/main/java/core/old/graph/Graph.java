@@ -11,16 +11,16 @@ import java.util.ArrayList;
  * @param <E> type value for edge
  * @param <V> type value for Vertex
  */
-public class Graph<E, V> {
-    public ArrayList<Vertex<E,V>> vertexes = new ArrayList<Vertex<E,V>>();
-    public ArrayList<Edge<E,V>> edges = new ArrayList<Edge<E,V>>();
+public class Graph<V, E> {
+    public ArrayList<Vertex<V,E>> vertexes = new ArrayList<Vertex<V,E>>();
+    public ArrayList<Edge<V,E>> edges = new ArrayList<Edge<V,E>>();
 
     /**
      * add vertex to graph
      * @param value
      * @return
      */
-    public Graph<E,V> addVertex(Vertex<E,V> value){
+    public Graph<V,E> addVertex(Vertex<V,E> value){
         this.vertexes.add(value);
         return this;
     }
@@ -30,7 +30,7 @@ public class Graph<E, V> {
      * @param value
      * @return
      */
-    public Graph<E,V> addEdge(Edge<E,V> value){
+    public Graph<V,E> addEdge(Edge<V,E> value){
         this.edges.add(value);
         return this;
     }
@@ -40,8 +40,8 @@ public class Graph<E, V> {
      * @param value
      * @return
      */
-    public Vertex<E,V> newVertex(V value){
-        Vertex<E,V> v = new Vertex<E,V>(value);
+    public Vertex<V,E> newVertex(V value){
+        Vertex<V,E> v = new Vertex<V,E>(value);
         return v;
     }
 
@@ -50,12 +50,13 @@ public class Graph<E, V> {
      * @param value
      * @return
      */
-    public Edge<E,V> newEdge(E value, Vertex<E,V> v1, Vertex<E,V> v2){
-        Edge<E,V> edge = new Edge<E,V>(value);
+    public Edge<V,E> newEdge(E value, Vertex<V,E> v1, Vertex<V,E> v2){
+        Edge<V,E> edge = new Edge<V,E>(value);
         edge.setV1(v1);
         edge.setV2(v2);
-        v1.edges.put(edge, v2);
-        v2.edges.put(edge, v1);
+        // TODO: add check if edge already exists to avoid duplicates for pair of allready connected two vertexes
+        v1.edges.add(edge);
+        v2.edges.add(edge);
         return edge;
     }
 

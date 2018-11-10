@@ -1,10 +1,12 @@
 package core.application.dataElement.color;
 
+import core.application.dataElement.IDataElement;
+
 /**
  * Created by anonymous on 29.10.2018.
  * class for storing Lab color
  */
-public class Lab {
+public class Lab implements IColor, IDataElement {
     /**
      * reference white in XYZ coordinates
      */
@@ -14,7 +16,7 @@ public class Lab {
     public static double[] D75 = {94.9722, 100.0, 122.6394};
     public static double[] whitePoint = D65;
 
-    public double L;
+    public double L; // (0.0 .. 100.0)
     public double a;
     public double b;
 

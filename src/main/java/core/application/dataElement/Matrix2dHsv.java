@@ -1,6 +1,8 @@
 package core.application.dataElement;
 
 import core.application.dataElement.color.HSV;
+import core.application.dataElement.points.Point2d;
+import core.old.Point;
 
 import java.util.ArrayList;
 
@@ -60,63 +62,13 @@ public class Matrix2dHsv extends AbstractElement {
         return null;
     }
 
-//    /**
-//     * load matrix2d from image ARGB-file
-//     * @param urlFile
-//     * @return
-//     */
-//    public static Matrix2dHsv load(String urlFile) {
-//        BufferedImage image;
-//        int x, y;
-//        HSV color;
-//        try {
-//            image = ImageIO.read(new FileImageInputStream(new File(urlFile)));
-//        } catch (IOException e) {
-//            throw new FileException("Can't read image file into matrix2d<ARGB>", e);
-//        }
-//        y = image.getHeight();
-//        x = image.getWidth();
-//        Matrix2dHsv matrix2D = new Matrix2dHsv(x, y);
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                color = Transformer.intToHsv( image.getRGB(i,j) );
-//                matrix2D.setValue(i,j, color);
-//            }
-//        }
-//        return matrix2D;
-//    }
 
-//    /**
-//     * save matrix to image-file
-//     * @param urlFile
-//     * @param format
-//     */
-//    public Matrix2dHsv save(String urlFile, String format) {
-//        BufferedImage image;
-//        int type = TYPE_INT_ARGB;
-//        int x, y;
-//        image = new BufferedImage(this.sizeX, this.sizeY, type);
-//        y = this.sizeY;
-//        x = this.sizeX;
-//        for(int j = 0; j<y; j++){
-//            for(int i = 0; i<x; i++){
-//                image.setRGB( i, j, Transformer.argbToInt(Transformer.hsvToArgb(this.getValue(i, j))) );
-//            }
-//        }
-//        try {
-//            ImageIO.write(image, format, new File(urlFile));
-//        } catch (IOException e) {
-//            throw new FileException("Can't save to 2d image file", e);
-//        }
-//        return this;
-//    }
-
-    public ArrayList<Point2dGeneric<HSV>> getShapePoints(ArrayList<Point> points){
-        ArrayList<Point2dGeneric<HSV>> pointsHSV = new ArrayList<Point2dGeneric<HSV>>();
+    public ArrayList<Point2d<HSV, Integer>> getShapePoints(ArrayList<Point> points){
+        ArrayList<Point2d<HSV, Integer>> pointsHSV = new ArrayList<Point2d<HSV, Integer>>();
         HSV hsv;
         for (Point p: points) {
             hsv = this.getValue(p.x, p.y);
-            pointsHSV.add( new Point2dGeneric<HSV>(p.x, p.y, new HSV(hsv.h, hsv.s, hsv.v)) );
+            pointsHSV.add( new Point2d<HSV, Integer>(p.x, p.y, new HSV(hsv.h, hsv.s, hsv.v)) );
         }
         return pointsHSV;
     }
@@ -406,10 +358,10 @@ public class Matrix2dHsv extends AbstractElement {
 //     */
 //    public Matrix2dHsv removeCloseValues(int dist){
 //        HSV p00, p01, p02, p10, p11, p12, p20, p21, p22;
-//        Matrix2dHsv m2d = new Matrix2dHsv(this.sizeX, this.sizeY);
+//        Matrix2dHsv m2d = new Matrix2dHsv(this.size, this.sizeY);
 //
 //        for(int j = 0; j<this.sizeY; j++){
-//            for(int i = 0; i<this.sizeX; i++){
+//            for(int i = 0; i<this.size; i++){
 //                p00 = this.getValue(i-1, j-1);
 //                p01 = this.getValue(i, j-1);
 //                p02 = this.getValue(i+1, j-1);
@@ -441,7 +393,7 @@ public class Matrix2dHsv extends AbstractElement {
 //        ArrayList<Edge> edges = new ArrayList<Edge>();
 //        Edge e;
 //        for(j = 0; j<this.sizeY; j++){
-//            for(i = 0; i<this.sizeX; i++){
+//            for(i = 0; i<this.size; i++){
 //                p11 = this.getValue(i, j);
 //                p12 = this.getValue(i+1, j);
 //                p21 = this.getValue(i, j+1);
@@ -460,7 +412,7 @@ public class Matrix2dHsv extends AbstractElement {
 //        // 2. SORT EDGES
 //        edges.sort(new CComparator<Edge>() { public int compare(Edge o1, Edge o2) { return o1.compareTo(o2); } });
 //        // 3. CREATE SEGMENTS FOR EVERY POINT
-//        Matrix2dInt m2dSegmIds = new Matrix2dInt(this.sizeX, this.sizeY); // segmentId in matrix of points
+//        Matrix2dInt m2dSegmIds = new Matrix2dInt(this.size, this.sizeY); // segmentId in values of points
 //        HashMap<Integer, Segment> segments = new HashMap<Integer, Segment>(); // segment number, segment;
 //        // 4. FIND ALL KRASKAL SEGMENTS
 //        int segCount = 0;
@@ -503,7 +455,7 @@ public class Matrix2dHsv extends AbstractElement {
 //            }
 //        }
 //
-//        Matrix2dHsv m2dHsv = new Matrix2dHsv(this.sizeX, this.sizeY);
+//        Matrix2dHsv m2dHsv = new Matrix2dHsv(this.size, this.sizeY);
 //        for(Segment s : segments.values()){
 //            for(Point2dGeneric p : s.points) {
 //                m2dHsv.setValue(p.x, p.y, new HSV(255, 255, s.id % 255));

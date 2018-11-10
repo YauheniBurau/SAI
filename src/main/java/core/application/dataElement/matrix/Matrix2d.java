@@ -7,19 +7,19 @@ import java.lang.reflect.Array;
 /**
  * Created by anonymous on 29.10.2018.
  */
-public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
-    private Class<T> matrixeElementClass;
-    protected T[][] matrix;
+public class Matrix2d<T> implements IMatrix, IDataElement {
+    private Class<T> elementClass;
+    protected T[][] values;
     public int sizeX;
     public int sizeY;
 
     /**
-     * create empty class with matrix = null
+     * create empty class with values = null
      */
     public Matrix2d() {
         this.sizeX = 0;
         this.sizeY = 0;
-        this.matrix = null;
+        this.values = null;
     }
 
     /**
@@ -31,8 +31,8 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
     public Matrix2d(Class<T> clazz, int xSize, int ySize) {
         this.sizeX = xSize;
         this.sizeY = ySize;
-        matrixeElementClass = clazz;
-        this.matrix = (T[][]) Array.newInstance(clazz, ySize, xSize);
+        elementClass = clazz;
+        this.values = (T[][]) Array.newInstance(clazz, ySize, xSize);
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {
                 this.setValue(i, j, null);
@@ -48,10 +48,10 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
      * @param defaultValue
      */
     public Matrix2d(Class<T> clazz, int xSize, int ySize, T defaultValue) {
-        matrixeElementClass = clazz;
+        elementClass = clazz;
         this.sizeX = xSize;
         this.sizeY = ySize;
-        this.matrix = (T[][]) Array.newInstance(clazz, ySize, xSize);
+        this.values = (T[][]) Array.newInstance(clazz, ySize, xSize);
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {
                 this.setValue(i, j, defaultValue);
@@ -67,7 +67,7 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
      */
     public void setValue(int xPos, int yPos, T value) {
         if (xPos >= 0 && xPos < this.sizeX && yPos >= 0 && yPos < this.sizeY) {
-            this.matrix[yPos][xPos] = value;
+            this.values[yPos][xPos] = value;
         }
     }
 
@@ -79,13 +79,13 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
      */
     public T getValue(int xPos, int yPos) {
         if (xPos >= 0 && xPos < this.sizeX && yPos >= 0 && yPos < this.sizeY) {
-            return this.matrix[yPos][xPos];
+            return this.values[yPos][xPos];
         }
         return null;
     }
 
     /**
-     * set new size of matrix, all data will be rewritten with defaultValue
+     * set new size of Matrix2d, all data will be rewritten with defaultValue
      * @param xSize
      * @param ySize
      * @param defaultValue
@@ -93,7 +93,7 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
     public void setSizeXY(int xSize, int ySize, T defaultValue) {
         this.sizeX = xSize;
         this.sizeY = ySize;
-        this.matrix = (T[][]) Array.newInstance(this.matrixeElementClass, ySize, xSize);
+        this.values = (T[][]) Array.newInstance(this.elementClass, ySize, xSize);
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {
                 this.setValue(i, j, defaultValue);
@@ -102,7 +102,7 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
     }
 
     /**
-     * set new size of matrix, all data will be rewritten with null value
+     * set new size of Matrix2d, all data will be rewritten with "null" value
      * @param xSize
      * @param ySize
      */
@@ -114,7 +114,7 @@ public class Matrix2d<T> implements IMatrix2d<T>, IDataElement {
      * count number of not null elements
      * @return
      */
-    public int countElements(){
+    public int countNotNullElements(){
         int n = 0;
         for (int j = 0; j < this.sizeY; j++) {
             for (int i = 0; i < this.sizeX; i++) {

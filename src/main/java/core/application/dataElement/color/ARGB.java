@@ -1,11 +1,11 @@
 package core.application.dataElement.color;
 
-import core.application.dataElement.AbstractElement;
+import core.application.dataElement.IDataElement;
 
 /**
  * Created by anonymous on 01.05.2017.
  */
-public class ARGB extends AbstractElement {
+public class ARGB implements IColor, IDataElement {
     public int a;
     public int r;
     public int g;

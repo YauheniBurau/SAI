@@ -1,7 +1,7 @@
 package core.old;
 
 import core.application.dataElement.AbstractElement;
-import core.application.dataElement.Point;
+
 import java.util.ArrayList;
 
 /**
@@ -25,10 +25,10 @@ public class Image extends AbstractElement {
 //    public ArrayList<ElementImage> subImages = new ArrayList<ElementImage>();
 //    public ArrayList<ImageConnection> subImageConnections = new ArrayList<ImageConnection>();
 
-//    // temporal set of support matrix for calculations and transformations
+//    // temporal set of support values for calculations and transformations
 //    public Matrix2dArgb m2dArgbValues = null;
 //    public Matrix2dInt m2dIntValues = null; // for saving id of segments
-//    public Matrix2dByte m2dByteValues = null; // byte matrix for processing
+//    public Matrix2dByte m2dByteValues = null; // byte values for processing
 //    public Matrix2dBoolean m2dBooleanValues = null; // for creating temp mask
 //    public ArrayList<Segment> segments = null;
 

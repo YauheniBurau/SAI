@@ -6,8 +6,8 @@ package core.old;
 public class Matrix2d{
 
 //    /**
-//     * rotate matrix for a alpha
-//     * @param n - a for rotation matrix
+//     * rotate values for a alpha
+//     * @param n - a for rotation values
 //     * @return
 //     */
 //    public Matrix2d rotate(int n) {
@@ -17,9 +17,9 @@ public class Matrix2d{
 //        ARGB pARGB;
 //        int a, r, g, b, step;
 //        step = 256/n;
-//        Matrix2d m2d = new Matrix2d(this.sizeX, this.sizeY);
+//        Matrix2d m2d = new Matrix2d(this.size, this.sizeY);
 //        for (int j = 1; j < sizeY-1; j++) {
-//            for (int i = 1; i < sizeX-1; i++) {
+//            for (int i = 1; i < size-1; i++) {
 //                pARGB = intToArgb(this.getValue(i, j));
 //                a = pARGB.a / step * step + step / 2;
 //                r = pARGB.r / step * step + step / 2;
@@ -36,14 +36,14 @@ public class Matrix2d{
 
 
 //    public static int[] argbColors(Matrix2d<ARGB> m2dArgb){
-//        int sizeX = m2dArgb.sizeX;
+//        int size = m2dArgb.size;
 //        int sizeY = m2dArgb.sizeY;
 //        ARGB pixel;
 //        int[] colors = new int[256];
 //        int color;
 //        for(int n =0; n<256; n++) colors[n] = 0;
 //        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
+//            for(int i = 0; i<size; i++){
 //                pixel = m2dArgb.getValue(i, j);
 //                color = (pixel.r + pixel.g +pixel.b)/3;
 //                colors[color]+=1;
@@ -53,16 +53,16 @@ public class Matrix2d{
 //    }
 //
 //    public static ARGB middleColor(Matrix2d<ARGB> m2dArgb){
-//        int sizeX = m2dArgb.sizeX;
+//        int size = m2dArgb.size;
 //        int sizeY = m2dArgb.sizeY;
-//        int total = sizeX*sizeY;
+//        int total = size*sizeY;
 //        ARGB pixel;
 //        int a = 0;
 //        int r = 0;
 //        int g = 0;
 //        int b = 0;
 //        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
+//            for(int i = 0; i<size; i++){
 //                pixel = m2dArgb.getValue(i, j);
 //                a += pixel.a;
 //                r += pixel.r;
@@ -77,14 +77,14 @@ public class Matrix2d{
 
 //
 //    public static Matrix2d<ARGB> argbMask(Matrix2d<ARGB> m2dArgb, ARGB threshold){
-//        int sizeX = m2dArgb.sizeX;
+//        int size = m2dArgb.size;
 //        int sizeY = m2dArgb.sizeY;
 //        ARGB low = new ARGB(0xff, 0, 0, 0);
 //        ARGB high = new ARGB(0xff, 255, 255, 255);
 //        ARGB p;
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
+//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, size, sizeY);
 //        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<sizeX; i++){
+//            for(int i = 0; i<size; i++){
 //                p = m2dArgb.getValue(i, j);
 //                if(p.a == threshold.a && p.r == threshold.r && p.g == threshold.g && p.b == threshold.b)
 //                m2d.setValue(i, j, high);
@@ -97,15 +97,15 @@ public class Matrix2d{
 
 
 //    public static Matrix2d<ARGB> argbByColorFrequency(Matrix2d<ARGB> m2dArgb, int[] frequency, int aMinFrequency, int maxFrequency){
-//        int sizeX = m2dArgb.sizeX;
+//        int size = m2dArgb.size;
 //        int sizeY = m2dArgb.sizeY;
 //        ARGB empty = new ARGB(0xff, 0, 0, 0);
 //        ARGB edge = new ARGB(0xff, 255, 255, 255);
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
+//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, size, sizeY);
 //        ARGB p;
 //        int color;
 //        for(int j = 0; j<sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
+//            for (int i = 0; i < size; i++) {
 //                p = m2dArgb.getValue(i, j);
 //                color = (p.r + p.g + p.b)/3;
 //                if( frequency[color]>=aMinFrequency && frequency[color]<=maxFrequency){
@@ -140,16 +140,16 @@ public class Matrix2d{
 //
 //
 //    public static Matrix2d<ARGB> argbToGrey2ByAChannel(Matrix2d<ARGB> m2dArgb, ARGB threshold){
-//        int sizeX = m2dArgb.sizeX;
+//        int size = m2dArgb.size;
 //        int sizeY = m2dArgb.sizeY;
 //        int iThreshold = threshold.a;
 //        ARGB low = new ARGB(0xff, 0, 0, 0);
 //        ARGB high = new ARGB(0xff, 255, 255, 255);
-//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, sizeX, sizeY);
+//        Matrix2d<ARGB> m2d = new Matrix2d<ARGB>(ARGB.class, size, sizeY);
 //        ARGB p;
 //        int pThreshold;
 //        for(int j = 0; j<sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
+//            for (int i = 0; i < size; i++) {
 //                p = m2dArgb.getValue(i, j);
 //                pThreshold = p.a;
 //                if( pThreshold>=iThreshold){

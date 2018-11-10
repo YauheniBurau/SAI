@@ -1,11 +1,11 @@
 package core.application.dataElement.color;
 
-import core.application.dataElement.AbstractElement;
+import core.application.dataElement.IDataElement;
 
 /**
  * Created by anonymous on 01.05.2017.
  */
-public class HSV extends AbstractElement {
+public class HSV implements IColor, IDataElement {
     public int h;
     public int s;
     public int v;

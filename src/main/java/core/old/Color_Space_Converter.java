@@ -30,7 +30,7 @@ public class Color_Space_Converter{
         public double[] chromaWhitePoint = chromaD65;
 
         /**
-         * default constructor, uses D65 for the white point
+         * default constructor, uses D65 for the white coords
          */
         public ColorSpaceConverter() {
             whitePoint = D65;

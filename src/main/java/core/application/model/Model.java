@@ -11,6 +11,7 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -24,8 +25,9 @@ public class Model {
     public static HashMap<String, PngFile> pngFileList = new HashMap<String, PngFile>();
 
     public static HashMap<String, Matrix2d<ARGB>> matrix2dArgbList = new HashMap<String, Matrix2d<ARGB>>();
+    public static HashMap<String, Matrix2d<Byte>> matrix2dByteList = new HashMap<String, Matrix2d<Byte>>();
     public static HashMap<String, Matrix2d<Lab>> matrix2dLabList = new HashMap<String, Matrix2d<Lab>>();
-    public static HashMap<String, Matrix2d<Boolean>> matrix2dBooleanList = new HashMap<String, Matrix2d<Boolean>>();
+    public static HashMap<String, Matrix2d<Boolean>> matrix2dBoolList = new HashMap<String, Matrix2d<Boolean>>();
 
     //============================================= JAVAFX OBJECTS =====================================================
     public static HashMap<String, ScatterChart<Number,Number>> ScatterChartList = new HashMap<String, ScatterChart<Number, Number>>();
@@ -37,5 +39,6 @@ public class Model {
     public static HashMap<String, FileChooser> fileChooserList = new HashMap<String, FileChooser>();
     public static HashMap<String, Stage> stageList = new HashMap<String, Stage>();
     public static HashMap<String, Scene> sceneList = new HashMap<String, Scene>();
-    public static HashMap<String, Group> groupList = new HashMap<String, Group>();
+    public static HashMap<String, Pane> paneList = new HashMap<String, Pane>();
+
 }

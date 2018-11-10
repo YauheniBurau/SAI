@@ -17,7 +17,7 @@ public class Color {
     }
 
     /**
-     * in system xyz find color distance as distance between 2 point in decart coordinates
+     * in system xyz find color distance as distance between 2 coords in decart coordinates
      * @param color1
      * @param color2
      * @return

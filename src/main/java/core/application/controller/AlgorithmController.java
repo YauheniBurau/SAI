@@ -1,6 +1,6 @@
 package core.application.controller;
 
-import core.application.algorithm.process.InterfaceAlgorithm;
+import core.application.algorithms.IAlgorithm;
 import javafx.event.ActionEvent;
 
 /**
@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
  */
 public class AlgorithmController extends BaseController {
 
-    public AlgorithmController(InterfaceAlgorithm algorithm) {
+    public AlgorithmController(IAlgorithm algorithm) {
         super(algorithm);
     }
 

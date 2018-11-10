@@ -64,7 +64,7 @@ public class Matrix2dNeuron {
 //     * @return
 //     */
 //    public Matrix2dGraph findLines(double lengthMin, double lengthMax, double angleMin, double angleMax ){
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.size, this.sizeY);
 //        boolean isChanged;
 //        Graph a, b, c;
 //        Point2d pa, pb, pc;
@@ -72,13 +72,13 @@ public class Matrix2dNeuron {
 //        double a;
 //        do {
 //            for (int j = 0; j < this.sizeY; j++) {
-//                for (int i = 0; i < this.sizeX; i++) {
+//                for (int i = 0; i < this.size; i++) {
 //                    isProcessed.setValue(i, j, false);
 //                }
 //            }
 //            isChanged = false;
 //            for (int j = 0; j < this.sizeY; j++) {
-//                for (int i = 0; i < this.sizeX; i++) {
+//                for (int i = 0; i < this.size; i++) {
 //                    a = this.getValue(i, j);
 //                    if(a != null){
 //                        if (a.getPoints().size() == 2 && isProcessed.getValue(i,j)==false ) {
@@ -117,16 +117,16 @@ public class Matrix2dNeuron {
 //     * @return
 //     */
 //    public Matrix2dBoolean toBoolean(){
-//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.size, this.sizeY);
 //        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
+//            for (int i = 0; i < size; i++) {
 //                m2d.setValue(i, j, false);
 //            }
 //        }
 //        Graph g1;
 //        ArrayList<Graph> graphs;
 //        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
+//            for (int i = 0; i < size; i++) {
 //                g1 = this.getValue(i, j);
 //                if(g1!=null){
 //                    graphs = g1.getPoints();
@@ -146,9 +146,9 @@ public class Matrix2dNeuron {
 //     * @return
 //     */
 //    public Matrix2dBoolean toBooleanOnlyPoints(){
-//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.size, this.sizeY);
 //        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
+//            for (int i = 0; i < size; i++) {
 //                m2d.setValue(i, j, false);
 //            }
 //        }
@@ -156,7 +156,7 @@ public class Matrix2dNeuron {
 //        Point2d p;
 //        int n = 0;
 //        for (int j = 0; j < this.sizeY; j++) {
-//            for (int i = 0; i < this.sizeX; i++) {
+//            for (int i = 0; i < this.size; i++) {
 //                g = this.getValue(i, j);
 //                if( g!=null ){
 //                    m2d.setValue(i, j, true);

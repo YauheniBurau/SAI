@@ -1,6 +1,6 @@
 package com.yauheni.burau.sai;
 
-import core.application.algorithm.process.*;
+import core.application.process.*;
 import core.application.dataElement.*;
 import core.application.dataElement.color.ARGB;
 import core.application.dataElement.color.Lab;
@@ -15,15 +15,15 @@ public class AI_Test {
 
     String dirIn = "E:\\temp\\in\\";
     String dirOut = "E:\\temp\\out\\";
-//    String imageFile = "game.jpeg";
+//    String imageFile = "game.png";
 //    String imageFile = "lcd.png";
 //    String imageFile = "table.png";
 //    String imageFile = "table.JPG";
 //    String imageFile = "nature1.jpeg";
 //    String imageFile = "stown.png";
-//    String imageFile = "alphabet_colors.jpg";
-//    String imageFile = "nature.jpg";
-    String imageFile = "anime.png";
+//    String imageFile = "alphabet2c.png";
+//    String imageFile = "nature.png";
+//    String imageFile = "anime.png";
 //    String imageFile = "alphabet_number.png";
 //    String imageFile = "desktop.png";
 //    String imageFile = "text.png";
@@ -33,22 +33,145 @@ public class AI_Test {
 //    String imageFile = "square1.png";
 //    String imageFile = "star.png";
 //    String imageFile = "screen.png";
-//    String imageFile = "cute_girl_satisfied.png";
+    String imageFile = "cute_girl_satisfied.png";
+//    String imageFile = "cute_girl_smile.png";
+//    String imageFile = "BlondeAngel.png";
 
     @Test
-    public void PngFile_to_ARGB_to_Lab() {
+    public void PngFile_to_LAB_to_M2dByte_EdgeDiff() {
         TransformResults tr;
         int n;
         PngFile pngFileIn = new PngFile(dirIn + imageFile);
         Matrix2d<ARGB> m2dArgb = new Matrix2d<ARGB>(ARGB.class, 0, 0);
-        Matrix2d<Lab> m2dLab = new Matrix2d<Lab>(Lab.class, 0,0);
+        Matrix2d<Lab> m2dLab = new Matrix2d<Lab>(Lab.class, 0, 0);
+        Matrix2d<Byte> m2dByteL = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dBytea = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteb = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteQ = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteQ_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dBytea_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteb_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        PngFile pngFileOut;
+
+        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
+        tr = M2dArgbToM2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint);
+
+        tr = M2dLabToM2dByte_L_A_B.transform1(m2dLab, m2dByteL);
+        tr = M2dByteToM2dByte_Quantized.transform(m2dByteL, m2dByteQ, 4);
+        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteQ, m2dByteQ_edgeDiff);
+        pngFileOut = new PngFile(dirOut  + "_Q" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dByteQ_edgeDiff, pngFileOut);
+    }
+
+
+    @Test
+    public void PngFile_to_M2dByte_EdgeDiff() {
+        TransformResults tr;
+        int n;
+        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+        Matrix2d<ARGB> m2dArgb = new Matrix2d<ARGB>(ARGB.class, 0, 0);
+        Matrix2d<Byte> m2dByteR = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteG = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteB = new Matrix2d<Byte>(Byte.class, 0, 0);
+
+        Matrix2d<Lab> m2dLab = new Matrix2d<Lab>(Lab.class, 0, 0);
+        Matrix2d<Byte> m2dByteL = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dBytea = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteb = new Matrix2d<Byte>(Byte.class, 0, 0);
+
+        Matrix2d<Byte> m2dByteR_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteG_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteB_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+
+        Matrix2d<Byte> m2dByteL_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dBytea_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteb_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
+
+        Matrix2d<ARGB> m2dArgbOut = new Matrix2d<ARGB>(ARGB.class, 0, 0);
+        PngFile pngFileOut;
+
+        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
+        tr = M2dArgbToM2dByte_A_R_G_B.transform1(m2dArgb, m2dByteR);
+        tr = M2dArgbToM2dByte_A_R_G_B.transform2(m2dArgb, m2dByteG);
+        tr = M2dArgbToM2dByte_A_R_G_B.transform3(m2dArgb, m2dByteB);
+        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteR, m2dByteR_edgeDiff);
+        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteG, m2dByteG_edgeDiff);
+        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteB, m2dByteB_edgeDiff);
+        tr = M2dByte3ToM2dArgb.transform(m2dByteR_edgeDiff, m2dByteG_edgeDiff, m2dByteB_edgeDiff, m2dArgbOut);
+        pngFileOut = new PngFile(dirOut + imageFile);
+        tr = M2dArgbToPngFile.transform(m2dArgbOut, pngFileOut);
+        pngFileOut = new PngFile(dirOut  + "_R" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dByteR_edgeDiff, pngFileOut);
+        pngFileOut = new PngFile(dirOut + "_G" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dByteG_edgeDiff, pngFileOut);
+        pngFileOut = new PngFile(dirOut + "_B" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dByteB_edgeDiff, pngFileOut);
+    }
+
+
+
+    @Test
+    public void PngFile_to_ARGB_to_quantize() {
+        int quantizeValue = 7;
+        TransformResults tr;
+        int n;
+        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+        Matrix2d<ARGB> m2dArgb = new Matrix2d<ARGB>(ARGB.class, 0, 0);
+        Matrix2d<Byte> m2dR = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dG = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dB = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dR1 = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dG1 = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dB1 = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<ARGB> m2dArgbOut = new Matrix2d<ARGB>(ARGB.class, 0, 0);
         PngFile pngFileOut = new PngFile(dirOut + imageFile);
 
-        tr = PngFileToMatrix2dArgb.transform(pngFileIn, m2dArgb, new TransformParams());
-        tr = Matrix2dArgbToMatrix2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint, new TransformParams());
-        tr = Matrix2dLabToMatrix2dArgb.transform(m2dLab, m2dArgb, Lab.whitePoint, new TransformParams());
-        tr = Matrix2dArgbToPngFile.transform(m2dArgb, pngFileOut, new TransformParams());
+        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
+        // =====
+        tr = M2dArgbToM2dByte_A_R_G_B.transform1(m2dArgb, m2dR);
+//        pngFileOut = new PngFile(dirOut + "R" + imageFile);
+//        tr = M2dByteToPngFile.transform(m2dR, pngFileOut);
+        tr = M2dArgbToM2dByte_A_R_G_B.transform2(m2dArgb, m2dG);
+//        pngFileOut = new PngFile(dirOut + "G" + imageFile);
+//        tr = M2dByteToPngFile.transform(m2dG, pngFileOut);
+        tr = M2dArgbToM2dByte_A_R_G_B.transform3(m2dArgb, m2dB);
+//        pngFileOut = new PngFile(dirOut + "B" + imageFile);
+//        tr = M2dByteToPngFile.transform(m2dB, pngFileOut);
+
+        // =====
+        tr = M2dByteToM2dByte_Quantized.transform(m2dR, m2dR1, quantizeValue);
+        pngFileOut = new PngFile(dirOut + "R1" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dR1, pngFileOut);
+        tr = M2dByteToM2dByte_Quantized.transform(m2dG, m2dG1, quantizeValue);
+        pngFileOut = new PngFile(dirOut + "G1" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dG1, pngFileOut);
+        tr = M2dByteToM2dByte_Quantized.transform(m2dB, m2dB1, quantizeValue);
+        pngFileOut = new PngFile(dirOut + "B1" + imageFile);
+        tr = M2dByteToPngFile.transform(m2dB1, pngFileOut);
+        // =====
+        tr = M2dByte3ToM2dArgb.transform(m2dR1, m2dG1, m2dB1, m2dArgbOut);
+        pngFileOut = new PngFile(dirOut + imageFile);
+        tr = M2dArgbToPngFile.transform(m2dArgbOut, pngFileOut);
     }
+
+
+//    @Test
+//    public void PngFile_to_ARGB_to_Lab_to_edgesByL() {
+//        TransformResults tr;
+//        int n;
+//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+//        Matrix2d<ARGB> m2dArgb = new Matrix2d<ARGB>(ARGB.class, 0, 0);
+//        Matrix2d<Lab> m2dLab = new Matrix2d<Lab>(Lab.class, 0,0);
+//        Matrix2d<Byte> m2dL = new Matrix2d<Byte>(Byte.class, 0,0);
+//        Matrix2d<Boolean> m2dBool = new Matrix2d<Boolean>(Boolean.class, 0,0);
+//        PngFile pngFileOut = new PngFile(dirOut + imageFile);
+//
+//        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb, new TransformParams());
+//        tr = M2dArgbToM2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint, new TransformParams());
+//        tr = M2dLabToM2dByte_L_A_B.transform(m2dLab, m2dL, new TransformParams());
+//        tr = M2dByteToM2dBoolean_SegmentEdges.transform(m2dL, m2dBool, new TransformParams());
+//        tr = M2dBooleanToPngFile.transform(m2dBool, pngFileOut, new TransformParams());
+//    }
 
 
 //    @Test
@@ -58,7 +181,7 @@ public class AI_Test {
 //        PngFile pngFile = new PngFile(dirIn + imageFile);
 //        Matrix2dArgb argb = new Matrix2dArgb(0, 0);
 //
-//        tr = PngFileToMatrix2dArgb.transform(pngFile, argb, new TransformParams());
+//        tr = PngFileToM2dArgb.transform(pngFile, argb, new TransformParams());
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb);
 //        System.out.println("number of Colors:" + n);
 //
@@ -67,7 +190,7 @@ public class AI_Test {
 //        System.out.println("number of Colors:" + n);
 //
 //        PngFile pngFile1 = new PngFile(dirOut + imageFile);
-//        tr = Matrix2dArgbToPngFile.transform(argb1, pngFile1, new TransformParams());
+//        tr = M2dArgbToPngFile.transform(argb1, pngFile1, new TransformParams());
 //        // =============================================================================================================
 //    }
 
@@ -78,7 +201,7 @@ public class AI_Test {
 //        // =============================================================================================================
 //        PngFile pngFile = new PngFile(dirIn + imageFile);
 //        Matrix2dArgb argb = new Matrix2dArgb(0,0);
-//        tr = PngFileToMatrix2dArgb.transform(pngFile, argb, new TransformParams());
+//        tr = PngFileToM2dArgb.transform(pngFile, argb, new TransformParams());
 //        // =============================================================================================================
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb);
 //        System.out.println("number of Colors:" + n);
@@ -137,7 +260,7 @@ public class AI_Test {
 //
 //        // =============================================================================================================
 //        PngFile pngFile1 = new PngFile(dirOut + imageFile);
-//        tr = Matrix2dArgbToPngFile.transform(argb10, pngFile1, new TransformParams());
+//        tr = M2dArgbToPngFile.transform(argb10, pngFile1, new TransformParams());
 //    }
 
     //    @Test
@@ -162,9 +285,9 @@ public class AI_Test {
 //        Matrix2dGraph m2dGraph = null;
 //        m2dGraph = Transformer.transform(m2dEdge, m2dGraph);
 //
-//        ArrayList<Conture> contures = null;
-//        contures = Transformer.transform(m2dGraph, contures);
-//        Conture c = contures.get(0);
+//        ArrayList<Conture> contoures = null;
+//        contoures = Transformer.transform(m2dGraph, contoures);
+//        Conture c = contoures.get(0);
 //
 //    }
 
@@ -403,7 +526,7 @@ public class AI_Test {
 //        Matrix2dArgb rgb = baseRgb.middleColor().middleColor();
 //        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(rgb);
 //        Matrix2dByte m2dByte = MatrixConverter.matrix2dHsvToMatrix2dByteByValue(hsv);
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(m2dByte.sizeX, m2dByte.sizeY);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(m2dByte.size, m2dByte.sizeY);
 //        Segment seg = m2dByte.findSegment(isProcessed, maxDiff, x,y);
 //        seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
 //    }
@@ -808,7 +931,7 @@ public class AI_Test {
 //
 //        int i, j, n;
 //        n = 0;
-//        int sX = skeleton.sizeX;
+//        int sX = skeleton.size;
 //        int sY = skeleton.sizeY;
 //        for(j = 0; j<sY;j++ ){
 //            for(i = 0; i<sX;i++ ){
@@ -819,7 +942,7 @@ public class AI_Test {
 //
 //
 //        n = 0;
-//        sX = gn.sizeX;
+//        sX = gn.size;
 //        sY = gn.sizeY;
 //        for(j = 0; j<sY;j++ ){
 //            for(i = 0; i<sX;i++ ){
@@ -1136,7 +1259,7 @@ public class AI_Test {
     //    @Test
 //    public void color256Statistic() {
 //        int k, i, j, limit = 100000;
-//        int sizeX, sizeY;
+//        int size, sizeY;
 //        ARGB pixel;
 //        int color;
 //        ARGB empty = new ARGB(0x00, 0, 0, 0);
@@ -1145,13 +1268,13 @@ public class AI_Test {
 //        Matrix2d<ARGB> m0 = Matrix2dFileReader.loadRGB(dirIn + imageFile);
 //        Matrix2d<ARGB> mGrey = Matrix2dArgbFilter.argbToGrey256(m0);
 //        Matrix2dFileWriter.saveRGB(mGrey, dirIn + imageFile + "_grey256.png", "png");
-//        Matrix2d<ARGB> mReduceColors = new Matrix2d(ARGB.class, mGrey.sizeX, mGrey.sizeY);
-//        sizeX = mGrey.sizeX;
+//        Matrix2d<ARGB> mReduceColors = new Matrix2d(ARGB.class, mGrey.size, mGrey.sizeY);
+//        size = mGrey.size;
 //        sizeY = mGrey.sizeY;
 //        int[] colorFrequency = Matrix2dStatistic.argbColors(mGrey);
 //        for(k=0; k<=255; k++) System.out.println(colorFrequency[k]);
 //        for(j = 0; j<sizeY; j++) {
-//            for (i = 0; i < sizeX; i++) {
+//            for (i = 0; i < size; i++) {
 //                pixel = mGrey.getValue(i, j);
 //                color = (pixel.r + pixel.g + pixel.b) / 3;
 //                if (colorFrequency[color] <= limit) {
@@ -1176,7 +1299,7 @@ public class AI_Test {
 ////        colorFrequency = Matrix2dStatistic.argbColors(mGrey);
 ////        for(k=0; k<=255; k++) System.out.println(colorFrequency[k]);
 ////        for(j = 0; j<sizeY; j++) {
-////            for (i = 0; i < sizeX; i++) {
+////            for (i = 0; i < size; i++) {
 ////                pixel = mGrey.getValue(i, j);
 ////                color = (pixel.r + pixel.g + pixel.b) / 3;
 ////                if (colorFrequency[color] <= limit) {
@@ -1204,26 +1327,26 @@ public class AI_Test {
 ////        Matrix2d<ARGB> m1x2 = Matrix2dTransform.argbConvolute2x(m0x);
 //        Matrix2d<ARGB> m0 = m0x; //Matrix2dTransform.argbConvolute2x(m0x);
 //
-//        Matrix2d<ARGB> m1 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
-//        Matrix2d<ARGB> m1_1 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
-//        Matrix2d<ARGB> m1_2 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
+//        Matrix2d<ARGB> m1 = new Matrix2d<ARGB>(ARGB.class, m0.size, m0.sizeY);
+//        Matrix2d<ARGB> m1_1 = new Matrix2d<ARGB>(ARGB.class, m0.size, m0.sizeY);
+//        Matrix2d<ARGB> m1_2 = new Matrix2d<ARGB>(ARGB.class, m0.size, m0.sizeY);
 //
-//        Matrix2d<ARGB> m2 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
-//        Matrix2d<ARGB> m2_1 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
-//        Matrix2d<ARGB> m2_2 = new Matrix2d<ARGB>(ARGB.class, m0.sizeX, m0.sizeY);
+//        Matrix2d<ARGB> m2 = new Matrix2d<ARGB>(ARGB.class, m0.size, m0.sizeY);
+//        Matrix2d<ARGB> m2_1 = new Matrix2d<ARGB>(ARGB.class, m0.size, m0.sizeY);
+//        Matrix2d<ARGB> m2_2 = new Matrix2d<ARGB>(ARGB.class, m0.size, m0.sizeY);
 //
 //        ARGB threshold = Matrix2dStatistic.middleColor(m0);
-//        Matrix2dArgbFilter.argbToMaskByThreshold(m0, m1, m2, threshold, 0,0, m0.sizeX, m0.sizeY);
+//        Matrix2dArgbFilter.argbToMaskByThreshold(m0, m1, m2, threshold, 0,0, m0.size, m0.sizeY);
 //        Matrix2dFileWriter.saveRGB(m1, dirIn + imageFile + "_m1_Mask.png", "png");
 //        Matrix2dFileWriter.saveRGB(m2, dirIn + imageFile + "_m2_Mask.png", "png");
 //
-//        threshold = Matrix2dStatistic.middleColor(m0, m1, 0,0, m0.sizeX, m0.sizeY);
-//        Matrix2dArgbFilter.argbToMaskByThreshold(m0, m1_1, m1_2, m1, threshold, 0,0, m0.sizeX, m0.sizeY);
+//        threshold = Matrix2dStatistic.middleColor(m0, m1, 0,0, m0.size, m0.sizeY);
+//        Matrix2dArgbFilter.argbToMaskByThreshold(m0, m1_1, m1_2, m1, threshold, 0,0, m0.size, m0.sizeY);
 //        Matrix2dFileWriter.saveRGB(m1_1, dirIn + imageFile + "_m1_1_Mask.png", "png");
 //        Matrix2dFileWriter.saveRGB(m1_2, dirIn + imageFile + "_m1_2_Mask.png", "png");
 //
-//        threshold = Matrix2dStatistic.middleColor(m0, m2, 0,0, m0.sizeX, m0.sizeY);
-//        Matrix2dArgbFilter.argbToMaskByThreshold(m0, m2_1, m2_2, m2, threshold, 0,0, m0.sizeX, m0.sizeY);
+//        threshold = Matrix2dStatistic.middleColor(m0, m2, 0,0, m0.size, m0.sizeY);
+//        Matrix2dArgbFilter.argbToMaskByThreshold(m0, m2_1, m2_2, m2, threshold, 0,0, m0.size, m0.sizeY);
 //        Matrix2dFileWriter.saveRGB(m2_1, dirIn + imageFile + "_m2_1_Mask.png", "png");
 //        Matrix2dFileWriter.saveRGB(m2_2, dirIn + imageFile + "_m2_2_Mask.png", "png");
 //
@@ -1253,7 +1376,7 @@ public class AI_Test {
 
         // for every pixel of source make
 //        for (j = 0; j < sizeY; j++) {
-//            for (i = 0; i < sizeX; i++) {
+//            for (i = 0; i < size; i++) {
 //                pixel = mGrey.getValue(i, j);
 //                color = (pixel.r + pixel.g + pixel.b) / 3;
 //                if (colorFrequency[color] <= limit) {
@@ -1270,7 +1393,7 @@ public class AI_Test {
 
 //        int colors = 64; // number of most frequent color will be stayed colors>0 and colors<=256
 //        int k, i, j, minLColorFrequency = 0;
-//        int sizeX, sizeY;
+//        int size, sizeY;
 //        ARGB pixel;
 //        int color;
 //        ARGB empty = new ARGB(0x00, 0, 0, 0);
@@ -1279,8 +1402,8 @@ public class AI_Test {
 //        Matrix2d<ARGB> m0 = Matrix2dFileReader.loadRGB(dirIn + imageFile);
 //        Matrix2d<ARGB> mGrey = Matrix2dArgbFilter.argbToGrey256(m0);
 //        Matrix2dFileWriter.saveRGB(mGrey, dirIn + imageFile + "_grey256.png", "png");
-//        Matrix2d<ARGB> mReduceColors = new Matrix2d(ARGB.class, mGrey.sizeX, mGrey.sizeY);
-//        sizeX = mGrey.sizeX;
+//        Matrix2d<ARGB> mReduceColors = new Matrix2d(ARGB.class, mGrey.size, mGrey.sizeY);
+//        size = mGrey.size;
 //        sizeY = mGrey.sizeY;
 //        int[] colorFrequency = Matrix2dStatistic.argbColors(mGrey);
 //        int[] colorFrequencySorted = Arrays.copyOf(colorFrequency,256);
@@ -1288,7 +1411,7 @@ public class AI_Test {
 //        minLColorFrequency = colorFrequencySorted[256-colors];
 ////        for (k = 0; k <= 255; k++) System.out.println(colorFrequency[k]);
 //        for (j = 0; j < sizeY; j++) {
-//            for (i = 0; i < sizeX; i++) {
+//            for (i = 0; i < size; i++) {
 //                pixel = mGrey.getValue(i, j);
 //                color = (pixel.r + pixel.g + pixel.b) / 3;
 //                if (colorFrequency[color] < minLColorFrequency) {
