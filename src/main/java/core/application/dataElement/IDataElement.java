@@ -3,7 +3,7 @@ package core.application.dataElement;
 /**
  * Created by anonymous on 18.03.2018.
  */
-public interface IDataElement {
+public interface IDataElement{
 //    byte[] toData();
 //
 //    ArrayList<Point2dByte> toArrayOfPoint2dByte();

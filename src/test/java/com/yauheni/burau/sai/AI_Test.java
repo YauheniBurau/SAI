@@ -1,11 +1,15 @@
 package com.yauheni.burau.sai;
 
+import core.application.dataElement.segments.ArrayListOfSegmentPointByte_Cartesian2dInt;
+import core.application.dataElement.segments.SegmentPointByte_Cartesian2dInt;
 import core.application.process.*;
 import core.application.dataElement.*;
 import core.application.dataElement.color.ARGB;
 import core.application.dataElement.color.Lab;
 import core.application.dataElement.file.PngFile;
 import core.application.dataElement.matrix.Matrix2d;
+import core.application.process.MatrixByteToSegments.Matrix2dByteToArrayListOfSegmentByte_Cartesian2dInt;
+import core.application.process.SegmentToMatrix.SegmentPointByte_Cartesian2dIntToM2dByte;
 import org.junit.Test;
 
 /**
@@ -31,11 +35,42 @@ public class AI_Test {
 //    String imageFile = "Б.png";
 //    String imageFile = "square.png";
 //    String imageFile = "square1.png";
-//    String imageFile = "star.png";
+    String imageFile = "star3.png";
 //    String imageFile = "screen.png";
-    String imageFile = "cute_girl_satisfied.png";
+//    String imageFile = "cute_girl_satisfied.png";
 //    String imageFile = "cute_girl_smile.png";
 //    String imageFile = "BlondeAngel.png";
+//    String imageFile = "circles.png";
+
+    @Test
+    public void PngFile_to_Segments_to_pngFiles() {
+        int quantizeValues = 3;
+        // =====
+        TransformResults tr;
+        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+        Matrix2d<ARGB> m2dArgb = new Matrix2d<ARGB>(ARGB.class, 0, 0);
+        Matrix2d<Lab> m2dLab = new Matrix2d<Lab>(Lab.class, 0, 0);
+        Matrix2d<Byte> m2dByteL = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteQ = new Matrix2d<Byte>(Byte.class, 0, 0);
+        Matrix2d<Byte> m2dByteSeg = new Matrix2d<Byte>(Byte.class, 0, 0);
+        ArrayListOfSegmentPointByte_Cartesian2dInt ArrayOfSegments = new ArrayListOfSegmentPointByte_Cartesian2dInt();
+        PngFile pngFileOut;
+
+        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
+        tr = M2dArgbToM2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint);
+        tr = M2dLabToM2dByte_L_A_B.transformL(m2dLab, m2dByteL);
+        tr = M2dByteToM2dByte_Quantized.transform(m2dByteL, m2dByteQ, quantizeValues);
+        tr = Matrix2dByteToArrayListOfSegmentByte_Cartesian2dInt.transform(m2dByteQ, ArrayOfSegments);
+
+        int index = 0;
+        for (SegmentPointByte_Cartesian2dInt seg: ArrayOfSegments.segments) {
+            index+=1;
+            tr = SegmentPointByte_Cartesian2dIntToM2dByte.transform(seg, m2dByteSeg);
+            pngFileOut = new PngFile(dirOut  + index + imageFile);
+            tr = M2dByteToPngFile.transform(m2dByteSeg, pngFileOut);
+        }
+    }
+
 
     @Test
     public void PngFile_to_LAB_to_M2dByte_EdgeDiff() {
@@ -56,7 +91,7 @@ public class AI_Test {
         tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
         tr = M2dArgbToM2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint);
 
-        tr = M2dLabToM2dByte_L_A_B.transform1(m2dLab, m2dByteL);
+        tr = M2dLabToM2dByte_L_A_B.transformL(m2dLab, m2dByteL);
         tr = M2dByteToM2dByte_Quantized.transform(m2dByteL, m2dByteQ, 4);
         tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteQ, m2dByteQ_edgeDiff);
         pngFileOut = new PngFile(dirOut  + "_Q" + imageFile);
@@ -502,64 +537,7 @@ public class AI_Test {
 //
 //    }
 
-//    @Test
-//    public void Matrix2dByte_findSegments() {
-//        int maxDiff = 32;
-//        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
-//        Matrix2dArgb rgb = baseRgb;
-//        Matrix2dByte m2dByte = MatrixConverter.matrix2dArgbToMatrix2dByte(rgb);
-//        ArrayList<Segment> segments = m2dByte.findSegments(maxDiff);
-//        Segment.removeSegmentsByMinNumberOfPoints(10, segments);
-//        for (Segment seg: segments) {
-//            seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
-//        }
-//    }
 
-//    @Test
-//    public void Matrix2dByte_findSegment() {
-//        int maxDiff = 32;
-////        int x = 60;
-////        int y = 30;
-//        int x = 160;
-//        int y = 180;
-//        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
-//        Matrix2dArgb rgb = baseRgb.middleColor().middleColor();
-//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(rgb);
-//        Matrix2dByte m2dByte = MatrixConverter.matrix2dHsvToMatrix2dByteByValue(hsv);
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(m2dByte.size, m2dByte.sizeY);
-//        Segment seg = m2dByte.findSegment(isProcessed, maxDiff, x,y);
-//        seg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png");
-//    }
-
-
-//
-//    // !!!!!!!!!!!!!!!!!!!!!!!!!!
-//    @Test
-//    public void segmentate() {
-//        int minDiff = 10;
-//        Matrix2dArgb baseRgb = Matrix2dArgb.load(dirIn + imageFile);
-//        Matrix2dArgb rgb = baseRgb;//.middleColor().middleColor();
-//        Matrix2dHsv hsv = MatrixConverter.matrix2dArgbToMatrix2dHsv(rgb);//.removeCloseValues(32);
-//        Matrix2dByte m2dByte = MatrixConverter.matrix2dHsvToMatrix2dByteByHue(hsv);
-//        Segment baseSegment = MatrixConverter.matrix2dByteToSegment(m2dByte);
-//        baseSegment.segmentate(minDiff).removeSegmentsByMinNumberOfPoints(10);
-//        for (Segment seg: baseSegment.childSegments) {
-//            seg//.saveAs2dBooleanImage(dirOut + imageFile + seg.id + "_mask.png", "png")
-//                .saveAs2dArgbImage(baseRgb,dirOut + imageFile + seg.id + "_rgb.png", "png")
-//                .save(dirOut + imageFile + seg.id + ".dat");
-//        }
-//
-//        Segment testSeg = new Segment();
-//        testSeg.load(dirIn + "Y.dat");
-//        testSeg.saveAs2dArgbImage(baseRgb,dirOut + imageFile + "testSegRgb.png", "png");
-//        double result;
-//        for (Segment etalon: baseSegment.childSegments) {
-//            result = CComparator.compareFormSegments(etalon, testSeg, 25, 256);
-//            System.out.println("segId:"+etalon.id + "; " + result);
-//        }
-//
-//    }
-//
 
 //
 //    @Test

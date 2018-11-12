@@ -5,7 +5,7 @@ import core.application.dataElement.*;
 import core.application.dataElement.color.ARGB;
 import core.application.dataElement.file.PngFile;
 import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.points.Point2d;
+//import core.application.dataElement.points.Point2d;
 import core.application.exceptions.FileException;
 import core.application.dataElement.Matrix2dBoolean;
 import core.application.dataElement.Matrix2dByte;
@@ -851,59 +851,59 @@ public class Transformer {
         return new PolarPoint(a, r);
     }
 
-    /**
-     * PolarPoint where a value ={0..360}; r value = {0..255} -> Point2d where x and y ={-128..+127}
-     * @param in
-     * @param out
-     * @return
-     */
-    public static Point2d transform(PolarPoint in, Point2d out){
-        int x = (int) Math.floor( (in.r * Math.cos(in.a * Math.PI / 180))/2 );
-        int y = (int) Math.floor( (in.r * Math.sin(in.a * Math.PI / 180))/2 );
-        return new Point2d(x, y);
-    }
+//    /**
+//     * PolarPoint where a value ={0..360}; r value = {0..255} -> Point2d where x and y ={-128..+127}
+//     * @param in
+//     * @param out
+//     * @return
+//     */
+//    public static Point2d transform(PolarPoint in, Point2d out){
+//        int x = (int) Math.floor( (in.r * Math.cos(in.a * Math.PI / 180))/2 );
+//        int y = (int) Math.floor( (in.r * Math.sin(in.a * Math.PI / 180))/2 );
+//        return new Point2d(x, y);
+//    }
 
-    /**
-     * NormalizedPolarPoint -> PolarPoint -> Point2d
-     * @param in
-     * @param out
-     * @return
-     */
-    public static Point2d transform(NormalizedPolarPoint in, Point2d out){
-        PolarPoint pp = null;
-        pp = Transformer.transform(in, pp);
-        Point2d p2d = null;
-        p2d = Transformer.transform(pp, p2d);
-        return p2d;
-    }
+//    /**
+//     * NormalizedPolarPoint -> PolarPoint -> Point2d
+//     * @param in
+//     * @param out
+//     * @return
+//     */
+//    public static Point2d transform(NormalizedPolarPoint in, Point2d out){
+//        PolarPoint pp = null;
+//        pp = Transformer.transform(in, pp);
+//        Point2d p2d = null;
+//        p2d = Transformer.transform(pp, p2d);
+//        return p2d;
+//    }
 
-    /**
-     * NormalizedPolarConture -> transform to Matrix2dBoolean as picture
-     * @param in
-     * @param out
-     * @return
-     */
-    public static Matrix2dBoolean transform(NormalizedPolarConture in, Matrix2dBoolean out) {
-        Matrix2dBoolean m2d = new Matrix2dBoolean(256, 256);
-        // draw contureLine in Matrix
-        NormalizedPolarPoint nppFirst, nppLast, npp1, npp2;
-        nppFirst = in.points.get(0);
-        nppLast = in.points.get(0);
-        npp1 = nppFirst;
-        Point2d p1 = null, p2 = null;
-        for (NormalizedPolarPoint npp: in.points){
-            npp2 = npp;
-            p1 = Transformer.transform(npp1, p1);
-            p2 = Transformer.transform(npp2, p2);
-//            m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
-            npp1 = npp2;
-            nppLast = npp2;
-        }
-        p1 = Transformer.transform(nppFirst, p1);
-        p2 = Transformer.transform(nppLast, p2);
-//        m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
-        return m2d;
-    }
+//    /**
+//     * NormalizedPolarConture -> transform to Matrix2dBoolean as picture
+//     * @param in
+//     * @param out
+//     * @return
+//     */
+//    public static Matrix2dBoolean transform(NormalizedPolarConture in, Matrix2dBoolean out) {
+//        Matrix2dBoolean m2d = new Matrix2dBoolean(256, 256);
+//        // draw contureLine in Matrix
+//        NormalizedPolarPoint nppFirst, nppLast, npp1, npp2;
+//        nppFirst = in.points.get(0);
+//        nppLast = in.points.get(0);
+//        npp1 = nppFirst;
+//        Point2d p1 = null, p2 = null;
+//        for (NormalizedPolarPoint npp: in.points){
+//            npp2 = npp;
+//            p1 = Transformer.transform(npp1, p1);
+//            p2 = Transformer.transform(npp2, p2);
+////            m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
+//            npp1 = npp2;
+//            nppLast = npp2;
+//        }
+//        p1 = Transformer.transform(nppFirst, p1);
+//        p2 = Transformer.transform(nppLast, p2);
+////        m2d.drawLine(p1.x+128, p1.y+128, p2.x+128, p2.y+128);
+//        return m2d;
+//    }
 
     //    /**
 //     * NormalizedPolarConture -> NormalizedPolarConture, where all cell under conture line are fullfilled

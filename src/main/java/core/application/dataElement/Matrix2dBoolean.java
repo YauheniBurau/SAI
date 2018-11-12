@@ -2,7 +2,7 @@ package core.application.dataElement;
 
 //import core.old.ElementImage;
 
-import core.application.dataElement.points.Point2d;
+//import core.application.dataElement.points.Point2d;
 import core.old.Point;
 
 import java.util.*;
@@ -258,75 +258,75 @@ public class Matrix2dBoolean implements IDataElement{
 //        return curvesResult;
 //    }
 
-    /**
-     * @param x
-     * @param y
-     * @return
-     */
-    public Matrix2dBoolean findFilledShape(int x, int y){
-        Boolean colorValue = this.getValue(x, y);
-        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
-        int pi, pj;
-        Boolean v2, v3, v4, v5, v6, v7, v8, v9;
-        Point2d<Boolean, Integer> p;
-        LinkedList<Point2d<Boolean, Integer>> points = new LinkedList<Point2d<Boolean, Integer>>();
-        points.add( new Point2d<Boolean, Integer>(x, y, this.getValue(x, y)) );
-        isProcessed.setValue(x, y, true);
-        while(points.size()>0){
-            p = points.poll();
-            pi = p.x;
-            pj = p.y;
-            v2 = this.getValue(pi, pj-1);
-//            v3 = this.getValue(pi+1, pj-1);
-            v4 = this.getValue(pi+1, pj);
-//            v5 = this.getValue(pi+1, pj+1);
-            v6 = this.getValue(pi, pj+1);
-//            v7 = this.getValue(pi-1, pj+1);
-            v8 = this.getValue(pi-1, pj);
-//            v9 = this.getValue(pi-1, pj-1);
-            if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v2 == colorValue) {
-                points.add( new Point2d<Boolean, Integer>(pi, pj-1, v2) );
-                isProcessed.setValue(pi, pj-1, true);
-            }
-//            if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && Math.abs(summ/n - v3) <= maxDiff) {
-//                points.add( new Point(pi+1,pj-1, 0, v3) );
-//                isProcessed.setValue(pi+1, pj-1, true);
-//                summ += v3;
-//                n += 1;
+//    /**
+//     * @param x
+//     * @param y
+//     * @return
+//     */
+//    public Matrix2dBoolean findFilledShape(int x, int y){
+//        Boolean colorValue = this.getValue(x, y);
+//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        int pi, pj;
+//        Boolean v2, v3, v4, v5, v6, v7, v8, v9;
+//        Point2d<Boolean, Integer> p;
+//        LinkedList<Point2d<Boolean, Integer>> points = new LinkedList<Point2d<Boolean, Integer>>();
+//        points.add( new Point2d<Boolean, Integer>(x, y, this.getValue(x, y)) );
+//        isProcessed.setValue(x, y, true);
+//        while(points.size()>0){
+//            p = points.poll();
+//            pi = p.x;
+//            pj = p.y;
+//            v2 = this.getValue(pi, pj-1);
+////            v3 = this.getValue(pi+1, pj-1);
+//            v4 = this.getValue(pi+1, pj);
+////            v5 = this.getValue(pi+1, pj+1);
+//            v6 = this.getValue(pi, pj+1);
+////            v7 = this.getValue(pi-1, pj+1);
+//            v8 = this.getValue(pi-1, pj);
+////            v9 = this.getValue(pi-1, pj-1);
+//            if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v2 == colorValue) {
+//                points.add( new Point2d<Boolean, Integer>(pi, pj-1, v2) );
+//                isProcessed.setValue(pi, pj-1, true);
 //            }
-            if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v4 == colorValue) {
-                points.add( new Point2d<Boolean, Integer>(pi+1, pj, v4) );
-                isProcessed.setValue(pi+1, pj, true);
-            }
-//            if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && Math.abs(summ/n - v5) <= maxDiff) {
-//                points.add( new Point(pi+1,pj+1, 0, v5) );
-//                isProcessed.setValue(pi+1, pj+1, true);
-//                summ += v5;
-//                n += 1;
+////            if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && Math.abs(summ/n - v3) <= maxDiff) {
+////                points.add( new Point(pi+1,pj-1, 0, v3) );
+////                isProcessed.setValue(pi+1, pj-1, true);
+////                summ += v3;
+////                n += 1;
+////            }
+//            if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v4 == colorValue) {
+//                points.add( new Point2d<Boolean, Integer>(pi+1, pj, v4) );
+//                isProcessed.setValue(pi+1, pj, true);
 //            }
-            if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v6 == colorValue) {
-                points.add( new Point2d<Boolean, Integer>(pi,pj+1, v6) );
-                isProcessed.setValue(pi, pj+1, true);
-            }
-//            if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && Math.abs(summ/n - v7) <= maxDiff) {
-//                points.add( new Point(pi-1,pj+1, 0, v7) );
-//                isProcessed.setValue(pi-1, pj+1, true);
-//                summ += v7;
-//                n += 1;
+////            if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && Math.abs(summ/n - v5) <= maxDiff) {
+////                points.add( new Point(pi+1,pj+1, 0, v5) );
+////                isProcessed.setValue(pi+1, pj+1, true);
+////                summ += v5;
+////                n += 1;
+////            }
+//            if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v6 == colorValue) {
+//                points.add( new Point2d<Boolean, Integer>(pi,pj+1, v6) );
+//                isProcessed.setValue(pi, pj+1, true);
 //            }
-            if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v8 == colorValue) {
-                points.add( new Point2d<Boolean, Integer>(pi-1,pj, v8) );
-                isProcessed.setValue(pi-1, pj, true);
-            }
-//            if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && Math.abs(summ/n - v9) <= maxDiff) {
-//                points.add( new Point(pi-1,pj-1, 0, v9) );
-//                isProcessed.setValue(pi-1, pj-1, true);
-//                summ += v9;
-//                n += 1;
+////            if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && Math.abs(summ/n - v7) <= maxDiff) {
+////                points.add( new Point(pi-1,pj+1, 0, v7) );
+////                isProcessed.setValue(pi-1, pj+1, true);
+////                summ += v7;
+////                n += 1;
+////            }
+//            if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v8 == colorValue) {
+//                points.add( new Point2d<Boolean, Integer>(pi-1,pj, v8) );
+//                isProcessed.setValue(pi-1, pj, true);
 //            }
-        }
-        return isProcessed;
-    }
+////            if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && Math.abs(summ/n - v9) <= maxDiff) {
+////                points.add( new Point(pi-1,pj-1, 0, v9) );
+////                isProcessed.setValue(pi-1, pj-1, true);
+////                summ += v9;
+////                n += 1;
+////            }
+//        }
+//        return isProcessed;
+//    }
 
 
     // ================================ OLD =============================================

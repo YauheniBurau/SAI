@@ -38,13 +38,13 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
         TransformResults tr = new TransformResults();
         if(in!=null && out!=null) {
             switch(this.transformType) {
-                case BY_L: { tr = this.transform1(in, out);
+                case BY_L: { tr = this.transformL(in, out);
                     break;
                 }
-                case BY_A: { tr = this.transform2(in, out);
+                case BY_A: { tr = this.transformA(in, out);
                     break;
                 }
-                case BY_B: { tr = this.transform3(in, out);
+                case BY_B: { tr = this.transformB(in, out);
                     break;
                 }
                 default: {
@@ -63,7 +63,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
      * @param out
      * @return
      */
-    public static TransformResults transform1(Matrix2d<Lab> in, Matrix2d<Byte> out) {
+    public static TransformResults transformL(Matrix2d<Lab> in, Matrix2d<Byte> out) {
         int x, y;
         y = in.sizeY;
         x = in.sizeX;
@@ -84,7 +84,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
      * @param out
      * @return
      */
-    public static TransformResults transform2(Matrix2d<Lab> in, Matrix2d<Byte> out) {
+    public static TransformResults transformA(Matrix2d<Lab> in, Matrix2d<Byte> out) {
         int x, y;
         y = in.sizeY;
         x = in.sizeX;
@@ -105,7 +105,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
      * @param out
      * @return
      */
-    public static TransformResults transform3(Matrix2d<Lab> in, Matrix2d<Byte> out) {
+    public static TransformResults transformB(Matrix2d<Lab> in, Matrix2d<Byte> out) {
         int x, y;
         y = in.sizeY;
         x = in.sizeX;

@@ -1,7 +1,7 @@
 package core.application.dataElement;
 
 import core.application.dataElement.color.HSV;
-import core.application.dataElement.points.Point2d;
+//import core.application.dataElement.points.Point2d;
 import core.old.Point;
 
 import java.util.ArrayList;
@@ -63,15 +63,15 @@ public class Matrix2dHsv extends AbstractElement {
     }
 
 
-    public ArrayList<Point2d<HSV, Integer>> getShapePoints(ArrayList<Point> points){
-        ArrayList<Point2d<HSV, Integer>> pointsHSV = new ArrayList<Point2d<HSV, Integer>>();
-        HSV hsv;
-        for (Point p: points) {
-            hsv = this.getValue(p.x, p.y);
-            pointsHSV.add( new Point2d<HSV, Integer>(p.x, p.y, new HSV(hsv.h, hsv.s, hsv.v)) );
-        }
-        return pointsHSV;
-    }
+//    public ArrayList<Point2d<HSV, Integer>> getShapePoints(ArrayList<Point> points){
+//        ArrayList<Point2d<HSV, Integer>> pointsHSV = new ArrayList<Point2d<HSV, Integer>>();
+//        HSV hsv;
+//        for (Point p: points) {
+//            hsv = this.getValue(p.x, p.y);
+//            pointsHSV.add( new Point2d<HSV, Integer>(p.x, p.y, new HSV(hsv.h, hsv.s, hsv.v)) );
+//        }
+//        return pointsHSV;
+//    }
 
     /**
      * edge by color hue
