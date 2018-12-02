@@ -1,6 +1,5 @@
 package core.old;
 
-import core.application.dataElement.Line2d;
 import org.junit.Assert;
 import org.junit.Test;
 

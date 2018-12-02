@@ -6,7 +6,7 @@ import core.application.dataElement.coords.ICoords;
 /**
  * Created by anonymous on 09.11.2018.
  */
-public class Point<TValue, TCoords extends ICoords> implements IPoint, IDataElement {
+public class Point<TValue, TCoords> implements IPoint, IDataElement {
     public TValue value;
     public TCoords coords;
 

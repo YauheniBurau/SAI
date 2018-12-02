@@ -4,31 +4,29 @@ package core.old;
  * Created by anonymous on 03.02.2018.
  */
 
-import core.old.neurons.Neuron;
-
 public class Matrix2dNeuron {
-    private Neuron[][] matrix;
-    public final int sizeX;
-    public final int sizeY;
-
-    public Matrix2dNeuron(int xSize, int ySize) {
-        this.sizeX = xSize;
-        this.sizeY = ySize;
-        this.matrix = new Neuron[ySize][xSize];
-    }
-
-    public void setValue(int xPos, int yPos, Neuron value) {
-        if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
-            this.matrix[yPos][xPos] = value;
-        }
-    }
-
-    public Neuron getValue(int xPos, int yPos) {
-        if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
-            return this.matrix[yPos][xPos];
-        }
-        return null;
-    }
+//    private Neuron[][] matrix;
+//    public final int sizeX;
+//    public final int sizeY;
+//
+//    public Matrix2dNeuron(int xSize, int ySize) {
+//        this.sizeX = xSize;
+//        this.sizeY = ySize;
+//        this.matrix = new Neuron[ySize][xSize];
+//    }
+//
+//    public void setValue(int xPos, int yPos, Neuron value) {
+//        if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
+//            this.matrix[yPos][xPos] = value;
+//        }
+//    }
+//
+//    public Neuron getValue(int xPos, int yPos) {
+//        if(xPos>=0 && xPos<this.sizeX && yPos>=0 && yPos<this.sizeY ) {
+//            return this.matrix[yPos][xPos];
+//        }
+//        return null;
+//    }
 
 //    /**
 //     * count a by 3 points

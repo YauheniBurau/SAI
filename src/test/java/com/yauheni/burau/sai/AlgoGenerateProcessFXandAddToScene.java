@@ -4,7 +4,6 @@ import core.application.algorithms.BaseAlgorithm;
 import core.application.algorithms.IAlgorithm;
 import core.application.exceptions.InputParamException;
 import core.application.model.Model;
-import core.application.process.TransformResults;
 import core.application.view.components.ProcessFX;
 import javafx.scene.layout.Pane;
 
@@ -31,15 +30,14 @@ public class AlgoGenerateProcessFXandAddToScene  extends BaseAlgorithm {
      * @return
      */
     @Override
-    public TransformResults process() {
+    public Boolean process() {
         Pane in = this.model.paneList.get(this.inKey);
-        TransformResults tr = new TransformResults();
         if(in!=null){
             this.transform(in, this.algorithm);
         }else{
             throw new InputParamException("Wrong in and out params. At least one of them is null");
         }
-        return tr;
+        return Boolean.TRUE;
     }
 
     /**
@@ -47,7 +45,7 @@ public class AlgoGenerateProcessFXandAddToScene  extends BaseAlgorithm {
      * @param in
      * @return
      */
-    public static TransformResults transform(Pane in, IAlgorithm inAlgo) {
+    public static IAlgorithm transform(Pane in, IAlgorithm inAlgo) {
         double x, y;
         y = in.getScene().getHeight();
         x = in.getScene().getWidth();
@@ -55,7 +53,7 @@ public class AlgoGenerateProcessFXandAddToScene  extends BaseAlgorithm {
         processFX.setLayoutX(Math.random());
         processFX.setLayoutY(Math.random());
         in.getChildren().add(processFX);
-        return new TransformResults();
+        return inAlgo;
     }
 
 }

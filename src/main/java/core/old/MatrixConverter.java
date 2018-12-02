@@ -6,91 +6,6 @@ package core.old;
  */
 public class MatrixConverter {
 
-//    /**
-//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
-//     * @return
-//     */
-//    public static Matrix2dHsv matrix2dArgbToMatrix2dHsv(Matrix2dArgb in){
-//        int size = in.size;
-//        int sizeY = in.sizeY;
-//        Matrix2dHsv m2d = new Matrix2dHsv(size, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<size; i++) {
-//                m2d.setValue( i,j, Transformer.argbToHsv(in.getValue(i,j)) );
-//            }
-//        }
-//        return m2d;
-//    }
-
-//    /**
-//     * transform Matrix2dHsv into matrix2dArgb where new value = argb from HSV color
-//     * @return
-//     */
-//    public static Matrix2dArgb matrix2dHsvToMatrix2dArgb(Matrix2dHsv in){
-//        int size = in.size;
-//        int sizeY = in.sizeY;
-//        Matrix2dArgb m2d = new Matrix2dArgb(size, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<size; i++) {
-//                m2d.setValue( i,j, Transformer.hsvToArgb(in.getValue(i,j)) );
-//            }
-//        }
-//        return m2d;
-//    }
-//
-
-//    public static int byteToArgbInt(byte value){
-//        int v = value + 128;
-//        int i = 0x00000000;
-//        i = i | 0xff;
-//        i = i<<8 | v;
-//        i = i<<8 | v;
-//        i = i<<8 | v;
-//        return i;
-//    }
-
-//    /**
-//     * transform Matrix2dByte to Segment
-//     * @param m2d
-//     * @return
-//     */
-//    public static Segment matrix2dByteToSegment(Matrix2dByte m2d){
-//        Segment segment = new Segment();
-//        segment.mainM2d = m2d;
-//        ArrayList<Point2dByte> points = segment.points;
-//        int size = m2d.size;
-//        int sizeY = m2d.sizeY;
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                points.add( new Point2dByte(i, j, m2d.getValue(i, j) ));
-//            }
-//        }
-//        return segment;
-//    }
-
-//    /**
-//     * transform Matrix2dByte to Segment
-//     * @param m2d
-//     * @return
-//     */
-//    public static Segment matrix2dByteToBinSegment(Matrix2dByte m2d){
-//        Segment segment = new Segment();
-//        segment.mainM2d = m2d;
-//        ArrayList<Point2dByte> points = segment.points;
-//        int size = m2d.size;
-//        int sizeY = m2d.sizeY;
-//        byte v;
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                v = m2d.getValue(i, j);
-//                if(v!=-128) v = 127;
-//                points.add( new Point2dByte(i, j, v) );
-//            }
-//        }
-//        return segment;
-//
-//    }
-//
 
 //    // TODO: now converts only Point2dNeuron-es
 //    /**
@@ -117,7 +32,8 @@ public class MatrixConverter {
 //        }
 //        return m2dB;
 //    }
-//
+
+
 //    /**
 //     * Converts boolean into Neurons
 //     * @param m2d
@@ -201,62 +117,6 @@ public class MatrixConverter {
 //        return img;
 //    }
 //
-//    public static ElementImage matrix2dByteToImage(Matrix2dByte m2d){
-//        ElementImage img = new ElementImage();
-//        ArrayList<Point2d> points = new ArrayList<Point2d>();
-//        ArrayList<Point2dByte> pointsByte = new ArrayList<Point2dByte>();
-//        byte value = 127;
-//        int size = m2d.size;
-//        int sizeY = m2d.sizeY;
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                points.add( new Point2d(i,j, MatrixConverter.byteToInt(m2d.getValue(i, j))) );
-//            }
-//        }
-//        // здесь должно быть преобразование точек и поворот их, чтобы выровнять ось симметрии вертикеально
-//
-//        //        Point2d c = m2d.countCenterOfSymmetry();
-//        //        int a = m2d.countAngleAxisOfSymmetry(c);
-//        // TODO: number of points in values must be more than 0;
-//        Point2d c = points.get(0);
-//        int l = c.x;
-//        int r = c.x;
-//        int u = c.y;
-//        int d = c.y;
-//        for(Point2d p : points){
-//            if( p.x < l ) l = p.x;
-//            if( p.x > r ) r = p.x;
-//            if( p.y < u ) u = p.y;
-//            if( p.y > d ) d = p.y;
-//        }
-//        double width = r - l;
-//        double high = d - u;
-//        double wStep = width/256;
-//        double hStep = high/256;
-//        Point2dByte pb;
-//        byte x, y;
-//        // преобразуем координаты точек в значения относительно центра от -128 до 127
-//        for(Point2d p : points) {
-//            x = (byte)(-128 + 255*(p.x - l)/width );
-//            y = (byte)(-128 + 255*(p.y - u)/high);
-//            pb = new Point2dByte(x, y, MatrixConverter.int0_255ToByte(p.getValue()) );
-//            img.setElement(pb);
-//        }
-//        return img;
-//    }
-//
-//
-//    public static Matrix2dBoolean imageToMatrix2dBoolean(ElementImage img){
-//        Matrix2dBoolean m2d = new Matrix2dBoolean(256,256);
-//        ArrayList<Point2dByte> points = img.toArrayOfPoint2dByte();
-//        for(IElement p : img.elements.values()){
-//            for( Point2dByte point2dByte: points ) {
-//                m2d.setValue( point2dByte.x+128, point2dByte.y+128,true);
-//            }
-//        }
-//        return m2d;
-//    }
-//
 //    public static ElementImage ArrayListPoint2dToImage(ArrayList<Point2d> points){
 //        byte value = 127;
 //        ElementImage img = new ElementImage();
@@ -285,64 +145,6 @@ public class MatrixConverter {
 //        return img;
 //    }
 
-//    public ArrayList<Point2d> matrix2dBooleanToArrayListPoint2d(Matrix2dBoolean m2d) {
-//        ArrayList<Point2d> points = new ArrayList<Point2d>();
-//        int size = m2d.size;
-//        int sizeY = m2d.sizeY;
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                if(m2d.getValue(i, j)==true) points.add( new Point2d(i,j) );
-//            }
-//        }
-//        return points;
-//    }
-
-//    public static ArrayList<Point2dGeneric<HSV>> arrayListPoint2dHsvDivideByValue(ArrayList<Point2dGeneric<HSV>> points, int value) {
-//        ArrayList<Point2dGeneric<HSV>> pointsHSV = new ArrayList<Point2dGeneric<HSV>>();
-//        HSV hsv;
-//        for (Point2dGeneric<HSV> p: points) {
-//            if(p.getValue().v < value){
-//                hsv = new HSV(p.getValue().h, p.getValue().s, p.getValue().v);
-//                pointsHSV.add(new Point2dGeneric<HSV>(p.x, p.y, hsv) );
-//            }
-//        }
-//        return pointsHSV;
-//    }
-
-
-
-//    /**
-//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
-//     * @return
-//     */
-//    public static Matrix2dByte matrix2dHsvToMatrix2dByteByValue(Matrix2dHsv in){
-//        int size = in.size;
-//        int sizeY = in.sizeY;
-//        Matrix2dByte m2d = new Matrix2dByte(size, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<size; i++) {
-//                m2d.setValue( i,j, int0_255ToByte(in.getValue(i,j).v) );
-//            }
-//        }
-//        return m2d;
-//    }
-
-//    /**
-//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
-//     * @return
-//     */
-//    public static Matrix2dByte matrix2dHsvToMatrix2dByteByHue(Matrix2dHsv in){
-//        int size = in.size;
-//        int sizeY = in.sizeY;
-//        Matrix2dByte m2d = new Matrix2dByte(size, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<size; i++) {
-//                m2d.setValue( i,j, int0_255ToByte(in.getValue(i,j).h) );
-//            }
-//        }
-//        return m2d;
-//    }
-//
 //    /**
 //     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
@@ -358,7 +160,7 @@ public class MatrixConverter {
 //        }
 //        return m2d;
 //    }
-//
+
 //    /**
 //     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
 //     * @return
@@ -377,29 +179,6 @@ public class MatrixConverter {
 //        return m2d;
 //    }
 
-
-//    /**
-//     * transform int to byte
-//     * @param in
-//     * @return
-//     */
-//    public static byte int0_255ToByte(int in) {
-//        byte result = 0;
-//        if(in>255){ result = 127;}
-//        else if(in<0){ result = -128;}
-//        else{ result = (byte)(in - 128); }
-//        return result;
-//    }
-//
-//    /**
-//     * transform byte to int
-//     * @param in
-//     * @return
-//     */
-//    public static int byteToInt(byte in) {
-//        return in + 128;
-//    }
-//
 //    /**
 //     * transform Segment to Matrix2dByte
 //     * @return
@@ -425,5 +204,39 @@ public class MatrixConverter {
 //        }
 //        return m2d;
 //    }
+
+//    public Matrix2dBoolean binarizeByValue(int minValue, int maxValue){
+//        int v;
+//        Matrix2dBoolean m2dBool = new Matrix2dBoolean(this.sizeX, this.sizeY);
+//        for(int j = 0; j<this.sizeY; j++){
+//            for(int i = 0; i<this.sizeX; i++) {
+//                v = this.getValue(i,j).v;
+//                if(v>=minValue && v<=maxValue){
+//                    m2dBool.setValue(i, j, true);
+//                }else{
+//                    m2dBool.setValue(i, j, false);
+//                }
+//            }
+//        }
+//        return m2dBool;
+//    }
+//
+
+//    public int[] countGistogramByValue(){
+//        int v;
+//        int gist[] = new int[256];
+//        for(int l = 0; l<256; l++){
+//            gist[l] = 0;
+//        }
+//        for(int j = 0; j<this.sizeY; j++){
+//            for(int i = 0; i<this.sizeX; i++) {
+//                v = this.getValue(i,j).v;
+//                if(v>255) System.out.println("v=" + v);
+//                gist[v]+=1;
+//            }
+//        }
+//        return gist;
+//    }
+
 
 }

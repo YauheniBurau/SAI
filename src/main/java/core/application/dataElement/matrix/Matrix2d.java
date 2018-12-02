@@ -1,7 +1,6 @@
 package core.application.dataElement.matrix;
 
 import core.application.dataElement.IDataElement;
-
 import java.lang.reflect.Array;
 
 /**
@@ -16,10 +15,17 @@ public class Matrix2d<T> implements IMatrix, IDataElement {
     /**
      * create empty class with values = null
      */
-    public Matrix2d() {
-        this.sizeX = 0;
-        this.sizeY = 0;
-        this.values = null;
+    public Matrix2d(Class<T> clazz) {
+        this.sizeX = 1;
+        this.sizeY = 1;
+        elementClass = clazz;
+        this.values = (T[][]) Array.newInstance(clazz, this.sizeY, this.sizeX);
+        for (int j = 0; j < this.sizeY; j++) {
+            for (int i = 0; i < this.sizeX; i++) {
+                this.setValue(i, j, null);
+            }
+        }
+
     }
 
     /**

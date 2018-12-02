@@ -9,6 +9,9 @@ import core.application.exceptions.InputParamException;
 public class PngFile implements IFile, IDataElement {
     public String urlFile = null;
 
+    public PngFile() {
+    }
+
     public PngFile(String urlFile) {
         int start = urlFile.length()-3;
         if(urlFile.substring(start).equalsIgnoreCase("png")) {

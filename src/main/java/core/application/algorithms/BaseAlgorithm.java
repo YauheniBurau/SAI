@@ -2,7 +2,6 @@ package core.application.algorithms;
 
 
 import core.application.exceptions.MethodException;
-import core.application.process.TransformResults;
 
 /**
  * Created by anonymous on 13.10.2018.
@@ -18,17 +17,19 @@ public class BaseAlgorithm implements IAlgorithm {
         this.name = name;
     }
 
-    public TransformResults process() {
-        if(true)throw new MethodException("child of class BaseAlgorithm doesn't implemented process() method");
-        return new TransformResults();
+    public Boolean process() {
+        if(true) throw new MethodException("child of class BaseAlgorithm doesn't implemented process() method");
+        return null;
     }
 
-    public void deleteInputDataFromModel() {
-        throw new MethodException("child of class BaseAlgorithm doesn't implemented deleteInputDataFromModel() method");
+    public Boolean deleteInputDataFromModel() {
+        if(true) throw new MethodException("child of class BaseAlgorithm doesn't implemented deleteInputDataFromModel() method");
+        return null;
     }
 
-    public void deleteOutputDataFromModel() {
-        throw new MethodException("child of class BaseAlgorithm doesn't implemented deleteOutputDataFromModel() method");
+    public Boolean deleteOutputDataFromModel() {
+        if(true) throw new MethodException("child of class BaseAlgorithm doesn't implemented deleteOutputDataFromModel() method");
+        return null;
     }
 
 }

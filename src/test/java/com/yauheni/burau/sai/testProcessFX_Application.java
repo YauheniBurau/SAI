@@ -4,12 +4,11 @@ import core.application.algorithms.Algorithm;
 import core.application.algorithms.IAlgorithm;
 import core.application.controller.AlgorithmController;
 import core.application.model.Model;
-import core.application.process.PngFileToM2dArgb;
+import core.application.process.FileToMatrix.PngFileToM2dArgb;
 import core.application.view.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 

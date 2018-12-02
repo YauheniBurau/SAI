@@ -1,7 +1,5 @@
 package core.application.algorithms;
 
-import core.application.process.TransformResults;
-
 import java.util.LinkedList;
 
 /**
@@ -29,8 +27,8 @@ public class Algorithm extends BaseAlgorithm {
     }
 
     @Override
-    public TransformResults process() {
-        TransformResults tr = null;
+    public Boolean process() {
+        Boolean tr = null;
         for(IAlgorithm algorithm: this.algorithms) {
             tr = algorithm.process();
         }

@@ -3,15 +3,12 @@ package com.yauheni.burau.sai; /**
  */
 
 import core.application.algorithms.Algorithm;
-import core.application.process.M2dArgbToImageView;
-import core.application.process.PngFileToM2dArgb;
-import core.application.process.ShowOpenDialogToPngFile;
+import core.application.process.DataElementToGuiElement.M2dArgbToImageView;
+import core.application.process.FileToMatrix.PngFileToM2dArgb;
+import core.application.process.GuiElementToDataElement.ShowOpenDialogToPngFile;
 import core.application.controller.AlgorithmController;
 import core.application.model.Model;
 import core.application.view.View;
-import core.application.dataElement.color.ARGB;
-import core.application.dataElement.file.PngFile;
-import core.application.dataElement.matrix.Matrix2d;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,11 +25,6 @@ public class ArtificialIntelligenceApplication extends Application {
     Model model = new Model();
 
     public void prepareApplication(Model model){
-        // prepare input data
-         model.pngFileList.put("PngFile.in1", new PngFile(dirIn + imageFile1));
-        model.pngFileList.put("PngFile.in2", new PngFile(dirIn + imageFile2));
-        model.matrix2dArgbList.put("Matrix2dArgb.1", new Matrix2d<ARGB>());
-        model.matrix2dArgbList.put("Matrix2dArgb.2", new Matrix2d<ARGB>());
         // create button open Png1 and show png in ImageView
         Algorithm algorithm1 = new Algorithm();
         algorithm1.add(new ShowOpenDialogToPngFile(model,"PngFile.in1","MainStage") );
