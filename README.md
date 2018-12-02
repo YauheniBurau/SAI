@@ -3,14 +3,14 @@ Strong fast self studying Artificial intelligence
 in development, pre-alpha
 
 in development
-1) png-file -> graph<...>
-List of graph<...> -> find Consistent image patterns of contours and save in Graph with VertexTerms 
-save any graph<...> into file
-load from file -> Graph<...>
-test
-enter testImage
-testImage -> graph<...>
-find VertexTerms in testImage and output results
+1. png-file -> graph<...>
+1.1 List of graph<...> -> find Consistent image patterns of contours and save in Graph with VertexTerms 
+1.2 save any graph<...> into file
+1.3 load from file -> Graph<...>
+1.4 test
+1.5 enter testImage
+1.6 testImage -> graph<...>
+1.7 find VertexTerms in testImage and output results
 2) audio-file ->graph<...>
 List of graph<...> -> find Consistent audio patterns and save in Graph with VertexTerms 
 save sound graph<...> into file
