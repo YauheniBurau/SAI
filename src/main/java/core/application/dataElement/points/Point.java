@@ -1,12 +1,9 @@
 package core.application.dataElement.points;
 
-import core.application.dataElement.IDataElement;
-import core.application.dataElement.coords.ICoords;
-
 /**
  * Created by anonymous on 09.11.2018.
  */
-public class Point<TValue, TCoords> implements IPoint, IDataElement {
+public class Point<TValue, TCoords> implements IPoint {
     public TValue value;
     public TCoords coords;
 

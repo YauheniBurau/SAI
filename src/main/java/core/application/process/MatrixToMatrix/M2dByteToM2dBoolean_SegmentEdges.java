@@ -20,7 +20,7 @@ public class M2dByteToM2dBoolean_SegmentEdges extends BaseAlgorithm {
     }
 
     /**
-     * Matrix2d<Byte> -> Matrix2d<Boolean> as Conture edges
+     * Matrix2d<Byte> -> Matrix2d<Boolean> as Contour edges
      * @return
      */
     @Override
@@ -37,7 +37,7 @@ public class M2dByteToM2dBoolean_SegmentEdges extends BaseAlgorithm {
     }
 
     /**
-     * transform Matrix2d<Byte> -> Matrix2d<Boolean> as segment edges
+     * transformPoints Matrix2d<Byte> -> Matrix2d<Boolean> as segment edges
      * @param in
      * @return
      */

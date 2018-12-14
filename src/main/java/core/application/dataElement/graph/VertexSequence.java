@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 03.11.2018.
  */
-public class VertexSequence<T> extends AbstractVertex {
+public class VertexSequence<T> extends Vertex {
     private LinkedList<T> sequences = new LinkedList<>();
 
     public VertexSequence() {

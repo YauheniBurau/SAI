@@ -2,12 +2,10 @@ package core.application.model;
 
 import core.application.dataElement.color.ARGB;
 import core.application.dataElement.color.Lab;
-import core.application.dataElement.coords.Decart2d;
 import core.application.dataElement.file.PngFile;
-import core.application.dataElement.graph.GraphVertexSegmentPointByteDecart2dInt;
+import core.application.dataElement.graph.GraphVertexSegmentByteDecart2dInt;
 import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.points.Point;
-import core.application.dataElement.segments.Segment;
+import core.application.dataElement.segments.SegmentPointDecart2dInt;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.ScatterChart;
@@ -33,13 +31,13 @@ public class Model {
     public static HashMap<String, Matrix2d<Lab>> matrix2dLabList = new HashMap<String, Matrix2d<Lab>>();
     public static HashMap<String, Matrix2d<Boolean>> matrix2dBoolList = new HashMap<String, Matrix2d<Boolean>>();
 
-    public static HashMap<String, Segment<Point<Byte,Decart2d<Integer>>>> segmentPointByteDecart2dIntegerList =
-            new HashMap<String, Segment<Point<Byte,Decart2d<Integer>>>>();
-    public static HashMap<String, ArrayList<Segment<Point<Byte,Decart2d<Integer>>>>> arraySegmentPointByteDecart2dIntegerList =
-            new HashMap<String, ArrayList<Segment<Point<Byte,Decart2d<Integer>>>>>();
-    public static HashMap<String, GraphVertexSegmentPointByteDecart2dInt> graphVertexSegmentPointByteDecart2dIntList =
-            new HashMap<String, GraphVertexSegmentPointByteDecart2dInt>();
+    public static HashMap<String, SegmentPointDecart2dInt> segmentByteDecart2dIntList =
+            new HashMap<String, SegmentPointDecart2dInt>();
+    public static HashMap<String, GraphVertexSegmentByteDecart2dInt> graphVertexSegmentByteDecart2dIntList =
+            new HashMap<String, GraphVertexSegmentByteDecart2dInt>();
 
+    public static HashMap<String, ArrayList<SegmentPointDecart2dInt>> arraySegmentByteDecart2dIntList =
+            new HashMap<String, ArrayList<SegmentPointDecart2dInt>>();
     //============================================= JAVAFX OBJECTS =====================================================
     public static HashMap<String, ScatterChart<Number,Number>> ScatterChartList = new HashMap<String, ScatterChart<Number, Number>>();
     public static HashMap<String, Canvas> canvasList = new HashMap<String, Canvas>();

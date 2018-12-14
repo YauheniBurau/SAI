@@ -1,23 +1,25 @@
 package core.application.dataElement.segments;
 
-import core.application.dataElement.AbstractElement;
-import core.application.dataElement.points.IPoint;
 
 import java.util.ArrayList;
 
 /**
  * Created by anonymous on 09.11.2018.
  */
-public class Segment<TPoint>  extends AbstractElement {
+public class Segment<TValue, TPoint, TContour> implements ISegment {
+    public TValue value = null;
+    public TContour outerContour = null;
+    public ArrayList<TContour> innerContours = new ArrayList<>();
+    public ArrayList<TPoint> points = new ArrayList<>();
 
-    public ArrayList<TPoint> points = new ArrayList<TPoint>();
+    public Segment() {
 
-    public void add(TPoint value){
-        this.points.add(value);
     }
 
-    public TPoint get(int index){
-        return this.points.get(index);
+    public Segment(TValue value, ArrayList<TPoint> points) {
+        this.value = value;
+        this.points = points;
     }
+
 
 }

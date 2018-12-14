@@ -1,6 +1,7 @@
 package core.application.process.MatrixToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
+import core.application.dataElement.matrix.Matrix2dByte;
 import core.application.helper.UnsignedIntToSignedByte;
 import core.application.dataElement.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
@@ -47,7 +48,7 @@ public class M2dByteToM2dByte_Quantized extends BaseAlgorithm {
      * @param in
      * @return
      */
-    public static Matrix2d<Byte> transform(Matrix2d<Byte> in, int quantizeValue) {
+    public static Matrix2dByte transform(Matrix2d<Byte> in, int quantizeValue) {
         int n, k, i, j, x, y, currQuantizedValue;
         int[] values = new int[256];
         for(k = 0;k<256; k++){
@@ -56,7 +57,7 @@ public class M2dByteToM2dByte_Quantized extends BaseAlgorithm {
         byte value;
         y = in.sizeY;
         x = in.sizeX;
-        Matrix2d<Byte> out = new Matrix2d<Byte>(Byte.class, x, y, null);
+        Matrix2dByte out = new Matrix2dByte(x, y, null);
         for( j = 0; j<y; j++){
             for( i = 0; i<x; i++) {
                 value = in.getValue(i, j);

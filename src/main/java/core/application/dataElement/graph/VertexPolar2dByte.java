@@ -5,7 +5,7 @@ import core.application.dataElement.coords.Polar2d;
 /**
  * Created by anonymous on 18.11.2018.
  */
-public class VertexPolar2dByte extends AbstractVertex{
+public class VertexPolar2dByte extends Vertex {
     private Polar2d<Byte> p = null;
 
     public VertexPolar2dByte() {

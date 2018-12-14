@@ -142,9 +142,9 @@ public class ArtificialIntelligenceApplication extends Application {
 //        Matrix2dGraph m2dGraph = null;
 //        m2dGraph = Transformer.transform(m2dEdge, m2dGraph);
 //
-//        ArrayList<Conture> contoures = null;
-//        contoures = Transformer.transform(m2dGraph, contoures);
-//        Conture c = contoures.get(0);
+//        ArrayList<Conture> contours = null;
+//        contours = Transformer.transform(m2dGraph, contours);
+//        Conture c = contours.get(0);
 //
 //        PolarConture polarConture = null;
 //        polarConture = Transformer.transform(c, polarConture);

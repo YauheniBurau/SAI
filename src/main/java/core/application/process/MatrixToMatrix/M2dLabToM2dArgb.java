@@ -42,7 +42,7 @@ public class M2dLabToM2dArgb extends BaseAlgorithm {
     }
 
     /**
-     * transform Matrix2d<Lab> to matrix2d<ARGB>
+     * transformPoints Matrix2d<Lab> to matrix2d<ARGB>
      * @param in
      * @param whitePoint from Lab class
      * @return

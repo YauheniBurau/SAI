@@ -46,7 +46,7 @@ public class M2dByte3ToM2dArgb extends BaseAlgorithm {
     }
 
     /**
-     * transform 3 matrixes matrix2d<Byte> to Matrix2d<ARGB>
+     * transformPoints 3 matrixes matrix2d<Byte> to Matrix2d<ARGB>
      * @param inR
      * @param inG
      * @param inB

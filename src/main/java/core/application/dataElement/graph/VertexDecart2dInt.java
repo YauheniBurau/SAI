@@ -5,7 +5,7 @@ import core.application.dataElement.coords.Decart2d;
 /**
  * Created by anonymous on 18.11.2018.
  */
-public class VertexDecart2dInt extends AbstractVertex{
+public class VertexDecart2dInt extends Vertex {
     private Decart2d<Integer> p = null;
 
     public VertexDecart2dInt() {

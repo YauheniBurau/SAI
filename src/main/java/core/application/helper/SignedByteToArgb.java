@@ -9,11 +9,11 @@ public class SignedByteToArgb {
 
     // TODO: or remove
     //    /**
-//     * transform signed Byte to Unsigned Int
+//     * transformPoints signed Byte to Unsigned Int
 //     * @param value
 //     * @return
 //     */
-//    public static ARGB transform(byte value){
+//    public static ARGB transformPoints(byte value){
 //
 //        return new ARGB(value+128, 0xff, 0xff, 0xff);
 //    }

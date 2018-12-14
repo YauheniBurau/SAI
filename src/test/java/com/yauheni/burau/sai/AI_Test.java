@@ -1,22 +1,16 @@
 package com.yauheni.burau.sai;
 
-import core.application.dataElement.coords.Decart2d;
-import core.application.dataElement.points.Point;
-import core.application.dataElement.segments.Segment;
-import core.application.process.*;
+import core.application.dataElement.clouds.CloudOfDecart2dInt;
 import core.application.dataElement.color.ARGB;
-import core.application.dataElement.color.Lab;
 import core.application.dataElement.file.PngFile;
 import core.application.dataElement.matrix.Matrix2d;
+import core.application.dataElement.matrix.Matrix2dByte;
 import core.application.process.FileToMatrix.PngFileToM2dArgb;
-import core.application.process.MatrixByteToSegments.Matrix2dByteToArraySegmentPointByteDecart2dInteger;
+import core.application.process.MatrixToCloud.M2dByteToCloudOfDecart2dInt;
 import core.application.process.MatrixToFile.M2dArgbToPngFile;
 import core.application.process.MatrixToFile.M2dByteToPngFile;
 import core.application.process.MatrixToMatrix.*;
-import core.application.process.SegmentToMatrix.SegmentPointByteDecart2dIntegerToMatrix2dByte;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 /**
  * Created by anonymous on 08.10.2016.
@@ -34,11 +28,12 @@ public class AI_Test {
 //    String imageFile = "alphabet2c.png";
 //    String imageFile = "nature.png";
 //    String imageFile = "anime.png";
-//    String imageFile = "alphabet_number.png";
+    String imageFile = "alphabet_number.png";
+//    String imageFile = "alphabet_colors.png";
 //    String imageFile = "desktop.png";
 //    String imageFile = "text.png";
 //    String imageFile = "Y.dat";
-//    String imageFile = "Б.png";
+//    String imageFile = "T.png";
 //    String imageFile = "square.png";
 //    String imageFile = "square1.png";
 //    String imageFile = "star3.png";
@@ -46,38 +41,56 @@ public class AI_Test {
 //    String imageFile = "cute_girl_satisfied.png";
 //    String imageFile = "cute_girl_smile.png";
 //    String imageFile = "BlondeAngel.png";
-    String imageFile = "star.png";
-    String imageFile1 = "star3.png";
+//    String imageFile = "star.png";
+//    String imageFile1 = "star3.png";
+//    String imageFile = "circle.png";
+//    String imageFile = "screenElements.png";
+//    String imageFile = "256Colors.png";
+
+//    @Test
+//    public void to256Colors() {
+//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+//        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
+//        Matrix2d<ARGB> m2dArgb256 = M2dArgbToM2dArgb256Colors.transform(m2dArgb);
+//        M2dArgbToPngFile.transform(m2dArgb256, new PngFile(dirOut + "_colors256_" + imageFile));
+//        Matrix2d<ARGB> m2dArgb16 = M2dArgbToM2dArgb16Colors.transform(m2dArgb);
+//        M2dArgbToPngFile.transform(m2dArgb16, new PngFile(dirOut + "_colors16_" + imageFile));
+//    }
 
 
     @Test
-    public void PngFile_to_Graph_to_pngFile() {
-
-
-    }
-
-    @Test
-    public void PngFile_to_Segments_to_pngFiles() {
-        int quantizeValues = 3;
-
+    public void PngFile_to_RootCloud() {
         PngFile pngFileIn = new PngFile(dirIn + imageFile);
         Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
-        Matrix2d<Lab> m2dLab = M2dArgbToM2dLab.transform(m2dArgb, Lab.whitePoint);
-        Matrix2d<Byte> m2dByteL = M2dLabToM2dByte_L_A_B.transformL(m2dLab);
-        Matrix2d<Byte> m2dByteQ = M2dByteToM2dByte_Quantized.transform(m2dByteL, quantizeValues);
-        ArrayList<Segment<Point<Byte,Decart2d<Integer>>>> ArrayOfSegments
-                = Matrix2dByteToArraySegmentPointByteDecart2dInteger.transform(m2dByteQ);
+        Matrix2dByte m2dByte = M2dArgbToM2dByte256Colors.transform(m2dArgb);
+        M2dByteToPngFile.transform(m2dByte, new PngFile(dirOut + "_m2dByte_" + imageFile));
+        CloudOfDecart2dInt rootCloud = M2dByteToCloudOfDecart2dInt.transform(m2dByte);
 
-        PngFile pngFileOut;
-        Matrix2d<Byte> m2dByteSeg;
-        int index = 0;
-        for (Segment<Point<Byte,Decart2d<Integer>>> seg: ArrayOfSegments) {
-            index+=1;
-            m2dByteSeg = SegmentPointByteDecart2dIntegerToMatrix2dByte.transform(seg);
-            pngFileOut = new PngFile(dirOut  + index + imageFile);
-            pngFileOut = M2dByteToPngFile.transform(m2dByteSeg, pngFileOut);
-        }
     }
+
+
+//    @Test
+//    public void PngFile_to_Segments_to_pngFiles() {
+//        int quantizeValues = 3;
+//
+//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+//        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transformPoints(pngFileIn);
+//        Matrix2d<Lab> m2dLab = M2dArgbToM2dLab.transformPoints(m2dArgb, Lab.whitePoint);
+//        Matrix2d<Byte> m2dByteL = M2dLabToM2dByte_L_A_B.transformL(m2dLab);
+//        Matrix2d<Byte> m2dByteQ = M2dByteToM2dByte_Quantized.transformPoints(m2dByteL, quantizeValues);
+//        ArrayList<SegmentByteDecart2dInt> ArrayOfSegments
+//                = Matrix2dByteToArraySegmentByteDecart2dInt.transformPoints(m2dByteQ);
+//
+//        PngFile pngFileOut;
+//        Matrix2d<Byte> m2dByteSeg;
+//        int index = 0;
+//        for (Segment<Byte,Decart2dInt> seg: ArrayOfSegments) {
+//            index+=1;
+//            m2dByteSeg = SegmentPointByteDecart2dIntegerToMatrix2dByte.transformPoints(seg);
+//            pngFileOut = new PngFile(dirOut  + index + imageFile);
+//            pngFileOut = M2dByteToPngFile.transformPoints(m2dByteSeg, pngFileOut);
+//        }
+//    }
 
 
 //    @Test
@@ -96,14 +109,14 @@ public class AI_Test {
 //        Matrix2d<Byte> m2dByteb_edgeDiff = new Matrix2d<Byte>(Byte.class, 0, 0);
 //        PngFile pngFileOut;
 //
-//        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
-//        tr = M2dArgbToM2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint);
+//        tr = PngFileToM2dArgb.transformPoints(pngFileIn, m2dArgb);
+//        tr = M2dArgbToM2dLab.transformPoints(m2dArgb, m2dLab, Lab.whitePoint);
 //
 //        tr = M2dLabToM2dByte_L_A_B.transformL(m2dLab, m2dByteL);
-//        tr = M2dByteToM2dByte_Quantized.transform(m2dByteL, m2dByteQ, 4);
-//        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteQ, m2dByteQ_edgeDiff);
+//        tr = M2dByteToM2dByte_Quantized.transformPoints(m2dByteL, m2dByteQ, 4);
+//        tr = M2dByteToM2dByte_EdgeDiff.transformPoints(m2dByteQ, m2dByteQ_edgeDiff);
 //        pngFileOut = new PngFile(dirOut  + "_Q" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dByteQ_edgeDiff, pngFileOut);
+//        tr = M2dByteToPngFile.transformPoints(m2dByteQ_edgeDiff, pngFileOut);
 //    }
 
 
@@ -133,22 +146,22 @@ public class AI_Test {
 //        Matrix2d<ARGB> m2dArgbOut = new Matrix2d<ARGB>(ARGB.class, 0, 0);
 //        PngFile pngFileOut;
 //
-//        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
+//        tr = PngFileToM2dArgb.transformPoints(pngFileIn, m2dArgb);
 //        tr = M2dArgbToM2dByte_A_R_G_B.transform1(m2dArgb, m2dByteR);
 //        tr = M2dArgbToM2dByte_A_R_G_B.transform2(m2dArgb, m2dByteG);
 //        tr = M2dArgbToM2dByte_A_R_G_B.transform3(m2dArgb, m2dByteB);
-//        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteR, m2dByteR_edgeDiff);
-//        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteG, m2dByteG_edgeDiff);
-//        tr = M2dByteToM2dByte_EdgeDiff.transform(m2dByteB, m2dByteB_edgeDiff);
-//        tr = M2dByte3ToM2dArgb.transform(m2dByteR_edgeDiff, m2dByteG_edgeDiff, m2dByteB_edgeDiff, m2dArgbOut);
+//        tr = M2dByteToM2dByte_EdgeDiff.transformPoints(m2dByteR, m2dByteR_edgeDiff);
+//        tr = M2dByteToM2dByte_EdgeDiff.transformPoints(m2dByteG, m2dByteG_edgeDiff);
+//        tr = M2dByteToM2dByte_EdgeDiff.transformPoints(m2dByteB, m2dByteB_edgeDiff);
+//        tr = M2dByte3ToM2dArgb.transformPoints(m2dByteR_edgeDiff, m2dByteG_edgeDiff, m2dByteB_edgeDiff, m2dArgbOut);
 //        pngFileOut = new PngFile(dirOut + imageFile);
-//        tr = M2dArgbToPngFile.transform(m2dArgbOut, pngFileOut);
+//        tr = M2dArgbToPngFile.transformPoints(m2dArgbOut, pngFileOut);
 //        pngFileOut = new PngFile(dirOut  + "_R" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dByteR_edgeDiff, pngFileOut);
+//        tr = M2dByteToPngFile.transformPoints(m2dByteR_edgeDiff, pngFileOut);
 //        pngFileOut = new PngFile(dirOut + "_G" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dByteG_edgeDiff, pngFileOut);
+//        tr = M2dByteToPngFile.transformPoints(m2dByteG_edgeDiff, pngFileOut);
 //        pngFileOut = new PngFile(dirOut + "_B" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dByteB_edgeDiff, pngFileOut);
+//        tr = M2dByteToPngFile.transformPoints(m2dByteB_edgeDiff, pngFileOut);
 //    }
 
 //    @Test
@@ -167,32 +180,32 @@ public class AI_Test {
 //        Matrix2d<ARGB> m2dArgbOut = new Matrix2d<ARGB>(ARGB.class, 0, 0);
 //        PngFile pngFileOut = new PngFile(dirOut + imageFile);
 //
-//        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb);
+//        tr = PngFileToM2dArgb.transformPoints(pngFileIn, m2dArgb);
 //        // =====
 //        tr = M2dArgbToM2dByte_A_R_G_B.transform1(m2dArgb, m2dR);
 ////        pngFileOut = new PngFile(dirOut + "R" + imageFile);
-////        tr = M2dByteToPngFile.transform(m2dR, pngFileOut);
+////        tr = M2dByteToPngFile.transformPoints(m2dR, pngFileOut);
 //        tr = M2dArgbToM2dByte_A_R_G_B.transform2(m2dArgb, m2dG);
 ////        pngFileOut = new PngFile(dirOut + "G" + imageFile);
-////        tr = M2dByteToPngFile.transform(m2dG, pngFileOut);
+////        tr = M2dByteToPngFile.transformPoints(m2dG, pngFileOut);
 //        tr = M2dArgbToM2dByte_A_R_G_B.transform3(m2dArgb, m2dB);
 ////        pngFileOut = new PngFile(dirOut + "B" + imageFile);
-////        tr = M2dByteToPngFile.transform(m2dB, pngFileOut);
+////        tr = M2dByteToPngFile.transformPoints(m2dB, pngFileOut);
 //
 //        // =====
-//        tr = M2dByteToM2dByte_Quantized.transform(m2dR, m2dR1, quantizeValue);
+//        tr = M2dByteToM2dByte_Quantized.transformPoints(m2dR, m2dR1, quantizeValue);
 //        pngFileOut = new PngFile(dirOut + "R1" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dR1, pngFileOut);
-//        tr = M2dByteToM2dByte_Quantized.transform(m2dG, m2dG1, quantizeValue);
+//        tr = M2dByteToPngFile.transformPoints(m2dR1, pngFileOut);
+//        tr = M2dByteToM2dByte_Quantized.transformPoints(m2dG, m2dG1, quantizeValue);
 //        pngFileOut = new PngFile(dirOut + "G1" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dG1, pngFileOut);
-//        tr = M2dByteToM2dByte_Quantized.transform(m2dB, m2dB1, quantizeValue);
+//        tr = M2dByteToPngFile.transformPoints(m2dG1, pngFileOut);
+//        tr = M2dByteToM2dByte_Quantized.transformPoints(m2dB, m2dB1, quantizeValue);
 //        pngFileOut = new PngFile(dirOut + "B1" + imageFile);
-//        tr = M2dByteToPngFile.transform(m2dB1, pngFileOut);
+//        tr = M2dByteToPngFile.transformPoints(m2dB1, pngFileOut);
 //        // =====
-//        tr = M2dByte3ToM2dArgb.transform(m2dR1, m2dG1, m2dB1, m2dArgbOut);
+//        tr = M2dByte3ToM2dArgb.transformPoints(m2dR1, m2dG1, m2dB1, m2dArgbOut);
 //        pngFileOut = new PngFile(dirOut + imageFile);
-//        tr = M2dArgbToPngFile.transform(m2dArgbOut, pngFileOut);
+//        tr = M2dArgbToPngFile.transformPoints(m2dArgbOut, pngFileOut);
 //    }
 
 
@@ -207,11 +220,11 @@ public class AI_Test {
 //        Matrix2d<Boolean> m2dBool = new Matrix2d<Boolean>(Boolean.class, 0,0);
 //        PngFile pngFileOut = new PngFile(dirOut + imageFile);
 //
-//        tr = PngFileToM2dArgb.transform(pngFileIn, m2dArgb, new TransformParams());
-//        tr = M2dArgbToM2dLab.transform(m2dArgb, m2dLab, Lab.whitePoint, new TransformParams());
-//        tr = M2dLabToM2dByte_L_A_B.transform(m2dLab, m2dL, new TransformParams());
-//        tr = M2dByteToM2dBoolean_SegmentEdges.transform(m2dL, m2dBool, new TransformParams());
-//        tr = M2dBooleanToPngFile.transform(m2dBool, pngFileOut, new TransformParams());
+//        tr = PngFileToM2dArgb.transformPoints(pngFileIn, m2dArgb, new TransformParams());
+//        tr = M2dArgbToM2dLab.transformPoints(m2dArgb, m2dLab, Lab.whitePoint, new TransformParams());
+//        tr = M2dLabToM2dByte_L_A_B.transformPoints(m2dLab, m2dL, new TransformParams());
+//        tr = M2dByteToM2dBoolean_SegmentEdges.transformPoints(m2dL, m2dBool, new TransformParams());
+//        tr = M2dBooleanToPngFile.transformPoints(m2dBool, pngFileOut, new TransformParams());
 //    }
 
 
@@ -222,7 +235,7 @@ public class AI_Test {
 //        PngFile pngFile = new PngFile(dirIn + imageFile);
 //        Matrix2dArgb argb = new Matrix2dArgb(0, 0);
 //
-//        tr = PngFileToM2dArgb.transform(pngFile, argb, new TransformParams());
+//        tr = PngFileToM2dArgb.transformPoints(pngFile, argb, new TransformParams());
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb);
 //        System.out.println("number of Colors:" + n);
 //
@@ -231,7 +244,7 @@ public class AI_Test {
 //        System.out.println("number of Colors:" + n);
 //
 //        PngFile pngFile1 = new PngFile(dirOut + imageFile);
-//        tr = M2dArgbToPngFile.transform(argb1, pngFile1, new TransformParams());
+//        tr = M2dArgbToPngFile.transformPoints(argb1, pngFile1, new TransformParams());
 //        // =============================================================================================================
 //    }
 
@@ -242,7 +255,7 @@ public class AI_Test {
 //        // =============================================================================================================
 //        PngFile pngFile = new PngFile(dirIn + imageFile);
 //        Matrix2dArgb argb = new Matrix2dArgb(0,0);
-//        tr = PngFileToM2dArgb.transform(pngFile, argb, new TransformParams());
+//        tr = PngFileToM2dArgb.transformPoints(pngFile, argb, new TransformParams());
 //        // =============================================================================================================
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb);
 //        System.out.println("number of Colors:" + n);
@@ -259,49 +272,49 @@ public class AI_Test {
 //        Matrix2dArgb argb10 = new Matrix2dArgb(0,0);
 //
 //        int maxColorDiff = 32;
-//        Transformer.transform(argb, argb1, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb, argb1, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb1);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb1, argb2, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb1, argb2, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb2);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb2, argb3, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb2, argb3, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb3);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb3, argb4, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb3, argb4, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb4);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb4, argb5, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb4, argb5, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb5);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb5, argb6, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb5, argb6, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb6);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb6, argb7, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb6, argb7, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb7);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb7, argb8, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb7, argb8, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb8);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb8, argb9, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb8, argb9, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb9);
 //        System.out.println("number of Colors:" + n);
 //
-//        Transformer.transform(argb9, argb10, maxColorDiff, 0.10);
+//        Transformer.transformPoints(argb9, argb10, maxColorDiff, 0.10);
 //        n = Transformer.countMatrix2dArgbColorsNumber(argb10);
 //        System.out.println("number of Colors:" + n);
 //
 //        // =============================================================================================================
 //        PngFile pngFile1 = new PngFile(dirOut + imageFile);
-//        tr = M2dArgbToPngFile.transform(argb10, pngFile1, new TransformParams());
+//        tr = M2dArgbToPngFile.transformPoints(argb10, pngFile1, new TransformParams());
 //    }
 
     //    @Test
@@ -310,25 +323,25 @@ public class AI_Test {
 //
 //        PngFile pngFile = new PngFile(dirIn + imageFile);
 //        Matrix2dArgbSensor sensor = null;
-//        sensor = Transformer.transform(pngFile, sensor);
+//        sensor = Transformer.transformPoints(pngFile, sensor);
 //
 //        Matrix2dByte m2dByte = null;
-//        m2dByte = Transformer.transform(sensor, m2dByte);
+//        m2dByte = Transformer.transformPoints(sensor, m2dByte);
 //
 //        ArrayList<ElementImage> images = null;
-//        images = Transformer.transform(m2dByte, images, maxDiff);
+//        images = Transformer.transformPoints(m2dByte, images, maxDiff);
 //
 //        ElementImage image = images.get(0);
 //        Matrix2dBoolean m2dBoolean = null;
-//        m2dBoolean = Transformer.transform(image, m2dBoolean);
+//        m2dBoolean = Transformer.transformPoints(image, m2dBoolean);
 //        Matrix2dBoolean m2dEdge = m2dBoolean.removeNoise().edge();
 //
 //        Matrix2dGraph m2dGraph = null;
-//        m2dGraph = Transformer.transform(m2dEdge, m2dGraph);
+//        m2dGraph = Transformer.transformPoints(m2dEdge, m2dGraph);
 //
-//        ArrayList<Conture> contoures = null;
-//        contoures = Transformer.transform(m2dGraph, contoures);
-//        Conture c = contoures.get(0);
+//        ArrayList<Conture> contours = null;
+//        contours = Transformer.transformPoints(m2dGraph, contours);
+//        Conture c = contours.get(0);
 //
 //    }
 
@@ -348,34 +361,34 @@ public class AI_Test {
 //        ElementImage imgSquare1 = new ElementImage();
 //        ElementImage imgStar = new ElementImage();
 //
-//        sensor = Transformer.transform(pngSquare, sensor);
+//        sensor = Transformer.transformPoints(pngSquare, sensor);
 //        Matrix2dByte m2dSquare = null;
-//        m2dSquare = Transformer.transform(sensor, m2dSquare);
+//        m2dSquare = Transformer.transformPoints(sensor, m2dSquare);
 //
-//        sensor = Transformer.transform(pngSquare1, sensor);
+//        sensor = Transformer.transformPoints(pngSquare1, sensor);
 //        Matrix2dByte m2dSquare1 = null;
-//        m2dSquare1 = Transformer.transform(sensor, m2dSquare1);
+//        m2dSquare1 = Transformer.transformPoints(sensor, m2dSquare1);
 //
-//        sensor = Transformer.transform(pngStar, sensor);
+//        sensor = Transformer.transformPoints(pngStar, sensor);
 //        Matrix2dByte m2dStar = null;
-//        m2dStar = Transformer.transform(sensor, m2dStar);
+//        m2dStar = Transformer.transformPoints(sensor, m2dStar);
 //
 //        ArrayList<ElementImage> squareImages = null;
-//        squareImages = Transformer.transform(m2dSquare, squareImages, maxDiff);
+//        squareImages = Transformer.transformPoints(m2dSquare, squareImages, maxDiff);
 //        ArrayList<ElementImage> square1Images = null;
-//        square1Images = Transformer.transform(m2dSquare1, square1Images, maxDiff);
+//        square1Images = Transformer.transformPoints(m2dSquare1, square1Images, maxDiff);
 //        ArrayList<ElementImage> starImages = null;
-//        starImages = Transformer.transform(m2dStar, starImages, maxDiff);
+//        starImages = Transformer.transformPoints(m2dStar, starImages, maxDiff);
 //
-//        Transformer.transform(squareImage)
+//        Transformer.transformPoints(squareImage)
         //        for (ElementImage img: squareImages) {
-//            Transformer.transform(img, new PngFile(dirOut + "square_" + img.id + ".png"));
+//            Transformer.transformPoints(img, new PngFile(dirOut + "square_" + img.id + ".png"));
 //        }
 //        for (ElementImage img1: square1Images) {
-//            Transformer.transform(img1, new PngFile(dirOut + "square1_" + img1.id + ".png"));
+//            Transformer.transformPoints(img1, new PngFile(dirOut + "square1_" + img1.id + ".png"));
 //        }
 //        for (ElementImage img2: starImages) {
-//            Transformer.transform(img2, new PngFile(dirOut + "star_" + img2.id + ".png"));
+//            Transformer.transformPoints(img2, new PngFile(dirOut + "star_" + img2.id + ".png"));
 //        }
 //    }
 

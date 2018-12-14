@@ -1,28 +1,25 @@
 package core.old;
 
 import core.application.dataElement.AbstractElement;
+import core.application.dataElement.coords.Decart2dInt;
 
 /**
  * Created by anonymous on 22.10.2017.
  */
 public class Line2d extends AbstractElement {
-    public Point p1;
-    public Point p2;
-    public double k; // coeff of y=k*x+b
-    public double b; // coeff of y=k*x+b
+    public Decart2dInt p1;
+    public Decart2dInt p2;
 
-    public Line2d(Point p1, Point p2) {
+    public Line2d(Decart2dInt p1, Decart2dInt p2) {
         this.p1 = p1;
         this.p2 = p2;
-        this.k = Geometry.findDirectLineCoeffK(p1, p2);
-        this.b = Geometry.findDirectLineCoeffB(p2, k);
     }
 
     /**
      * get a between line vector (p0,p1) and x-axis
      * @return
      */
-    public static double getAngle(Point p0, Point p1){
+    public static double getAngle(Decart2dInt p0, Decart2dInt p1){
         double angle = 0;
         if( (p1.x - p0.x == 0) && (p1.y - p0.y > 0) ){ // 90 degree
             angle = 90;
@@ -55,7 +52,7 @@ public class Line2d extends AbstractElement {
      * get center of line
      * @return
      */
-    public Point getCenter(){
+    public Decart2dInt getCenter(){
         int x, y;
         if(p1.x>=p2.x){ x = p2.x + (p1.x - p2.x)/2; }
         else{ x = p1.x + (p2.x - p1.x)/2; }
@@ -64,7 +61,7 @@ public class Line2d extends AbstractElement {
         }else{
             y = p1.y + (p2.y - p1.y)/2;
         }
-        return new Point(x,y, 0,0);
+        return new Decart2dInt(x,y);
     }
 
     /**
@@ -76,25 +73,25 @@ public class Line2d extends AbstractElement {
     }
 
 
-    /**
-     * get a between line and x-axis
-     * @return
-     */
-    public double getAngle(){
-        Point c, a, b;
-        double angle;
-        if(this.p1.y <= this.p2.y){
-            c = this.p1;
-            a = this.p2;
-        }else{
-            c = this.p2;
-            a = this.p1;
-        }
-        b = new Point(a.x, c.y, 0,0);
-        angle = Point.findAngle(c, a, b);
-        // count angleDiff
-        return angle;
-    }
+//    /**
+//     * get a between line and x-axis
+//     * @return
+//     */
+//    public double getAngle(){
+//        Point c, a, b;
+//        double angle;
+//        if(this.p1.y <= this.p2.y){
+//            c = this.p1;
+//            a = this.p2;
+//        }else{
+//            c = this.p2;
+//            a = this.p1;
+//        }
+//        b = new Point(a.x, c.y, 0,0);
+//        angle = Point.findAngle(c, a, b);
+//        // count angleDiff
+//        return angle;
+//    }
 
     /**
      * diff in percent a line2 from line1 [0..180] like [0.00 .. 1.00]
@@ -121,22 +118,22 @@ public class Line2d extends AbstractElement {
         return diff;
     }
 
-    /**
-     * diff distance from line center1 and line center2
-     * @param line
-     * @param base
-     * @return
-     */
-    public static double distanceDiff(Line2d line, Line2d base){
-        Point p1, p2;
-        double length1, length2;
-        p1 = line.getCenter();
-        p2 = base.getCenter();
-        Line2d l = new Line2d(p1, p2);
-        length1 = l.getLength();
-        length2 = base.getLength();
-        return (length1-length2)/length2;
-    }
+//    /**
+//     * diff distance from line center1 and line center2
+//     * @param line
+//     * @param base
+//     * @return
+//     */
+//    public static double distanceDiff(Line2d line, Line2d base){
+//        Point p1, p2;
+//        double length1, length2;
+//        p1 = line.getCenter();
+//        p2 = base.getCenter();
+//        Line2d l = new Line2d(p1, p2);
+//        length1 = l.getLength();
+//        length2 = base.getLength();
+//        return (length1-length2)/length2;
+//    }
 
 
 }

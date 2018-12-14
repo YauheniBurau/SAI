@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by anonymous on 07.05.2018.
  * Intelligence thinking unit
  */
-public class VertexTerm extends AbstractVertex{
+public class VertexTerm extends Vertex {
     private ArrayList<IVertex> vertexes = new ArrayList<IVertex>();
     private ArrayList<IEdge> edges = new ArrayList<IEdge>();
 

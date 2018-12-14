@@ -7,7 +7,7 @@ import org.apache.commons.cli.*;
  *
  * '-in' file
  * '-out' file
- * '-transform' - algorithm name
+ * '-transformPoints' - algorithm name
  */
 public class ConsoleCV {
     public static void main ( String [] arguments ) {
@@ -15,7 +15,7 @@ public class ConsoleCV {
         Options options = new Options();
         options.addRequiredOption("i", "in", true, "source in");
         options.addRequiredOption("o", "out", true, "source out");
-        options.addRequiredOption("t", "transform", true, "algorithm");
+        options.addRequiredOption("t", "transformPoints", true, "algorithm");
         options.addOption("p1", true, "algorithm parameter1");
         options.addOption("p2", true, "algorithm parameter2");
         options.addOption("p3", true, "algorithm parameter3");
@@ -30,7 +30,7 @@ public class ConsoleCV {
         }
         String in = commandLine.getOptionValue("in");
         String out = commandLine.getOptionValue("out");
-        String transform = commandLine.getOptionValue("transform");
+        String transform = commandLine.getOptionValue("transformPoints");
         String p1 = commandLine.getOptionValue("p1");
         String p2 = commandLine.getOptionValue("p2");
         String p3 = commandLine.getOptionValue("p3");

@@ -6,6 +6,7 @@ import core.application.dataElement.IDataElement;
  * Created by anonymous on 01.05.2017.
  */
 public class ARGB implements IColor, IDataElement {
+
     public int a;
     public int r;
     public int g;
@@ -18,11 +19,27 @@ public class ARGB implements IColor, IDataElement {
         this.b = blue;
     }
 
+    public ARGB(int red, int green, int blue) {
+        this.a = 0xff;
+        this.r = red;
+        this.g = green;
+        this.b = blue;
+    }
 
-    // TODO: remove later
-//    public static double getDistance(ARGB p1, ARGB p2){
-//        return Math.sqrt( (p2.r - p1.r)*(p2.r - p1.r) + (p2.g - p1.g)*(p2.g - p1.g) + (p2.b - p1.b)*(p2.b - p1.b) );
-//    }
+    public ARGB(int integerArgb) {
+        int alpha, red, green, blue;
+        alpha = (integerArgb >>> 24) & 0xff;
+        red = (integerArgb >>> 16) & 0xff;
+        green = (integerArgb >>> 8) & 0xff;
+        blue = (integerArgb >>> 0) & 0xff;
+        this.a = alpha;
+        this.r = red;
+        this.g = green;
+        this.b = blue;
+    }
+
+
+
 //
 //    public static ARGB countMiddle(ARGB p00, ARGB p01, ARGB p02,
 //                                   ARGB p10, ARGB p11, ARGB p12,

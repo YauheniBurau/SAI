@@ -7,73 +7,7 @@ package core.old;
 public class MatrixConverter {
 
 
-//    // TODO: now converts only Point2dNeuron-es
-//    /**
-//     * transform Matrix2d of point2d, arc2d, line2d neurons into boolean mask image
-//     * @return
-//     */
-//    public static Matrix2dBoolean neuronToBoolean(Matrix2dNeuron m2d){
-//        int size = m2d.size;
-//        int sizeY = m2d.sizeY;
-//        Matrix2dBoolean m2dB = new Matrix2dBoolean(size, sizeY);
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                m2dB.setValue(i, j, false);
-//            }
-//        }
-//        Neuron n1;
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                n1 = m2d.getValue(i, j);
-//                if(n1!=null){
-//                    m2dB.setValue(i, j, true);
-//                }
-//            }
-//        }
-//        return m2dB;
-//    }
 
-
-//    /**
-//     * Converts boolean into Neurons
-//     * @param m2d
-//     * @return
-//     */
-//    public static Matrix2dNeuron booleanToNeurons(Matrix2dBoolean m2d) {
-//        int size = m2d.size;
-//        int sizeY = m2d.sizeY;
-//        Neuron n1, n2, n3, n4, n5, n6, n7, n8, n9;
-//        Matrix2dNeuron m2dN = new Matrix2dNeuron(size, sizeY);
-//        for (int j = 1; j < sizeY-1; j++) {
-//            for (int i = 1; i < size-1; i++) {
-//                if(m2d.getValue(i, j)==true) m2dN.setValue(i, j, NeuronBuilder.newPoint2dNeuron(i, j));
-//            }
-//        }
-//        for (int j = 1; j < sizeY-1; j++) {
-//            for (int i = 1; i < size-1; i++) {
-//                n1 = m2dN.getValue(i, j);
-//                if(n1 != null ) {
-//                    n2 = m2dN.getValue(i, j - 1);
-//                    n3 = m2dN.getValue(i + 1, j - 1);
-//                    n4 = m2dN.getValue(i + 1, j);
-//                    n5 = m2dN.getValue(i + 1, j + 1);
-//                    n6 = m2dN.getValue(i, j + 1);
-//                    n7 = m2dN.getValue(i - 1, j + 1);
-//                    n8 = m2dN.getValue(i - 1, j);
-//                    n9 = m2dN.getValue(i - 1, j - 1);
-////                    if (n2 != null) { n1.setNeuron(n2); n2.setNeuron(n1); }
-////                    if (n3 != null) { n1.setNeuron(n3); n3.setNeuron(n1); }
-////                    if (n4 != null) { n1.setNeuron(n4); n4.setNeuron(n1); }
-////                    if (n5 != null) { n1.setNeuron(n5); n5.setNeuron(n1); }
-////                    if (n6 != null) { n1.setNeuron(n6); n6.setNeuron(n1); }
-////                    if (n7 != null) { n1.setNeuron(n7); n7.setNeuron(n1); }
-////                    if (n8 != null) { n1.setNeuron(n8); n8.setNeuron(n1); }
-////                    if (n9 != null) { n1.setNeuron(n9); n9.setNeuron(n1); }
-//                }
-//            }
-//        }
-//        return m2dN;
-//    }
 
 //    public static ElementImage matrix2dBooleanToImage(Matrix2dBoolean m2d){
 //        ElementImage img = new ElementImage();
@@ -143,22 +77,6 @@ public class MatrixConverter {
 //            img.setElement(pb);
 //        }
 //        return img;
-//    }
-
-//    /**
-//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
-//     * @return
-//     */
-//    public static Matrix2dByte matrix2dHsvToMatrix2dByteBySaturation(Matrix2dHsv in){
-//        int size = in.size;
-//        int sizeY = in.sizeY;
-//        Matrix2dByte m2d = new Matrix2dByte(size, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<size; i++) {
-//                m2d.setValue( i,j, int0_255ToByte(in.getValue(i,j).s) );
-//            }
-//        }
-//        return m2d;
 //    }
 
 //    /**

@@ -1,13 +1,14 @@
 package core.application.process.SegmentToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.coords.Decart2d;
+import core.application.dataElement.coords.Decart2dInt;
 import core.application.dataElement.matrix.Matrix2d;
 import core.application.dataElement.points.Point;
-import core.application.dataElement.segments.Segment;
+import core.application.dataElement.segments.SegmentPointDecart2dInt;
 import core.application.exceptions.InputParamException;
 import core.application.model.Model;
 
+// TODO: remove later
 /**
  * Created by anonymous on 12.11.2018.
  */
@@ -28,7 +29,7 @@ public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends BaseAlgorithm
      */
     @Override
     public Boolean process() {
-        Segment<Point<Byte,Decart2d<Integer>>> in = this.model.segmentPointByteDecart2dIntegerList.get(this.inKey);
+        SegmentPointDecart2dInt in = this.model.segmentByteDecart2dIntList.get(this.inKey);
         Matrix2d<Byte> out;
         if(in!=null) {
             out = this.transform(in);
@@ -44,14 +45,14 @@ public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends BaseAlgorithm
      * @param in
      * @return
      */
-    public static Matrix2d<Byte> transform(Segment<Point<Byte,Decart2d<Integer>>> in) {
+    public static Matrix2d<Byte> transform(SegmentPointDecart2dInt in) {
         // 1. find shift by x and y
         if(in.points.size()==0) return null;
         int l = Integer.MAX_VALUE;
         int r = Integer.MIN_VALUE;
         int u = Integer.MAX_VALUE;
         int d = Integer.MIN_VALUE;
-        for(Point<Byte, Decart2d<Integer>> p : in.points){
+        for(Point<Byte, Decart2dInt> p : in.points){
             if( p.coords.x < l ) l = p.coords.x;
             if( p.coords.x > r ) r = p.coords.x;
             if( p.coords.y < u ) u = p.coords.y;
@@ -65,7 +66,7 @@ public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends BaseAlgorithm
         x = width;
         Matrix2d<Byte> out = new Matrix2d<Byte>(Byte.class, x, y, null);
         // 3. add points with shift to Matrix2dByte
-        for(Point<Byte, Decart2d<Integer>> p : in.points) {
+        for(Point<Byte, Decart2dInt> p : in.points) {
             out.setValue(p.coords.x - l, p.coords.y - u, p.value );
         }
         return out;

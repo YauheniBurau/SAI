@@ -1,11 +1,13 @@
 package core.application.process.MatrixToFile;
 
 import core.application.algorithms.BaseAlgorithm;
+import core.application.dataElement.color.ARGB;
 import core.application.dataElement.color.Colors256ARGB;
 import core.application.dataElement.file.PngFile;
 import core.application.dataElement.matrix.Matrix2d;
 import core.application.exceptions.FileException;
 import core.application.exceptions.InputParamException;
+import core.application.helper.ArgbToIntegerArgb;
 import core.application.model.Model;
 
 import javax.imageio.ImageIO;
@@ -57,6 +59,7 @@ public class M2dByteToPngFile extends BaseAlgorithm {
         int type = TYPE_INT_ARGB;
         int x, y;
         Byte v;
+        ARGB argb;
         image = new BufferedImage(in.sizeX, in.sizeY, type);
         y = in.sizeY;
         x = in.sizeX;
@@ -64,7 +67,8 @@ public class M2dByteToPngFile extends BaseAlgorithm {
             for(int i = 0; i<x; i++){
                 v = in.getValue(i, j);
                 if(v!=null) {
-                    image.setRGB( i, j, colors256.getArgbInteger(v+128) );
+                    argb = colors256.getArgbColor(v+128);
+                    image.setRGB( i, j, ArgbToIntegerArgb.transform(argb) );
                 }else{
                     image.setRGB(i, j, 0x00000000);
                 }

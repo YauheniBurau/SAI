@@ -47,7 +47,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
                     break;
                 }
                 default: {
-                    throw new InputParamException("Wrong transformType param value transform not exists");
+                    throw new InputParamException("Wrong transformType param value transformPoints not exists");
                 }
             }
         }else{
@@ -58,7 +58,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
     }
 
     /**
-     * transform Matrix2d<Lab> to matrix2d<Byte> where By L from Lab
+     * transformPoints Matrix2d<Lab> to matrix2d<Byte> where By L from Lab
      * @param in
      * @return
      */
@@ -78,7 +78,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
     }
 
     /**
-     * transform Matrix2d<Lab> to matrix2d<Byte> where By A from Lab
+     * transformPoints Matrix2d<Lab> to matrix2d<Byte> where By A from Lab
      * @param in
      * @return
      */
@@ -98,7 +98,7 @@ public class M2dLabToM2dByte_L_A_B extends BaseAlgorithm {
     }
 
     /**
-     * transform Matrix2d<Lab> to matrix2d<Byte> where By B from Lab
+     * transformPoints Matrix2d<Lab> to matrix2d<Byte> where By B from Lab
      * @param in
      * @return
      */
