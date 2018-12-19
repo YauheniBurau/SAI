@@ -1,11 +1,11 @@
 package core.application.process.MatrixToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.color.ARGB;
-import core.application.dataElement.color.Colors256ARGB;
-import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.matrix.Matrix2dByte;
-import core.application.helper.UnsignedIntToSignedByte;
+import core.application.VertexValue.color.ARGB;
+import core.application.VertexValue.color.Colors256ARGB;
+import core.application.VertexValue.matrix.Matrix2d;
+import core.application.VertexValue.matrix.Matrix2dByte;
+import core.application.process.PrimitiveToPrimitive.UnsignedIntToSignedByte;
 import core.application.model.Model;
 
 /**

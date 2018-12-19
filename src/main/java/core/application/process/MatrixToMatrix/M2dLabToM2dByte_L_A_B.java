@@ -1,9 +1,9 @@
 package core.application.process.MatrixToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.helper.UnsignedDoubleToSignedByte;
-import core.application.dataElement.color.Lab;
-import core.application.dataElement.matrix.Matrix2d;
+import core.application.process.PrimitiveToPrimitive.UnsignedDoubleToSignedByte;
+import core.application.VertexValue.color.Lab;
+import core.application.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
 import core.application.model.Model;
 

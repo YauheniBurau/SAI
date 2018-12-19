@@ -1,12 +1,12 @@
 package core.old;
 
-import core.application.dataElement.AbstractElement;
-import core.application.dataElement.coords.Decart2dInt;
+import core.application.VertexValue.coords.Decart2dInt;
 
+// TODO: remove later
 /**
  * Created by anonymous on 22.10.2017.
  */
-public class Line2d extends AbstractElement {
+public class Line2d {
     public Decart2dInt p1;
     public Decart2dInt p2;
 

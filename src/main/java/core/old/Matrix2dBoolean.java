@@ -1,14 +1,10 @@
 package core.old;
 
-
-import core.application.dataElement.IDataElement;
-
-import java.util.*;
-
+// TODO: remove later
 /**
  * Created by anonymous on 05.10.2017.
  */
-public class Matrix2dBoolean implements IDataElement {
+public class Matrix2dBoolean {
     private Boolean[][] matrix;
     public final int sizeX;
     public final int sizeY;
@@ -36,44 +32,6 @@ public class Matrix2dBoolean implements IDataElement {
         }
         return null;
     }
-
-//
-//    public Matrix2dBoolean skeletize(){
-//        Matrix2dBoolean result = new Matrix2dBoolean(this.size, this.sizeY);
-//        boolean p00, p01, p02, p10, p11, p12, p20, p21, p22;
-//        for(int j = 0; j<this.sizeY; j++){
-//            for(int i = 0; i<this.size; i++){
-//                p00 = this.getValue(i-1, j-1);
-//                p01 = this.getValue(i, j-1);
-//                p02 = this.getValue(i+1, j-1);
-//                p10 = this.getValue(i-1, j);
-//                p11 = this.getValue(i, j);
-//                p12 = this.getValue(i+1, j);
-//                p20 = this.getValue(i-1, j+1);
-//                p21 = this.getValue(i, j+1);
-//                p22 = this.getValue(i+1, j+1);
-//                if( p11 == true &&
-//                        (p00 == false || p01 == false || p02 == false ||
-//                                p10 == false         ||         p12 == false ||
-//                                p20 == false || p21 == false || p22 == false) ){
-//                    result.setValue( i, j, true);
-//                }
-//            }
-//        }
-//        return result;
-//    }
-
-//    /**
-//     * find curve by coordinates of one of the coords
-//     * @param x
-//     * @param y
-//     * @return
-//     */
-//    public Curve findCurve(int x, int y){
-//        Curve c = new Curve();
-//
-//        return c;
-//    }
 
 //    public ArrayList<Curve> countBaseCurves(){
 //        // ===== COUNT BASE CURVES =====
@@ -205,130 +163,6 @@ public class Matrix2dBoolean implements IDataElement {
 //        return curvesResult;
 //    }
 
-//    /**
-//     * @param x
-//     * @param y
-//     * @return
-//     */
-//    public Matrix2dBoolean findFilledShape(int x, int y){
-//        Boolean colorValue = this.getValue(x, y);
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(this.sizeX, this.sizeY);
-//        int pi, pj;
-//        Boolean v2, v3, v4, v5, v6, v7, v8, v9;
-//        Point2d<Boolean, Integer> p;
-//        LinkedList<Point2d<Boolean, Integer>> points = new LinkedList<Point2d<Boolean, Integer>>();
-//        points.add( new Point2d<Boolean, Integer>(x, y, this.getValue(x, y)) );
-//        isProcessed.setValue(x, y, true);
-//        while(points.size()>0){
-//            p = points.poll();
-//            pi = p.x;
-//            pj = p.y;
-//            v2 = this.getValue(pi, pj-1);
-////            v3 = this.getValue(pi+1, pj-1);
-//            v4 = this.getValue(pi+1, pj);
-////            v5 = this.getValue(pi+1, pj+1);
-//            v6 = this.getValue(pi, pj+1);
-////            v7 = this.getValue(pi-1, pj+1);
-//            v8 = this.getValue(pi-1, pj);
-////            v9 = this.getValue(pi-1, pj-1);
-//            if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v2 == colorValue) {
-//                points.add( new Point2d<Boolean, Integer>(pi, pj-1, v2) );
-//                isProcessed.setValue(pi, pj-1, true);
-//            }
-////            if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && Math.abs(summ/n - v3) <= maxDiff) {
-////                points.add( new Point(pi+1,pj-1, 0, v3) );
-////                isProcessed.setValue(pi+1, pj-1, true);
-////                summ += v3;
-////                n += 1;
-////            }
-//            if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v4 == colorValue) {
-//                points.add( new Point2d<Boolean, Integer>(pi+1, pj, v4) );
-//                isProcessed.setValue(pi+1, pj, true);
-//            }
-////            if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && Math.abs(summ/n - v5) <= maxDiff) {
-////                points.add( new Point(pi+1,pj+1, 0, v5) );
-////                isProcessed.setValue(pi+1, pj+1, true);
-////                summ += v5;
-////                n += 1;
-////            }
-//            if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v6 == colorValue) {
-//                points.add( new Point2d<Boolean, Integer>(pi,pj+1, v6) );
-//                isProcessed.setValue(pi, pj+1, true);
-//            }
-////            if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && Math.abs(summ/n - v7) <= maxDiff) {
-////                points.add( new Point(pi-1,pj+1, 0, v7) );
-////                isProcessed.setValue(pi-1, pj+1, true);
-////                summ += v7;
-////                n += 1;
-////            }
-//            if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v8 == colorValue) {
-//                points.add( new Point2d<Boolean, Integer>(pi-1,pj, v8) );
-//                isProcessed.setValue(pi-1, pj, true);
-//            }
-////            if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && Math.abs(summ/n - v9) <= maxDiff) {
-////                points.add( new Point(pi-1,pj-1, 0, v9) );
-////                isProcessed.setValue(pi-1, pj-1, true);
-////                summ += v9;
-////                n += 1;
-////            }
-//        }
-//        return isProcessed;
-//    }
-
-
-    // ================================ OLD =============================================
-//    public Matrix2dBoolean getFilledShape() {
-//        int y = this.sizeY;
-//        int x = this.size;
-//        int pi, pj;
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(x, y);
-//        LinkedList<Point2dByte> points;
-//        Point2dByte p;
-//        // TODO: optimize cycle
-//        for (int j = 0; j < y; j++) {
-//            for (int i = 0; i < x; i++) {
-//                if( this.getValue(i, j) == false && isProcessed.getValue(i, j) == false &&
-//                    (i==0 || i == x-1 || j == 0 || j == y-1) ){
-//                    points = new LinkedList<Point2dByte>();
-//                    points.add( new Point2dByte(i,j, (byte)0) );
-//                    isProcessed.setValue(i, j, true);
-//                    while(points.size()>0){
-//                        p = points.poll();
-//                        pi = p.x;
-//                        pj = p.y;
-//                        if( this.getValue(pi, pj-1) == false && isProcessed.getValue(pi, pj-1) == false
-//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-//                            points.add( new Point2dByte(pi,pj-1, (byte)0) );
-//                            isProcessed.setValue(pi, pj-1, true);
-//                        }
-//                        if( this.getValue(pi, pj+1) == false && isProcessed.getValue(pi, pj+1) == false
-//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-//                            points.add( new Point2dByte(pi,pj+1, (byte)0) );
-//                            isProcessed.setValue(pi, pj+1, true);
-//                        }
-//                        if( this.getValue(pi-1, pj) == false && isProcessed.getValue(pi-1, pj) == false
-//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-//                            points.add( new Point2dByte(pi-1,pj, (byte)0) );
-//                            isProcessed.setValue(pi-1, pj, true);
-//                        }
-//                        if( this.getValue(pi+1, pj) == false && isProcessed.getValue(pi+1, pj) == false
-//                                && (pi>=0 && pi < x && pj >= 0 && pj < y) ) {
-//                            points.add( new Point2dByte(pi+1,pj, (byte)0) );
-//                            isProcessed.setValue(pi+1, pj, true);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        // invert matrix2dBoolean
-//        for (int j = 0; j < y; j++) {
-//            for (int i = 0; i < x; i++) {
-//                if( isProcessed.getValue(i, j) == false){ isProcessed.setValue(i, j, true);}
-//                else{ isProcessed.setValue(i, j, false); }
-//            }
-//        }
-//        return isProcessed;
-//    }
 
 //    public Matrix2dBoolean removeNoise() {
 //        return this.replacePoints(true, 0, 2, -1, -1)
@@ -475,103 +309,6 @@ public class Matrix2dBoolean implements IDataElement {
 //                }
 //            }
 //        }
-//        return m2d;
-//    }
-
-//    /**
-//     * count skeleton of image where removed pixels not broke connectivity
-//     * @return
-//     */
-//    public Matrix2dBoolean skeletize(){
-//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.size, this.sizeY);
-//        boolean isChanged;
-//        boolean v2, v3, v4, v5, v6, v7, v8, v9;
-//        int n;
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < size; i++) {
-//                m2d.setValue(i, j, this.getValue(i, j));
-//            }
-//        }
-//        do {
-//            isChanged = false;
-//            for (int j = 1; j < sizeY - 1; j++) {
-//                for (int i = 1; i < size - 1; i++) {
-//                    if (m2d.getValue(i, j) == true ){
-//                        v2 = m2d.getValue(i, j - 1);
-//                        v3 = m2d.getValue(i + 1, j - 1);
-//                        v4 = m2d.getValue(i + 1, j);
-//                        v5 = m2d.getValue(i + 1, j + 1);
-//                        v6 = m2d.getValue(i, j + 1);
-//                        v7 = m2d.getValue(i - 1, j + 1);
-//                        v8 = m2d.getValue(i - 1, j);
-//                        v9 = m2d.getValue(i - 1, j - 1);
-//                        // count and check connectivity. If pixel doesn't broke connection we can remove it
-//                        n = 0;
-//                        if( (v2 == false && v3 == true) ) n++;
-//                        if( (v3 == false && v4 == true) ) n++;
-//                        if( (v4 == false && v5 == true) ) n++;
-//                        if( (v5 == false && v6 == true) ) n++;
-//                        if( (v6 == false && v7 == true) ) n++;
-//                        if( (v7 == false && v8 == true) ) n++;
-//                        if( (v8 == false && v9 == true) ) n++;
-//                        if( (v9 == false && v2 == true) ) n++;
-//                        if ( n==1 ) {
-//                            m2d.setValue(i, j, false);
-//                            isChanged = true;
-//                        }
-//                    }
-//                }
-//            }
-//        }while(isChanged);
-//        return m2d;
-//    }
-
-    /**
-     * count edge in binary mask
-     * @return
-     */
-    public Matrix2dBoolean edge() {
-        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
-        int v1, v2, v3, v4, v5, v6, v7, v8, v9;
-        int n;
-        for (int j = 1; j < sizeY-1; j++) {
-            for (int i = 1; i < sizeX-1; i++) {
-                v1 = (this.getValue(i, j) == true ? 1 : 0);
-                v2 = (this.getValue(i, j - 1) == true ? 1 : 0);
-                v3 = (this.getValue(i + 1, j - 1) == true ? 1 : 0);
-                v4 = (this.getValue(i + 1, j) == true ? 1 : 0);
-                v5 = (this.getValue(i + 1, j + 1) == true ? 1 : 0);
-                v6 = (this.getValue(i, j + 1) == true ? 1 : 0);
-                v7 = (this.getValue(i - 1, j + 1) == true ? 1 : 0);
-                v8 = (this.getValue(i - 1, j) == true ? 1 : 0);
-                v9 = (this.getValue(i - 1, j - 1) == true ? 1 : 0);
-                n = v2 + v3 + v4 + v5 + v6 + v7 + v8 + v9;
-                if(v1==1 && n<8){
-                    m2d.setValue(i,j, true);
-                }else{
-                    m2d.setValue(i,j, false);
-                }
-            }
-        }
-        return m2d;
-    }
-
-//    /**
-//     * remove ** ->  *
-//     *        *     *
-//     * @return
-//     */
-//    public Matrix2dBoolean remove90points(){
-//        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
-//        for (int j = 0; j < sizeY; j++) {
-//            for (int i = 0; i < sizeX; i++) {
-//                m2d.setValue(i, j, this.getValue(i, j));
-//            }
-//        }
-//        m2d = this.replace2x2(11,10)
-//                .replace2x2(7,5)
-//                .replace2x2(14,10)
-//                .replace2x2(13,5);
 //        return m2d;
 //    }
 
@@ -832,20 +569,6 @@ public class Matrix2dBoolean implements IDataElement {
 //    }
 
 //    /**
-//     * count number of not null elements
-//     * @return
-//     */
-//    public int countPoints(){
-//        int n = 0;
-//        for (int j = 0; j < this.sizeY; j++) {
-//            for (int i = 0; i < this.sizeX; i++) {
-//                if(this.getValue(i, j)==true ){n++;}
-//            }
-//        }
-//        return n;
-//    }
-
-//    /**
 //     * binary get values = m1 & m2 by values
 //     * @param m1
 //     * @return
@@ -922,131 +645,6 @@ public class Matrix2dBoolean implements IDataElement {
 //        }
 //        diff /= n;
 //        return diff;
-//    }
-
-//    private static final int _0_45 = 1;
-//    private static final int _46_90 = 2;
-//    private static final int _91_135 = 3;
-//    private static final int _136_179 = 4;
-//
-//    private static final int FIND_LEFT_POINT = 10;
-//    private static final int FIND_RIGHT_POINT = 11;
-//
-//    private static final int P0 = 0;
-//    private static final int P1 = 1;
-//    private static final int P2 = 2;
-//    private static final int P3 = 3;
-//    private static final int P4 = 4;
-//    private static final int P5 = 5;
-//    private static final int P6 = 6;
-//    private static final int P7 = 7;
-//    private static final int P8 = 8;
-//
-//    /**
-//     * p8 p1 p2
-//     * p7 p0 p3
-//     * p6 p5 p4
-//     * @param pStart - is p0
-//     * @param pAroundIndex are p1, p2, p3, p4, p5, p6, p7, p8
-//     * @return
-//     */
-//    private Point findPointExist(Point pStart, int pAroundIndex){
-//        Point p = null;
-//        switch(pAroundIndex) {
-//            case P1:
-//                if (this.getValue(p.x, p.y - 1) == true) {
-//                    p = new Point(p.x, p.y - 1);
-//                }
-//                break;
-//            case P2:
-//                if (this.getValue(p.x+1, p.y - 1) == true) {
-//                    p = new Point(p.x+1, p.y - 1);
-//                }
-//                break;
-//            case P3:
-//                if (this.getValue(p.x+1, p.y) == true) {
-//                    p = new Point(p.x+1, p.y);
-//                }
-//                break;
-//            case P4:
-//                if (this.getValue(p.x+1, p.y+1) == true) {
-//                    p = new Point(p.x+1, p.y+1);
-//                }
-//                break;
-//            case P5:
-//                if (this.getValue(p.x, p.y+1) == true) {
-//                    p = new Point(p.x, p.y+1);
-//                }
-//                break;
-//            case P6:
-//                if (this.getValue(p.x-1, p.y+1) == true) {
-//                    p = new Point(p.x-1, p.y+1);
-//                }
-//                break;
-//            case P7:
-//                if (this.getValue(p.x-1, p.y) == true) {
-//                    p = new Point(p.x-1, p.y);
-//                }
-//                break;
-//            case P8:
-//                if (this.getValue(p.x-1, p.y-1) == true) {
-//                    p = new Point(p.x-1, p.y-1);
-//                }
-//                break;
-//            default: p = null;
-//        }
-//        return p;
-//    }
-
-//    /**
-//     * Find Point for prolonging line
-//     * @param p coords around to find linePoint
-//     * @param directionLine from _0 to _136_179 constants
-//     * @param directionLine FIND_LEFT_POINT or FIND_RIGHT_POINT
-//     * @return Point
-//     */
-//    private Point findMorthPoint(Point p, int directionLine, int findPoint){
-//        Point pNext = null;
-//        if(findPoint == FIND_LEFT_POINT){
-//            switch(directionLine){
-//                case _0: if(this.getValue(p.x-1, p.y)==true){
-//                    pNext = new Point(p.x-1, p.y);
-//                }
-//                break;
-//
-//                case _1_44: break;
-//
-//                case _45: if(this.getValue(p.x-1, p.y+1)==true){
-//                    pNext = new Point(p.x-1, p.y+1);
-//                }
-//                break;
-//                case _46_89: break;
-//                case _90: if(this.getValue(p.x, p.y-1)==true){
-//                    pNext = new Point(p.x, p.y-1);
-//                }
-//                break;
-//                case _91_134: break;
-//                case _135: if(this.getValue(p.x-1, p.y-1)==true){
-//                    pNext = new Point(p.x-1, p.y-1);
-//                }
-//                break;
-//                case _136_179: break;
-//            }
-//        }
-//        if(findPoint == FIND_RIGHT_POINT){
-//            switch(directionLine){
-//                case _0: break;
-//                case _1_44: break;
-//                case _45: break;
-//                case _46_89: break;
-//                case _90: break;
-//                case _91_134: break;
-//                case _135: break;
-//                case _136_179: break;
-//            }
-//        }
-//
-//        return pNext;
 //    }
 
 

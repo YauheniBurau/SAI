@@ -1,11 +1,11 @@
 package core.application.process.MatrixToMatrix;
 
-import core.application.helper.ArgbToLab;
+import core.application.process.ColorToColor.ArgbToLab;
 import core.application.algorithms.BaseAlgorithm;
 import core.application.model.Model;
-import core.application.dataElement.color.ARGB;
-import core.application.dataElement.color.Lab;
-import core.application.dataElement.matrix.Matrix2d;
+import core.application.VertexValue.color.ARGB;
+import core.application.VertexValue.color.Lab;
+import core.application.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
 
 /**

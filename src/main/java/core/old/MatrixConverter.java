@@ -79,23 +79,6 @@ public class MatrixConverter {
 //        return img;
 //    }
 
-//    /**
-//     * transform matrix2dArgb into Matrix2dHsv where new value = HSV from argb color
-//     * @return
-//     */
-//    public static Matrix2dArgb matrix2dByteValueTomatrix2dArgb(Matrix2dByte in){
-//        int size = in.size;
-//        int sizeY = in.sizeY;
-//        int v;
-//        Matrix2dArgb m2d = new Matrix2dArgb(size, sizeY);
-//        for(int j = 0; j<sizeY; j++){
-//            for(int i = 0; i<size; i++) {
-//                v = byteToInt(in.getValue(i,j));
-//                m2d.setValue( i,j, new ARGB( 0xffffffff, v, v, v) );
-//            }
-//        }
-//        return m2d;
-//    }
 
 //    /**
 //     * transform Segment to Matrix2dByte

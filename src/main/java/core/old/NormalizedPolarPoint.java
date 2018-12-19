@@ -1,11 +1,9 @@
 package core.old;
 
-import core.application.dataElement.AbstractElement;
-
 /**
  * Created by anonymous on 26.09.2018.
  */
-public class NormalizedPolarPoint extends AbstractElement {
+public class NormalizedPolarPoint {
     public byte a; // a
     public byte r; // r - distance from center
 

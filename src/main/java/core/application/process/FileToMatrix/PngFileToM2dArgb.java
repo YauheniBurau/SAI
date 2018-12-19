@@ -1,14 +1,13 @@
 package core.application.process.FileToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.helper.IntegerArgbToArgb;
+import core.application.process.PrimitiveToColor.IntegerArgbToArgb;
 import core.application.model.Model;
-import core.application.dataElement.matrix.Matrix2d;
+import core.application.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
-import core.application.dataElement.color.ARGB;
-import core.application.dataElement.file.PngFile;
+import core.application.VertexValue.color.ARGB;
+import core.application.VertexValue.file.PngFile;
 import core.application.exceptions.FileException;
-import core.application.process.TransformResults;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
@@ -38,7 +37,6 @@ public class PngFileToM2dArgb extends BaseAlgorithm {
     public Boolean process() {
         PngFile in = this.model.pngFileList.get(this.inKey);
         Matrix2d<ARGB> out;
-        TransformResults tr = new TransformResults();
         if(in!=null) {
             out = this.transform(in);
             this.model.matrix2dArgbList.put(this.outKey, out);

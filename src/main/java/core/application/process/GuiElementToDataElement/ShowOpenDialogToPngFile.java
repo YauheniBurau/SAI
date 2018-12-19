@@ -2,11 +2,9 @@ package core.application.process.GuiElementToDataElement;
 
 import core.application.algorithms.BaseAlgorithm;
 import core.application.model.Model;
-import core.application.process.TransformParams;
-import core.application.process.TransformResults;
 import core.application.view.View;
 import core.application.exceptions.InputParamException;
-import core.application.dataElement.file.PngFile;
+import core.application.VertexValue.file.PngFile;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;

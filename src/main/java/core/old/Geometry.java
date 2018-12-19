@@ -1,8 +1,5 @@
 package core.old;
 
-import core.application.dataElement.coords.Decart2dInt;
-
-import java.util.ArrayList;
 
 // TODO: Remove later
 /**

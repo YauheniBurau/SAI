@@ -1,15 +1,15 @@
 package core.application.process.CloudToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.clouds.CloudOfDecart2dInt;
-import core.application.dataElement.coords.Decart2dInt;
-import core.application.dataElement.matrix.Matrix2dByte;
+import core.application.VertexValue.cloud.CloudOfDecart2dInt;
+import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.matrix.Matrix2dByte;
 import core.application.model.Model;
 
 /**
  * Created by anonymous on 10.12.2018.
  */
-public class CloudOfDecart2dIntToM2dByte  extends BaseAlgorithm {
+public class CloudOfDecart2dIntToM2dByte extends BaseAlgorithm {
     protected Model model;
     private String inKey;
     private String outKey;

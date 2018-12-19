@@ -1,12 +1,11 @@
 package core.application.process.DataElementToGuiElement;
 
-import core.application.helper.ArgbToIntegerArgb;
+import core.application.process.ColorToPrimitive.ArgbToIntegerArgb;
 import core.application.algorithms.BaseAlgorithm;
 import core.application.model.Model;
-import core.application.dataElement.matrix.Matrix2d;
+import core.application.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
-import core.application.dataElement.color.ARGB;
-import core.application.process.TransformResults;
+import core.application.VertexValue.color.ARGB;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -48,7 +47,6 @@ public class M2dArgbToImageView extends BaseAlgorithm {
      * @return
      */
     public static ImageView transform(Matrix2d<ARGB> in, ImageView out) {
-        TransformResults tr = new TransformResults();
         WritableImage wi = new WritableImage(in.sizeX, in.sizeY);
         PixelWriter pw = wi.getPixelWriter();
         ARGB argb;

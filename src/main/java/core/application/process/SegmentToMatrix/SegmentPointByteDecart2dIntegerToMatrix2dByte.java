@@ -1,10 +1,10 @@
 package core.application.process.SegmentToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.coords.Decart2dInt;
-import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.points.Point;
-import core.application.dataElement.segments.SegmentPointDecart2dInt;
+import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.matrix.Matrix2d;
+import core.application.VertexValue.points.Point;
+import core.application.VertexValue.segments.SegmentPointDecart2dInt;
 import core.application.exceptions.InputParamException;
 import core.application.model.Model;
 

@@ -1,15 +1,11 @@
 package core.application.process.MatrixToGraph;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.contours.ContourDecart2dInt;
-import core.application.dataElement.coords.Decart2dInt;
-import core.application.dataElement.coords.LinkedDecart2dInt;
-import core.application.dataElement.graph.GraphVertexSegmentByteDecart2dInt;
-import core.application.dataElement.graph.VertexSegmentByteDecart2dInt;
-import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.points.PointByteDecart2dInt;
-import core.application.dataElement.segments.SegmentPointDecart2dInt;
-import core.application.exceptions.InputParamException;
+import core.application.VertexValue.contour.ContourDecart2dInt;
+import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.coords.LinkedDecart2dInt;
+import core.application.VertexValue.matrix.Matrix2d;
+import core.application.VertexValue.points.PointByteDecart2dInt;
 import core.application.model.Model;
 
 import java.util.ArrayList;
@@ -223,10 +219,10 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //        int r = Integer.MIN_VALUE;
 //        int d = Integer.MIN_VALUE;
 //        for(PointByteDecart2dInt p : in){
-//            if( p.coords.x < l ) l = p.coords.x;
-//            if( p.coords.y < u ) u = p.coords.y;
-//            if( p.coords.x > r ) r = p.coords.x;
-//            if( p.coords.y > d ) d = p.coords.y;
+//            if( p.elements.x < l ) l = p.elements.x;
+//            if( p.elements.y < u ) u = p.elements.y;
+//            if( p.elements.x > r ) r = p.elements.x;
+//            if( p.elements.y > d ) d = p.elements.y;
 //        }
 //        int shiftX = l;
 //        int shiftY = u;
@@ -234,7 +230,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //        int high = d - u + 1;
 //        Matrix2d<Byte> m2dShifted = new Matrix2d<>(Byte.class, width, high, null);
 //        for(PointByteDecart2dInt p : in) {
-//            m2dShifted.setValue(p.coords.x-shiftX, p.coords.y - shiftY, p.value);
+//            m2dShifted.setValue(p.elements.x-shiftX, p.elements.y - shiftY, p.value);
 //        }
 //        // count matrix2d<Boolean> as Segment mask of points
 //        Matrix2d<Boolean> m2dSegmentContours = m2dByteToM2dBooleanContours(m2dShifted);
@@ -274,7 +270,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //                    segment.points = segmentPoints;
 //                    segment.countSegmentSize();
 //                    for (PointByteDecart2dInt p: segmentPoints) {
-//                        m2dSegments.setValue(p.coords.x, p.coords.y, segment);
+//                        m2dSegments.setValue(p.elements.x, p.elements.y, segment);
 //                    }
 //                }
 //            }
@@ -311,7 +307,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //                    segment = new SegmentPointDecart2dInt(segmentValue, segmentPoints);
 //                    vertex = new VertexSegmentByteDecart2dInt(segment);
 //                    for (PointByteDecart2dInt p: segmentPoints) {
-//                        m2dVertexes.setValue(p.coords.x, p.coords.y, vertex);
+//                        m2dVertexes.setValue(p.elements.x, p.elements.y, vertex);
 //                    }
 //                    out.add(vertex);
 //                }

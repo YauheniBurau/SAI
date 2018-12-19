@@ -1,6 +1,6 @@
 package core.application.math;
 
-import core.application.dataElement.coords.Decart2dInt;
+import core.application.VertexValue.coords.Decart2dInt;
 
 /**
  * Created by anonymous on 05.12.2018.
@@ -8,7 +8,7 @@ import core.application.dataElement.coords.Decart2dInt;
 public class Geometry {
 
     /**
-     * find a of line by coords and center coords
+     * find a of line by elements and center elements
      * a starts from -180 to 180
      *          0
      *          |

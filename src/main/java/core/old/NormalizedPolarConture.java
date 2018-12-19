@@ -1,13 +1,12 @@
 package core.old;
 
-import core.application.dataElement.AbstractElement;
-
 import java.util.LinkedList;
 
+// TODO: remove later
 /**
  * Created by anonymous on 23.09.2018.
  */
-public class NormalizedPolarConture extends AbstractElement {
+public class NormalizedPolarConture {
     public LinkedList<NormalizedPolarPoint> points = new LinkedList<NormalizedPolarPoint>();
 
     /**

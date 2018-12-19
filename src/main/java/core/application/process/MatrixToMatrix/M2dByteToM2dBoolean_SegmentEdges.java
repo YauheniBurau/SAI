@@ -1,7 +1,7 @@
 package core.application.process.MatrixToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.matrix.Matrix2d;
+import core.application.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
 import core.application.model.Model;
 

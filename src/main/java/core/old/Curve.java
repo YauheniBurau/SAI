@@ -1,14 +1,9 @@
 package core.old;
 
-import core.application.dataElement.AbstractElement;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * Created by anonymous on 14.06.2018.
  */
-public class Curve extends AbstractElement {
+public class Curve {
     public static final int CURVE_UNDEFINED = 0;
     public static final int CURVE_LINE = 1;
     public static final int CURVE_ARC = 2;
@@ -238,7 +233,7 @@ public class Curve extends AbstractElement {
 
 
 //    /**
-//     * find a of line by coords and center coords
+//     * find a of line by elements and center elements
 //     * @param pc
 //     * @param p
 //     * @return a in radians

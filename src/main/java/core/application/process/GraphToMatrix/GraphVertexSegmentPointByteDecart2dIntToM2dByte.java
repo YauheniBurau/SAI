@@ -1,12 +1,6 @@
 package core.application.process.GraphToMatrix;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.graph.GraphVertexSegmentByteDecart2dInt;
-import core.application.dataElement.graph.VertexSegmentByteDecart2dInt;
-import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.points.PointByteDecart2dInt;
-import core.application.dataElement.segments.SegmentPointDecart2dInt;
-import core.application.exceptions.InputParamException;
 import core.application.model.Model;
 
 /**
@@ -56,7 +50,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
 //        for(VertexSegmentByteDecart2dInt vertex: in.getVertexes()){
 //            segmentValue = vertex.getValue().value;
 //            for(PointByteDecart2dInt p: vertex.getValue().points){
-//                out.setValue(p.coords.x, p.coords.y, segmentValue);
+//                out.setValue(p.elements.x, p.elements.y, segmentValue);
 //            }
 //        }
 //        return out;
@@ -78,7 +72,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
 ////        for(VertexSegmentByteDecart2dInt vertex: in.getVertexes()){
 ////            segmentValue = vertex.getValue().value;
 ////            for(PointByteDecart2dInt p: vertex.getValue().points){
-////                out.setValue(p.coords.x, p.coords.y, segmentValue);
+////                out.setValue(p.elements.x, p.elements.y, segmentValue);
 ////            }
 ////        }
 //        return out;
@@ -100,7 +94,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
 ////        for(VertexSegmentByteDecart2dInt vertex: in.getVertexes()){
 ////            segmentValue = vertex.getValue().value;
 ////            for(PointByteDecart2dInt p: vertex.getValue().points){
-////                out.setValue(p.coords.x, p.coords.y, segmentValue);
+////                out.setValue(p.elements.x, p.elements.y, segmentValue);
 ////            }
 ////        }
 //        return out;

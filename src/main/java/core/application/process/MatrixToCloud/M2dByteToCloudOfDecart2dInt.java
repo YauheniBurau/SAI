@@ -1,10 +1,10 @@
 package core.application.process.MatrixToCloud;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.dataElement.clouds.CloudOfDecart2dInt;
-import core.application.dataElement.coords.Decart2dInt;
-import core.application.dataElement.matrix.Matrix2dBool;
-import core.application.dataElement.matrix.Matrix2dByte;
+import core.application.VertexValue.cloud.CloudOfDecart2dInt;
+import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.matrix.Matrix2dBool;
+import core.application.VertexValue.matrix.Matrix2dByte;
 import core.application.model.Model;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class M2dByteToCloudOfDecart2dInt extends BaseAlgorithm {
     }
 
     /**
-     * remark: only fulfilled clouds without gaps must come into function as "clouds" param
+     * remark: only fulfilled cloud without gaps must come into function as "cloud" param
      *  Matrix2d<Byte> and Cloud -> ArrayList<CloudOfDecart2dInt>
      * @param in
      * @return
@@ -94,11 +94,10 @@ public class M2dByteToCloudOfDecart2dInt extends BaseAlgorithm {
         while(inClouds.size()>0){
             outClouds = M2dByteToCloudOfDecart2dInt.transform(in, inClouds);
             inClouds = outClouds;
-            for (CloudOfDecart2dInt cl: inClouds) {
-                CloudOfDecart2dInt.saveCloud("E:\\temp\\out\\" + cloud_uid + "byte.png", cl, in);
-                cloud_uid+=1;
-            }
-
+//            for (CloudOfDecart2dInt cl: inClouds) {
+//                CloudOfDecart2dInt.saveCloud("E:\\temp\\out\\" + cloud_uid + "byte.png", cl, in);
+//                cloud_uid+=1;
+//            }
         }
         return rootCloud;
     }

@@ -1,14 +1,14 @@
 package com.yauheni.burau.sai;
 
-import core.application.dataElement.clouds.CloudOfDecart2dInt;
-import core.application.dataElement.color.ARGB;
-import core.application.dataElement.file.PngFile;
-import core.application.dataElement.matrix.Matrix2d;
-import core.application.dataElement.matrix.Matrix2dByte;
+import core.application.VertexValue.cloud.CloudOfDecart2dInt;
+import core.application.VertexValue.color.ARGB;
+import core.application.VertexValue.file.PngFile;
+import core.application.VertexValue.matrix.Matrix2d;
+import core.application.VertexValue.matrix.Matrix2dByte;
+import core.application.graph.Graph;
+import core.application.process.CloudToGraph.CloudOfDecart2dIntToGraph;
 import core.application.process.FileToMatrix.PngFileToM2dArgb;
 import core.application.process.MatrixToCloud.M2dByteToCloudOfDecart2dInt;
-import core.application.process.MatrixToFile.M2dArgbToPngFile;
-import core.application.process.MatrixToFile.M2dByteToPngFile;
 import core.application.process.MatrixToMatrix.*;
 import org.junit.Test;
 
@@ -47,26 +47,35 @@ public class AI_Test {
 //    String imageFile = "screenElements.png";
 //    String imageFile = "256Colors.png";
 
-//    @Test
-//    public void to256Colors() {
-//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
-//        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
-//        Matrix2d<ARGB> m2dArgb256 = M2dArgbToM2dArgb256Colors.transform(m2dArgb);
-//        M2dArgbToPngFile.transform(m2dArgb256, new PngFile(dirOut + "_colors256_" + imageFile));
-//        Matrix2d<ARGB> m2dArgb16 = M2dArgbToM2dArgb16Colors.transform(m2dArgb);
-//        M2dArgbToPngFile.transform(m2dArgb16, new PngFile(dirOut + "_colors16_" + imageFile));
-//    }
-
 
     @Test
-    public void PngFile_to_RootCloud() {
+    public void Png_Graph_humanFiles() {
         PngFile pngFileIn = new PngFile(dirIn + imageFile);
         Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
         Matrix2dByte m2dByte = M2dArgbToM2dByte256Colors.transform(m2dArgb);
-        M2dByteToPngFile.transform(m2dByte, new PngFile(dirOut + "_m2dByte_" + imageFile));
         CloudOfDecart2dInt rootCloud = M2dByteToCloudOfDecart2dInt.transform(m2dByte);
-
+        Graph graph = CloudOfDecart2dIntToGraph.transform(rootCloud);
+        graph.toHumanFile(dirOut);
     }
+
+
+//    @Test
+//    public void Png_Cloud_Contour_Png() {
+//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+//        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
+//        Matrix2dByte m2dByte = M2dArgbToM2dByte256Colors.transform(m2dArgb);
+//        CloudOfDecart2dInt rootCloud = M2dByteToCloudOfDecart2dInt.transform(m2dByte);
+//        ArrayList<CloudOfDecart2dInt> innerClouds = rootCloud.countInnerClouds();
+//        ContourDecart2dDouble contour;
+//        Matrix2dBool m2dBool;
+//        int id = 0;
+//        for (CloudOfDecart2dInt cloud: innerClouds) {
+//            contour = CloudDecart2dIntToContourDecart2dDouble.transform(cloud);
+//            m2dBool = ContourDecart2dDoubleToM2dBool.transform(contour, m2dArgb.sizeX, m2dArgb.sizeY);
+//            M2dBooleanToPngFile.transform(m2dBool, new PngFile(dirOut + id + "_" + imageFile));
+//            id+=1;
+//        }
+//    }
 
 
 //    @Test
@@ -339,9 +348,9 @@ public class AI_Test {
 //        Matrix2dGraph m2dGraph = null;
 //        m2dGraph = Transformer.transformPoints(m2dEdge, m2dGraph);
 //
-//        ArrayList<Conture> contours = null;
-//        contours = Transformer.transformPoints(m2dGraph, contours);
-//        Conture c = contours.get(0);
+//        ArrayList<Conture> contour = null;
+//        contour = Transformer.transformPoints(m2dGraph, contour);
+//        Conture c = contour.get(0);
 //
 //    }
 

@@ -1,14 +1,12 @@
 package core.application.process.MatrixToFile;
 
 import core.application.algorithms.BaseAlgorithm;
-import core.application.helper.BooleanToIntegerArgb;
+import core.application.process.PrimitiveToPrimitive.BooleanToIntegerArgb;
 import core.application.model.Model;
-import core.application.dataElement.matrix.Matrix2d;
+import core.application.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.FileException;
 import core.application.exceptions.InputParamException;
-import core.application.dataElement.file.PngFile;
-import core.application.process.TransformParams;
-import core.application.process.TransformResults;
+import core.application.VertexValue.file.PngFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

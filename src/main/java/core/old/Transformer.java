@@ -1,20 +1,10 @@
 package core.old;
 
-import core.application.helper.UnsignedDoubleToSignedByte;
-import core.application.dataElement.color.ARGB;
-import core.application.dataElement.file.PngFile;
-import core.application.dataElement.matrix.Matrix2d;
-//import core.application.dataElement.points.Point2d;
-import core.application.exceptions.FileException;
+import core.application.VertexValue.color.ARGB;
+import core.application.VertexValue.matrix.Matrix2d;
 import javafx.scene.chart.XYChart;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-
+// TODO: remove later
 /**
  * Created by anonymous on 24.03.2018.
  */
@@ -251,42 +241,6 @@ public class Transformer {
         return dist;
     }
 
-    /**
-     * count all different rgb colors
-     * @param in
-     * @return
-     */
-    public static int countMatrix2dArgbColorsNumber(Matrix2d<ARGB> in){
-        int n = 0;
-        int[][][] colors = new int[256][256][256];
-        int ir, ig, ib;
-        for(ir = 0; ir<256; ir++){
-            for(ig = 0; ig<256; ig++){
-                for(ib = 0; ib<256; ib++){
-                    colors[ir][ig][ib] = 0;
-                }
-            }
-        }
-        ARGB v;
-        int sizeX = in.sizeX;
-        int sizeY = in.sizeY;
-        for(int j = 0; j<sizeY; j++){
-            for(int i = 0; i<sizeX; i++) {
-                v = in.getValue(i, j);
-                colors[v.r][v.g][v.b] +=1;
-            }
-        }
-        for(ir = 0; ir<256; ir++){
-            for(ig = 0; ig<256; ig++){
-                for(ib = 0; ib<256; ib++){
-                    if( colors[ir][ig][ib] != 0 ){
-                        n+=1;
-                    }
-                }
-            }
-        }
-        return n;
-    }
 
 
     // ================================ TYPES CONVERSION ===============================================
@@ -538,7 +492,7 @@ public class Transformer {
 
     // ===================================== COMPARE ============================================
     /**
-     * Compare two NormalizedPolarConture -> and return double from 0..1 where 1.0 - %100 is equal contours
+     * Compare two NormalizedPolarConture -> and return double from 0..1 where 1.0 - %100 is equal contour
      * @param in1
      * @param in2
      * @param out
