@@ -1,76 +1,77 @@
 package core.old;
 
-import core.application.VertexValue.coords.Decart2dInt;
-
 // TODO: remove later
+
+import core.application.VertexValue.coords.Decart2d;
+
 /**
  * Created by anonymous on 22.10.2017.
  */
 public class Line2d {
-    public Decart2dInt p1;
-    public Decart2dInt p2;
+//    public Decart2d p1;
+//    public Decart2d p2;
+//
+//    public Line2d(Decart2d p1, Decart2d p2) {
+//        this.p1 = p1;
+//        this.p2 = p2;
+//    }
+//
+//    /**
+//     * get a between line vector (p0,p1) and x-axis
+//     * @return
+//     */
+//    public static double getAngle(Decart2d p0, Decart2d p1){
+//        double angle = 0;
+//        if( (p1.x - p0.x == 0) && (p1.y - p0.y > 0) ){ // 90 degree
+//            angle = 90;
+//        }else
+//        if( (p1.x - p0.x == 0) && (p1.y - p0.y < 0) ){ // 270 degree
+//            angle = 270;
+//        }else
+//        if( (p1.x - p0.x > 0) && (p1.y - p0.y == 0) ){ // 0 degree
+//            angle =  0;
+//        }else
+//        if( (p1.x - p0.x < 0) && (p1.y - p0.y == 0) ){ // 180 degree
+//            angle = 180;
+//        }else
+//        if( (p1.x - p0.x > 0) && (p1.y - p0.y > 0) ){ // first quarter
+//            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI;
+//        }else
+//        if( (p1.x - p0.x < 0) && (p1.y - p0.y > 0) ){ // second quarter
+//            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI;
+//        }else
+//        if( (p1.x - p0.x < 0) && (p1.y - p0.y < 0) ){ // third quarter
+//            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI + 360;
+//        }else
+//        if( (p1.x - p0.x > 0) && (p1.y - p0.y < 0) ){ // fourth quarter
+//            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI + 360;
+//        }
+//        return angle;
+//    }
 
-    public Line2d(Decart2dInt p1, Decart2dInt p2) {
-        this.p1 = p1;
-        this.p2 = p2;
-    }
+//    /**
+//     * get center of line
+//     * @return
+//     */
+//    public Decart2d getCenter(){
+//        int x, y;
+//        if(p1.x>=p2.x){ x = p2.x + (p1.x - p2.x)/2; }
+//        else{ x = p1.x + (p2.x - p1.x)/2; }
+//        if(p1.y>=p2.y){
+//            y = p2.y + (p1.y - p2.y)/2;
+//        }else{
+//            y = p1.y + (p2.y - p1.y)/2;
+//        }
+//        return new Decart2d(x,y);
+//    }
 
-    /**
-     * get a between line vector (p0,p1) and x-axis
-     * @return
-     */
-    public static double getAngle(Decart2dInt p0, Decart2dInt p1){
-        double angle = 0;
-        if( (p1.x - p0.x == 0) && (p1.y - p0.y > 0) ){ // 90 degree
-            angle = 90;
-        }else
-        if( (p1.x - p0.x == 0) && (p1.y - p0.y < 0) ){ // 270 degree
-            angle = 270;
-        }else
-        if( (p1.x - p0.x > 0) && (p1.y - p0.y == 0) ){ // 0 degree
-            angle =  0;
-        }else
-        if( (p1.x - p0.x < 0) && (p1.y - p0.y == 0) ){ // 180 degree
-            angle = 180;
-        }else
-        if( (p1.x - p0.x > 0) && (p1.y - p0.y > 0) ){ // first quarter
-            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI;
-        }else
-        if( (p1.x - p0.x < 0) && (p1.y - p0.y > 0) ){ // second quarter
-            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI;
-        }else
-        if( (p1.x - p0.x < 0) && (p1.y - p0.y < 0) ){ // third quarter
-            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI + 360;
-        }else
-        if( (p1.x - p0.x > 0) && (p1.y - p0.y < 0) ){ // fourth quarter
-            angle = Math.atan2((p1.y - p0.y), (p1.x - p0.x))*180/Math.PI + 360;
-        }
-        return angle;
-    }
-
-    /**
-     * get center of line
-     * @return
-     */
-    public Decart2dInt getCenter(){
-        int x, y;
-        if(p1.x>=p2.x){ x = p2.x + (p1.x - p2.x)/2; }
-        else{ x = p1.x + (p2.x - p1.x)/2; }
-        if(p1.y>=p2.y){
-            y = p2.y + (p1.y - p2.y)/2;
-        }else{
-            y = p1.y + (p2.y - p1.y)/2;
-        }
-        return new Decart2dInt(x,y);
-    }
-
-    /**
-     * get length of line
-     * @return
-     */
-    public double getLength(){
-        return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
-    }
+//    /**
+//     * get length of line
+//     * @return
+//     */
+//    public double getLength(){
+//        return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
+//    }
 
 
 //    /**
@@ -93,30 +94,30 @@ public class Line2d {
 //        return angle;
 //    }
 
-    /**
-     * diff in percent a line2 from line1 [0..180] like [0.00 .. 1.00]
-     * @param angle
-     * @param base
-     * @return
-     */
-    public static double angleDiff(double angle, double base){
-        return (angle - base)/base;
-    }
+//    /**
+//     * diff in percent a line2 from line1 [0..180] like [0.00 .. 1.00]
+//     * @param angle
+//     * @param base
+//     * @return
+//     */
+//    public static double angleDiff(double angle, double base){
+//        return (angle - base)/base;
+//    }
 
-    /**
-     * diff in percent line2 from line1. If l2 length < axis length then value [0.00 .. 1.00]
-     * @param line base line
-     * @param base
-     * @return
-     */
-    public static double lengthDiff(Line2d line, Line2d base){
-        double length1, length2;
-        double diff;
-        length1 = Math.sqrt((line.p1.x - line.p2.x)*(line.p1.x - line.p2.x) + (line.p1.y - line.p2.y)*(line.p1.y - line.p2.y));
-        length2 = Math.sqrt((base.p1.x - base.p2.x)*(base.p1.x - base.p2.x) + (base.p1.y - base.p2.y)*(base.p1.y - base.p2.y));
-        diff = (length1-length2)/length2;
-        return diff;
-    }
+//    /**
+//     * diff in percent line2 from line1. If l2 length < axis length then value [0.00 .. 1.00]
+//     * @param line base line
+//     * @param base
+//     * @return
+//     */
+//    public static double lengthDiff(Line2d line, Line2d base){
+//        double length1, length2;
+//        double diff;
+//        length1 = Math.sqrt((line.p1.x - line.p2.x)*(line.p1.x - line.p2.x) + (line.p1.y - line.p2.y)*(line.p1.y - line.p2.y));
+//        length2 = Math.sqrt((base.p1.x - base.p2.x)*(base.p1.x - base.p2.x) + (base.p1.y - base.p2.y)*(base.p1.y - base.p2.y));
+//        diff = (length1-length2)/length2;
+//        return diff;
+//    }
 
 //    /**
 //     * diff distance from line center1 and line center2

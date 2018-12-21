@@ -1,5 +1,7 @@
 package core.application.graph;
 
+import sun.reflect.Reflection;
+
 import java.util.HashSet;
 
 /**
@@ -53,6 +55,7 @@ public final class Graph implements IGraph {
     public Boolean toHumanFile(String path) {
         Boolean result = true;
         for(IVertex v: this.vertexes){
+            System.out.println( v.getClass().toGenericString() );
             result = v.toHumanFile(path);
             // TODO: check for errors and process if error, like log, warning and
         }

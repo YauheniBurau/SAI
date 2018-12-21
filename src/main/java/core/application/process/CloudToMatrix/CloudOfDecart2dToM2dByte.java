@@ -1,20 +1,20 @@
 package core.application.process.CloudToMatrix;
 
+import core.application.VertexValue.coords.Decart2d;
 import core.application.algorithms.BaseAlgorithm;
-import core.application.VertexValue.cloud.CloudOfDecart2dInt;
-import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.cloud.CloudOfDecart2d;
 import core.application.VertexValue.matrix.Matrix2dByte;
 import core.application.model.Model;
 
 /**
  * Created by anonymous on 10.12.2018.
  */
-public class CloudOfDecart2dIntToM2dByte extends BaseAlgorithm {
+public class CloudOfDecart2dToM2dByte extends BaseAlgorithm {
     protected Model model;
     private String inKey;
     private String outKey;
 
-    public CloudOfDecart2dIntToM2dByte(Model model, String inKey, String outKey) {
+    public CloudOfDecart2dToM2dByte(Model model, String inKey, String outKey) {
         this.model = model;
         this.inKey = inKey;
         this.outKey = outKey;
@@ -25,14 +25,14 @@ public class CloudOfDecart2dIntToM2dByte extends BaseAlgorithm {
      * @param in
      * @return
      */
-    public static Matrix2dByte transform(CloudOfDecart2dInt cloud, Matrix2dByte in) {
+    public static Matrix2dByte transform(CloudOfDecart2d cloud, Matrix2dByte in) {
         // First stage Create RootCloud. RootCloud contains all points of "in" matrix
         int i, j;
         Matrix2dByte m2d = new Matrix2dByte(in.sizeX, in.sizeY, null);
         Byte value;
-        for(Decart2dInt p: cloud.elements){
-            value = in.getValue(p.x, p.y);
-            m2d.setValue(p.x, p.y, value);
+        for(Decart2d p: cloud.elements){
+            value = in.getValue((int)p.x, (int)p.y);
+            m2d.setValue((int)p.x, (int)p.y, value);
         }
         return m2d;
     }

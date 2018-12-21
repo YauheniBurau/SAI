@@ -80,49 +80,6 @@ public class MatrixConverter {
 //    }
 
 
-//    /**
-//     * transform Segment to Matrix2dByte
-//     * @return
-//     */
-//    public static Matrix2dByte segmentToMatrix2dByte(Segment in){
-//        if(in.points.size()==0) return null;
-//        int l = Integer.MAX_VALUE;
-//        int u = Integer.MAX_VALUE;
-//        int r = Integer.MIN_VALUE;
-//        int d = Integer.MIN_VALUE;
-//        for(Point2dByte p : in.points){
-//            if( p.x < l ) l = p.x;
-//            if( p.y < u ) u = p.y;
-//            if( p.x > r ) r = p.x;
-//            if( p.y > d ) d = p.y;
-//        }
-//
-//        int size = r+1;
-//        int sizeY = d+1;
-//        Matrix2dByte m2d = new Matrix2dByte(size, sizeY, (byte)-128);
-//        for(Point2dByte p: in.points){
-//            m2d.setValue(p.x, p.y, p.value);
-//        }
-//        return m2d;
-//    }
-
-//    public Matrix2dBoolean binarizeByValue(int minValue, int maxValue){
-//        int v;
-//        Matrix2dBoolean m2dBool = new Matrix2dBoolean(this.sizeX, this.sizeY);
-//        for(int j = 0; j<this.sizeY; j++){
-//            for(int i = 0; i<this.sizeX; i++) {
-//                v = this.getValue(i,j).v;
-//                if(v>=minValue && v<=maxValue){
-//                    m2dBool.setValue(i, j, true);
-//                }else{
-//                    m2dBool.setValue(i, j, false);
-//                }
-//            }
-//        }
-//        return m2dBool;
-//    }
-//
-
 //    public int[] countGistogramByValue(){
 //        int v;
 //        int gist[] = new int[256];

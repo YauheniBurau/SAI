@@ -1,9 +1,11 @@
 package core.application.VertexValue.points;
 
+import core.application.VertexValue.coords.ICoords;
+
 /**
  * Created by anonymous on 09.11.2018.
  */
-public class Point<TValue, TCoords> implements IPoint {
+public class Point<TValue, TCoords extends ICoords> implements IPoint {
     public TValue value;
     public TCoords coords;
 

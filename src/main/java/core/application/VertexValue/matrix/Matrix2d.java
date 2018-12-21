@@ -1,6 +1,6 @@
 package core.application.VertexValue.matrix;
 
-import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.coords.Decart2d;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -144,21 +144,21 @@ public class Matrix2d<T> implements IMatrix {
      * @param y
      * @return
      */
-    public ArrayList<Decart2dInt> count8LSegment(int x, int y){
+    public ArrayList<Decart2d> count8LSegment(int x, int y){
         if( this.getValue(x, y) == null ) return null;
         Matrix2d<Boolean> isProcessed = new Matrix2d<Boolean>(Boolean.class, this.sizeX, this.sizeY, false);
         int pi, pj;
         T v1, v2, v3, v4, v5, v6, v7, v8, v9;
-        ArrayList<Decart2dInt> s = new ArrayList<Decart2dInt>();
-        Decart2dInt p;
-        LinkedList<Decart2dInt> points = new LinkedList<Decart2dInt>();
-        points.add( new Decart2dInt(x, y) );
+        ArrayList<Decart2d> s = new ArrayList<Decart2d>();
+        Decart2d p;
+        LinkedList<Decart2d> points = new LinkedList<Decart2d>();
+        points.add( new Decart2d(x, y) );
         isProcessed.setValue(x, y, true);
         while(points.size()>0){
             p = points.poll();
             s.add(p);
-            pi = p.x;
-            pj = p.y;
+            pi = (int)Math.ceil(p.x);
+            pj = (int)Math.ceil(p.y);
             v1 = this.getValue(pi, pj);
             v2 = this.getValue(pi, pj-1);
             v3 = this.getValue(pi+1, pj-1);
@@ -169,36 +169,36 @@ public class Matrix2d<T> implements IMatrix {
             v8 = this.getValue(pi-1, pj);
             v9 = this.getValue(pi-1, pj-1);
             if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v1 == v2 ) {
-                points.add( new Decart2dInt(pi,pj-1) );
+                points.add( new Decart2d(pi,pj-1) );
                 isProcessed.setValue(pi, pj-1, true);
             }
             if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && v1 == v3 ) {
-                points.add( new Decart2dInt(pi+1,pj-1) );
+                points.add( new Decart2d(pi+1,pj-1) );
                 isProcessed.setValue(pi+1, pj-1, true);
             }
             if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v1 == v4 ) {
-                points.add( new Decart2dInt(pi+1,pj) );
+                points.add( new Decart2d(pi+1,pj) );
                 isProcessed.setValue(pi+1, pj, true);
             }
             if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && v1 == v5 ) {
-                points.add( new Decart2dInt(pi+1,pj+1) );
+                points.add( new Decart2d(pi+1,pj+1) );
                 isProcessed.setValue(pi+1, pj+1, true);
             }
             if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v1 == v6 ) {
-                points.add( new Decart2dInt(pi,pj+1) );
+                points.add( new Decart2d(pi,pj+1) );
                 isProcessed.setValue(pi, pj+1, true);
             }
 
             if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && v1 == v7 ) {
-                points.add( new Decart2dInt(pi-1,pj+1) );
+                points.add( new Decart2d(pi-1,pj+1) );
                 isProcessed.setValue(pi-1, pj+1, true);
             }
             if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v1 == v8 ) {
-                points.add( new Decart2dInt(pi-1,pj) );
+                points.add( new Decart2d(pi-1,pj) );
                 isProcessed.setValue(pi-1, pj, true);
             }
             if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && v1 == v9) {
-                points.add( new Decart2dInt(pi-1,pj-1) );
+                points.add( new Decart2d(pi-1,pj-1) );
                 isProcessed.setValue(pi-1, pj-1, true);
             }
         }
@@ -213,45 +213,95 @@ public class Matrix2d<T> implements IMatrix {
      * @param y
      * @return
      */
-    public ArrayList<Decart2dInt> count4LSegment(int x, int y){
+    // TODO: remove later
+    public ArrayList<Decart2d> count4LSegmentPoints(int x, int y){
         if( this.getValue(x, y) == null ) return null;
         Matrix2d<Boolean> isProcessed = new Matrix2d<Boolean>(Boolean.class, this.sizeX, this.sizeY, false);
         int pi, pj;
         T v1, v2, v4, v6, v8;
-        ArrayList<Decart2dInt> s = new ArrayList<Decart2dInt>();
-        Decart2dInt p;
-        LinkedList<Decart2dInt> points = new LinkedList<Decart2dInt>();
-        points.add( new Decart2dInt(x, y) );
+        ArrayList<Decart2d> s = new ArrayList<Decart2d>();
+        Decart2d p;
+        LinkedList<Decart2d> points = new LinkedList<Decart2d>();
+        points.add( new Decart2d(x, y) );
         isProcessed.setValue(x, y, true);
         while(points.size()>0){
             p = points.poll();
             s.add(p);
-            pi = p.x;
-            pj = p.y;
+            pi = (int)Math.ceil(p.x);
+            pj = (int)Math.ceil(p.y);
             v1 = this.getValue(pi, pj);
             v2 = this.getValue(pi, pj-1);
             v4 = this.getValue(pi+1, pj);
             v6 = this.getValue(pi, pj+1);
             v8 = this.getValue(pi-1, pj);
             if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v1 == v2 ) {
-                points.add( new Decart2dInt(pi,pj-1) );
+                points.add( new Decart2d(pi,pj-1) );
                 isProcessed.setValue(pi, pj-1, true);
             }
             if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v1 == v4 ) {
-                points.add( new Decart2dInt(pi+1,pj) );
+                points.add( new Decart2d(pi+1,pj) );
                 isProcessed.setValue(pi+1, pj, true);
             }
             if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v1 == v6 ) {
-                points.add( new Decart2dInt(pi,pj+1) );
+                points.add( new Decart2d(pi,pj+1) );
                 isProcessed.setValue(pi, pj+1, true);
             }
             if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v1 == v8 ) {
-                points.add( new Decart2dInt(pi-1,pj) );
+                points.add( new Decart2d(pi-1,pj) );
                 isProcessed.setValue(pi-1, pj, true);
             }
         }
         return s;
     }
+
+    /**
+     * can find segments only of not null values in matrix2d
+     * 4-linked points algoritm
+     * null value counts as non exist elements and no need for processing
+     * @param x
+     * @param y
+     * @return
+     */
+    public Matrix2dBool count4LinSegmentMask(int x, int y){
+        if( this.getValue(x, y) == null ) return null;
+        Matrix2dBool m2dMask = new Matrix2dBool(this.sizeX, this.sizeY, false);
+        int pi, pj;
+        T v1, v2, v4, v6, v8;
+        //ArrayList<Decart2dInt> s = new ArrayList<Decart2dInt>();
+        Decart2d p;
+        LinkedList<Decart2d> points = new LinkedList<Decart2d>();
+        points.add( new Decart2d(x, y) );
+        m2dMask.setValue(x, y, true);
+        while(points.size()>0){
+            p = points.poll();
+            //s.add(p);
+            pi = (int)Math.ceil(p.x);
+            pj = (int)Math.ceil(p.y);
+            v1 = this.getValue(pi, pj);
+            v2 = this.getValue(pi, pj-1);
+            v4 = this.getValue(pi+1, pj);
+            v6 = this.getValue(pi, pj+1);
+            v8 = this.getValue(pi-1, pj);
+            if( v2 != null && m2dMask.getValue(pi, pj-1) == false && v1 == v2 ) {
+                points.add( new Decart2d(pi,pj-1) );
+                m2dMask.setValue(pi, pj-1, true);
+            }
+            if( v4 != null && m2dMask.getValue(pi+1, pj) == false && v1 == v4 ) {
+                points.add( new Decart2d(pi+1,pj) );
+                m2dMask.setValue(pi+1, pj, true);
+            }
+            if( v6 != null && m2dMask.getValue(pi, pj+1) == false && v1 == v6 ) {
+                points.add( new Decart2d(pi,pj+1) );
+                m2dMask.setValue(pi, pj+1, true);
+            }
+            if( v8 != null && m2dMask.getValue(pi-1, pj) == false && v1 == v8 ) {
+                points.add( new Decart2d(pi-1,pj) );
+                m2dMask.setValue(pi-1, pj, true);
+            }
+        }
+        return m2dMask;
+    }
+
 
     /**
      * can find Contour only if it contains not null elements -s contour and null values - empty values
@@ -262,20 +312,20 @@ public class Matrix2d<T> implements IMatrix {
      * @param y
      * @return
      */
-    public LinkedList<Decart2dInt> count4LContour(int x, int y){
+    public LinkedList<Decart2d> count4LContour(int x, int y){
         if( this.getValue(x, y) == null ) return null;
         int pi, pj;
         T v1, v2, v4, v6, v8;
         Matrix2d<Boolean> isProcessed = new Matrix2d<Boolean>(Boolean.class, this.sizeX, this.sizeY, false);
-        LinkedList<Decart2dInt> points = new LinkedList<Decart2dInt>();
+        LinkedList<Decart2d> points = new LinkedList<Decart2d>();
         isProcessed.setValue(x, y, true);
-        Decart2dInt start, curr, next;
-        start = new Decart2dInt(x, y);
+        Decart2d start, curr, next;
+        start = new Decart2d(x, y);
         curr = start;
-        next = new Decart2dInt(-1, -1);
+        next = new Decart2d(-1, -1);
         while( next!=null && !(next.x==start.x && next.y==start.y) ){
-            pi = curr.x;
-            pj = curr.y;
+            pi = (int)Math.ceil(curr.x);
+            pj = (int)Math.ceil(curr.y);
             v1 = this.getValue(pi, pj);
             v2 = this.getValue(pi, pj-1);
             v4 = this.getValue(pi+1, pj);
@@ -283,25 +333,25 @@ public class Matrix2d<T> implements IMatrix {
             v8 = this.getValue(pi-1, pj);
             if( v2 != null && isProcessed.getValue(pi, pj-1) == false) {
                 isProcessed.setValue(pi, pj-1, true);
-                next = new Decart2dInt(pi, pj-1);
+                next = new Decart2d(pi, pj-1);
                 points.add( next );
                 break;
             }
             if( v4 != null && isProcessed.getValue(pi+1, pj) == false) {
                 isProcessed.setValue(pi+1,pj, true);
-                next = new Decart2dInt(pi+1,pj);
+                next = new Decart2d(pi+1,pj);
                 points.add( next );
                 break;
             }
             if( v6 != null && isProcessed.getValue(pi, pj+1) == false) {
                 isProcessed.setValue(pi,pj+1, true);
-                next = new Decart2dInt(pi,pj+1);
+                next = new Decart2d(pi,pj+1);
                 points.add( next );
                 break;
             }
             if( v8 != null && isProcessed.getValue(pi-1, pj) == false) {
                 isProcessed.setValue(pi-1,pj, true);
-                next = new Decart2dInt(pi-1,pj);
+                next = new Decart2d(pi-1,pj);
                 points.add( next );
                 break;
             }
@@ -309,7 +359,5 @@ public class Matrix2d<T> implements IMatrix {
         }
         return points;
     }
-
-
 
 }

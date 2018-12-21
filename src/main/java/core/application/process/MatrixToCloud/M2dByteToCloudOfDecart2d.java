@@ -1,8 +1,8 @@
 package core.application.process.MatrixToCloud;
 
+import core.application.VertexValue.coords.Decart2d;
 import core.application.algorithms.BaseAlgorithm;
-import core.application.VertexValue.cloud.CloudOfDecart2dInt;
-import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.cloud.CloudOfDecart2d;
 import core.application.VertexValue.matrix.Matrix2dBool;
 import core.application.VertexValue.matrix.Matrix2dByte;
 import core.application.model.Model;
@@ -12,12 +12,12 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 10.12.2018.
  */
-public class M2dByteToCloudOfDecart2dInt extends BaseAlgorithm {
+public class M2dByteToCloudOfDecart2d extends BaseAlgorithm {
     protected Model model;
     private String inKey;
     private String outKey;
 
-    public M2dByteToCloudOfDecart2dInt(Model model, String inKey, String outKey) {
+    public M2dByteToCloudOfDecart2d(Model model, String inKey, String outKey) {
         this.model = model;
         this.inKey = inKey;
         this.outKey = outKey;
@@ -29,31 +29,31 @@ public class M2dByteToCloudOfDecart2dInt extends BaseAlgorithm {
      * @param in
      * @return
      */
-    private static ArrayList<CloudOfDecart2dInt> transform(Matrix2dByte in, ArrayList<CloudOfDecart2dInt> clouds) {
+    private static ArrayList<CloudOfDecart2d> transform(Matrix2dByte in, ArrayList<CloudOfDecart2d> clouds) {
         Matrix2dBool isProcessed = new Matrix2dBool(in.sizeX, in.sizeY, true);
-        for(CloudOfDecart2dInt cl : clouds){
+        for(CloudOfDecart2d cl : clouds){
             cl.countOuterCloud();
-            for(Decart2dInt p: cl.getOuterCloud().elements){
-                isProcessed.setValue(p.x, p.y, false);
+            for(Decart2d p: cl.getOuterCloud().elements){
+                isProcessed.setValue((int)p.x, (int)p.y, false);
             }
         }
         //saveM2dBool(isProcessed);
-        CloudOfDecart2dInt subCloud, outerCloud;
-        ArrayList<CloudOfDecart2dInt> innerClouds;
-        ArrayList<CloudOfDecart2dInt> newInnerClouds = new ArrayList<>();
-        for(CloudOfDecart2dInt cloud: clouds){
+        CloudOfDecart2d subCloud, outerCloud;
+        ArrayList<CloudOfDecart2d> innerClouds;
+        ArrayList<CloudOfDecart2d> newInnerClouds = new ArrayList<>();
+        for(CloudOfDecart2d cloud: clouds){
             cloud.countOuterCloud();
             cloud.setInnerClouds(new ArrayList<>());
-            for (Decart2dInt p : cloud.getOuterCloud().elements) {
-                if (isProcessed.getValue(p.x, p.y) == false) {
-                    subCloud = new CloudOfDecart2dInt( in.count4LSegment(p.x, p.y) );
+            for (Decart2d p : cloud.getOuterCloud().elements) {
+                if (isProcessed.getValue((int)p.x, (int)p.y) == false) {
+                    subCloud = new CloudOfDecart2d( in.count4LSegmentPoints((int)p.x, (int)p.y) );
                     outerCloud = subCloud.countOuterCloud();
                     innerClouds = subCloud.countInnerClouds();
                     // add new found subCloud to innerClouds of Cloud
                     cloud.addInnerCloud(subCloud);
                     // set all isProcessed from outerCloud
-                    for(Decart2dInt p1 : outerCloud.elements) {
-                        isProcessed.setValue(p1.x, p1.y, true);
+                    for(Decart2d p1 : outerCloud.elements) {
+                        isProcessed.setValue((int)p1.x, (int)p1.y, true);
                     }
                     //saveM2dBool(isProcessed);
                     // add all innerClouds to the list for next iteration processing
@@ -74,17 +74,17 @@ public class M2dByteToCloudOfDecart2dInt extends BaseAlgorithm {
      * @param in
      * @return
      */
-    public static CloudOfDecart2dInt transform(Matrix2dByte in) {
-        ArrayList<CloudOfDecart2dInt> inClouds;
-        ArrayList<CloudOfDecart2dInt> outClouds;
+    public static CloudOfDecart2d transform(Matrix2dByte in) {
+        ArrayList<CloudOfDecart2d> inClouds;
+        ArrayList<CloudOfDecart2d> outClouds;
         int i, j;
         // First stage Create RootCloud. RootCloud contains all points of "in" matrix
         // Matrix2dBool isProcessed = new Matrix2dBool(in.sizeX, in.sizeY, false);
-        CloudOfDecart2dInt rootCloud = new CloudOfDecart2dInt();
+        CloudOfDecart2d rootCloud = new CloudOfDecart2d();
         for (j = 0; j < in.sizeY; j++) {
             for (i = 0; i < in.sizeX; i++) {
                 if (in.getValue(i, j) != null) {
-                    rootCloud.elements.add(new Decart2dInt(i, j));
+                    rootCloud.elements.add(new Decart2d(i, j));
                 }
             }
         }
@@ -92,7 +92,7 @@ public class M2dByteToCloudOfDecart2dInt extends BaseAlgorithm {
         inClouds = new ArrayList<>();
         inClouds.add(rootCloud);
         while(inClouds.size()>0){
-            outClouds = M2dByteToCloudOfDecart2dInt.transform(in, inClouds);
+            outClouds = M2dByteToCloudOfDecart2d.transform(in, inClouds);
             inClouds = outClouds;
 //            for (CloudOfDecart2dInt cl: inClouds) {
 //                CloudOfDecart2dInt.saveCloud("E:\\temp\\out\\" + cloud_uid + "byte.png", cl, in);

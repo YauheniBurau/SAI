@@ -1,13 +1,13 @@
 package core.application.VertexValue.cloud;
 
-import core.application.VertexValue.coords.Decart2dInt;
+import core.application.VertexValue.coords.Decart2d;
 import core.application.VertexValue.file.PngFile;
 import core.application.VertexValue.matrix.Matrix2dBool;
 import core.application.VertexValue.matrix.Matrix2dByte;
 import core.application.graph.IVertexValue;
 import core.application.graph.Vertex;
-import core.application.process.CloudToMatrix.CloudOfDecart2dIntToM2dBool;
-import core.application.process.CloudToMatrix.CloudOfDecart2dIntToM2dByte;
+import core.application.process.CloudToMatrix.CloudOfDecart2dToM2dBool;
+import core.application.process.CloudToMatrix.CloudOfDecart2dToM2dByte;
 import core.application.process.MatrixToFile.M2dBooleanToPngFile;
 import core.application.process.MatrixToFile.M2dByteToPngFile;
 import core.application.process.PrimitiveToPrimitive.LongToHexString;
@@ -17,15 +17,15 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 09.12.2018.
  */
-public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexValue{
-    private CloudOfDecart2dIntParams cloudParams = new CloudOfDecart2dIntParams();
-    private CloudOfDecart2dInt outerCloud = null;
-    private ArrayList<CloudOfDecart2dInt> innerClouds = null;
+public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
+    private CloudParams params = new CloudParams();
+    private CloudOfDecart2d outerCloud = null;
+    private ArrayList<CloudOfDecart2d> innerClouds = null;
 
     /**
      * constructor
      */
-    public CloudOfDecart2dInt() {
+    public CloudOfDecart2d() {
         super();
     }
 
@@ -33,7 +33,7 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * constructor
      * @param elements
      */
-    public CloudOfDecart2dInt(ArrayList<Decart2dInt> elements) {
+    public CloudOfDecart2d(ArrayList<Decart2d> elements) {
         super(elements);
     }
 
@@ -41,39 +41,41 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * count cloud params as max and min dimensions
      * @return
      */
-    private CloudOfDecart2dIntParams countCloudParams(){
-        CloudOfDecart2dIntParams params = new CloudOfDecart2dIntParams();
+    public CloudParams countCloudParams(){
+        CloudParams params = new CloudParams();
         // 1. find shift by x and y
-        params.left = Integer.MAX_VALUE; // left
-        params.up = Integer.MAX_VALUE; // up
-        params.right = Integer.MIN_VALUE; // right
-        params.down = Integer.MIN_VALUE; // down
-        for (Decart2dInt p : this.elements) {
-            if (p.x < params.left) params.left = p.x;
-            if (p.y < params.up) params.up = p.y;
-            if (p.x > params.right) params.right = p.x;
-            if (p.y > params.down) params.down = p.y;
+        params.sX = Integer.MAX_VALUE;
+        params.sY = Integer.MAX_VALUE;
+        params.sZ = 0;
+        params.eX = Integer.MIN_VALUE;
+        params.eY = Integer.MIN_VALUE;
+        params.eZ = 0;
+        for (Decart2d p : this.elements) {
+            if (p.x < params.sX) params.sX = p.x;
+            if (p.y < params.sY) params.sY = p.y;
+            if (p.x > params.eX) params.eX = p.x;
+            if (p.y > params.eY) params.eY = p.y;
         }
-        params.shiftX = 0;
-        params.shiftY = 0;
-        params.width = params.right - params.left + 1;
-        params.height = params.down - params.up + 1;
-        this.cloudParams = params;
-        return params;
+        this.params = params;
+        return this.params;
     }
+
+
 
     /**
      * cloud -> create Matrix2d where coordinates are shfited for the left and up values
      * @param cloud
      * @return
      */
-    public static Matrix2dBool cloudToM2dShiftedMask(CloudOfDecart2dInt cloud){
-        CloudOfDecart2dIntParams cloudParams = cloud.cloudParams;
-        Matrix2dBool m2d = new Matrix2dBool(cloudParams.width, cloudParams.height, false);
-        int shiftLeft = cloud.cloudParams.left;
-        int shiftUp = cloud.cloudParams.up;
-        for(Decart2dInt p: cloud.elements) {
-            m2d.setValue(p.x - shiftLeft, p.y - shiftUp,true);
+    public static Matrix2dBool cloudToM2dShiftedMask(CloudOfDecart2d cloud){
+        CloudParams cloudParams = cloud.params;
+        int sizeX = (int)Math.ceil(cloudParams.eX - cloudParams.sX + 1);
+        int sizeY = (int)Math.ceil(cloudParams.eY - cloudParams.sY + 1);
+        Matrix2dBool m2d = new Matrix2dBool(sizeX, sizeY, false);
+        int shiftLeft = (int)cloud.params.sX;
+        int shiftUp = (int)cloud.params.sY;
+        for(Decart2d p: cloud.elements) {
+            m2d.setValue((int)p.x - shiftLeft, (int)p.y - shiftUp,true);
         }
         return m2d;
     }
@@ -84,14 +86,14 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * @param m2dShiftedMask
      * @return
      */
-    private static CloudOfDecart2dInt M2dShiftedMaskToCloud(Matrix2dBool m2dShiftedMask, int shiftX, int shiftY){
-        CloudOfDecart2dInt outCloud = new CloudOfDecart2dInt();
+    private static CloudOfDecart2d M2dShiftedMaskToCloud(Matrix2dBool m2dShiftedMask, int shiftX, int shiftY){
+        CloudOfDecart2d outCloud = new CloudOfDecart2d();
         int sizeX = m2dShiftedMask.sizeX;
         int sizeY = m2dShiftedMask.sizeY;
         for (int j = 0; j < sizeY; j++) {
             for (int i = 0; i < sizeX; i++) {
                 if(m2dShiftedMask.getValue(i, j)==true) {
-                    outCloud.elements.add(new Decart2dInt(i+shiftX, j+shiftY));
+                    outCloud.elements.add(new Decart2d(i+shiftX, j+shiftY));
                 }
             }
         }
@@ -118,16 +120,16 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
         }
         // ===== remove outer points =====
         Boolean segmentValue;
-        ArrayList<Decart2dInt> segmentPoints;
+        ArrayList<Decart2d> segmentPoints;
        // up horizontal line
         j = 0;
         for (i = 0; i < sizeX; i++) {
             value = m2dOuterMask.getValue(i,j);
             if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegment(i, j);
-                for (Decart2dInt p: segmentPoints) {
+                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+                for (Decart2d p: segmentPoints) {
                     // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue(p.x, p.y, null);
+                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
                 }
             }
         }
@@ -136,10 +138,10 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
         for (i = 0; i < sizeX; i++) {
             value = m2dOuterMask.getValue(i,j);
             if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegment(i, j);
-                for (Decart2dInt p: segmentPoints) {
+                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+                for (Decart2d p: segmentPoints) {
                     // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue(p.x, p.y, null);
+                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
                 }
             }
         }
@@ -148,10 +150,10 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
         for (j = 0; j < sizeY; j++) {
             value = m2dOuterMask.getValue(i,j);
             if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegment(i, j);
-                for (Decart2dInt p: segmentPoints) {
+                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+                for (Decart2d p: segmentPoints) {
                     // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue(p.x, p.y, null);
+                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
                 }
             }
         }
@@ -160,10 +162,10 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
         for (j = 0; j < sizeY; j++) {
             value = m2dOuterMask.getValue(i,j);
             if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegment(i, j);
-                for (Decart2dInt p: segmentPoints) {
+                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+                for (Decart2d p: segmentPoints) {
                     // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue(p.x, p.y, null);
+                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
                 }
             }
         }
@@ -185,13 +187,13 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      *
      * @return
      */
-    public CloudOfDecart2dInt countOuterCloud() {
+    public CloudOfDecart2d countOuterCloud() {
         this.countCloudParams();
-        int shiftX = this.cloudParams.left;
-        int shiftY = this.cloudParams.up;
-        Matrix2dBool m2dShiftedMask = CloudOfDecart2dInt.cloudToM2dShiftedMask(this);
-        Matrix2dBool m2dOuterMask = CloudOfDecart2dInt.countM2dOuterMask(m2dShiftedMask);
-        this.outerCloud = CloudOfDecart2dInt.M2dShiftedMaskToCloud(m2dOuterMask, shiftX, shiftY);
+        int shiftX = (int)this.params.sX;
+        int shiftY = (int)this.params.sY;
+        Matrix2dBool m2dShiftedMask = CloudOfDecart2d.cloudToM2dShiftedMask(this);
+        Matrix2dBool m2dOuterMask = CloudOfDecart2d.countM2dOuterMask(m2dShiftedMask);
+        this.outerCloud = CloudOfDecart2d.M2dShiftedMaskToCloud(m2dOuterMask, shiftX, shiftY);
         return this.outerCloud;
     }
 
@@ -200,14 +202,14 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * @return ArrayList CloudOfDecart2dInt.
      * @return
      */
-    public ArrayList<CloudOfDecart2dInt> countInnerClouds() {
+    public ArrayList<CloudOfDecart2d> countInnerClouds() {
         // find m2d with all separated inner segments
         // prepare m2dInnerMask where only true - innerSegments and null - no point value
         this.countCloudParams();
-        int shiftX = this.cloudParams.left;
-        int shiftY = this.cloudParams.up;
-        Matrix2dBool m2dOriginMask = CloudOfDecart2dInt.cloudToM2dShiftedMask(this);
-        Matrix2dBool m2dOuterMask = CloudOfDecart2dInt.countM2dOuterMask(m2dOriginMask);
+        int shiftX = (int)this.params.sX;
+        int shiftY = (int)this.params.sY;
+        Matrix2dBool m2dOriginMask = CloudOfDecart2d.cloudToM2dShiftedMask(this);
+        Matrix2dBool m2dOuterMask = CloudOfDecart2d.countM2dOuterMask(m2dOriginMask);
         Matrix2dBool m2dInnerMask = new Matrix2dBool(m2dOriginMask.sizeX, m2dOriginMask.sizeY, null);
         int sizeX = m2dOriginMask.sizeX;
         int sizeY = m2dOriginMask.sizeY;
@@ -221,20 +223,20 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
         }
         // convert m2d of separated segments of true values -> ArrayList<CloudOfDecart2dInt>
         this.innerClouds = new ArrayList<>();
-        CloudOfDecart2dInt innerCloud;
-        ArrayList<Decart2dInt> segmentPoints;
+        CloudOfDecart2d innerCloud;
+        ArrayList<Decart2d> segmentPoints;
         for(j = 0; j<m2dInnerMask.sizeY; j++){
             for(i = 0; i<m2dInnerMask.sizeX; i++) {
                 if(m2dInnerMask.getValue(i,j)!=null){
-                    segmentPoints = m2dInnerMask.count4LSegment(i, j);
-                    for (Decart2dInt p: segmentPoints) {
+                    segmentPoints = m2dInnerMask.count4LSegmentPoints(i, j);
+                    for (Decart2d p: segmentPoints) {
                         // remove from matrix m2dInnerClouds as processed
-                        m2dInnerMask.setValue(p.x, p.y, null);
+                        m2dInnerMask.setValue((int)p.x, (int)p.y, null);
                         // make points unshifted
-                        p.setX(p.x + shiftX);
-                        p.setY(p.y + shiftY);
+                        p.x = (p.x + shiftX);
+                        p.y = (p.y + shiftY);
                     }
-                    innerCloud = new CloudOfDecart2dInt(segmentPoints);
+                    innerCloud = new CloudOfDecart2d(segmentPoints);
                     this.innerClouds.add(innerCloud);
                 }
             }
@@ -246,15 +248,15 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * getter
      * @return
      */
-    public CloudOfDecart2dIntParams getCloudParams() {
-        return cloudParams;
+    public CloudParams getParams() {
+        return params;
     }
 
     /**
      * getter
      * @return
      */
-    public CloudOfDecart2dInt getOuterCloud() {
+    public CloudOfDecart2d getOuterCloud() {
         return outerCloud;
     }
 
@@ -262,7 +264,7 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * setter
      * @param outerCloud
      */
-    public void setOuterCloud(CloudOfDecart2dInt outerCloud) {
+    public void setOuterCloud(CloudOfDecart2d outerCloud) {
         this.outerCloud = outerCloud;
     }
 
@@ -270,7 +272,7 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * getter
      * @return
      */
-    public ArrayList<CloudOfDecart2dInt> getInnerClouds() {
+    public ArrayList<CloudOfDecart2d> getInnerClouds() {
         return innerClouds;
     }
 
@@ -278,7 +280,7 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * setter
      * @return
      */
-    public void setInnerClouds(ArrayList<CloudOfDecart2dInt> clouds) {
+    public void setInnerClouds(ArrayList<CloudOfDecart2d> clouds) {
         this.innerClouds = clouds;
     }
 
@@ -286,7 +288,7 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * setter
      * @return
      */
-    public boolean addInnerCloud(CloudOfDecart2dInt cloud) {
+    public boolean addInnerCloud(CloudOfDecart2d cloud) {
         return this.innerClouds.add(cloud);
     }
 
@@ -296,15 +298,15 @@ public class CloudOfDecart2dInt extends Cloud<Decart2dInt> implements IVertexVal
      * @param cloud
      * @param m2d
      */
-    public static void saveCloud(String uri, CloudOfDecart2dInt cloud, Matrix2dByte m2d){
-        Matrix2dByte out = CloudOfDecart2dIntToM2dByte.transform(cloud, m2d);
+    public static void saveCloud(String uri, CloudOfDecart2d cloud, Matrix2dByte m2d){
+        Matrix2dByte out = CloudOfDecart2dToM2dByte.transform(cloud, m2d);
         M2dByteToPngFile.transform(out, new PngFile(uri) );
     }
 
     @Override
     public Boolean toHumanFile(Vertex vertex, String path) {
         this.countCloudParams();
-        Matrix2dBool m2d = CloudOfDecart2dIntToM2dBool.transform(this);
+        Matrix2dBool m2d = CloudOfDecart2dToM2dBool.transform(this);
         M2dBooleanToPngFile.transform(m2d, new PngFile(path + LongToHexString.transform( vertex.getuId() ) + ".png"));
         return true;
     }

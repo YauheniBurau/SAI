@@ -4,7 +4,6 @@ import core.application.VertexValue.color.ARGB;
 import core.application.VertexValue.color.Lab;
 import core.application.VertexValue.file.PngFile;
 import core.application.VertexValue.matrix.Matrix2d;
-import core.application.VertexValue.segments.SegmentPointDecart2dInt;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.ScatterChart;
@@ -29,8 +28,6 @@ public class Model {
     public static HashMap<String, Matrix2d<Lab>> matrix2dLabList = new HashMap<String, Matrix2d<Lab>>();
     public static HashMap<String, Matrix2d<Boolean>> matrix2dBoolList = new HashMap<String, Matrix2d<Boolean>>();
 
-    public static HashMap<String, SegmentPointDecart2dInt> segmentByteDecart2dIntList =
-            new HashMap<String, SegmentPointDecart2dInt>();
     //============================================= JAVAFX OBJECTS =====================================================
     public static HashMap<String, ScatterChart<Number,Number>> ScatterChartList = new HashMap<String, ScatterChart<Number, Number>>();
     public static HashMap<String, Canvas> canvasList = new HashMap<String, Canvas>();

@@ -566,6 +566,7 @@ public class Colors256ARGB {
 //        return Math.abs((p2.r - p1.r) + (p2.g - p1.g) + (p2.b - p1.b));
     }
 
+    // TODO: refactoring or remove
 //    public static double countColourDistance(Lab e1, Lab e2)
 //    {
 //        double l = e1.L - e2.L;

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 09.11.2018.
  */
-public class Contour<TCoords extends ICoords> implements IContour {
+public abstract class AbstractContour<TCoords extends ICoords> implements IContour {
     public LinkedList<TCoords> elements = new LinkedList<TCoords>();
 
 }

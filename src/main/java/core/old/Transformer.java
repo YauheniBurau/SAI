@@ -11,223 +11,6 @@ import javafx.scene.chart.XYChart;
 public class Transformer {
 
     /**
-     *
-     * @param in
-     * @param out
-     * @param maxColorDiff
-     * @param maxPercentImgDiff
-     * @return
-     */
-    public static Matrix2dBoolean transform2(Matrix2d<ARGB> in, Matrix2d<ARGB> out, double maxColorDiff, double maxPercentImgDiff) {
-        // 1-st stage
-        int n = in.sizeX * in.sizeY;
-        ARGB v, vMin, vMax;
-        double a = 0, r = 0, g = 0, b = 0;
-        int aMax = 0, rMax = 0, gMax = 0, bMax = 0;
-        int aMin = 255, rMin = 255, gMin = 255, bMin = 255;
-        for(int j = 0; j<in.sizeY; j++){
-            for(int i = 0; i<in.sizeX; i++) {
-                v = in.getValue(i, j);
-                if(v.a>aMax) aMax = v.a;
-                if(v.r>rMax) rMax = v.r;
-                if(v.g>gMax) gMax = v.g;
-                if(v.b>bMax) bMax = v.b;
-                a+=v.a;
-                r+=v.r;
-                g+=v.g;
-                b+=v.b;
-                if(v.a<aMin) aMin = v.a;
-                if(v.r<rMin) rMin = v.r;
-                if(v.g<gMin) gMin = v.g;
-                if(v.b<bMin) bMin = v.b;
-            }
-        }
-        v = new ARGB( (int)(a/n), (int)(r/n), (int)(g/b), (int)(b/n));
-        vMax = new ARGB( aMax, rMax, gMax, bMax);
-        vMin = new ARGB( aMin, rMin, gMin, bMin);
-        System.out.println("v(" + v.a + ", " + v.r + ", " + v.g + ", " + v.b + ")");
-        System.out.println("vMax(" + vMax.a + ", " + vMax.r + ", " + vMax.g + ", " + vMax.b + ")");
-        System.out.println("vMin(" + vMin.a + ", " + vMin.r + ", " + vMin.g + ", " + vMin.b + ")");
-        // 2-nd stage
-        out.setSizeXY(in.sizeX, in.sizeY);
-        int i, j, pi, pj;
-        ARGB v1, v2, v3, v4, v5, v6, v7, v8, v9, newV;
-        int minDist, dist;
-        for(j = 0; j<in.sizeY; j++){
-            for(i = 0; i<in.sizeX; i++){
-                pi = i;
-                pj = j;
-                v1 = in.getValue(pi, pj);
-                v2 = in.getValue(pi, pj-1);
-                v3 = in.getValue(pi+1, pj-1);
-                v4 = in.getValue(pi+1, pj);
-                v5 = in.getValue(pi+1, pj+1);
-                v6 = in.getValue(pi, pj+1);
-                v7 = in.getValue(pi-1, pj+1);
-                v8 = in.getValue(pi-1, pj);
-                v9 = in.getValue(pi-1, pj-1);
-                minDist = 512;
-                newV = v1;
-                dist = countColorDistance(v1, v2);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v2;
-                }
-                dist = countColorDistance(v1, v3);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v3;
-                }
-                dist = countColorDistance(v1, v4);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v4;
-                }
-                dist = countColorDistance(v1, v5);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v5;
-                }
-                dist = countColorDistance(v1, v6);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v6;
-                }
-                dist = countColorDistance(v1, v7);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v7;
-                }
-                dist = countColorDistance(v1, v8);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v8;
-                }
-                dist = countColorDistance(v1, v9);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v9;
-                }
-                in.setValue( i, j, new ARGB(newV.a, newV.r, newV.g, newV.b) );
-            }
-        }
-        for(j = 0; j<in.sizeY; j++){
-            for(i = 0; i<in.sizeX; i++) {
-                v = in.getValue(i,j);
-                out.setValue(i, j, new ARGB(v.a, v.r, v.g, v.b) );
-            }
-        }
-        return null;
-    }
-
-
-
-    /**
-     *
-     * @param in
-     * @param out
-     * @param maxColorDiff
-     * @param maxPercentImgDiff
-     * @return
-     */
-    public static Matrix2dBoolean transform(Matrix2d<ARGB> in, Matrix2d<ARGB> out, double maxColorDiff, double maxPercentImgDiff) {
-        // 1-st stage
-        int n = in.sizeX * in.sizeY;
-        ARGB v, vMin, vMax;
-        double a = 0, r = 0, g = 0, b = 0;
-        int aMax = 0, rMax = 0, gMax = 0, bMax = 0;
-        int aMin = 255, rMin = 255, gMin = 255, bMin = 255;
-        for(int j = 0; j<in.sizeY; j++){
-            for(int i = 0; i<in.sizeX; i++) {
-                v = in.getValue(i, j);
-                if(v.a>aMax) aMax = v.a;
-                if(v.r>rMax) rMax = v.r;
-                if(v.g>gMax) gMax = v.g;
-                if(v.b>bMax) bMax = v.b;
-                a+=v.a;
-                r+=v.r;
-                g+=v.g;
-                b+=v.b;
-                if(v.a<aMin) aMin = v.a;
-                if(v.r<rMin) rMin = v.r;
-                if(v.g<gMin) gMin = v.g;
-                if(v.b<bMin) bMin = v.b;
-            }
-        }
-        v = new ARGB( (int)(a/n), (int)(r/n), (int)(g/b), (int)(b/n));
-        vMax = new ARGB( aMax, rMax, gMax, bMax);
-        vMin = new ARGB( aMin, rMin, gMin, bMin);
-        System.out.println("v(" + v.a + ", " + v.r + ", " + v.g + ", " + v.b + ")");
-        System.out.println("vMax(" + vMax.a + ", " + vMax.r + ", " + vMax.g + ", " + vMax.b + ")");
-        System.out.println("vMin(" + vMin.a + ", " + vMin.r + ", " + vMin.g + ", " + vMin.b + ")");
-        // 2-nd stage
-        out.setSizeXY(in.sizeX, in.sizeY);
-        int i, j, pi, pj;
-        ARGB v1, v2, v3, v4, v5, v6, v7, v8, v9, newV;
-        int minDist, dist;
-        for(j = 0; j<in.sizeY; j++){
-            for(i = 0; i<in.sizeX; i++){
-                pi = i;
-                pj = j;
-                v1 = in.getValue(pi, pj);
-                v2 = in.getValue(pi, pj-1);
-                v3 = in.getValue(pi+1, pj-1);
-                v4 = in.getValue(pi+1, pj);
-                v5 = in.getValue(pi+1, pj+1);
-                v6 = in.getValue(pi, pj+1);
-                v7 = in.getValue(pi-1, pj+1);
-                v8 = in.getValue(pi-1, pj);
-                v9 = in.getValue(pi-1, pj-1);
-                minDist = 512;
-                newV = v1;
-                dist = countColorDistance(v1, v2);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v2;
-                }
-                dist = countColorDistance(v1, v3);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v3;
-                }
-                dist = countColorDistance(v1, v4);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v4;
-                }
-                dist = countColorDistance(v1, v5);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v5;
-                }
-                dist = countColorDistance(v1, v6);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v6;
-                }
-                dist = countColorDistance(v1, v7);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v7;
-                }
-                dist = countColorDistance(v1, v8);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v8;
-                }
-                dist = countColorDistance(v1, v9);
-                if(dist>0 && dist<maxColorDiff && dist<minDist){
-                    minDist = dist;
-                    newV = v9;
-                }
-                out.setValue( i, j, new ARGB(newV.a, newV.r, newV.g, newV.b) );
-            }
-        }
-        return null;
-    }
-
-
-    /**
      * count distance between ARGB values
      * @param in1
      * @param in2
@@ -244,60 +27,6 @@ public class Transformer {
 
 
     // ================================ TYPES CONVERSION ===============================================
-
-
-
-//    /**
-//     * find all coords images in Matrix2dByte
-//     * @param maxDiff
-//     * @return
-//     */
-//    public static ArrayList<ElementImage> transformPoints(Matrix2dByte in, ArrayList<ElementImage> out, int maxDiff) {
-//        ArrayList<ElementImage> images = new ArrayList<ElementImage>();
-//        Matrix2dBoolean isProcessed = new Matrix2dBoolean(in.sizeX, in.sizeY);
-//        ElementImage img = null;
-//        for(int j = 0; j<in.sizeY; j++){
-//            for(int i = 0; i<in.sizeX; i++) {
-//                if( isProcessed.getValue(i, j) == false ){
-//                    img = Transformer.transformPoints(in, img, isProcessed, maxDiff, i, j);
-//                    for(Point p: img.points){
-//                        isProcessed.setValue(p.x, p.y, true);
-//                    }
-//                    images.add(img);
-//                }
-//            }
-//        }
-//        return images;
-//    }
-
-
-//    /**
-//     * ElementImage -> ImageCenter
-//     * @param in
-//     * @param out
-//     * @return
-//     */
-//    public static ImageCenter transformPoints(ElementImage in, ImageCenter out){
-//        int n = 0;
-//        double cx = 0;
-//        double cy = 0;
-//        double cz = 0;
-//        for(Point p: in.points) {
-//            n +=1;
-//            cx += p.x;
-//            cy += p.y;
-//            cz += p.z;
-//        }
-//        if(n>0) {
-//            cx /= n;
-//            cy /= n;
-//            cz /= n;
-//        }
-//        return new ImageCenter(cx, cy, cz);
-//    }
-
-
-
 
 // TODO: important
 //    /**
@@ -473,76 +202,76 @@ public class Transformer {
 
 
     // ====================================== JAVAFX ============================================
-    /**
-     * NormalizedPolarConture -> javafx.scene.chart.XYChart.Series
-     * @param in
-     * @param out
-     * @param seriesName
-     * @return
-     */
-    public static XYChart.Series transform(NormalizedPolarConture in, XYChart.Series out, String seriesName) {
-        XYChart.Series series = new XYChart.Series();
-        series.setName(seriesName);
-        //populating the series with data
-        for(NormalizedPolarPoint pp: in.points) {
-            series.getData().add(new XYChart.Data(pp.a, pp.r));
-        }
-        return series;
-    }
+//    /**
+//     * NormalizedPolarConture -> javafx.scene.chart.XYChart.Series
+//     * @param in
+//     * @param out
+//     * @param seriesName
+//     * @return
+//     */
+//    public static XYChart.Series transform(NormalizedPolarConture in, XYChart.Series out, String seriesName) {
+//        XYChart.Series series = new XYChart.Series();
+//        series.setName(seriesName);
+//        //populating the series with data
+//        for(NormalizedPolarPoint pp: in.points) {
+//            series.getData().add(new XYChart.Data(pp.a, pp.r));
+//        }
+//        return series;
+//    }
 
     // ===================================== COMPARE ============================================
-    /**
-     * Compare two NormalizedPolarConture -> and return double from 0..1 where 1.0 - %100 is equal contour
-     * @param in1
-     * @param in2
-     * @param out
-     * @return
-     */
-    public static Double transform(NormalizedPolarConture in1, NormalizedPolarConture in2, Double out) {
-        int n;
-        double dMin, d;
-        double sum = 0;
-        if(out == null) out = new Double(0.0);
-        for (NormalizedPolarPoint npp1: in1.points) {
-            dMin = 255;
-            for (NormalizedPolarPoint npp2: in2.points) {
-                //d = Math.sqrt((npp1.a - npp2.a)*(npp1.a - npp2.a) + (npp1.r - npp2.r)*(npp1.r - npp2.r));
-                d = (Math.abs(npp1.a - npp2.a) + Math.abs(npp1.r - npp2.r))/2;
-                if(d<dMin){
-                    dMin = d;
-                }
-            }
-            sum += dMin;
-        }
-        n = in1.points.size();
-        return sum/n;
-    }
+//    /**
+//     * Compare two NormalizedPolarConture -> and return double from 0..1 where 1.0 - %100 is equal contour
+//     * @param in1
+//     * @param in2
+//     * @param out
+//     * @return
+//     */
+//    public static Double transform(NormalizedPolarConture in1, NormalizedPolarConture in2, Double out) {
+//        int n;
+//        double dMin, d;
+//        double sum = 0;
+//        if(out == null) out = new Double(0.0);
+//        for (NormalizedPolarPoint npp1: in1.points) {
+//            dMin = 255;
+//            for (NormalizedPolarPoint npp2: in2.points) {
+//                //d = Math.sqrt((npp1.a - npp2.a)*(npp1.a - npp2.a) + (npp1.r - npp2.r)*(npp1.r - npp2.r));
+//                d = (Math.abs(npp1.a - npp2.a) + Math.abs(npp1.r - npp2.r))/2;
+//                if(d<dMin){
+//                    dMin = d;
+//                }
+//            }
+//            sum += dMin;
+//        }
+//        n = in1.points.size();
+//        return sum/n;
+//    }
 
-    /**
-     * Compare two Matrix2dBoolean -> and return ComparisonResult
-     * @param in1
-     * @param in2
-     * @return
-     */
-    public static void transform(Matrix2dBoolean in1, Matrix2dBoolean in2){
-        double nNotEqual = 0.0, nEqual = 0.0, nMax = in1.sizeX * in1.sizeY;
-        boolean v1, v2;
-        for (int j = 0; j < in1.sizeY; j++) {
-            for (int i = 0; i < in1.sizeX; i++) {
-                v1 = in1.getValue(i, j);
-                v2 = in2.getValue(i, j);
-                if(v1 == true && v2 == true) {
-                    nEqual += 1;
-                }
-                if(v1!=v2){
-                        nNotEqual+=1;
-                }
-            }
-        }
-        //ComparisonResult cr = new ComparisonResult();
-        //cr.form = nEqual/(nEqual + nNotEqual);
-        //return null;
-    }
+//    /**
+//     * Compare two Matrix2dBoolean -> and return ComparisonResult
+//     * @param in1
+//     * @param in2
+//     * @return
+//     */
+//    public static void transform(Matrix2dBoolean in1, Matrix2dBoolean in2){
+//        double nNotEqual = 0.0, nEqual = 0.0, nMax = in1.sizeX * in1.sizeY;
+//        boolean v1, v2;
+//        for (int j = 0; j < in1.sizeY; j++) {
+//            for (int i = 0; i < in1.sizeX; i++) {
+//                v1 = in1.getValue(i, j);
+//                v2 = in2.getValue(i, j);
+//                if(v1 == true && v2 == true) {
+//                    nEqual += 1;
+//                }
+//                if(v1!=v2){
+//                        nNotEqual+=1;
+//                }
+//            }
+//        }
+//        //ComparisonResult cr = new ComparisonResult();
+//        //cr.form = nEqual/(nEqual + nNotEqual);
+//        //return null;
+//    }
 
 
 //   /**
