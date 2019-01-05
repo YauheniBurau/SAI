@@ -60,7 +60,13 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
         return this.params;
     }
 
+    public double countWidth(){
+        return this.params.eX - this.params.sX + 1;
+    }
 
+    public double countHeight(){
+        return this.params.eY - this.params.sY + 1;
+    }
 
     /**
      * cloud -> create Matrix2d where coordinates are shfited for the left and up values
@@ -100,149 +106,149 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
         return outCloud;
     }
 
-    /**
-     *
-     * @param m2dShiftedMask original mask with empty outer elements and inner elements
-     * @return Matrix2dBool as if OuterCloud
-     */
-    private static Matrix2dBool countM2dOuterMask(Matrix2dBool m2dShiftedMask) {
-        // find m2d with all separated inner segments
-        int sizeX = m2dShiftedMask.sizeX;
-        int sizeY = m2dShiftedMask.sizeY;
-        int i, j;
-        Matrix2dBool m2dOuterMask = new Matrix2dBool(m2dShiftedMask.sizeX, m2dShiftedMask.sizeY, null);
-        Boolean value;
-        for (j = 0; j < sizeY; j++) {
-            for (i = 0; i < sizeX; i++) {
-                value = m2dShiftedMask.getValue(i, j);
-                m2dOuterMask.setValue(i, j, value);
-            }
-        }
-        // ===== remove outer points =====
-        Boolean segmentValue;
-        ArrayList<Decart2d> segmentPoints;
-       // up horizontal line
-        j = 0;
-        for (i = 0; i < sizeX; i++) {
-            value = m2dOuterMask.getValue(i,j);
-            if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
-                for (Decart2d p: segmentPoints) {
-                    // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
-                }
-            }
-        }
-        // down horizontal line
-        j = sizeY-1;
-        for (i = 0; i < sizeX; i++) {
-            value = m2dOuterMask.getValue(i,j);
-            if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
-                for (Decart2d p: segmentPoints) {
-                    // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
-                }
-            }
-        }
-        // left vertical line
-        i = 0;
-        for (j = 0; j < sizeY; j++) {
-            value = m2dOuterMask.getValue(i,j);
-            if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
-                for (Decart2d p: segmentPoints) {
-                    // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
-                }
-            }
-        }
-        // right vertical line
-        i = sizeX-1;
-        for (j = 0; j < sizeY; j++) {
-            value = m2dOuterMask.getValue(i,j);
-            if( value!=null && value==false){
-                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
-                for (Decart2d p: segmentPoints) {
-                    // remove from matrix m2dInnerClouds as processed -> null
-                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
-                }
-            }
-        }
-        // convert all false inner points to true points
-        for (j = 0; j < sizeY; j++) {
-            for (i = 0; i < sizeX; i++) {
-                value = m2dOuterMask.getValue(i, j);
-                if(m2dOuterMask.getValue(i, j)==null) {
-                    m2dOuterMask.setValue(i, j, false);
-                }else if(value==false) {
-                    m2dOuterMask.setValue(i, j, true);
-                }
-            }
-        }
-        return m2dOuterMask;
-    }
+//    /**
+//     *
+//     * @param m2dShiftedMask original mask with empty outer elements and inner elements
+//     * @return Matrix2dBool as if OuterCloud
+//     */
+//    private static Matrix2dBool countM2dOuterMask(Matrix2dBool m2dShiftedMask) {
+//        // find m2d with all separated inner segments
+//        int sizeX = m2dShiftedMask.sizeX;
+//        int sizeY = m2dShiftedMask.sizeY;
+//        int i, j;
+//        Matrix2dBool m2dOuterMask = new Matrix2dBool(m2dShiftedMask.sizeX, m2dShiftedMask.sizeY, null);
+//        Boolean value;
+//        for (j = 0; j < sizeY; j++) {
+//            for (i = 0; i < sizeX; i++) {
+//                value = m2dShiftedMask.getValue(i, j);
+//                m2dOuterMask.setValue(i, j, value);
+//            }
+//        }
+//        // ===== remove outer points =====
+//        Boolean segmentValue;
+//        ArrayList<Decart2d> segmentPoints;
+//       // up horizontal line
+//        j = 0;
+//        for (i = 0; i < sizeX; i++) {
+//            value = m2dOuterMask.getValue(i,j);
+//            if( value!=null && value==false){
+//                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+//                for (Decart2d p: segmentPoints) {
+//                    // remove from matrix m2dInnerClouds as processed -> null
+//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                }
+//            }
+//        }
+//        // down horizontal line
+//        j = sizeY-1;
+//        for (i = 0; i < sizeX; i++) {
+//            value = m2dOuterMask.getValue(i,j);
+//            if( value!=null && value==false){
+//                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+//                for (Decart2d p: segmentPoints) {
+//                    // remove from matrix m2dInnerClouds as processed -> null
+//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                }
+//            }
+//        }
+//        // left vertical line
+//        i = 0;
+//        for (j = 0; j < sizeY; j++) {
+//            value = m2dOuterMask.getValue(i,j);
+//            if( value!=null && value==false){
+//                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+//                for (Decart2d p: segmentPoints) {
+//                    // remove from matrix m2dInnerClouds as processed -> null
+//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                }
+//            }
+//        }
+//        // right vertical line
+//        i = sizeX-1;
+//        for (j = 0; j < sizeY; j++) {
+//            value = m2dOuterMask.getValue(i,j);
+//            if( value!=null && value==false){
+//                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
+//                for (Decart2d p: segmentPoints) {
+//                    // remove from matrix m2dInnerClouds as processed -> null
+//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                }
+//            }
+//        }
+//        // convert all false inner points to true points
+//        for (j = 0; j < sizeY; j++) {
+//            for (i = 0; i < sizeX; i++) {
+//                value = m2dOuterMask.getValue(i, j);
+//                if(m2dOuterMask.getValue(i, j)==null) {
+//                    m2dOuterMask.setValue(i, j, false);
+//                }else if(value==false) {
+//                    m2dOuterMask.setValue(i, j, true);
+//                }
+//            }
+//        }
+//        return m2dOuterMask;
+//    }
 
-    /**
-     *
-     * @return
-     */
-    public CloudOfDecart2d countOuterCloud() {
-        this.countCloudParams();
-        int shiftX = (int)this.params.sX;
-        int shiftY = (int)this.params.sY;
-        Matrix2dBool m2dShiftedMask = CloudOfDecart2d.cloudToM2dShiftedMask(this);
-        Matrix2dBool m2dOuterMask = CloudOfDecart2d.countM2dOuterMask(m2dShiftedMask);
-        this.outerCloud = CloudOfDecart2d.M2dShiftedMaskToCloud(m2dOuterMask, shiftX, shiftY);
-        return this.outerCloud;
-    }
+//    /**
+//     *
+//     * @return
+//     */
+//    public CloudOfDecart2d countOuterCloud() {
+//        this.countCloudParams();
+//        int shiftX = (int)this.params.sX;
+//        int shiftY = (int)this.params.sY;
+//        Matrix2dBool m2dShiftedMask = CloudOfDecart2d.cloudToM2dShiftedMask(this);
+//        Matrix2dBool m2dOuterMask = CloudOfDecart2d.countM2dOuterMask(m2dShiftedMask);
+//        this.outerCloud = CloudOfDecart2d.M2dShiftedMaskToCloud(m2dOuterMask, shiftX, shiftY);
+//        return this.outerCloud;
+//    }
 
-    /**
-     *
-     * @return ArrayList CloudOfDecart2dInt.
-     * @return
-     */
-    public ArrayList<CloudOfDecart2d> countInnerClouds() {
-        // find m2d with all separated inner segments
-        // prepare m2dInnerMask where only true - innerSegments and null - no point value
-        this.countCloudParams();
-        int shiftX = (int)this.params.sX;
-        int shiftY = (int)this.params.sY;
-        Matrix2dBool m2dOriginMask = CloudOfDecart2d.cloudToM2dShiftedMask(this);
-        Matrix2dBool m2dOuterMask = CloudOfDecart2d.countM2dOuterMask(m2dOriginMask);
-        Matrix2dBool m2dInnerMask = new Matrix2dBool(m2dOriginMask.sizeX, m2dOriginMask.sizeY, null);
-        int sizeX = m2dOriginMask.sizeX;
-        int sizeY = m2dOriginMask.sizeY;
-        int i, j;
-        for (j = 0; j < sizeY; j++) {
-            for (i = 0; i < sizeX; i++) {
-                if(m2dOriginMask.getValue(i, j)==false && m2dOuterMask.getValue(i, j)==true){
-                    m2dInnerMask.setValue(i,j, true);
-                }
-            }
-        }
-        // convert m2d of separated segments of true values -> ArrayList<CloudOfDecart2dInt>
-        this.innerClouds = new ArrayList<>();
-        CloudOfDecart2d innerCloud;
-        ArrayList<Decart2d> segmentPoints;
-        for(j = 0; j<m2dInnerMask.sizeY; j++){
-            for(i = 0; i<m2dInnerMask.sizeX; i++) {
-                if(m2dInnerMask.getValue(i,j)!=null){
-                    segmentPoints = m2dInnerMask.count4LSegmentPoints(i, j);
-                    for (Decart2d p: segmentPoints) {
-                        // remove from matrix m2dInnerClouds as processed
-                        m2dInnerMask.setValue((int)p.x, (int)p.y, null);
-                        // make points unshifted
-                        p.x = (p.x + shiftX);
-                        p.y = (p.y + shiftY);
-                    }
-                    innerCloud = new CloudOfDecart2d(segmentPoints);
-                    this.innerClouds.add(innerCloud);
-                }
-            }
-        }
-        return this.innerClouds;
-    }
+//    /**
+//     *
+//     * @return ArrayList CloudOfDecart2dInt.
+//     * @return
+//     */
+//    public ArrayList<CloudOfDecart2d> countInnerClouds() {
+//        // find m2d with all separated inner segments
+//        // prepare m2dInnerMask where only true - innerSegments and null - no point value
+//        this.countCloudParams();
+//        int shiftX = (int)this.params.sX;
+//        int shiftY = (int)this.params.sY;
+//        Matrix2dBool m2dOriginMask = CloudOfDecart2d.cloudToM2dShiftedMask(this);
+//        Matrix2dBool m2dOuterMask = CloudOfDecart2d.countM2dOuterMask(m2dOriginMask);
+//        Matrix2dBool m2dInnerMask = new Matrix2dBool(m2dOriginMask.sizeX, m2dOriginMask.sizeY, null);
+//        int sizeX = m2dOriginMask.sizeX;
+//        int sizeY = m2dOriginMask.sizeY;
+//        int i, j;
+//        for (j = 0; j < sizeY; j++) {
+//            for (i = 0; i < sizeX; i++) {
+//                if(m2dOriginMask.getValue(i, j)==false && m2dOuterMask.getValue(i, j)==true){
+//                    m2dInnerMask.setValue(i,j, true);
+//                }
+//            }
+//        }
+//        // convert m2d of separated segments of true values -> ArrayList<CloudOfDecart2dInt>
+//        this.innerClouds = new ArrayList<>();
+//        CloudOfDecart2d innerCloud;
+//        ArrayList<Decart2d> segmentPoints;
+//        for(j = 0; j<m2dInnerMask.sizeY; j++){
+//            for(i = 0; i<m2dInnerMask.sizeX; i++) {
+//                if(m2dInnerMask.getValue(i,j)!=null){
+//                    segmentPoints = m2dInnerMask.count4LSegmentPoints(i, j);
+//                    for (Decart2d p: segmentPoints) {
+//                        // remove from matrix m2dInnerClouds as processed
+//                        m2dInnerMask.setValue((int)p.x, (int)p.y, null);
+//                        // make points unshifted
+//                        p.x = (p.x + shiftX);
+//                        p.y = (p.y + shiftY);
+//                    }
+//                    innerCloud = new CloudOfDecart2d(segmentPoints);
+//                    this.innerClouds.add(innerCloud);
+//                }
+//            }
+//        }
+//        return this.innerClouds;
+//    }
 
     /**
      * getter
@@ -316,4 +322,34 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
         // TODO:
         return null;
     }
+
+//    public Graph outerCloudToContourAsGraphDecart2d(){
+//        this.countCloudParams();
+//        Graph graph = null;
+//        CloudOfDecart2d outerCloud = this.countOuterCloud();
+//        Matrix2d<Decart2dInt2Links> m2d2Links = new Matrix2d<Decart2dInt2Links>(
+//                Decart2dInt2Links.class, (int)outerCloud.countWidth(), (int)outerCloud.countHeight() );
+//        Matrix2dBool m2dOuterMask = CloudOfDecart2d.cloudToM2dShiftedMask(outerCloud);
+//        int sizeX = m2dOuterMask.sizeX;
+//        int sizeY = m2dOuterMask.sizeY;
+//        for (int j = 0; j < sizeY; j++) {
+//            for (int i = 0; i < sizeX; i++) {
+//                // TODO: create and connect all m2d2Links
+//            }
+//        }
+//        // find first not null Decart2dInt2Links elements, it will be root of graph
+//        graph = new Graph();
+//        for (int j = 0; j < sizeY; j++) {
+//            for (int i = 0; i < sizeX; i++) {
+//                if(m2d2Links.getValue(i, j)!=null){
+//                    graph.setRootVertex(new Vertex);
+//                }
+//            }
+//        }
+//
+//        return graph;
+//    }
+
+
+
 }
