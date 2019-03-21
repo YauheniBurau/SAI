@@ -25,8 +25,11 @@ public class CloudOfDecart2dToM2dBool extends BaseAlgorithm {
      * @return
      */
     public static Matrix2dBool transform(CloudOfDecart2d cloud) {
-        Matrix2dBool m2d = CloudOfDecart2d.cloudToM2dShiftedMask(cloud);
-        return m2d;
+        return CloudOfDecart2d.cloudToM2dShiftedMask(cloud);
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 /**
  * Created by anonymous on 17.11.2018.
  */
-public final class Vertex<TValue extends IVertexValue> implements IVertex {
+public class Vertex<TValue extends IVertexValue> implements IVertex {
     private static long eId = Long.MIN_VALUE; // current enumerator value for generation next unique Id
     private long uId; // unique id
     private TValue value = null;
@@ -21,9 +21,8 @@ public final class Vertex<TValue extends IVertexValue> implements IVertex {
         this.value = value;
     }
 
-    public static long generate_uid(){
-        long new_uid = Vertex.eId+=1;
-        return new_uid;
+    private static long generate_uid(){
+        return Vertex.eId+=1;
     }
 
     public long getuId() {

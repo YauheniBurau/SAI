@@ -10,6 +10,10 @@ import core.application.model.Model;
  * Created by anonymous on 12.11.2018.
  */
 public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends BaseAlgorithm {
+    @Override
+    public Boolean process() {
+        return null;
+    }
 //    private Model model;
 //    private String inKey;
 //    private String outKey;
@@ -64,7 +68,7 @@ public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends BaseAlgorithm
 //        Matrix2d<Byte> out = new Matrix2d<Byte>(Byte.class, x, y, null);
 //        // 3. add points with shift to Matrix2dByte
 //        for(Point<Byte, Decart2dInt> p : in.points) {
-//            out.setValue(p.coords.x - l, p.coords.y - u, p.value );
+//            out.setBufferedImage(p.coords.x - l, p.coords.y - u, p.value );
 //        }
 //        return out;
 //    }

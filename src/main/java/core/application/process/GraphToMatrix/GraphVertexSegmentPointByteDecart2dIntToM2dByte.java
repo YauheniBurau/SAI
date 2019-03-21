@@ -17,6 +17,11 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
         this.outKey = outKey;
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
+
 //    /**
 //     * GraphVertexSegmentPointByteDecart2dInt -> Matrix2d<Byte>
 //     * @return
@@ -50,7 +55,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
 //        for(VertexSegmentByteDecart2dInt vertex: in.getVertexes()){
 //            segmentValue = vertex.getValue().value;
 //            for(PointByteDecart2dInt p: vertex.getValue().points){
-//                out.setValue(p.elements.x, p.elements.y, segmentValue);
+//                out.setBufferedImage(p.elements.x, p.elements.y, segmentValue);
 //            }
 //        }
 //        return out;
@@ -72,7 +77,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
 ////        for(VertexSegmentByteDecart2dInt vertex: in.getVertexes()){
 ////            segmentValue = vertex.getValue().value;
 ////            for(PointByteDecart2dInt p: vertex.getValue().points){
-////                out.setValue(p.elements.x, p.elements.y, segmentValue);
+////                out.setBufferedImage(p.elements.x, p.elements.y, segmentValue);
 ////            }
 ////        }
 //        return out;
@@ -94,7 +99,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends BaseAlgorit
 ////        for(VertexSegmentByteDecart2dInt vertex: in.getVertexes()){
 ////            segmentValue = vertex.getValue().value;
 ////            for(PointByteDecart2dInt p: vertex.getValue().points){
-////                out.setValue(p.elements.x, p.elements.y, segmentValue);
+////                out.setBufferedImage(p.elements.x, p.elements.y, segmentValue);
 ////            }
 ////        }
 //        return out;

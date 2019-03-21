@@ -5,23 +5,23 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 08.10.2018.
  */
-public class Algorithm extends BaseAlgorithm {
-    public LinkedList<IAlgorithm> algorithms = new LinkedList<IAlgorithm>();
+public class AlgoChain extends BaseAlgorithm {
+    public LinkedList<IAlgorithm> algorithms = new LinkedList<>();
 
-    public Algorithm(LinkedList<IAlgorithm> algorithms) {
+    public AlgoChain(LinkedList<IAlgorithm> algorithms) {
         this.algorithms = algorithms;
     }
 
-    public Algorithm() {
+    public AlgoChain() {
 
     }
 
-    public Algorithm add(IAlgorithm e){
+    public AlgoChain add(IAlgorithm e){
         this.algorithms.add(e);
         return this;
     }
 
-    public Algorithm clear(){
+    public AlgoChain clear(){
         this.algorithms.clear();
         return this;
     }

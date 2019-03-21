@@ -25,6 +25,11 @@ public class CloudDecart2dToContourDecart2d extends BaseAlgorithm {
         this.outKey = outKey;
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
+
 //    /**
 //     * @param cloud
 //     * @return
@@ -51,24 +56,24 @@ public class CloudDecart2dToContourDecart2d extends BaseAlgorithm {
 //                    v6 = m2dBool.getValue(i, j + 1);
 //                    v8 = m2dBool.getValue(i - 1, j);
 //                    if(v2==null || v2==false){ // up
-//                        m2dDecart2dDouble.setValue(i*2, j*2, new Decart2d(i*2-0.5, j*2-0.5) );
-//                        m2dDecart2dDouble.setValue(i*2+1, j*2, new Decart2d(i*2, j*2-0.5) );
-//                        m2dDecart2dDouble.setValue(i*2+2, j*2, new Decart2d(i*2+0.5, j*2-0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2, j*2, new Decart2d(i*2-0.5, j*2-0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+1, j*2, new Decart2d(i*2, j*2-0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+2, j*2, new Decart2d(i*2+0.5, j*2-0.5) );
 //                    }
 //                    if(v4==null || v4==false){ // right
-//                        m2dDecart2dDouble.setValue(i*2+2, j*2, new Decart2d(i*2+0.5, j*2-0.5) );
-//                        m2dDecart2dDouble.setValue(i*2+2, j*2+1, new Decart2d(i*2+0.5, j*2) );
-//                        m2dDecart2dDouble.setValue(i*2+2, j*2+2, new Decart2d(i*2+0.5, j*2+0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+2, j*2, new Decart2d(i*2+0.5, j*2-0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+2, j*2+1, new Decart2d(i*2+0.5, j*2) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+2, j*2+2, new Decart2d(i*2+0.5, j*2+0.5) );
 //                    }
 //                    if(v6==null || v6==false){ // down
-//                        m2dDecart2dDouble.setValue(i*2, j*2+2, new Decart2d(i*2-0.5, j*2+0.5) );
-//                        m2dDecart2dDouble.setValue(i*2+1, j*2+2, new Decart2d(i*2, j*2+0.5) );
-//                        m2dDecart2dDouble.setValue(i*2+2, j*2+2, new Decart2d(i*2+0.5, j*2+0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2, j*2+2, new Decart2d(i*2-0.5, j*2+0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+1, j*2+2, new Decart2d(i*2, j*2+0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2+2, j*2+2, new Decart2d(i*2+0.5, j*2+0.5) );
 //                    }
 //                    if(v8==null || v8==false){ // left
-//                        m2dDecart2dDouble.setValue(i*2, j*2, new Decart2d(i*2-0.5, j*2-0.5) );
-//                        m2dDecart2dDouble.setValue(i*2, j*2+1, new Decart2d(i*2-0.5, j*2) );
-//                        m2dDecart2dDouble.setValue(i*2, j*2+2, new Decart2d(i*2-0.5, j*2+0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2, j*2, new Decart2d(i*2-0.5, j*2-0.5) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2, j*2+1, new Decart2d(i*2-0.5, j*2) );
+//                        m2dDecart2dDouble.setBufferedImage(i*2, j*2+2, new Decart2d(i*2-0.5, j*2+0.5) );
 //                    }
 //                }
 //            }
@@ -83,7 +88,7 @@ public class CloudDecart2dToContourDecart2d extends BaseAlgorithm {
 //            for (int i = 0; i < sizeX; i++) {
 //                v = m2dDecart2dDouble.getValue(i, j);
 //                if(v!=null){
-//                    m2dDecart2dDouble.setValue(i, j, new Decart2d(v.x +shiftX, v.y +shiftY));
+//                    m2dDecart2dDouble.setBufferedImage(i, j, new Decart2d(v.x +shiftX, v.y +shiftY));
 //                }
 //            }
 //        }

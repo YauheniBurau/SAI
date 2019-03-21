@@ -6,6 +6,4 @@ package core.application.algorithms;
 public interface IAlgorithm {
 
     public Boolean process();
-    public Boolean deleteInputDataFromModel();
-    public Boolean deleteOutputDataFromModel();
 }

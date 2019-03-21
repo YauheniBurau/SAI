@@ -1,4 +1,4 @@
-package core.application.view.components;
+package core.old;
 
 import core.application.algorithms.IAlgorithm;
 import javafx.scene.Cursor;
@@ -39,8 +39,8 @@ public class ProcessFX extends GridPane {
         this.algorithm = algorithm;
         this.steps = new ListView();
         this.fields = algorithm.getClass().getDeclaredFields();
-        this.textFieldLabels = new HashMap<Field, Label>();
-        this.textFields = new HashMap<Field, TextField>();
+        this.textFieldLabels = new HashMap<>();
+        this.textFields = new HashMap<>();
 
         // 2. Fill listVew this.steps
         // TODO:
@@ -84,10 +84,12 @@ public class ProcessFX extends GridPane {
 
         // other visual settings
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)) );
+                BorderStrokeStyle.SOLID, new CornerRadii(1), BorderWidths.FULL)) );
 
         makeDraggable(this);
     }
+
+
 
     private void makeDraggable(Node node) {
         final Delta dragDelta = new Delta();

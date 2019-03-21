@@ -73,7 +73,7 @@ public class Matrix2d<T> implements IMatrix {
     }
 
     /**
-     * setValue into Matrix2d
+     * setBufferedImage into Matrix2d
      * @param xPos
      * @param yPos
      * @param value
@@ -132,7 +132,6 @@ public class Matrix2d<T> implements IMatrix {
 
     /**
      * count number of not null elements
-     * @return
      */
     public void resetValues(T defaultValue){
         for (int j = 0; j < this.sizeY; j++) {
@@ -152,12 +151,12 @@ public class Matrix2d<T> implements IMatrix {
      */
     public ArrayList<Decart2dInt> count8LSegmentPoints(int x, int y){
         if( this.getValue(x, y) == null ) return null;
-        Matrix2d<Boolean> isProcessed = new Matrix2d<Boolean>(Boolean.class, this.sizeX, this.sizeY, false);
+        Matrix2d<Boolean> isProcessed = new Matrix2d<>(Boolean.class, this.sizeX, this.sizeY, false);
         int pi, pj;
         T v1, v2, v3, v4, v5, v6, v7, v8, v9;
-        ArrayList<Decart2dInt> s = new ArrayList<Decart2dInt>();
+        ArrayList<Decart2dInt> s = new ArrayList<>();
         Decart2dInt p;
-        LinkedList<Decart2dInt> points = new LinkedList<Decart2dInt>();
+        LinkedList<Decart2dInt> points = new LinkedList<>();
         points.add( new Decart2dInt(x, y) );
         isProcessed.setValue(x, y, true);
         while(points.size()>0){
@@ -221,12 +220,12 @@ public class Matrix2d<T> implements IMatrix {
      */
     public ArrayList<Decart2dInt> count4LSegmentPoints(int x, int y){
         if( this.getValue(x, y) == null ) return null;
-        Matrix2d<Boolean> isProcessed = new Matrix2d<Boolean>(Boolean.class, this.sizeX, this.sizeY, false);
+        Matrix2d<Boolean> isProcessed = new Matrix2d<>(Boolean.class, this.sizeX, this.sizeY, false);
         int pi, pj;
         T v1, v2, v4, v6, v8;
-        ArrayList<Decart2dInt> s = new ArrayList<Decart2dInt>();
+        ArrayList<Decart2dInt> s = new ArrayList<>();
         Decart2dInt p;
-        LinkedList<Decart2dInt> points = new LinkedList<Decart2dInt>();
+        LinkedList<Decart2dInt> points = new LinkedList<>();
         points.add( new Decart2dInt(x, y) );
         isProcessed.setValue(x, y, true);
         while(points.size()>0){
@@ -276,7 +275,7 @@ public class Matrix2d<T> implements IMatrix {
 //        Decart2d p;
 //        LinkedList<Decart2d> points = new LinkedList<Decart2d>();
 //        points.add( new Decart2d(x, y) );
-//        m2dMask.setValue(x, y, true);
+//        m2dMask.setBufferedImage(x, y, true);
 //        while(points.size()>0){
 //            p = points.poll();
 //            //s.add(p);
@@ -289,19 +288,19 @@ public class Matrix2d<T> implements IMatrix {
 //            v8 = this.getValue(pi-1, pj);
 //            if( v2 != null && m2dMask.getValue(pi, pj-1) == false && v1 == v2 ) {
 //                points.add( new Decart2d(pi,pj-1) );
-//                m2dMask.setValue(pi, pj-1, true);
+//                m2dMask.setBufferedImage(pi, pj-1, true);
 //            }
 //            if( v4 != null && m2dMask.getValue(pi+1, pj) == false && v1 == v4 ) {
 //                points.add( new Decart2d(pi+1,pj) );
-//                m2dMask.setValue(pi+1, pj, true);
+//                m2dMask.setBufferedImage(pi+1, pj, true);
 //            }
 //            if( v6 != null && m2dMask.getValue(pi, pj+1) == false && v1 == v6 ) {
 //                points.add( new Decart2d(pi,pj+1) );
-//                m2dMask.setValue(pi, pj+1, true);
+//                m2dMask.setBufferedImage(pi, pj+1, true);
 //            }
 //            if( v8 != null && m2dMask.getValue(pi-1, pj) == false && v1 == v8 ) {
 //                points.add( new Decart2d(pi-1,pj) );
-//                m2dMask.setValue(pi-1, pj, true);
+//                m2dMask.setBufferedImage(pi-1, pj, true);
 //            }
 //        }
 //        return m2dMask;
@@ -465,25 +464,25 @@ public class Matrix2d<T> implements IMatrix {
 //
 //
 //            if( v2 != null && isProcessed.getValue(pi, pj-1) == false) {
-//                isProcessed.setValue(pi, pj-1, true);
+//                isProcessed.setBufferedImage(pi, pj-1, true);
 //                next = new Decart2d(pi, pj-1);
 //                points.add( next );
 //                break;
 //            }
 //            if( v4 != null && isProcessed.getValue(pi+1, pj) == false) {
-//                isProcessed.setValue(pi+1,pj, true);
+//                isProcessed.setBufferedImage(pi+1,pj, true);
 //                next = new Decart2d(pi+1,pj);
 //                points.add( next );
 //                break;
 //            }
 //            if( v6 != null && isProcessed.getValue(pi, pj+1) == false) {
-//                isProcessed.setValue(pi,pj+1, true);
+//                isProcessed.setBufferedImage(pi,pj+1, true);
 //                next = new Decart2d(pi,pj+1);
 //                points.add( next );
 //                break;
 //            }
 //            if( v8 != null && isProcessed.getValue(pi-1, pj) == false) {
-//                isProcessed.setValue(pi-1,pj, true);
+//                isProcessed.setBufferedImage(pi-1,pj, true);
 //                next = new Decart2d(pi-1,pj);
 //                points.add( next );
 //                break;
@@ -513,7 +512,7 @@ public class Matrix2d<T> implements IMatrix {
 //        T v1, v2, v4, v6, v8;
 //        Matrix2d<Boolean> isProcessed = new Matrix2d<Boolean>(Boolean.class, this.sizeX, this.sizeY, false);
 //        LinkedList<Decart2d> points = new LinkedList<Decart2d>();
-//        isProcessed.setValue(x, y, true);
+//        isProcessed.setBufferedImage(x, y, true);
 //        Decart2d start, curr, next;
 //        start = new Decart2d(x, y);
 //        curr = start;
@@ -527,25 +526,25 @@ public class Matrix2d<T> implements IMatrix {
 //            v6 = this.getValue(pi, pj+1);
 //            v8 = this.getValue(pi-1, pj);
 //            if( v2 != null && isProcessed.getValue(pi, pj-1) == false) {
-//                isProcessed.setValue(pi, pj-1, true);
+//                isProcessed.setBufferedImage(pi, pj-1, true);
 //                next = new Decart2d(pi, pj-1);
 //                points.add( next );
 //                break;
 //            }
 //            if( v4 != null && isProcessed.getValue(pi+1, pj) == false) {
-//                isProcessed.setValue(pi+1,pj, true);
+//                isProcessed.setBufferedImage(pi+1,pj, true);
 //                next = new Decart2d(pi+1,pj);
 //                points.add( next );
 //                break;
 //            }
 //            if( v6 != null && isProcessed.getValue(pi, pj+1) == false) {
-//                isProcessed.setValue(pi,pj+1, true);
+//                isProcessed.setBufferedImage(pi,pj+1, true);
 //                next = new Decart2d(pi,pj+1);
 //                points.add( next );
 //                break;
 //            }
 //            if( v8 != null && isProcessed.getValue(pi-1, pj) == false) {
-//                isProcessed.setValue(pi-1,pj, true);
+//                isProcessed.setBufferedImage(pi-1,pj, true);
 //                next = new Decart2d(pi-1,pj);
 //                points.add( next );
 //                break;

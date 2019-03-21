@@ -23,6 +23,11 @@ public class M2dByteToCloudOfDecart2d extends BaseAlgorithm {
         this.outKey = outKey;
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
+
 //    /**
 //     * remark: only fulfilled cloud without gaps must come into function as "cloud" param
 //     *  Matrix2d<Byte> and Cloud -> ArrayList<CloudOfDecart2dInt>
@@ -34,7 +39,7 @@ public class M2dByteToCloudOfDecart2d extends BaseAlgorithm {
 //        for(CloudOfDecart2d cl : clouds){
 //            cl.countOuterCloud();
 //            for(Decart2d p: cl.getOuterCloud().elements){
-//                isProcessed.setValue((int)p.x, (int)p.y, false);
+//                isProcessed.setBufferedImage((int)p.x, (int)p.y, false);
 //            }
 //        }
 //        //saveM2dBool(isProcessed);
@@ -53,7 +58,7 @@ public class M2dByteToCloudOfDecart2d extends BaseAlgorithm {
 //                    cloud.addInnerCloud(subCloud);
 //                    // set all isProcessed from outerCloud
 //                    for(Decart2d p1 : outerCloud.elements) {
-//                        isProcessed.setValue((int)p1.x, (int)p1.y, true);
+//                        isProcessed.setBufferedImage((int)p1.x, (int)p1.y, true);
 //                    }
 //                    //saveM2dBool(isProcessed);
 //                    // add all innerClouds to the list for next iteration processing

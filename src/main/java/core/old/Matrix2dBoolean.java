@@ -28,7 +28,7 @@ public class Matrix2dBoolean {
 //        Matrix2dBoolean m2d = new Matrix2dBoolean(sX, sY);
 //        for(j = 0; j<sY;j++ ){
 //            for(i = 0; i<sX;i++ ){
-//                m2d.setValue(i, j, this.getValue(i,j));
+//                m2d.setBufferedImage(i, j, this.getValue(i,j));
 //            }
 //        }
 //        // skeleton
@@ -78,7 +78,7 @@ public class Matrix2dBoolean {
 //            }
 //            if(points.size()>0){isChanged = true;}
 //            for (Point p: points) {
-//                m2d.setValue(p.x, p.y, false);
+//                m2d.setBufferedImage(p.x, p.y, false);
 //            }
 ////        }while(false);
 //        }while(isChanged);
@@ -100,7 +100,7 @@ public class Matrix2dBoolean {
 //        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
 //        for (int j = 0; j < sizeY; j++) {
 //            for (int i = 0; i < sizeX; i++) {
-//                    m2d.setValue(i, j, this.getValue(i, j));
+//                    m2d.setBufferedImage(i, j, this.getValue(i, j));
 //            }
 //        }
 //        boolean v1, v2, v3, v4, v5, v6, v7, v8, v9;
@@ -136,7 +136,7 @@ public class Matrix2dBoolean {
 //        Matrix2dBoolean m2d = new Matrix2dBoolean(this.sizeX, this.sizeY);
 //        for (int j = 0; j < sizeY; j++) {
 //            for (int i = 0; i < sizeX; i++) {
-//                m2d.setValue(i, j, this.getValue(i, j));
+//                m2d.setBufferedImage(i, j, this.getValue(i, j));
 //            }
 //        }
 //        boolean v1, v2, v3, v4;
@@ -177,10 +177,10 @@ public class Matrix2dBoolean {
 //        float n = Math.abs(x2-x1)>Math.abs(y2-y1) ? Math.abs(x2-x1) : Math.abs(y2-y1);
 //        double xStep = (x2-x1)/n;
 //        double yStep = (y2-y1)/n;
-//        this.setValue(x1, y1, true);
-//        this.setValue(x2, y2, true);
+//        this.setBufferedImage(x1, y1, true);
+//        this.setBufferedImage(x2, y2, true);
 //        for (int i = 1; i < n; i++) {
-//            this.setValue( (int)Math.floor(x + xStep*i), (int)Math.floor(y + yStep*i), true);
+//            this.setBufferedImage( (int)Math.floor(x + xStep*i), (int)Math.floor(y + yStep*i), true);
 //        }
 //        return this;
 //    }
@@ -198,12 +198,12 @@ public class Matrix2dBoolean {
 ////        float n = Math.abs(x2-x1)>Math.abs(y2-y1) ? Math.abs(x2-x1) : Math.abs(y2-y1);
 ////        double xStep = (x2-x1)/n;
 ////        double yStep = (y2-y1)/n;
-////        this.setValue(x1, y1, true);
-////        this.setValue(x2, y2, true);
+////        this.setBufferedImage(x1, y1, true);
+////        this.setBufferedImage(x2, y2, true);
 ////        for (int i = 1; i <= n; i++) {
 ////            x += xStep;
 ////            y += yStep;
-////            this.setValue( (int)Math.round(x), (int)Math.round(y), true);
+////            this.setBufferedImage( (int)Math.round(x), (int)Math.round(y), true);
 ////        }
 //        return this;
 //    }
@@ -299,7 +299,7 @@ public class Matrix2dBoolean {
 //        int n;
 //        for (int j = 0; j < sizeY; j++) {
 //            for (int i = 0; i < sizeX; i++) {
-//                m2d.setValue(i, j, this.getValue(i, j));
+//                m2d.setBufferedImage(i, j, this.getValue(i, j));
 //            }
 //        }
 //
@@ -318,7 +318,7 @@ public class Matrix2dBoolean {
 //                        v9 = m2d.getValue(i-1, j - 1) != null && m2d.getValue(i - 1, j - 1) == true ? 1 : 0;
 //                        n = v2 + v3 + v4 + v5 + v6 + v7 + v8 + v9;
 //                        if ( (n >= minWhite && n<=maxWhite) || ((8-n)>= minBlack && (8-n)<=maxBlack) ) {
-//                            m2d.setValue(i, j, !oldValue);
+//                            m2d.setBufferedImage(i, j, !oldValue);
 //                            isChanged = true;
 //                        }
 //                    }
@@ -346,15 +346,15 @@ public class Matrix2dBoolean {
 //    private void replace3x3Pattern(int i, int j, boolean v1, boolean v2, boolean v3,
 //                                   boolean v4, boolean v5, boolean v6,
 //                                   boolean v7, boolean v8, boolean v9 ){
-//        this.setValue(i, j, v1);
-//        this.setValue(i, j - 1, v2);
-//        this.setValue(i + 1, j - 1, v3);
-//        this.setValue(i + 1, j, v4);
-//        this.setValue(i + 1, j + 1, v5);
-//        this.setValue(i, j + 1, v6);
-//        this.setValue(i - 1, j + 1, v7);
-//        this.setValue(i - 1, j, v8);
-//        this.setValue(i - 1, j - 1, v9);
+//        this.setBufferedImage(i, j, v1);
+//        this.setBufferedImage(i, j - 1, v2);
+//        this.setBufferedImage(i + 1, j - 1, v3);
+//        this.setBufferedImage(i + 1, j, v4);
+//        this.setBufferedImage(i + 1, j + 1, v5);
+//        this.setBufferedImage(i, j + 1, v6);
+//        this.setBufferedImage(i - 1, j + 1, v7);
+//        this.setBufferedImage(i - 1, j, v8);
+//        this.setBufferedImage(i - 1, j - 1, v9);
 //    }
 
 //    /**
@@ -367,10 +367,10 @@ public class Matrix2dBoolean {
 //     * @param v4
 //     */
 //    private void replace2x2Pattern(int i, int j, boolean v1, boolean v2, boolean v3, boolean v4){
-//        this.setValue(i, j, v1);
-//        this.setValue(i+1, j, v2);
-//        this.setValue(i + 1, j + 1, v3);
-//        this.setValue(i, j + 1, v4);
+//        this.setBufferedImage(i, j, v1);
+//        this.setBufferedImage(i+1, j, v2);
+//        this.setBufferedImage(i + 1, j + 1, v3);
+//        this.setBufferedImage(i, j + 1, v4);
 //    }
 
 //    @Deprecated
@@ -421,7 +421,7 @@ public class Matrix2dBoolean {
 //        Matrix2dBoolean m2d = new Matrix2dBoolean(sizeX, sizeY);
 //        for(int j = 0; j<sizeY; j++){
 //            for(int i = 0; i<sizeX; i++){
-//                m2d.setValue(i, j, this.getValue(i,j) & m1.getValue(i,j)  );
+//                m2d.setBufferedImage(i, j, this.getValue(i,j) & m1.getValue(i,j)  );
 //            }
 //        }
 //        return m2d;
@@ -438,7 +438,7 @@ public class Matrix2dBoolean {
 //        Matrix2dBoolean m2d = new Matrix2dBoolean(sizeX, sizeY);
 //        for(int j = 0; j<sizeY; j++){
 //            for(int i = 0; i<sizeX; i++){
-//                m2d.setValue(i, j, this.getValue(i,j) | m1.getValue(i,j)  );
+//                m2d.setBufferedImage(i, j, this.getValue(i,j) | m1.getValue(i,j)  );
 //            }
 //        }
 //        return m2d;

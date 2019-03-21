@@ -36,4 +36,8 @@ public class ContourDecart2dToM2dBool extends BaseAlgorithm {
         return m2d;
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
 }

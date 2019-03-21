@@ -98,7 +98,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
         int sizeY = m2dShiftedMask.sizeY;
         for (int j = 0; j < sizeY; j++) {
             for (int i = 0; i < sizeX; i++) {
-                if(m2dShiftedMask.getValue(i, j)==true) {
+                if( m2dShiftedMask.getValue(i, j) ){
                     outCloud.elements.add(new Decart2d(i+shiftX, j+shiftY));
                 }
             }
@@ -121,7 +121,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //        for (j = 0; j < sizeY; j++) {
 //            for (i = 0; i < sizeX; i++) {
 //                value = m2dShiftedMask.getValue(i, j);
-//                m2dOuterMask.setValue(i, j, value);
+//                m2dOuterMask.setBufferedImage(i, j, value);
 //            }
 //        }
 //        // ===== remove outer points =====
@@ -135,7 +135,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
 //                for (Decart2d p: segmentPoints) {
 //                    // remove from matrix m2dInnerClouds as processed -> null
-//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                    m2dOuterMask.setBufferedImage((int)p.x, (int)p.y, null);
 //                }
 //            }
 //        }
@@ -147,7 +147,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
 //                for (Decart2d p: segmentPoints) {
 //                    // remove from matrix m2dInnerClouds as processed -> null
-//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                    m2dOuterMask.setBufferedImage((int)p.x, (int)p.y, null);
 //                }
 //            }
 //        }
@@ -159,7 +159,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
 //                for (Decart2d p: segmentPoints) {
 //                    // remove from matrix m2dInnerClouds as processed -> null
-//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                    m2dOuterMask.setBufferedImage((int)p.x, (int)p.y, null);
 //                }
 //            }
 //        }
@@ -171,7 +171,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //                segmentPoints = m2dOuterMask.count4LSegmentPoints(i, j);
 //                for (Decart2d p: segmentPoints) {
 //                    // remove from matrix m2dInnerClouds as processed -> null
-//                    m2dOuterMask.setValue((int)p.x, (int)p.y, null);
+//                    m2dOuterMask.setBufferedImage((int)p.x, (int)p.y, null);
 //                }
 //            }
 //        }
@@ -180,9 +180,9 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //            for (i = 0; i < sizeX; i++) {
 //                value = m2dOuterMask.getValue(i, j);
 //                if(m2dOuterMask.getValue(i, j)==null) {
-//                    m2dOuterMask.setValue(i, j, false);
+//                    m2dOuterMask.setBufferedImage(i, j, false);
 //                }else if(value==false) {
-//                    m2dOuterMask.setValue(i, j, true);
+//                    m2dOuterMask.setBufferedImage(i, j, true);
 //                }
 //            }
 //        }
@@ -223,7 +223,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //        for (j = 0; j < sizeY; j++) {
 //            for (i = 0; i < sizeX; i++) {
 //                if(m2dOriginMask.getValue(i, j)==false && m2dOuterMask.getValue(i, j)==true){
-//                    m2dInnerMask.setValue(i,j, true);
+//                    m2dInnerMask.setBufferedImage(i,j, true);
 //                }
 //            }
 //        }
@@ -237,7 +237,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 //                    segmentPoints = m2dInnerMask.count4LSegmentPoints(i, j);
 //                    for (Decart2d p: segmentPoints) {
 //                        // remove from matrix m2dInnerClouds as processed
-//                        m2dInnerMask.setValue((int)p.x, (int)p.y, null);
+//                        m2dInnerMask.setBufferedImage((int)p.x, (int)p.y, null);
 //                        // make points unshifted
 //                        p.x = (p.x + shiftX);
 //                        p.y = (p.y + shiftY);
@@ -284,7 +284,6 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
 
     /**
      * setter
-     * @return
      */
     public void setInnerClouds(ArrayList<CloudOfDecart2d> clouds) {
         this.innerClouds = clouds;

@@ -1,16 +1,9 @@
 package core.application.view;
 
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 
 /**
@@ -25,9 +18,7 @@ public class View {
      * @return
      */
     public static FileChooser.ExtensionFilter createFileChooserExtensionFilter(String comment, String... extensions){
-        FileChooser.ExtensionFilter extFilter =
-                new FileChooser.ExtensionFilter(comment, extensions);
-        return extFilter;
+        return new FileChooser.ExtensionFilter(comment, extensions);
     }
 
     /**
@@ -81,6 +72,8 @@ public class View {
         imageView.setPreserveRatio(true);
         return imageView;
     }
+
+
 
 
 }

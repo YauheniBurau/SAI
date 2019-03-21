@@ -49,7 +49,7 @@ public class Matrix2dGraph {
 //        do {
 //            for (int j = 0; j < this.sizeY; j++) {
 //                for (int i = 0; i < this.sizeX; i++) {
-//                    isProcessed.setValue(i, j, false);
+//                    isProcessed.setBufferedImage(i, j, false);
 //                }
 //            }
 //            isChanged = false;
@@ -75,10 +75,10 @@ public class Matrix2dGraph {
 //                                c.getPoints().remove(a);
 //                                b.getPoints().add(c);
 //                                c.getPoints().add(b);
-//                                this.setValue(i, j, null);
+//                                this.setBufferedImage(i, j, null);
 //                            }
-//                            isProcessed.setValue(pb.x, pb.y, true);
-//                            isProcessed.setValue(pc.x, pc.y, true);
+//                            isProcessed.setBufferedImage(pb.x, pb.y, true);
+//                            isProcessed.setBufferedImage(pc.x, pc.y, true);
 //                        }
 //                    }
 //                }

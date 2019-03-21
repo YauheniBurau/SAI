@@ -12,6 +12,10 @@ import java.util.LinkedList;
  * Created by anonymous on 02.12.2018.
  */
 public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
+    @Override
+    public Boolean process() {
+        return null;
+    }
 //    protected Model model;
 //    private String inKey;
 //    private String outKey;
@@ -39,7 +43,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //        PointByteDecart2dInt p;
 //        LinkedList<PointByteDecart2dInt> points = new LinkedList<PointByteDecart2dInt>();
 //        points.add( new PointByteDecart2dInt( in.getValue(x, y), new Decart2dInt(x, y)) );
-//        isProcessed.setValue(x, y, true);
+//        isProcessed.setBufferedImage(x, y, true);
 //        while(points.size()>0){
 //            p = points.poll();
 //            s.add(p);
@@ -56,36 +60,36 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //            v9 = in.getValue(pi-1, pj-1);
 //            if( v2 != null && isProcessed.getValue(pi, pj-1) == false && v1 == v2 ) {
 //                points.add( new PointByteDecart2dInt(v2, new Decart2dInt(pi,pj-1)) );
-//                isProcessed.setValue(pi, pj-1, true);
+//                isProcessed.setBufferedImage(pi, pj-1, true);
 //            }
 //            if( v3 != null && isProcessed.getValue(pi+1, pj-1) == false && v1 == v3 ) {
 //                points.add( new PointByteDecart2dInt(v3, new Decart2dInt(pi+1,pj-1)) );
-//                isProcessed.setValue(pi+1, pj-1, true);
+//                isProcessed.setBufferedImage(pi+1, pj-1, true);
 //            }
 //            if( v4 != null && isProcessed.getValue(pi+1, pj) == false && v1 == v4 ) {
 //                points.add( new PointByteDecart2dInt(v4, new Decart2dInt(pi+1,pj)) );
-//                isProcessed.setValue(pi+1, pj, true);
+//                isProcessed.setBufferedImage(pi+1, pj, true);
 //            }
 //            if( v5 != null && isProcessed.getValue(pi+1, pj+1) == false && v1 == v5 ) {
 //                points.add( new PointByteDecart2dInt(v5, new Decart2dInt(pi+1,pj+1)) );
-//                isProcessed.setValue(pi+1, pj+1, true);
+//                isProcessed.setBufferedImage(pi+1, pj+1, true);
 //            }
 //            if( v6 != null && isProcessed.getValue(pi, pj+1) == false && v1 == v6 ) {
 //                points.add( new PointByteDecart2dInt(v6, new Decart2dInt(pi,pj+1)) );
-//                isProcessed.setValue(pi, pj+1, true);
+//                isProcessed.setBufferedImage(pi, pj+1, true);
 //            }
 //
 //            if( v7 != null && isProcessed.getValue(pi-1, pj+1) == false && v1 == v7 ) {
 //                points.add( new PointByteDecart2dInt(v7, new Decart2dInt(pi-1,pj+1)) );
-//                isProcessed.setValue(pi-1, pj+1, true);
+//                isProcessed.setBufferedImage(pi-1, pj+1, true);
 //            }
 //            if( v8 != null && isProcessed.getValue(pi-1, pj) == false && v1 == v8 ) {
 //                points.add( new PointByteDecart2dInt(v8, new Decart2dInt(pi-1,pj)) );
-//                isProcessed.setValue(pi-1, pj, true);
+//                isProcessed.setBufferedImage(pi-1, pj, true);
 //            }
 //            if( v9 != null && isProcessed.getValue(pi-1, pj-1) == false && v1 == v9) {
 //                points.add( new PointByteDecart2dInt(v9, new Decart2dInt(pi-1,pj-1)) );
-//                isProcessed.setValue(pi-1, pj-1, true);
+//                isProcessed.setBufferedImage(pi-1, pj-1, true);
 //            }
 //        }
 //        return s;
@@ -113,14 +117,14 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //                p20 = in.getValue(i-1, j+1);  if(p20 ==null) p20 = 0;
 //                p21 = in.getValue(i, j+1);  if(p21 ==null) p21 = 0;
 //                p22 = in.getValue(i+1, j+1);  if(p22 ==null) p22 = 0;
-//                if( p11>p00 ){ out.setValue( i-1, j-1, true); }
-//                if( p11>p01 ){ out.setValue( i, j-1, true); }
-//                if( p11>p02 ){ out.setValue( i+1, j-1, true); }
-//                if( p11>p10 ){ out.setValue( i-1, j, true); }
-//                if( p11>p12 ){ out.setValue( i+1, j, true); }
-//                if( p11>p20 ){ out.setValue( i-1, j+1, true); }
-//                if( p11>p21 ){ out.setValue( i, j+1, true);}
-//                if( p11>p22 ){ out.setValue( i+1, j+1,true);}
+//                if( p11>p00 ){ out.setBufferedImage( i-1, j-1, true); }
+//                if( p11>p01 ){ out.setBufferedImage( i, j-1, true); }
+//                if( p11>p02 ){ out.setBufferedImage( i+1, j-1, true); }
+//                if( p11>p10 ){ out.setBufferedImage( i-1, j, true); }
+//                if( p11>p12 ){ out.setBufferedImage( i+1, j, true); }
+//                if( p11>p20 ){ out.setBufferedImage( i-1, j+1, true); }
+//                if( p11>p21 ){ out.setBufferedImage( i, j+1, true);}
+//                if( p11>p22 ){ out.setBufferedImage( i+1, j+1,true);}
 //            }
 //        }
 //        return out;
@@ -141,7 +145,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //        for(j = 0; j<y; j++){
 //            for(i = 0; i<x; i++) {
 //                if(in.getValue(i,j)!=null ) {
-//                    m2dLinked.setValue(i, j, new LinkedDecart2dInt(new Decart2dInt(i,j)) );
+//                    m2dLinked.setBufferedImage(i, j, new LinkedDecart2dInt(new Decart2dInt(i,j)) );
 //                }
 //            }
 //        }
@@ -227,7 +231,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //        int high = d - u + 1;
 //        Matrix2d<Byte> m2dShifted = new Matrix2d<>(Byte.class, width, high, null);
 //        for(PointByteDecart2dInt p : in) {
-//            m2dShifted.setValue(p.elements.x-shiftX, p.elements.y - shiftY, p.value);
+//            m2dShifted.setBufferedImage(p.elements.x-shiftX, p.elements.y - shiftY, p.value);
 //        }
 //        // count matrix2d<Boolean> as Segment mask of points
 //        Matrix2d<Boolean> m2dSegmentContours = m2dByteToM2dBooleanContours(m2dShifted);
@@ -267,7 +271,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //                    segment.points = segmentPoints;
 //                    segment.countSegmentSize();
 //                    for (PointByteDecart2dInt p: segmentPoints) {
-//                        m2dSegments.setValue(p.elements.x, p.elements.y, segment);
+//                        m2dSegments.setBufferedImage(p.elements.x, p.elements.y, segment);
 //                    }
 //                }
 //            }
@@ -304,7 +308,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends BaseAlgorithm {
 //                    segment = new SegmentPointDecart2dInt(segmentValue, segmentPoints);
 //                    vertex = new VertexSegmentByteDecart2dInt(segment);
 //                    for (PointByteDecart2dInt p: segmentPoints) {
-//                        m2dVertexes.setValue(p.elements.x, p.elements.y, vertex);
+//                        m2dVertexes.setBufferedImage(p.elements.x, p.elements.y, vertex);
 //                    }
 //                    out.add(vertex);
 //                }

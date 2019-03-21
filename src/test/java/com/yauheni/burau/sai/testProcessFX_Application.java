@@ -1,12 +1,13 @@
 package com.yauheni.burau.sai;
 
-import core.application.algorithms.Algorithm;
+import core.application.algorithms.AlgoChain;
 import core.application.algorithms.IAlgorithm;
-import core.application.controller.AlgorithmController;
+import core.application.controller.AlgoHandler;
 import core.application.model.Model;
 import core.application.process.FileToMatrix.PngFileToM2dArgb;
 import core.application.view.View;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -24,9 +25,9 @@ public class testProcessFX_Application  extends Application {
         // test algorithm to show in generated JavaFX UI custom component
         IAlgorithm testAlgo = new PngFileToM2dArgb(model, "PngFile.in1","Matrix2dArgb.1");
 
-        Algorithm algorithm1 = new Algorithm();
+        AlgoChain algorithm1 = new AlgoChain();
         algorithm1.add(new AlgoGenerateProcessFXandAddToScene(model,"Pane.1", null, testAlgo) );
-        AlgorithmController algorithmController1 = new AlgorithmController(algorithm1);
+        AlgoHandler algorithmController1 = new AlgoHandler<ActionEvent>(algorithm1);
         Button btn = View.createButton("create ProcessFX", algorithmController1);
         Pane pane = new Pane();
         model.paneList.put("Pane.1", pane);

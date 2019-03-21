@@ -62,4 +62,8 @@ public class CloudOfDecart2dIntToGraph extends BaseAlgorithm {
         return childsV;
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
 }

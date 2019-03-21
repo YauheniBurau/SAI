@@ -4,9 +4,10 @@ import core.application.algorithms.BaseAlgorithm;
 import core.application.algorithms.IAlgorithm;
 import core.application.exceptions.InputParamException;
 import core.application.model.Model;
-import core.application.view.components.ProcessFX;
+import core.old.ProcessFX;
 import javafx.scene.layout.Pane;
 
+// TODO: remove Later
 /**
  * Created by anonymous on 10.11.2018.
  */
@@ -43,6 +44,7 @@ public class AlgoGenerateProcessFXandAddToScene  extends BaseAlgorithm {
     /**
      * add to group -> processFX(IAlgorithm)
      * @param in
+     * @param inAlgo
      * @return
      */
     public static IAlgorithm transform(Pane in, IAlgorithm inAlgo) {

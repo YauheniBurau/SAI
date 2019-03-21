@@ -52,7 +52,7 @@ public class Transformer {
 //                    y = g.getPoint().y;
 //                    do{
 //                        c.points.addLast(new Point(x, y) );
-//                        isProcessed.setValue(x, y, true);
+//                        isProcessed.setBufferedImage(x, y, true);
 //                        links = g.getPoints();
 //                        g = null;
 //                        for (Graph link: links) {
@@ -71,7 +71,7 @@ public class Transformer {
 //                    y = g.getPoint().y;
 //                    do{
 //                        c.points.addFirst(new Point(x, y) );
-//                        isProcessed.setValue(x, y,true);
+//                        isProcessed.setBufferedImage(x, y,true);
 //                        links = g.getPoints();
 //                        g = null;
 //                        for (Graph link: links) {
@@ -192,7 +192,7 @@ public class Transformer {
 //                    fill = !fill;
 //                }
 //                if(currValue == false && fill == true){
-//                    m2d.setValue(i, j, fill);
+//                    m2d.setBufferedImage(i, j, fill);
 //                }
 //                prevValue = currValue;
 //            }
@@ -245,32 +245,6 @@ public class Transformer {
 //        }
 //        n = in1.points.size();
 //        return sum/n;
-//    }
-
-//    /**
-//     * Compare two Matrix2dBoolean -> and return ComparisonResult
-//     * @param in1
-//     * @param in2
-//     * @return
-//     */
-//    public static void transform(Matrix2dBoolean in1, Matrix2dBoolean in2){
-//        double nNotEqual = 0.0, nEqual = 0.0, nMax = in1.sizeX * in1.sizeY;
-//        boolean v1, v2;
-//        for (int j = 0; j < in1.sizeY; j++) {
-//            for (int i = 0; i < in1.sizeX; i++) {
-//                v1 = in1.getValue(i, j);
-//                v2 = in2.getValue(i, j);
-//                if(v1 == true && v2 == true) {
-//                    nEqual += 1;
-//                }
-//                if(v1!=v2){
-//                        nNotEqual+=1;
-//                }
-//            }
-//        }
-//        //ComparisonResult cr = new ComparisonResult();
-//        //cr.form = nEqual/(nEqual + nNotEqual);
-//        //return null;
 //    }
 
 

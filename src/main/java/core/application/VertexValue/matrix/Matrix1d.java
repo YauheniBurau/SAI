@@ -48,7 +48,7 @@ public class Matrix1d <T> implements IMatrix {
     }
 
     /**
-     * setValue into Matrix1d
+     * setBufferedImage into Matrix1d
      * @param index
      * @param value
      */

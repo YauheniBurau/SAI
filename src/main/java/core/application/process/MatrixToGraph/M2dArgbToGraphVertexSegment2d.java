@@ -35,4 +35,8 @@ public class M2dArgbToGraphVertexSegment2d extends BaseAlgorithm {
     }
 
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
 }

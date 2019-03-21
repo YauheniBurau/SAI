@@ -37,4 +37,8 @@ public class CloudOfDecart2dToM2dByte extends BaseAlgorithm {
         return m2d;
     }
 
+    @Override
+    public Boolean process() {
+        return null;
+    }
 }
