@@ -1,4 +1,4 @@
-package core.application.model.data;
+package core.old;
 
 /**
  * Created by anonymous on 16.03.2019.

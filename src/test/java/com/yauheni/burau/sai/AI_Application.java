@@ -7,14 +7,13 @@ package com.yauheni.burau.sai;
 import core.application.VertexValue.file.PngFile;
 import core.application.algorithms.AlgoLoadPngFile;
 import core.application.model.Model;
-import core.application.view.components.BufferedImageFX;
-import core.application.view.components.AIStageMenuBarFX;
+import core.application.view.components.*;
 
-import core.application.view.components.FileLoadFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -83,9 +82,14 @@ public class AI_Application extends Application {
         algoLoadFile.process();
         BufferedImageFX testPane2 = new BufferedImageFX( algoLoadFile.getImage() );
 
-        FlowPane centerPane = new FlowPane();
-        centerPane.getChildren().addAll(testPane1, testPane2);
+        // ============= NODES_FX ==================
+        NodeTestFX nodeTestFX_1 = new NodeTestFX();
+        NodeTestFX nodeTestFX_2 = new NodeTestFX();
+        NodeFileFX nodeFileFX_1 = new NodeFileFX();
+        Pane centerPane = new Pane();
+        centerPane.getChildren().addAll( nodeTestFX_1, nodeTestFX_2, nodeFileFX_1 );
         root.setCenter(centerPane);
+        // ============= NODES_FX ==================
 
         stage.setTitle("AI");
         stage.setScene(scene);

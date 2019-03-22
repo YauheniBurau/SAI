@@ -1,6 +1,6 @@
 package core.application.algorithms;
 
-import core.application.view.components.DataNodeFX;
+import core.application.view.components.NodeDataDefaultFX;
 import core.application.view.components.DataFX;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -11,9 +11,9 @@ import javafx.stage.Stage;
  * Created by anonymous on 20.03.2019.
  */
 public class AlgoOpenDataNodeEditWindow extends BaseAlgorithm {
-    private DataNodeFX dataNodeFX = null;
+    private NodeDataDefaultFX dataNodeFX = null;
 
-    public AlgoOpenDataNodeEditWindow(DataNodeFX dataNodeFX) {
+    public AlgoOpenDataNodeEditWindow(NodeDataDefaultFX dataNodeFX) {
         this.dataNodeFX = dataNodeFX;
     }
 

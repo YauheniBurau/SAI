@@ -1,6 +1,6 @@
 package core.application.view.components;
 
-import core.application.model.data.Data;
+import core.old.DataDefault;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
@@ -11,10 +11,10 @@ import java.util.HashMap;
  * Created by anonymous on 20.03.2019.
  */
 public class DataFX extends Pane {
-    private Data value = null;
+    private DataDefault value = null;
     private ScatterChart<Number, Number> chart = null;
 
-    public DataFX(Data value) {
+    public DataFX(DataDefault value) {
         // 1. init
         this.value = value;
         int columns = this.value.getColumns();

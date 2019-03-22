@@ -1,81 +1,36 @@
 package core.application.model.data;
 
-import java.util.HashMap;
-
 /**
- * Data object for storing normalized data information to byte size cluster
- * Created by anonymous on 16.03.2019.
+ * Base cluster of model data that is used for exchange between components of MODEL and GUI
+ * Created by anonymous on 22.03.2019.
  */
-public class Data {
-    private String name = "empty";
-    private DataStructureEnum structureType = DataStructureEnum.DEFAULT;
-    private DataTypeEnum dataType = DataTypeEnum.DEFAULT;
-    private int rows = 0;
-    private int columns = 0;
-    private int rowsMax = 0;
-    private int columnsMax = 0;
-    private byte[][] data = null;
-    private HashMap<Integer, String> rowNames = null;
+public class Data<T> implements IData<T> {
+    private String typeName = "undef";
+    private T data = null;
 
-    /**
-     * constructor
-     * @param structureType
-     * @param dataType
-     * @param columnsMax
-     */
-    public Data(DataStructureEnum structureType, DataTypeEnum dataType, int columnsMax, String name) {
-        this.structureType = structureType;
-        this.dataType = dataType;
-        if(columnsMax<=0){ this.columnsMax = 1;}
-        else{this.columnsMax = columnsMax;}
-        this.rowsMax = dataType.value();
-        this.rows = dataType.value();
-        this.data = new byte[this.rowsMax][this.columnsMax];
-        this.name = name;
-        this.rowNames = dataType.rowNames();
+    public Data(String typeName, T data) {
+        this.typeName = typeName;
+        this.data = data;
     }
 
-    /**
-     * add new row values
-     * @param values
-     * @return
-     */
-    public boolean add(byte... values){
-        boolean result = true;
-        byte[] vals = values.clone();
-        if(this.columns == this.columnsMax){
-            // TODO: create new data array with increased size of columnsMax and copy old data to new data array
-        }
-        if(vals.length!=this.rowsMax){ result = false;}
-        else{
-            int i = 0;
-            for (byte v :values) {
-                this.data[i][this.columns] = v;
-                i+=1;
-            }
-            this.columns+=1;
-        }
-        return result;
+    @Override
+    public String getType() {
+        return this.typeName;
     }
 
-    public int getColumns() {
-        return columns;
+    @Override
+    public void setType(String typeName) {
+        this.typeName = typeName;
     }
 
-    public int getRows() {
-        return rows;
+    @Override
+    public T getData() {
+        return this.data;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public DataTypeEnum getDataType() {
-        return dataType;
-    }
-
-    public byte getData(int row, int column) {
-        return this.data[row][column];
+    @Override
+    public void setData(T data) {
+        this.data = data;
     }
 
 }
