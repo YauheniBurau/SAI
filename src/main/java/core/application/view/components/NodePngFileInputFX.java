@@ -14,7 +14,7 @@ public class NodePngFileInputFX extends NodeFX {
 
     public NodePngFileInputFX(String pngFilePath) {
         this.pngFilePath = pngFilePath;
-        this.nameLabel.setText(this.data.getName());
+        this.title.setText(this.data.getName());
 //        this.editBtn.setOnAction(new AlgorithmController(new AlgoOpenDataNodeEditWindow(this)));
     }
 

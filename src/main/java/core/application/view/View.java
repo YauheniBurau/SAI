@@ -1,5 +1,7 @@
 package core.application.view;
 
+import core.application.algorithms.IAlgorithm;
+import core.application.controller.AlgoHandler;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -60,6 +62,19 @@ public class View {
         btn.setOnAction(controller);
         return btn;
     }
+
+    /**
+     * create button with setted up eventHandler onClick event
+     * @param title
+     * @param algo
+     * @return
+     */
+    public static Button createButton(String title, IAlgorithm algo) {
+        Button btn = new Button(title);
+        btn.setOnAction(new AlgoHandler<>(algo));
+        return btn;
+    }
+
 
     /**
      * create JavaFX ImageView

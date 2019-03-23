@@ -1,5 +1,6 @@
 package core.application.view.components;
 
+import core.application.algorithms.AlgoFile;
 import core.application.algorithms.IAlgorithm;
 import core.application.model.data.DataFile;
 
@@ -18,7 +19,7 @@ public class NodeFileFX extends NodeFX {
         String absoluteFilePath;
         absoluteFilePath = workingDirectory;
         outputs.put(0, new OutputFX<>(new DataFile(new File(absoluteFilePath)), null));
-        IAlgorithm algo = null;
+        IAlgorithm algo = new AlgoFile();
 
         this.init(inputs, outputs, algo);
     }

@@ -10,10 +10,10 @@ import javafx.stage.Stage;
 /**
  * Created by anonymous on 20.03.2019.
  */
-public class AlgoOpenDataNodeEditWindow extends BaseAlgorithm {
+public class AlgoOpenDataNodeEditStage extends BaseAlgorithm {
     private NodeDataDefaultFX dataNodeFX = null;
 
-    public AlgoOpenDataNodeEditWindow(NodeDataDefaultFX dataNodeFX) {
+    public AlgoOpenDataNodeEditStage(NodeDataDefaultFX dataNodeFX) {
         this.dataNodeFX = dataNodeFX;
     }
 

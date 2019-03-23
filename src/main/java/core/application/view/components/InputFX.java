@@ -1,7 +1,10 @@
 package core.application.view.components;
 
 import core.application.model.data.IData;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Border;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Created by anonymous on 22.03.2019.
@@ -19,7 +22,8 @@ public class InputFX<T extends IData> extends Button {
         super(value.getType());
         this.value = value;
         this.link = link;
-        this.setWidth(50);
+        this.setMinWidth(80);
+        this.setMaxWidth(80);
     }
 
     public void setLink(OutputFX e){

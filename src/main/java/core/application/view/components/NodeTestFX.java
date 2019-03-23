@@ -1,5 +1,6 @@
 package core.application.view.components;
 
+import core.application.algorithms.AlgoTest;
 import core.application.algorithms.IAlgorithm;
 import core.application.model.data.DataBufferedImage;
 import core.application.model.data.DataFile;
@@ -22,7 +23,7 @@ public class NodeTestFX extends NodeFX {
         outputs.put(2, new OutputFX<>(new DataBufferedImage(),null) );
         outputs.put(3, new OutputFX<>(new DataBufferedImage(),null) );
         outputs.put(4, new OutputFX<>(new DataBufferedImage(),null) );
-        IAlgorithm algo = null;
+        IAlgorithm algo = new AlgoTest();
 
         this.init(inputs, outputs, algo);
     }

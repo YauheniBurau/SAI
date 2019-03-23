@@ -5,18 +5,19 @@ package com.yauheni.burau.sai;
  */
 
 import core.application.VertexValue.file.PngFile;
-import core.application.algorithms.AlgoLoadPngFile;
+import core.application.algorithms.AlgoNewAlgorithmStage;
+import core.application.algorithms.AlgoOpenEditCanvasSizeStage;
+import core.application.algorithms.AlgoShowUtilityStage;
 import core.application.model.Model;
 import core.application.view.components.*;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class AI_Application extends Application {
     Model model = new Model();
@@ -69,26 +70,52 @@ public class AI_Application extends Application {
         String imageFile = "star3.png";
         PngFile pngFileIn = new PngFile(dirIn + imageFile);
 
-        AIStageMenuBarFX menuBar = new AIStageMenuBarFX();
+        // create main scene
         BorderPane root = new BorderPane();
-        root.setTop(menuBar);
         Scene scene = new Scene(root, 1366, 768);
 
-        // that string creates fileChooser component
-        FileLoadFX testPane1 = new FileLoadFX(null, "open Png file", new File(System.getProperty("user.home")), "png files (*.png)", "*.png");
+        // CENTER
+        Pane centerPane = new Pane();
+        centerPane.setMinSize(1024, 1024);
+        centerPane.setMaxSize(1024, 1024);
+        ScrollPane scrollCenterPane = new ScrollPane();
+        scrollCenterPane.setContent(centerPane);
+        scrollCenterPane.setPannable(true);
+        scrollCenterPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollCenterPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        root.setCenter(scrollCenterPane);
 
-        // that strings create bufferedImage viewer component
-        AlgoLoadPngFile algoLoadFile = new AlgoLoadPngFile(dirIn + imageFile);
-        algoLoadFile.process();
-        BufferedImageFX testPane2 = new BufferedImageFX( algoLoadFile.getImage() );
+        // TOP
+        MenuBarFX menuBar = new MenuBarFX();
+        // Create menus
+        Menu fileMenu = menuBar.createMenu("File", null);
+        Menu editMenu = menuBar.createMenu("Edit", null);
+        Menu toolsMenu = menuBar.createMenu("Tools", null);
+        Menu canvasMenu = menuBar.createMenu("Canvas", null);
+        Menu helpMenu = menuBar.createMenu("Help", null);
+        // Create MenuItems
+        menuBar.createMenuItem("New", fileMenu, new AlgoNewAlgorithmStage());
+        menuBar.createMenuItem("Open", fileMenu, null);
+        menuBar.createMenuItem("Exit", fileMenu, null);
+
+        menuBar.createMenuItem("Copy", editMenu, null);
+        menuBar.createMenuItem("Paste", editMenu, null);
+
+        menuBar.createMenuItem("Utility1", toolsMenu, new AlgoShowUtilityStage(new UtilityStage1FX()));
+        menuBar.createMenuItem("Utility2", toolsMenu, new AlgoShowUtilityStage(new UtilityStage2FX()));
+        menuBar.createMenuItem("Utility3", toolsMenu, new AlgoShowUtilityStage(new UtilityStage3FX()));
+
+        menuBar.createMenuItem("Resize canvas", canvasMenu, new AlgoOpenEditCanvasSizeStage(centerPane) );
+
+        menuBar.createMenuItem("Help", helpMenu, null);
+
+        root.setTop(menuBar);
 
         // ============= NODES_FX ==================
         NodeTestFX nodeTestFX_1 = new NodeTestFX();
         NodeTestFX nodeTestFX_2 = new NodeTestFX();
         NodeFileFX nodeFileFX_1 = new NodeFileFX();
-        Pane centerPane = new Pane();
         centerPane.getChildren().addAll( nodeTestFX_1, nodeTestFX_2, nodeFileFX_1 );
-        root.setCenter(centerPane);
         // ============= NODES_FX ==================
 
         stage.setTitle("AI");
@@ -101,9 +128,17 @@ public class AI_Application extends Application {
     }
 }
 
+
 //        Data data1 = new Data(DataStructureEnum.SET, DataTypeEnum.COORDS_DECART2D, 100, "RANDOM Points");
 //        for(int i =0; i<100; i++) {
 //        data1.add((byte)-24, (byte)48);
 //        }
 //        DataNodeFX dataNodeFX = new DataNodeFX(data1);
 //    AlgoNodeFX nodeFx1 = new AlgoNodeFX();
+
+//    // that string creates fileChooser component
+//    FileLoadFX testPane1 = new FileLoadFX(null, "open Png file", new File(System.getProperty("user.home")), "png files (*.png)", "*.png");
+//    // that strings create bufferedImage viewer component
+//    AlgoLoadPngFile algoLoadFile = new AlgoLoadPngFile(dirIn + imageFile);
+//    algoLoadFile.process();
+//    BufferedImageFX testPane2 = new BufferedImageFX( algoLoadFile.getImage() );

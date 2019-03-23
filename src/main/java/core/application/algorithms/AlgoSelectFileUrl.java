@@ -1,12 +1,6 @@
 package core.application.algorithms;
 
-import core.application.VertexValue.file.PngFile;
-import core.application.exceptions.InputParamException;
-import core.application.view.View;
 import core.application.view.components.FileLoadFX;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.File;
 

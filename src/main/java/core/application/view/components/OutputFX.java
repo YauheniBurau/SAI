@@ -1,6 +1,7 @@
 package core.application.view.components;
 
 import core.application.model.data.IData;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 
@@ -20,7 +21,8 @@ public class OutputFX<T extends IData> extends Button{
         super(value.getType());
         this.value = value;
         this.links = links;
-        this.setWidth(50);
+        this.setMinWidth(80);
+        this.setMaxWidth(80);
     }
 
     public void setLinks(ArrayList<InputFX> inputsFX){
