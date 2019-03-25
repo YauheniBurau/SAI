@@ -31,7 +31,7 @@ public class FileLoadFX extends Pane {
         this.field.editableProperty().set(false);
         this.fileChooser = View.createFileChooser(title, initialDirectory, comment, extensions);
 
-        this.btn = View.createButton("...", new AlgoHandler<ActionEvent>(new AlgoSelectFileUrl(this)) );
+        this.btn = View.createButton("...", new AlgoSelectFileUrl(this) );
         this.hBox.getChildren().addAll(this.label, this.field, this.btn);
         this.getChildren().add(this.hBox);
 

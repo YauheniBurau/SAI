@@ -27,4 +27,6 @@ public class NodeTestFX extends NodeFX {
 
         this.init(inputs, outputs, algo);
     }
+
+
 }

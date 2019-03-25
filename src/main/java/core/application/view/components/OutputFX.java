@@ -2,15 +2,21 @@ package core.application.view.components;
 
 import core.application.model.data.IData;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+
 import java.util.ArrayList;
 
 /**
  * Created by anonymous on 22.03.2019.
  */
-public class OutputFX<T extends IData> extends Button{
+public class OutputFX<T extends IData> extends HBox {
+    public static final double circleRadius = 5;
     private T value = null;
     private ArrayList<InputFX> links;
+    private Circle circle;
+    private Label label;
 
     /**
      * value must be not null value - at list empty Object
@@ -18,11 +24,13 @@ public class OutputFX<T extends IData> extends Button{
      * @param links
      */
     public OutputFX(T value, ArrayList<InputFX> links) {
-        super(value.getType());
         this.value = value;
         this.links = links;
-        this.setMinWidth(80);
         this.setMaxWidth(80);
+        this.circle = new Circle(circleRadius);
+        this.label = new Label(value.getType());
+        this.setAlignment(Pos.CENTER_RIGHT);
+        this.getChildren().addAll(this.label, this.circle);
     }
 
     public void setLinks(ArrayList<InputFX> inputsFX){
@@ -36,6 +44,10 @@ public class OutputFX<T extends IData> extends Button{
         if(e!=null){
             this.links.add(e);
         }
+    }
+
+    public Circle getCircle() {
+        return circle;
     }
 
 }

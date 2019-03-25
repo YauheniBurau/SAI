@@ -9,15 +9,21 @@ import core.application.algorithms.AlgoNewAlgorithmStage;
 import core.application.algorithms.AlgoOpenEditCanvasSizeStage;
 import core.application.algorithms.AlgoShowUtilityStage;
 import core.application.model.Model;
+import core.application.view.View;
 import core.application.view.components.*;
 
 import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+
+import java.util.function.Predicate;
 
 public class AI_Application extends Application {
     Model model = new Model();
@@ -78,8 +84,7 @@ public class AI_Application extends Application {
         Pane centerPane = new Pane();
         centerPane.setMinSize(1024, 1024);
         centerPane.setMaxSize(1024, 1024);
-        ScrollPane scrollCenterPane = new ScrollPane();
-        scrollCenterPane.setContent(centerPane);
+        ZoomableScrollPaneFX scrollCenterPane = new ZoomableScrollPaneFX(centerPane);
         scrollCenterPane.setPannable(true);
         scrollCenterPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollCenterPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -112,13 +117,23 @@ public class AI_Application extends Application {
         root.setTop(menuBar);
 
         // ============= NODES_FX ==================
+        NodeFileFX nodeFileFX_1 = new NodeFileFX();
         NodeTestFX nodeTestFX_1 = new NodeTestFX();
         NodeTestFX nodeTestFX_2 = new NodeTestFX();
-        NodeFileFX nodeFileFX_1 = new NodeFileFX();
+        nodeFileFX_1.setLayoutX(50);
+        nodeFileFX_1.setLayoutY(400);
+        nodeTestFX_1.setLayoutX(300);
+        nodeTestFX_1.setLayoutY(200);
+        nodeTestFX_2.setLayoutX(600);
+        nodeTestFX_2.setLayoutY(150);
         centerPane.getChildren().addAll( nodeTestFX_1, nodeTestFX_2, nodeFileFX_1 );
+
+        ConnectionFX conn1 = new ConnectionFX(nodeFileFX_1.getOutput(0), nodeTestFX_1.getInput(1));
+        ConnectionFX conn2 = new ConnectionFX(nodeTestFX_1.getOutput(0), nodeTestFX_2.getInput(0));
+        centerPane.getChildren().addAll( conn1, conn2);
         // ============= NODES_FX ==================
 
-        stage.setTitle("AI");
+        stage.setTitle("As Kon - AI");
         stage.setScene(scene);
         stage.show();
     }
@@ -127,6 +142,12 @@ public class AI_Application extends Application {
         launch(args);
     }
 }
+
+
+
+
+
+
 
 
 //        Data data1 = new Data(DataStructureEnum.SET, DataTypeEnum.COORDS_DECART2D, 100, "RANDOM Points");

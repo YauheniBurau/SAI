@@ -17,6 +17,8 @@ import javafx.stage.StageStyle;
  */
 public class EditCanvasSizeStageFX extends Stage {
     private Pane pane = null;
+    private TextField fieldSizeX;
+    private TextField fieldSizeY;
 
     public EditCanvasSizeStageFX(Pane pane) {
         this.pane = pane;
@@ -29,10 +31,9 @@ public class EditCanvasSizeStageFX extends Stage {
 
         Label labelSizeX = new Label("SizeX:");
         Label labelSizeY = new Label("SizeY:");
-        TextField fieldSizeX = new TextField( Double.toString(pane.getMinWidth()) );
-        TextField fieldSizeY = new TextField( Double.toString(pane.getMinHeight()) );
-        Button btnOk = View.createButton("Ok", new AlgoResizeCanvasBtnOk(
-                fieldSizeX.textProperty(), fieldSizeY.textProperty(), this.pane, this));
+        this.fieldSizeX = new TextField( Double.toString(pane.getMinWidth()) );
+        this.fieldSizeY = new TextField( Double.toString(pane.getMinHeight()) );
+        Button btnOk = View.createButton("Ok", new AlgoResizeCanvasBtnOk(this));
         Button btnCancel = View.createButton("Cancel", new AlgoResizeCanvasBtnCancel(this));
 
         root.add(labelSizeX, 0, 0,1, 1);
@@ -43,4 +44,17 @@ public class EditCanvasSizeStageFX extends Stage {
         root.add(btnOk, 1, 2,1, 1);
         root.add(btnCancel, 0, 2,1, 1);
     }
+
+    public Pane getPane() {
+        return pane;
+    }
+
+    public TextField getFieldSizeX() {
+        return fieldSizeX;
+    }
+
+    public TextField getFieldSizeY() {
+        return fieldSizeY;
+    }
+
 }

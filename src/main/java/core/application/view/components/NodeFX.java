@@ -56,13 +56,17 @@ public class NodeFX extends BorderPane {
                 BorderStrokeStyle.SOLID, new CornerRadii(1), BorderWidths.DEFAULT)) );
         // add inputsFX and outputsFX
         VBox boxInputs = new VBox();
+        boxInputs.setFillWidth(true);
+
         VBox boxOutputs = new VBox();
+        boxOutputs.setMaxWidth(100);
+
         boxInputs.setSpacing(3);
-        boxInputs.setPadding(new Insets(5, 0, 5, 0));
+        boxInputs.setPadding(new Insets(5, 0, 5, -InputFX.circleRadius));
         boxInputs.setAlignment(Pos.CENTER_LEFT);
         boxInputs.getChildren().addAll(inputs.values());
         boxOutputs.setSpacing(3);
-        boxOutputs.setPadding(new Insets(5, 0, 5, 0));
+        boxOutputs.setPadding(new Insets(5, -OutputFX.circleRadius, 5, 0));
         boxOutputs.setAlignment(Pos.CENTER_RIGHT);
         boxOutputs.getChildren().addAll(outputs.values());
         this.setLeft(boxInputs);
@@ -90,6 +94,14 @@ public class NodeFX extends BorderPane {
         if(index!=null && e!=null){
             this.outputs.put(index, e);
         }
+    }
+
+    public InputFX getInput(Integer id) {
+        return this.inputs.get(id);
+    }
+
+    public OutputFX getOutput(Integer id) {
+        return this.outputs.get(id);
     }
 
     private void makeDraggable1(Node node) {
