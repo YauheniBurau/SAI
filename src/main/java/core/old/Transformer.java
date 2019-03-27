@@ -1,8 +1,6 @@
 package core.old;
 
-import core.application.VertexValue.color.ARGB;
-import core.application.VertexValue.matrix.Matrix2d;
-import javafx.scene.chart.XYChart;
+import core.old.VertexValue.color.ARGB;
 
 // TODO: remove later
 /**

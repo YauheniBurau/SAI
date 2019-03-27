@@ -2,8 +2,6 @@ package core.old;
 
 // TODO: remove later
 
-import core.application.VertexValue.coords.Decart2d;
-
 /**
  * Created by anonymous on 22.10.2017.
  */

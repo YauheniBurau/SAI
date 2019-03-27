@@ -1,15 +1,13 @@
 package com.yauheni.burau.sai;
 
-import core.application.VertexValue.color.ARGB;
-import core.application.VertexValue.file.PngFile;
-import core.application.VertexValue.input.InputDataSensor;
-import core.application.VertexValue.matrix.Matrix2d;
-import core.application.VertexValue.matrix.Matrix2dByte;
-import core.application.graph.Graph;
-import core.application.process.FileToMatrix.PngFileToM2dArgb;
-import core.application.process.MatrixToFile.M2dDecart2dIntLinksToPngFile;
-import core.application.process.MatrixToGraph.M2dArgbToGraphVertexSegment2d;
-import core.application.process.MatrixToMatrix.M2dArgbToM2dByte256Colors;
+import core.old.VertexValue.color.ARGB;
+import core.old.VertexValue.file.PngFile;
+import core.old.VertexValue.input.InputDataSensor;
+import core.old.VertexValue.matrix.Matrix2d;
+import core.old.VertexValue.matrix.Matrix2dByte;
+import core.old.process.FileToMatrix.PngFileToM2dArgb;
+import core.old.process.MatrixToFile.M2dDecart2dIntLinksToPngFile;
+import core.old.process.MatrixToMatrix.M2dArgbToM2dByte256Colors;
 import org.junit.Test;
 
 /**
@@ -19,34 +17,7 @@ public class AI_Test {
 
     String dirIn = "E:\\temp\\in\\";
     String dirOut = "E:\\temp\\out\\";
-//    String imageFile = "game.png";
-//    String imageFile = "lcd.png";
-//    String imageFile = "table.png";
-//    String imageFile = "table.JPG";
-//    String imageFile = "nature1.jpeg";
-//    String imageFile = "stown.png";
-//    String imageFile = "alphabet2c.png";
-//    String imageFile = "nature.png";
-//    String imageFile = "anime.png";
-//    String imageFile = "alphabet_number.png";
-//    String imageFile = "alphabet_colors.png";
-//    String imageFile = "desktop.png";
-//    String imageFile = "text.png";
-//    String imageFile = "Y.dat";
-//    String imageFile = "T.png";
-//    String imageFile = "square.png";
-//    String imageFile = "square1.png";
-//    String imageFile = "star3.png";
-//    String imageFile = "screen.png";
-//    String imageFile = "cute_girl_satisfied.png";
-//    String imageFile = "cute_girl_smile.png";
-//    String imageFile = "BlondeAngel.png";
-//    String imageFile = "star.png";
     String imageFile = "star3.png";
-//    String imageFile = "circle.png";
-//    String imageFile = "screenElements.png";
-//    String imageFile = "256Colors.png";
-
 
     @Test
     public void Png_Contour() {

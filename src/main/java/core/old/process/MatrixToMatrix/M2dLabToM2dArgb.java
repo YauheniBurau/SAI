@@ -1,0 +1,66 @@
+package core.old.process.MatrixToMatrix;
+
+import core.application.controller.AbstractAlgorithmFX;
+import core.old.process.ColorToColor.LabToArgb;
+import core.old.Model;
+import core.old.VertexValue.color.ARGB;
+import core.old.VertexValue.color.Lab;
+import core.old.VertexValue.matrix.Matrix2d;
+import core.application.exceptions.InputParamException;
+
+/**
+ * Created by anonymous on 30.10.2018.
+ */
+public class M2dLabToM2dArgb extends AbstractAlgorithmFX {
+    private Model model;
+    private String inKey;
+    private String outKey;
+    public double[] whitePoint; // From Lab class constants
+
+    public M2dLabToM2dArgb(Model model, String inKey, String outKey) {
+        this.model = model;
+        this.inKey = inKey;
+        this.outKey = outKey;
+        this.whitePoint = Lab.whitePoint;
+    }
+
+    /**
+     * Matrix2d<Argb> -> Matrix2d<Lab>
+     * @return
+     */
+    @Override
+    public Boolean process() {
+        Matrix2d<Lab> in = this.model.matrix2dLabList.get(this.inKey);
+        Matrix2d<ARGB> out;
+        if(in!=null) {
+            out = this.transform(in, this.whitePoint);
+            this.model.matrix2dArgbList.put(this.outKey, out);
+        }else{
+            throw new InputParamException("Wrong in and out params. At least one of them is null");
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     * transformPoints Matrix2d<Lab> to matrix2d<ARGB>
+     * @param in
+     * @param whitePoint from Lab class
+     * @return
+     */
+    public static Matrix2d<ARGB> transform(Matrix2d<Lab> in, double[] whitePoint) {
+        int x, y;
+        y = in.sizeY;
+        x = in.sizeX;
+        ARGB value;
+        Matrix2d<ARGB> out = new Matrix2d<ARGB>(ARGB.class, x, y, null);
+        out.setSizeXY(x, y);
+        for(int j = 0; j<y; j++){
+            for(int i = 0; i<x; i++){
+                value = LabToArgb.transform( in.getValue(i, j), whitePoint );
+                out.setValue(i, j, value);
+            }
+        }
+        return out;
+    }
+
+}
