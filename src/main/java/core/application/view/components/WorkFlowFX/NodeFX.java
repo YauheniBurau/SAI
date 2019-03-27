@@ -1,5 +1,7 @@
 package core.application.view.components.WorkFlowFX;
 
+import core.application.controller.AlgoShowNodeEditViewStageFX;
+import core.application.view.HelperFX;
 import core.application.workflow.data.IData;
 import core.application.workflow.node.Node;
 import javafx.geometry.Insets;
@@ -46,7 +48,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.topButtons = new HBox();
         this.closeBtn = new Button("X");
         this.toogleBtn = new Button("_");
-        this.editBtn = new Button("E");
+        this.editBtn = HelperFX.createButton("E", new AlgoShowNodeEditViewStageFX(this));
         this.processBtn = new Button("P");
         this.minBtn = new Button("-");
         this.maxBtn = new Button("+");
@@ -173,7 +175,11 @@ public class NodeFX extends BorderPane implements INodeFX{
         public double y;
     }
 
-// TODO: remove make draggable that way
+    public Node getNode() {
+        return node;
+    }
+
+    // TODO: remove make draggable that way
 //    private void makeDraggable2(Node node) {
 //
 //        node.setOnDragDetected(new EventHandler<MouseEvent>() {

@@ -19,7 +19,7 @@ public class AlgoSelectFileUrlFX extends AbstractAlgorithmFX {
     @Override
     public Boolean process() {
         File file = this.paramFileFX.getFileChooser().showOpenDialog(null);
-        if(file!=null) this.paramFileFX.getParamFile().setValue(file);
+        if(file!=null) this.paramFileFX.getParam().setValue(file);
         return Boolean.TRUE;
     }
 

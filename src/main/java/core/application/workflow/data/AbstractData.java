@@ -7,6 +7,11 @@ public class AbstractData <T> implements IData<T> {
     private String name;
     private T value;
 
+    public AbstractData(String name, T value) {
+        this.name = name;
+        this.value = value;
+    }
+
     @Override
     public void setName(String value) {
         this.name = value;

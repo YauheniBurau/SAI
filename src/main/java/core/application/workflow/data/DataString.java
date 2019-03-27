@@ -6,8 +6,7 @@ package core.application.workflow.data;
 public class DataString extends AbstractData<String> {
 
     public DataString(String name, String value) {
-        this.setName(name);
-        this.setValue(value);
+        super(name, value);
     }
 
 }

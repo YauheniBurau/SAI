@@ -8,8 +8,6 @@ import java.io.File;
 public class DataFile extends AbstractData<File>{
 
     public DataFile(String name, File value) {
-        this.setName(name);
-        this.setValue(value);
+        super(name, value);
     }
-
 }

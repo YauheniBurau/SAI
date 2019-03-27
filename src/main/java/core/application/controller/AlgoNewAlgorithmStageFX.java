@@ -1,6 +1,6 @@
 package core.application.controller;
 
-import core.application.view.components.app.AlgorithmStageFX;
+import core.application.view.components.app.WorkflowEditViewStageFX;
 import javafx.stage.Stage;
 
 /**
@@ -15,7 +15,7 @@ public class AlgoNewAlgorithmStageFX extends AbstractAlgorithmFX {
     @Override
     public Boolean process() {
         Boolean result = true;
-        Stage stage = new AlgorithmStageFX(null);
+        Stage stage = new WorkflowEditViewStageFX(null);
         stage.setAlwaysOnTop(true);
         stage.show();
         return result;

@@ -9,13 +9,13 @@ import java.io.File;
 /**
  * Created by anonymous on 21.03.2019.
  */
-public class AlgorithmStageFX extends Stage{
+public class WorkflowEditViewStageFX extends Stage{
     private File file;
 
-    public AlgorithmStageFX(File file) {
+    public WorkflowEditViewStageFX(File file) {
         // 1. file
         if(file==null){
-            String filename = "newFile.aai";
+            String filename = "newFile.wai";
             String workingDirectory = System.getProperty("user.dir");
             String absoluteFilePath;
             absoluteFilePath = workingDirectory + File.separator + filename;

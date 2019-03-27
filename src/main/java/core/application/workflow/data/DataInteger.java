@@ -6,8 +6,7 @@ package core.application.workflow.data;
 public class DataInteger extends AbstractData<Integer> {
 
     public DataInteger(String name, Integer value) {
-        this.setName(name);
-        this.setValue(value);
+        super(name, value);
     }
 
 }
