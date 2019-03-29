@@ -1,5 +1,8 @@
 package com.yauheni.burau.sai;
 
+import core.application.reflection.Reflection;
+import core.application.workflow.algo.AbstractAlgorithm;
+import core.application.workflow.algo.Algorithm;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.input.InputDataSensor;
@@ -31,5 +34,10 @@ public class AI_Test {
         M2dDecart2dIntLinksToPngFile.transform(inputDataSensor.contourM2d, pngFileOut);
     }
 
+    @Test
+    public void refl() {
+            Class[] algoClasses = Reflection.getAlgoClasses();
+            for (Class cl: algoClasses) { System.out.println(cl.toString()); }
+    }
 
 }

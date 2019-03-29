@@ -1,5 +1,6 @@
-package core.application.controller;
+package core.old;
 
+import core.application.controller.AbstractAlgorithmFX;
 import core.application.view.components.app.WorkflowEditViewStageFX;
 import javafx.stage.Stage;
 
@@ -11,6 +12,7 @@ public class AlgoNewAlgorithmStageFX extends AbstractAlgorithmFX {
     public AlgoNewAlgorithmStageFX() {
 
     }
+
 
     @Override
     public Boolean process() {

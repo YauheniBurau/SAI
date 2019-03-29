@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.controller.AlgoShowNodeEditViewStageFX;
+import core.application.controller.AlgoStageShowFX;
 import core.application.view.HelperFX;
 import core.application.workflow.data.IData;
 import core.application.workflow.node.Node;
@@ -48,7 +48,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.topButtons = new HBox();
         this.closeBtn = new Button("X");
         this.toogleBtn = new Button("_");
-        this.editBtn = HelperFX.createButton("E", new AlgoShowNodeEditViewStageFX(this));
+        this.editBtn = HelperFX.createButton("E", new AlgoStageShowFX(  new NodeEditViewStageFX(this)) );
         this.processBtn = new Button("P");
         this.minBtn = new Button("-");
         this.maxBtn = new Button("+");

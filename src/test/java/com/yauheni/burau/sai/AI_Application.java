@@ -4,24 +4,21 @@ package com.yauheni.burau.sai;
  * Created by anonymous on 24.09.2018.
  */
 
+import core.application.controller.AlgoStageShowFX;
+import core.application.reflection.Reflection;
+import core.application.view.components.WorkFlowFX.NodeNewStageFX;
 import core.application.view.components.WorkFlowFX.WorkflowPaneFX;
-import core.application.view.components.app.MenuBarFX;
+import core.application.view.components.GuiBuilderFX.MenuBarFX;
+import core.application.view.components.app.EditCanvasSizeStageFX;
 import core.application.view.components.app.UtilityStage1FX;
 import core.application.view.components.app.UtilityStage2FX;
 import core.application.view.components.app.UtilityStage3FX;
 import core.application.workflow.algo.AlgoTest;
 import core.application.workflow.connection.Connection;
 import core.application.workflow.node.Node;
-
-import core.application.controller.AlgoNewAlgorithmStageFX;
-import core.application.controller.AlgoOpenEditCanvasSizeStageFX;
-import core.application.controller.AlgoShowUtilityStageFX;
-
 import core.application.view.components.*;
-
 import core.application.workflow.workflow.Workflow;
 import javafx.application.Application;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
@@ -67,26 +64,33 @@ public class AI_Application extends Application {
         // ======================================== As Kon GUI MENU BAR ================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus
-        Menu fileMenu = menuBar.createMenu("File", null);
-        Menu editMenu = menuBar.createMenu("Edit", null);
-        Menu toolsMenu = menuBar.createMenu("Tools", null);
-        Menu canvasMenu = menuBar.createMenu("Canvas", null);
-        Menu helpMenu = menuBar.createMenu("Help", null);
+        Menu fileMenu = menuBar.withMenu("File", null);
+        Menu editMenu = menuBar.withMenu("Edit", null);
+        Menu toolsMenu = menuBar.withMenu("Tools", null);
+        Menu canvasMenu = menuBar.withMenu("Canvas", null);
+        Menu nodesMenu = menuBar.withMenu("Nodes", null);
+        Menu helpMenu = menuBar.withMenu("Help", null);
         // Create MenuItems
-        menuBar.createMenuItem("New", fileMenu, new AlgoNewAlgorithmStageFX());
-        menuBar.createMenuItem("Open", fileMenu, null);
-        menuBar.createMenuItem("Exit", fileMenu, null);
+        menuBar.withMenuItem("New", fileMenu, null /*new AlgoNewAlgorithmStageFX()*/);
+        menuBar.withMenuItem("Open", fileMenu, null);
+        menuBar.withMenuItem("Exit", fileMenu, null);
 
-        menuBar.createMenuItem("Copy", editMenu, null);
-        menuBar.createMenuItem("Paste", editMenu, null);
+        menuBar.withMenuItem("Copy", editMenu, null);
+        menuBar.withMenuItem("Paste", editMenu, null);
 
-        menuBar.createMenuItem("Utility1", toolsMenu, new AlgoShowUtilityStageFX(new UtilityStage1FX()));
-        menuBar.createMenuItem("Utility2", toolsMenu, new AlgoShowUtilityStageFX(new UtilityStage2FX()));
-        menuBar.createMenuItem("Utility3", toolsMenu, new AlgoShowUtilityStageFX(new UtilityStage3FX()));
+        menuBar.withMenuItem("Utility1", toolsMenu, new AlgoStageShowFX(new UtilityStage1FX()));
+        menuBar.withMenuItem("Utility2", toolsMenu, new AlgoStageShowFX(new UtilityStage2FX()));
+        menuBar.withMenuItem("Utility3", toolsMenu, new AlgoStageShowFX(new UtilityStage3FX()));
 
-        menuBar.createMenuItem("Resize canvas", canvasMenu, new AlgoOpenEditCanvasSizeStageFX(workflowFX1) );
+        menuBar.withMenuItem("Resize canvas", canvasMenu, new AlgoStageShowFX(new EditCanvasSizeStageFX(workflowFX1)) );
 
-        menuBar.createMenuItem("Help", helpMenu, null);
+        Class[] algoClasses = Reflection.getAlgoClasses();
+        for (Class cl: algoClasses) {
+            menuBar.withMenuItem(cl.getSimpleName(), nodesMenu, new AlgoStageShowFX<>(new NodeNewStageFX(cl, workflowFX1)) );
+            System.out.println(cl.toString());
+        }
+
+        menuBar.withMenuItem("Help", helpMenu, null);
 
         root.setTop(menuBar);
 

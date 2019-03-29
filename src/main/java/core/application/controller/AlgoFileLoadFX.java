@@ -7,12 +7,12 @@ import java.io.File;
 /**
  * Created by anonymous on 21.03.2019.
  */
-public class AlgoSelectFileUrlFX extends AbstractAlgorithmFX {
+public class AlgoFileLoadFX extends AbstractAlgorithmFX {
     // frontend
     private ParamFileFX paramFileFX;
     // backend
 
-    public AlgoSelectFileUrlFX(ParamFileFX paramFileFX) {
+    public AlgoFileLoadFX(ParamFileFX paramFileFX) {
         this.paramFileFX = paramFileFX;
     }
 

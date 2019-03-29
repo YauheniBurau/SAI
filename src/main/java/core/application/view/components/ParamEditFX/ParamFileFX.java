@@ -1,6 +1,6 @@
 package core.application.view.components.ParamEditFX;
 
-import core.application.controller.AlgoSelectFileUrlFX;
+import core.application.controller.AlgoFileLoadFX;
 import core.application.view.HelperFX;
 import core.application.view.components.WorkFlowFX.AbstractParamFX;
 import core.application.workflow.param.ParamFile;
@@ -27,7 +27,7 @@ public class ParamFileFX extends AbstractParamFX<ParamFile> {
         this.fileChooser = HelperFX.createFileChooser(this.getParam().getExtensionFilter().getDescription(),
                 new File(System.getProperty("user.home")),
                 this.getParam().getExtensionFilter());
-        Button btn = HelperFX.createButton("...", new AlgoSelectFileUrlFX(this) );
+        Button btn = HelperFX.createButton("...", new AlgoFileLoadFX(this) );
         hBox.getChildren().addAll(label, field, btn);
         this.getChildren().add(hBox);
         if(this.getParam().getValue()!=null) field.setText( this.getParam().getValue().getAbsolutePath() );

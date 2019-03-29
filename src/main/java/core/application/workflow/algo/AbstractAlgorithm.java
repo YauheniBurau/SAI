@@ -2,6 +2,8 @@ package core.application.workflow.algo;
 
 import core.application.workflow.data.IData;
 import core.application.workflow.param.IParam;
+
+import java.lang.annotation.Inherited;
 import java.util.LinkedList;
 
 /**

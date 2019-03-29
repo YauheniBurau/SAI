@@ -1,4 +1,4 @@
-package core.application.view.components.app;
+package core.application.view.components.GuiBuilderFX;
 
 import core.application.controller.AlgoHandler;
 import core.application.controller.IAlgorithmFX;
@@ -15,7 +15,7 @@ public class MenuBarFX extends MenuBar {
 
     }
 
-    public Menu createMenu(String text, Menu parentMenu){
+    public Menu withMenu(String text, Menu parentMenu){
         Menu menu = new Menu(text);
         if(parentMenu !=null){
             parentMenu.getItems().add(menu);
@@ -25,7 +25,7 @@ public class MenuBarFX extends MenuBar {
         return menu;
     }
 
-    public MenuItem createMenuItem(String text, Menu parentMenu, IAlgorithmFX algo){
+    public MenuItem withMenuItem(String text, Menu parentMenu, IAlgorithmFX algo){
         MenuItem menuItem = new MenuItem(text);
         menuItem.setOnAction(new AlgoHandler<>(algo));
         parentMenu.getItems().add(menuItem);

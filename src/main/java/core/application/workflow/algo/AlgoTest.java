@@ -8,6 +8,7 @@ import core.application.workflow.param.ParamString;
 /**
  * Created by anonymous on 23.03.2019.
  */
+@Algorithm
 public class AlgoTest extends AbstractAlgorithm {
     // PARAMS
     private ParamInteger paramInteger1;

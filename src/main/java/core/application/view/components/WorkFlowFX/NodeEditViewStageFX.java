@@ -1,13 +1,12 @@
 package core.application.view.components.WorkFlowFX;
 
 import core.application.view.components.DataViewFX.DataViewFactory;
+import core.application.view.components.GuiBuilderFX.StageFX;
 import core.application.view.components.ParamEditFX.ParamViewFactory;
 import core.application.workflow.data.IData;
 import core.application.workflow.param.IParam;
-import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.LinkedList;
@@ -15,19 +14,18 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 27.03.2019.
  */
-public class NodeEditViewStageFX extends Stage {
+public class NodeEditViewStageFX extends StageFX {
     private NodeFX nodeFX = null;
 
     public NodeEditViewStageFX(NodeFX value) {
         this.nodeFX = value;
+    }
+
+    @Override
+    public void init(){
         TabPane tabPane = new TabPane();
-        Scene scene = new Scene(tabPane, 640, 480);
-        this.setTitle("Edit node : " + this.nodeFX.getNode().getName());
-        this.setScene(scene);
-        this.initStyle(StageStyle.DECORATED);
-        this.setAlwaysOnTop(true);
-        this.setIconified(false);
-        this.setFullScreen(false);
+        this.withScene(tabPane, 640, 480).withTitle("Edit node : " + this.nodeFX.getNode().getName())
+                .withInitStyle(StageStyle.DECORATED).withAlwaysOnTop(true);
         // Params Tab
         Tab paramTab;
         AbstractParamFX paramFX;
