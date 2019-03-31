@@ -1,18 +1,22 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.controller.AlgoStageShowFX;
 import core.application.view.HelperFX;
-import core.application.workflow.data.IData;
+import core.application.workflow.data.AbstractData;
 import core.application.workflow.node.Node;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.LinkedList;
+import java.util.Optional;
 
 /**
  * Created by anonymous on 20.03.2019.
@@ -32,7 +36,6 @@ public class NodeFX extends BorderPane implements INodeFX{
     private Button maxBtn;
     protected Label title;
 
-    private LinkedList<IParamFX> paramsFX = new LinkedList<>();
     private LinkedList<InputFX> inputsFX = new LinkedList<>();
     private LinkedList<OutputFX> outputsFX = new LinkedList<>();
 
@@ -46,12 +49,12 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.node = node;
         this.title = new Label(node.getName() + " : " + node.getAlgorithm().getName());
         this.topButtons = new HBox();
-        this.closeBtn = new Button("X");
-        this.toogleBtn = new Button("_");
-        this.editBtn = HelperFX.createButton("E", new AlgoStageShowFX(  new NodeEditViewStageFX(this)) );
-        this.processBtn = new Button("P");
-        this.minBtn = new Button("-");
-        this.maxBtn = new Button("+");
+        this.closeBtn = HelperFX.createButton("X", hCloseBtn );
+        this.toogleBtn = HelperFX.createButton("_", (EventHandler) null);
+        this.editBtn = HelperFX.createButton("E", hEditBtn );
+        this.processBtn = HelperFX.createButton("P", hProcessBtn);
+        this.minBtn = HelperFX.createButton("-", (EventHandler) null);
+        this.maxBtn = HelperFX.createButton("+", (EventHandler) null);
         topButtons.getChildren().addAll(closeBtn, toogleBtn, editBtn, processBtn, minBtn, maxBtn);
         VBox topBox = new VBox();
         topBox.setAlignment(Pos.CENTER);
@@ -74,8 +77,8 @@ public class NodeFX extends BorderPane implements INodeFX{
         boxInputs.setSpacing(3);
         boxInputs.setPadding(new Insets(5, 0, 5, -InputFX.circleRadius));
         boxInputs.setAlignment(Pos.CENTER_LEFT);
-        LinkedList<IData> inputs = node.getAlgorithm().getInputs();
-        for(IData input: inputs){
+        LinkedList<AbstractData> inputs = node.getAlgorithm().getInputs();
+        for(AbstractData input: inputs){
             this.addInputFX(input);
         }
         boxInputs.getChildren().addAll(inputsFX);
@@ -83,8 +86,8 @@ public class NodeFX extends BorderPane implements INodeFX{
         boxOutputs.setSpacing(3);
         boxOutputs.setPadding(new Insets(5, -OutputFX.circleRadius, 5, 0));
         boxOutputs.setAlignment(Pos.CENTER_RIGHT);
-        LinkedList<IData> outputs = node.getAlgorithm().getOutputs();
-        for(IData output: outputs){
+        LinkedList<AbstractData> outputs = node.getAlgorithm().getOutputs();
+        for(AbstractData output: outputs){
             this.addOutputFX(output);
         }
         boxOutputs.getChildren().addAll(outputsFX);
@@ -97,12 +100,12 @@ public class NodeFX extends BorderPane implements INodeFX{
         makeDraggable1(this, this.title);
     }
 
-    public void addInputFX(IData e){
+    public void addInputFX(AbstractData e){
         InputFX inputFX = new InputFX(e);
         this.inputsFX.add(inputFX);
     }
 
-    public void addOutputFX(IData e){
+    public void addOutputFX(AbstractData e){
         OutputFX outputFX = new OutputFX(e);
         this.outputsFX.add(outputFX);
     }
@@ -115,14 +118,15 @@ public class NodeFX extends BorderPane implements INodeFX{
         return this.outputsFX.get(id);
     }
 
+    @Override
     public LinkedList<InputFX> getInputsFX(){
         return this.inputsFX;
     }
 
+    @Override
     public LinkedList<OutputFX> getOutputsFX(){
         return this.outputsFX;
     }
-
 
     // TODO: refactor move to another place
     private void makeDraggable1(javafx.scene.Node node, Label label) {
@@ -178,6 +182,37 @@ public class NodeFX extends BorderPane implements INodeFX{
     public Node getNode() {
         return node;
     }
+
+    /**
+     * eventHandler for hCloseBtn.setOnAction
+     */
+    EventHandler<ActionEvent> hCloseBtn = (e) -> {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete node from workflow");
+        alert.setHeaderText("It will remove Node and all own conection from Workflow");
+        alert.setContentText("You can't discard that changes. Are you sure?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            this.getWorkflowPaneFX().deleteNodeFX(this);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+    };
+
+    /**
+     * eventHandler for hProcessBtn.setOnAction
+     */
+    EventHandler<ActionEvent> hProcessBtn = (e) -> {
+        this.getNode().getAlgorithm().process();
+    };
+
+    /**
+     * eventHandler for hProcessBtn.setOnAction
+     */
+    EventHandler<ActionEvent> hEditBtn = (e) -> {
+        HelperFX.showStage(new NodeEditViewStageFX(this));
+    };
+
 
     // TODO: remove make draggable that way
 //    private void makeDraggable2(Node node) {

@@ -1,5 +1,6 @@
 package core.application.workflow.algo;
 
+import core.application.workflow.data.AbstractData;
 import core.application.workflow.data.IData;
 import core.application.workflow.param.IParam;
 
@@ -16,11 +17,11 @@ public interface IAlgorithm {
     LinkedList<IParam> getParams();
     void addParam(IParam value);
     IData getInput(Integer key);
-    LinkedList<IData> getInputs();
-    void addInput(IData value);
+    LinkedList<AbstractData> getInputs();
+    void addInput(AbstractData value);
     IData getOutput(Integer key);
-    LinkedList<IData> getOutputs();
-    void addOutput(IData value);
+    LinkedList<AbstractData> getOutputs();
+    void addOutput(AbstractData value);
 
 
 }

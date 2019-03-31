@@ -31,4 +31,5 @@ public class MenuBarFX extends MenuBar {
         parentMenu.getItems().add(menuItem);
         return menuItem;
     }
+
 }

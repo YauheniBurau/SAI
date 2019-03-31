@@ -7,4 +7,7 @@ import core.application.workflow.param.IParam;
  */
 public interface IParamFX<T extends IParam> {
     T getParam();
+    void updateToModel();
+    void updateFromModel();
+
 }

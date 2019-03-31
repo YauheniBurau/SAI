@@ -1,5 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
+import core.application.workflow.data.AbstractData;
 import core.application.workflow.data.IData;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -9,23 +10,21 @@ import javafx.scene.shape.Circle;
 /**
  * Created by anonymous on 22.03.2019.
  */
-public class InputFX<T extends IData> extends HBox {
+public class InputFX<T extends AbstractData> extends HBox {
     public static final double circleRadius = 5;
-    private IData value = null;
-    private OutputFX link = null;
+    private T value = null; // TODO: to AbstractData
     private Circle circle;
     private Label label;
     /**
      * value must be not null value - at list empty Object
      * @param value
      */
-    public InputFX(IData value) {
+    public InputFX(T value) {
         this.init(value);
     }
 
-    private void init(IData value) {
+    private void init(T value) {
         this.value = value;
-        this.link = null;
         this.setMaxWidth(80);
         this.circle = new Circle(circleRadius);
         // TODO: for connection events
@@ -40,17 +39,16 @@ public class InputFX<T extends IData> extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
     }
 
-    public void setLink(OutputFX e){
-        this.link = e;
-    }
-
     public Circle getCircle() {
         return circle;
     }
 
-    public IData getValue() {
+    public T getValue() {
         return value;
     }
+
+
+
 
 // TODO: crate drag and drop node connection
     //    public static void setOnStartConnectorDetected(Circle element) {

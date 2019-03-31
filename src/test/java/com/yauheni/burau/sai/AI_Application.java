@@ -13,6 +13,8 @@ import core.application.view.components.app.EditCanvasSizeStageFX;
 import core.application.view.components.app.UtilityStage1FX;
 import core.application.view.components.app.UtilityStage2FX;
 import core.application.view.components.app.UtilityStage3FX;
+import core.application.workflow.algo.AlgoBufferedImageToFilePng;
+import core.application.workflow.algo.AlgoFilePngToBufferedImage;
 import core.application.workflow.algo.AlgoTest;
 import core.application.workflow.connection.Connection;
 import core.application.workflow.node.Node;
@@ -38,17 +40,23 @@ public class AI_Application extends Application {
 
         // ======================================== WORKFLOW DATA MODEL FILL ======================================================
         Workflow workflow = new Workflow();
-        Node<AlgoTest> nodeTest1 = new Node<AlgoTest>("NodeTest1", new AlgoTest(), 50, 400 );
-        Node<AlgoTest> nodeTest2 = new Node<AlgoTest>("NodeTest2", new AlgoTest(), 300, 200 );
-        Node<AlgoTest> nodeTest3 = new Node<AlgoTest>("NodeTest3", new AlgoTest(), 600, 150 );
+        Node<AlgoTest> nodeTest1 = new Node<>("NodeTest1", new AlgoTest(), 50, 400 );
+        Node<AlgoTest> nodeTest2 = new Node<>("NodeTest2", new AlgoTest(), 300, 200 );
+        Node<AlgoTest> nodeTest3 = new Node<>("NodeTest3", new AlgoTest(), 600, 150 );
+        Node<AlgoFilePngToBufferedImage> n4 = new Node<>("in PNG File", new AlgoFilePngToBufferedImage(), 50, 600 );
+        Node<AlgoBufferedImageToFilePng> n5 = new Node<>("out PNG File", new AlgoBufferedImageToFilePng(), 250, 600 );
         workflow.addNode(nodeTest1);
         workflow.addNode(nodeTest2);
         workflow.addNode(nodeTest3);
+        workflow.addNode(n4);
+        workflow.addNode(n5);
+        // TODO: add check if oonnection to end is Busy, so didnt create connection
         Connection conn1 = new Connection(nodeTest1.getAlgorithm().getOutput(0), nodeTest2.getAlgorithm().getInput(0));
         Connection conn2 = new Connection(nodeTest2.getAlgorithm().getOutput(0), nodeTest3.getAlgorithm().getInput(0));
+        Connection conn3 = new Connection(n4.getAlgorithm().getOutput(0), n5.getAlgorithm().getInput(0));
         workflow.addConnection(conn1);
         workflow.addConnection(conn2);
-
+        workflow.addConnection(conn3);
         // ========================================= WORKFLOW_FX GUI VIEW FILL ===================================================
         WorkflowPaneFX workflowFX1 = new WorkflowPaneFX(workflow);
         workflowFX1.setMinSize(1024, 1024);
@@ -82,12 +90,11 @@ public class AI_Application extends Application {
         menuBar.withMenuItem("Utility2", toolsMenu, new AlgoStageShowFX(new UtilityStage2FX()));
         menuBar.withMenuItem("Utility3", toolsMenu, new AlgoStageShowFX(new UtilityStage3FX()));
 
-        menuBar.withMenuItem("Resize canvas", canvasMenu, new AlgoStageShowFX(new EditCanvasSizeStageFX(workflowFX1)) );
+        menuBar.withMenuItem("Resize canvas", canvasMenu, new AlgoStageShowFX(new EditCanvasSizeStageFX(workflowFX1)) ); //TODO: replace with handler
 
         Class[] algoClasses = Reflection.getAlgoClasses();
         for (Class cl: algoClasses) {
-            menuBar.withMenuItem(cl.getSimpleName(), nodesMenu, new AlgoStageShowFX<>(new NodeNewStageFX(cl, workflowFX1)) );
-            System.out.println(cl.toString());
+            menuBar.withMenuItem(cl.getSimpleName(), nodesMenu, new AlgoStageShowFX<>(new NodeNewStageFX(cl, workflowFX1)) );  //TODO: replace with handler
         }
 
         menuBar.withMenuItem("Help", helpMenu, null);
@@ -95,7 +102,7 @@ public class AI_Application extends Application {
         root.setTop(menuBar);
 
         // ================================ STAGE ======================================================================
-        stage.setTitle("As Kon - AI");
+        stage.setTitle("As Kon - Code GIAS(Global Intelligence Artificial System)");
         stage.setScene(scene);
         stage.show();
     }

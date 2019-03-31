@@ -1,26 +1,26 @@
 package core.application.workflow.connection;
 
-import core.application.workflow.data.IData;
+import core.application.workflow.data.AbstractData;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
 public abstract class AbstractConnection implements IConnection{
-    private IData start;
-    private IData end;
+    private AbstractData start;
+    private AbstractData end;
 
-    public AbstractConnection(IData start, IData end) {
+    public AbstractConnection(AbstractData start, AbstractData end) {
         this.start = start;
         this.end = end;
     }
 
     @Override
-    public IData getStart() {
+    public AbstractData getStart() {
         return this.start;
     }
 
     @Override
-    public IData getEnd() {
+    public AbstractData getEnd() {
         return this.end;
     }
 

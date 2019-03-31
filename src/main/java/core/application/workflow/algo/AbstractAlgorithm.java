@@ -1,9 +1,7 @@
 package core.application.workflow.algo;
 
-import core.application.workflow.data.IData;
+import core.application.workflow.data.AbstractData;
 import core.application.workflow.param.IParam;
-
-import java.lang.annotation.Inherited;
 import java.util.LinkedList;
 
 /**
@@ -12,8 +10,8 @@ import java.util.LinkedList;
 public abstract class AbstractAlgorithm implements IAlgorithm {
     private String name = "undefined";
     private LinkedList<IParam> params = new LinkedList<>();
-    private LinkedList<IData> inputs = new LinkedList<>();
-    private LinkedList<IData> outputs = new LinkedList<>();
+    private LinkedList<AbstractData> inputs = new LinkedList<>();
+    private LinkedList<AbstractData> outputs = new LinkedList<>();
 
     @Override
     public String getName() {
@@ -43,32 +41,32 @@ public abstract class AbstractAlgorithm implements IAlgorithm {
     }
 
     @Override
-    public IData getInput(Integer key) {
+    public AbstractData getInput(Integer key) {
         return this.inputs.get(key);
     }
 
     @Override
-    public LinkedList<IData> getInputs() {
+    public LinkedList<AbstractData> getInputs() {
         return this.inputs;
     }
 
     @Override
-    public void addInput(IData value) {
+    public void addInput(AbstractData value) {
         this.inputs.add(value);
     }
 
     @Override
-    public IData getOutput(Integer key) {
+    public AbstractData getOutput(Integer key) {
         return this.outputs.get(key);
     }
 
     @Override
-    public LinkedList<IData> getOutputs() {
+    public LinkedList<AbstractData> getOutputs() {
         return this.outputs;
     }
 
     @Override
-    public void addOutput(IData value) {
+    public void addOutput(AbstractData value) {
         this.outputs.add(value);
     }
 

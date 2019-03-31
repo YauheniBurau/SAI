@@ -1,23 +1,23 @@
 package core.application.view.components.ParamEditFX;
 
 import core.application.view.components.WorkFlowFX.AbstractParamFX;
-import core.application.workflow.param.ParamString;
+import core.application.workflow.param.ParamDouble;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 /**
- * Created by anonymous on 27.03.2019.
+ * Created by anonymous on 30.03.2019.
  */
-public class ParamStringFX  extends AbstractParamFX<ParamString> {
+public class ParamDoubleFX extends AbstractParamFX<ParamDouble> {
     private StringProperty textProperty = null;
 
-    public ParamStringFX(ParamString data) {
+    public ParamDoubleFX(ParamDouble data) {
         super(data);
         HBox hBox = new HBox();
         Label label = new Label(this.getParam().getName());
-        String value = this.getParam().getValue();
+        String value = this.getParam().getValue().toString();
         TextField field;
         if(value!=null) field = new TextField(value);
         else field = new TextField("undefined");
@@ -29,12 +29,12 @@ public class ParamStringFX  extends AbstractParamFX<ParamString> {
 
     @Override
     public void updateToModel() {
-        this.getParam().setValue( this.textProperty.getValue() );
+        this.getParam().setValue( Double.parseDouble(this.textProperty.getValue()) );
     }
 
     @Override
     public void updateFromModel() {
-        this.textProperty.setValue( this.getParam().getValue() );
+        this.textProperty.setValue( this.getParam().getValue().toString() );
     }
 
 }

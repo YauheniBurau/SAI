@@ -9,8 +9,4 @@ public interface IStageFX {
      */
     void init();
 
-    /**
-     * use when you click button close and want send JavaFX values to bind Model bean objects
-     */
-    void send();
 }

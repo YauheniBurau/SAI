@@ -17,4 +17,8 @@ public abstract class AbstractParamFX<T extends IParam> extends Pane implements 
         return param;
     }
 
+    public abstract void updateToModel();
+
+    public abstract void updateFromModel();
+
 }

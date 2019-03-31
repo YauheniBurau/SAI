@@ -2,11 +2,17 @@ package core.application.view;
 
 import core.application.controller.AlgoHandler;
 import core.application.controller.IAlgorithmFX;
+import core.application.view.components.GuiBuilderFX.StageFX;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.util.converter.DoubleStringConverter;
+
 import java.io.File;
+import java.util.regex.Pattern;
 
 /**
  * Created by anonymous on 08.10.2018.
@@ -75,6 +81,28 @@ public class HelperFX {
         return btn;
     }
 
+    /**
+     * create TextField JavaFX with TextFormatter only "double" values
+     * @return
+     */
+    public static TextField createDoubleTextField(){
+        TextField textField = new TextField();
+        Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
+        TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), 0.0,
+                change -> {
+                    String newText = change.getControlNewText() ;
+                    if (validDoubleText.matcher(newText).matches()) {
+                        return change ;
+                    } else return null ;
+                });
+        textField.setTextFormatter(textFormatter);
+        return textField;
+        // TODO: remove later
+//        textFormatter.valueProperty().addListener((obs, oldValue, newValue) -> {
+//            System.out.println("New double value "+newValue);
+//        });
+
+    }
 
     /**
      * create JavaFX ImageView
@@ -88,7 +116,14 @@ public class HelperFX {
         return imageView;
     }
 
-
-
+    /**
+     * init and show stage window
+     * @param stage
+     */
+    public static void showStage(StageFX stage){
+        Boolean result = true;
+        stage.init();
+        if(!stage.isShowing()) stage.show();
+    }
 
 }

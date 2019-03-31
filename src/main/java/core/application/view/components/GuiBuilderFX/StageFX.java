@@ -18,10 +18,6 @@ public class StageFX extends Stage implements IStageFX{
     public void init(){
     }
 
-    @Override
-    public void send() {
-    }
-
     public StageFX withTitle(String title){
         this.setTitle(title);
         return this;

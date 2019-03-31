@@ -125,6 +125,8 @@ public class ConnectionFX extends Line implements IConnectionFX{
         this.startYProperty().bind(this.sY);
         this.endXProperty().bind(this.eX);
         this.endYProperty().bind(this.eY);
+
+        this.connection = new Connection(start.getValue(), end.getValue());
     }
 
     @Override
@@ -137,6 +139,10 @@ public class ConnectionFX extends Line implements IConnectionFX{
         return this.workflowPaneFX;
     }
 
+    @Override
+    public Connection getConnection() {
+        return connection;
+    }
 
 
 }

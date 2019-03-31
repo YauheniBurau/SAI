@@ -1,14 +1,15 @@
 package core.application.workflow.connection;
 
-import core.application.workflow.data.IData;
+import core.application.workflow.data.AbstractData;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
 public class Connection extends AbstractConnection {
 
-    public Connection(IData start, IData end) {
+    public Connection(AbstractData start, AbstractData end) {
         super(start, end);
+        start.addOutput(end);
     }
 
 }

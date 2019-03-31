@@ -7,4 +7,8 @@ import javafx.scene.control.Menu;
  */
 public class MenuFX extends Menu {
 
+    public Menu build(){
+        return (MenuFX)this.getParentMenu();
+    }
+
 }

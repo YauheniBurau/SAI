@@ -1,5 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
+import core.application.workflow.data.AbstractData;
 import core.application.workflow.data.IData;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -10,10 +11,9 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 22.03.2019.
  */
-public class OutputFX<T extends IData> extends HBox {
+public class OutputFX<T extends AbstractData> extends HBox {
     public static final double circleRadius = 5;
     private T value = null;
-    private ArrayList<InputFX> links;
     private Circle circle;
     private Label label;
 
@@ -23,7 +23,6 @@ public class OutputFX<T extends IData> extends HBox {
 
     private void init(T value){
         this.value = value;
-        this.links = new ArrayList<>();
         this.setMaxWidth(80);
         this.circle = new Circle(circleRadius);
         this.label = new Label(value.getName());
@@ -31,24 +30,11 @@ public class OutputFX<T extends IData> extends HBox {
         this.getChildren().addAll(this.label, this.circle);
     }
 
-    public void setLinks(ArrayList<InputFX> inputsFX){
-        this.links = inputsFX;
-    }
-
-    public void addLink(InputFX e){
-        if(this.links == null){
-            this.links = new ArrayList<>();
-        }
-        if(e!=null){
-            this.links.add(e);
-        }
-    }
-
     public Circle getCircle() {
         return circle;
     }
 
-    public IData getValue() {
+    public T getValue() {
         return value;
     }
 
