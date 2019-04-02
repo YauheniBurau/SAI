@@ -9,4 +9,5 @@ public interface IConnectionFX {
     void setWorkflowPaneFX(WorkflowPaneFX workflowPaneFX);
     WorkflowPaneFX getWorkflowPaneFX();
     Connection getConnection();
+    void setConnection(Connection value);
 }

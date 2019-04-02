@@ -5,6 +5,9 @@ import core.application.workflow.data.AbstractData;
 import core.application.workflow.data.IData;
 import core.application.workflow.node.Node;
 import core.application.workflow.workflow.Workflow;
+import javafx.event.EventHandler;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +23,16 @@ public class WorkflowPaneFX extends Pane {
     private HashMap<IData, InputFX> inputsMap = new HashMap<>();
     private HashMap<IData, OutputFX> outputsMap = new HashMap<>();
 
+    private ConnectionFX tempConnectionFX;
+
+    public ConnectionFX getTempConnectionFX() {
+        return tempConnectionFX;
+    }
+
+    public void setTempConnectionFX(ConnectionFX tempConnectionFX) {
+        this.tempConnectionFX = tempConnectionFX;
+    }
+
     public WorkflowPaneFX(Workflow value) {
         this.workflow = value;
         LinkedList<Node> nodes = value.getNodes();
@@ -30,6 +43,8 @@ public class WorkflowPaneFX extends Pane {
         for(Connection connection: connections){
             this.addConnectionFX(connection);
         }
+        // Event for drag new connectionFX in WorkflowFX
+        this.setOnDragOver(hOnDragOver);
     }
 
     /**
@@ -101,16 +116,22 @@ public class WorkflowPaneFX extends Pane {
         return conns;
     }
 
-    // TODO: refactor or remove
-    //    public void addNodeFX(NodeFX value){
-//        value.setWorkflowPaneFX(this);
-//        this.getChildren().add(value);
-//        this.nodesFX.add(value);
-//    }
+    public void addConnectionFX(ConnectionFX value) {
+        value.setWorkflowPaneFX(this);
+        this.connectionsFX.add(value);
+        this.getChildren().add(value);
+    }
 
-//    public void addConnectionFX(ConnectionFX value) {
-//        value.setWorkflowPaneFX(this);
-//        this.connectionsFX.add(value);
-//    }
+    /**
+     * handler for hOnDragOver above WorkflowFX
+     */
+    private EventHandler<DragEvent> hOnDragOver = (e)->{
+        e.acceptTransferModes(TransferMode.MOVE);
+        if(this.tempConnectionFX!=null && e.getTarget() instanceof WorkflowPaneFX){
+            this.tempConnectionFX.getEnd1().setTranslateX(e.getX());
+            this.tempConnectionFX.getEnd1().setTranslateY(e.getY());
+        }
+        e.consume();
+    };
 
 }

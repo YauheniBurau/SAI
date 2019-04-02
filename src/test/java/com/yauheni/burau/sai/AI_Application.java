@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class AI_Application extends Application {
@@ -37,7 +38,7 @@ public class AI_Application extends Application {
         // ======================================= create main scene ===================================================
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 1366, 768);
-
+        scene.setFill(Color.GRAY);
         // ======================================== WORKFLOW DATA MODEL FILL ======================================================
         Workflow workflow = new Workflow();
         Node<AlgoTest> nodeTest1 = new Node<>("NodeTest1", new AlgoTest(), 50, 400 );
@@ -68,7 +69,6 @@ public class AI_Application extends Application {
         scrollCenterPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollCenterPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         root.setCenter(scrollCenterPane);
-
         // ======================================== As Kon GUI MENU BAR ================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus

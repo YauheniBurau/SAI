@@ -52,10 +52,12 @@ public class AbstractWorkflow implements IWorkflow {
     @Override
     public void deleteConnection(Connection e) {
         // delete data links to inputs and outputs from Algorithm
-        e.getStart().removeInput();
-        e.getEnd().removeOutputs();
-        // delete connection from workflow
-        this.connections.remove(e);
+        if(e!=null) {
+            e.getStart().removeInput();
+            e.getEnd().removeOutputs();
+            // delete connection from workflow
+            this.connections.remove(e);
+        }
     }
 
     @Override
