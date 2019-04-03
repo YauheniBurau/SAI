@@ -1,11 +1,11 @@
-package core.application.workflow.node;
+package core.application.workflow.workflow;
 
-import core.application.workflow.algo.IAlgorithm;
+import java.io.Serializable;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
-public abstract class AbstractNode<T extends IAlgorithm> implements INode<T> {
+public abstract class AbstractNode<T extends IAlgorithm> implements INode<T>, Serializable{
     private String name;
     private T algorithm;
     private double translateX;

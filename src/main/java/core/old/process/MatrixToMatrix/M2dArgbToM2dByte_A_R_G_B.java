@@ -5,7 +5,6 @@ import core.old.process.PrimitiveToPrimitive.UnsignedIntToSignedByte;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
-import core.old.Model;
 
 /**
  * Created by anonymous on 08.11.2018.
@@ -16,48 +15,12 @@ public class M2dArgbToM2dByte_A_R_G_B extends AbstractAlgorithmFX {
     public static final int BY_G = 2;
     public static final int BY_B = 3;
 
-    private Model model;
-    private String inKey;
-    private String outKey;
-    private int transformType;
-
-    public M2dArgbToM2dByte_A_R_G_B(Model model, String inKey, String outKey, int transformType) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-        this.transformType = transformType;
-    }
-
     /**
      * Matrix2d<Argb> -> Matrix2d<Lab>
      * @return
      */
     @Override
     public Boolean process() {
-        Matrix2d<ARGB> in = this.model.matrix2dArgbList.get(this.inKey);
-        Matrix2d<Byte> out;
-        if(in!=null) {
-            switch(this.transformType) {
-                case BY_A: { out = this.transform0(in);
-                    break;
-                }
-                case BY_R: { out = this.transform1(in);
-                    break;
-                }
-                case BY_G: { out = this.transform2(in);
-                    break;
-                }
-                case BY_B: { out = this.transform3(in);
-                    break;
-                }
-                default: {
-                    throw new InputParamException("Wrong in and out params. At least one of them is null");
-                }
-            }
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
-        this.model.matrix2dByteList.put(this.outKey, out);
         return Boolean.TRUE;
     }
 

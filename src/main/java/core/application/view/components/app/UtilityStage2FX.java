@@ -1,7 +1,7 @@
 package core.application.view.components.app;
 
 import core.application.controller.AlgoStageHideFX;
-import core.application.controller.AlgoHandler;
+import core.application.controller.AlgoHandlerFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
 import javafx.scene.layout.Pane;
 import javafx.stage.StageStyle;
@@ -17,7 +17,7 @@ public class UtilityStage2FX extends StageFX {
         Pane root = new Pane();
         this.withScene(root, 240, 320).withTitle("Utility2 instruments")
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
-                .setOnCloseRequest( new AlgoHandler(new AlgoStageHideFX(this)) );
+                .setOnCloseRequest( new AlgoHandlerFX(new AlgoStageHideFX(this)) );
     }
 
 }

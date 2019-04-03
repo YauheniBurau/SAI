@@ -1,7 +1,10 @@
 package core.application.workflow.algo;
 
-import core.application.workflow.data.DataBufferedImage;
-import core.application.workflow.param.ParamFileIn;
+import core.application.workflow.workflow.AbstractAlgorithm;
+import core.application.workflow.workflow.Algorithm;
+import core.application.workflow.workflow.Data;
+import core.application.workflow.param.FileIn;
+import core.application.workflow.workflow.Param;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
@@ -9,26 +12,32 @@ import javax.imageio.stream.FileImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 /**
  * Created by anonymous on 30.03.2019.
  */
 @Algorithm
-public class AlgoFilePngToBufferedImage extends AbstractAlgorithm {
+public class AlgoFilePngToBufferedImage extends AbstractAlgorithm implements Serializable {
     // PARAMS
-    private ParamFileIn paramFileIn;
+    private Param<FileIn> paramFileIn;
     // INPUTS
     // OUTPUTS
-    private DataBufferedImage outBufferedImage;
+    private Data<BufferedImage> outBufferedImage;
 
     public AlgoFilePngToBufferedImage() {
         this.setName("Png->BufferedImage");
         // PARAMS
-        this.paramFileIn = new ParamFileIn("File *.png", new FileChooser.ExtensionFilter("select *.png", "*.*"), new File(System.getProperty("user.home")));
+        this.paramFileIn = new Param<FileIn>("FilePngIn",
+                new FileIn(new File(System.getProperty("user.home")),
+                        new FileChooser.ExtensionFilter("select *.png", "*.png"))
+        );
         this.addParam(this.paramFileIn);
         // INPUTS
         // OUTPUTS
-        this.outBufferedImage = new DataBufferedImage("BufferedImage", null);
+        this.outBufferedImage = new Data<BufferedImage>("BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB));
         this.addOutput(this.outBufferedImage);
     }
 
@@ -37,7 +46,7 @@ public class AlgoFilePngToBufferedImage extends AbstractAlgorithm {
         Boolean result = true;
         BufferedImage img;
         try {
-            img = ImageIO.read(new FileImageInputStream(this.paramFileIn.getValue()));
+            img = ImageIO.read(new FileImageInputStream(this.paramFileIn.getValue().getFile()));
             this.outBufferedImage.setValue(img);
         } catch (IOException e) {
             // TODO: add processing for exception later

@@ -2,7 +2,6 @@ package core.old.process.MatrixToFile;
 
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.BooleanToIntegerArgb;
-import core.old.Model;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.FileException;
 import core.application.exceptions.InputParamException;
@@ -19,15 +18,6 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  * Created by anonymous on 28.10.2018.
  */
 public class M2dBooleanToPngFile extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-
-    public M2dBooleanToPngFile(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      * Matrix2d<Boolean> -> PngFile
@@ -35,13 +25,6 @@ public class M2dBooleanToPngFile extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<Boolean> in = this.model.matrix2dBoolList.get(this.inKey);
-        PngFile out = this.model.pngFileList.get(this.outKey);
-        if(in!=null && out!=null) {
-            out = this.transform(in, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

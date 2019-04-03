@@ -3,21 +3,20 @@ package core.old.process.CloudToMatrix;
 import core.old.VertexValue.cloud.CloudOfDecart2d;
 import core.old.VertexValue.matrix.Matrix2dBool;
 import core.application.controller.AbstractAlgorithmFX;
-import core.old.Model;
 
 /**
  * Created by anonymous on 19.12.2018.
  */
 public class CloudOfDecart2dToM2dBool extends AbstractAlgorithmFX {
-    protected Model model;
-    private String inKey;
-    private String outKey;
-
-    public CloudOfDecart2dToM2dBool(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
+//    protected Model model;
+//    private String inKey;
+//    private String outKey;
+//
+//    public CloudOfDecart2dToM2dBool(Model model, String inKey, String outKey) {
+//        this.model = model;
+//        this.inKey = inKey;
+//        this.outKey = outKey;
+//    }
 
     /**
      *  CloudOfDecart2dInt -> M2dBool

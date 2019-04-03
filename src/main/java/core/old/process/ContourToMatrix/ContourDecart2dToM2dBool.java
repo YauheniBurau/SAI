@@ -4,21 +4,11 @@ import core.old.VertexValue.contour.ContourDecart2d;
 import core.old.VertexValue.coords.Decart2d;
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.matrix.Matrix2dBool;
-import core.old.Model;
 
 /**
  * Created by anonymous on 16.12.2018.
  */
 public class ContourDecart2dToM2dBool extends AbstractAlgorithmFX {
-    protected Model model;
-    private String inKey;
-    private String outKey;
-
-    public ContourDecart2dToM2dBool(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      *  ContourDecart2d -> Matrix2dBool

@@ -1,4 +1,4 @@
-package core.application.workflow.data;
+package core.application.workflow.workflow;
 
 import java.util.ArrayList;
 
@@ -12,11 +12,14 @@ public interface IData<T> {
     void setValue(T value);
     T getValue();
 
-    ArrayList<AbstractData<T>> getOutputs();
-    AbstractData<T> getInput();
-    void addOutput(AbstractData dataIO);
-    void setInput(AbstractData dataIO);
+    ArrayList<Data<T>> getOutputs();
+    Data<T> getInput();
+    void addOutput(Data dataIO);
+    void setInput(Data dataIO);
     void removeInput();
-    void removeOutput(AbstractData dataIO);
+    void removeOutput(Data dataIO);
     void removeOutputs();
+
+//    void setId(int id);
+//    int getId();
 }

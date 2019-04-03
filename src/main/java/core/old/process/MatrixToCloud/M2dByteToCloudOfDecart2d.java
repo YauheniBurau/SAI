@@ -1,21 +1,11 @@
 package core.old.process.MatrixToCloud;
 
 import core.application.controller.AbstractAlgorithmFX;
-import core.old.Model;
 
 /**
  * Created by anonymous on 10.12.2018.
  */
 public class M2dByteToCloudOfDecart2d extends AbstractAlgorithmFX {
-    protected Model model;
-    private String inKey;
-    private String outKey;
-
-    public M2dByteToCloudOfDecart2d(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     @Override
     public Boolean process() {

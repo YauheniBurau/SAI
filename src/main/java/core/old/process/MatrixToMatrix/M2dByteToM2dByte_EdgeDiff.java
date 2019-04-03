@@ -4,21 +4,11 @@ import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.SignedIntToSignedByte;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
-import core.old.Model;
 
 /**
  * Created by anonymous on 10.11.2018.
  */
 public class M2dByteToM2dByte_EdgeDiff  extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-
-    public M2dByteToM2dByte_EdgeDiff(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
@@ -26,14 +16,6 @@ public class M2dByteToM2dByte_EdgeDiff  extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<Byte> in = this.model.matrix2dByteList.get(this.inKey);
-        Matrix2d<Byte> out;
-        if(in!=null) {
-            out = this.transform(in);
-            this.model.matrix2dByteList.put(this.outKey, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

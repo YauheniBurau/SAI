@@ -2,7 +2,6 @@ package core.old.process.MatrixToMatrix;
 
 import core.old.process.ColorToColor.ArgbToLab;
 import core.application.controller.AbstractAlgorithmFX;
-import core.old.Model;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.Lab;
 import core.old.VertexValue.matrix.Matrix2d;
@@ -12,17 +11,6 @@ import core.application.exceptions.InputParamException;
  * Created by anonymous on 30.10.2018.
  */
 public class M2dArgbToM2dLab extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-    public double[] whitePoint; // From Lab class constants
-
-    public M2dArgbToM2dLab(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-        this.whitePoint = Lab.whitePoint;
-    }
 
     /**
      * Matrix2d<Argb> -> Matrix2d<Lab>
@@ -30,14 +18,6 @@ public class M2dArgbToM2dLab extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<ARGB> in = this.model.matrix2dArgbList.get(this.inKey);
-        Matrix2d<Lab> out;
-        if(in!=null) {
-            out = this.transform(in, this.whitePoint);
-            this.model.matrix2dLabList.put(this.outKey, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.param.IParam;
+import core.application.workflow.workflow.IParam;
 import javafx.scene.layout.Pane;
 
 /**

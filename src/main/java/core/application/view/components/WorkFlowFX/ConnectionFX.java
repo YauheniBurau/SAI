@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.connection.Connection;
+import core.application.workflow.workflow.Connection;
 import javafx.beans.binding.DoubleBinding;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -134,9 +134,7 @@ public class ConnectionFX extends Line implements IConnectionFX{
         }
     }
 
-
     public ConnectionFX() {
-
         // TODO: move to init()
         this.setOnMouseEntered(hOnMouseEntered);
         this.setOnMouseExited(hOnMouseExited);
@@ -145,7 +143,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
         // style
         this.setStrokeWidth(2);
     }
-
 
     public ConnectionFX(OutputFX start, InputFX end) {
         this.start = start;
@@ -170,23 +167,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
         // style
         this.setStrokeWidth(2);
     }
-
-    /**
-     * finich connect OutputFX and inputFX
-     */
-    private EventHandler<DragEvent> hOnDragDone = (e) ->{
-        WorkflowPaneFX wfFX = this.getWorkflowPaneFX();
-        if(this.getEnd1()==null){
-            this.setConnection( new Connection(start.getValue(), end.getValue()) );
-            wfFX.getChildren().remove(this);
-            wfFX.addConnectionFX(this);
-        }else{
-            wfFX.getChildren().remove(this.end1);
-            wfFX.deleteConnectionFX( this );
-        }
-        wfFX.setTempConnectionFX(null);
-        e.consume();
-    };
 
     @Override
     public void setWorkflowPaneFX(WorkflowPaneFX workflowPaneFX) {
@@ -291,6 +271,27 @@ public class ConnectionFX extends Line implements IConnectionFX{
         } else {
             // ... user chose CANCEL or closed the dialog
         }
+    };
+
+    /**
+     * finish connectionFX for OutputFX and inputFX.
+     * add ConnectionFX to WorkflowFX GUI
+     * add Connection to Workflow Model
+     */
+    private EventHandler<DragEvent> hOnDragDone = (e) ->{
+        WorkflowPaneFX wfFX = this.getWorkflowPaneFX();
+        if(this.getEnd1()==null){
+            Connection conn = new Connection(start.getValue(), end.getValue());
+            this.setConnection( conn );
+            wfFX.getChildren().remove(this);
+            wfFX.addConnectionFX(this);
+            wfFX.getWorkflow().addConnection(conn);
+        }else{
+            wfFX.getChildren().remove(this.end1);
+            wfFX.deleteConnectionFX( this );
+        }
+        wfFX.setTempConnectionFX(null);
+        e.consume();
     };
 
 }

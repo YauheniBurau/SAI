@@ -1,4 +1,4 @@
-package core.old;
+package com.yauheni.burau.sai;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;

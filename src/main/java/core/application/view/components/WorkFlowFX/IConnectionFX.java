@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.connection.Connection;
+import core.application.workflow.workflow.Connection;
 
 /**
  * Created by anonymous on 26.03.2019.

@@ -1,7 +1,8 @@
 package core.application.view.components.GuiBuilderFX;
 
-import core.application.controller.AlgoHandler;
+import core.application.controller.AlgoHandlerFX;
 import core.application.controller.IAlgorithmFX;
+import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -27,7 +28,14 @@ public class MenuBarFX extends MenuBar {
 
     public MenuItem withMenuItem(String text, Menu parentMenu, IAlgorithmFX algo){
         MenuItem menuItem = new MenuItem(text);
-        menuItem.setOnAction(new AlgoHandler<>(algo));
+        menuItem.setOnAction(new AlgoHandlerFX<>(algo));
+        parentMenu.getItems().add(menuItem);
+        return menuItem;
+    }
+
+    public MenuItem withMenuItem(String text, Menu parentMenu, EventHandler<javafx.event.ActionEvent> value){
+        MenuItem menuItem = new MenuItem(text);
+        menuItem.setOnAction(value);
         parentMenu.getItems().add(menuItem);
         return menuItem;
     }

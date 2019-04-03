@@ -1,12 +1,12 @@
-package core.application.workflow.node;
+package core.application.workflow.workflow;
 
 
-import core.application.workflow.algo.IAlgorithm;
+import java.io.Serializable;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
-public class Node<T extends IAlgorithm> extends AbstractNode<T> {
+public class Node<T extends IAlgorithm> extends AbstractNode<T> implements Serializable{
 
     public Node() {
         this.setName("undefined");

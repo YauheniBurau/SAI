@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.data.IData;
+import core.application.workflow.workflow.IData;
 
 /**
  * Created by anonymous on 27.03.2019.

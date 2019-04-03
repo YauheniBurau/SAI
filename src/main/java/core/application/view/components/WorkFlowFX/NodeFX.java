@@ -1,8 +1,8 @@
 package core.application.view.components.WorkFlowFX;
 
 import core.application.view.HelperFX;
-import core.application.workflow.data.AbstractData;
-import core.application.workflow.node.Node;
+import core.application.workflow.workflow.Data;
+import core.application.workflow.workflow.Node;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -86,8 +86,8 @@ public class NodeFX extends BorderPane implements INodeFX{
         boxInputs.setSpacing(3);
         boxInputs.setPadding(new Insets(5, 0, 5, -InputFX.circleRadius));
         boxInputs.setAlignment(Pos.CENTER_LEFT);
-        LinkedList<AbstractData> inputs = node.getAlgorithm().getInputs();
-        for(AbstractData input: inputs){
+        LinkedList<Data> inputs = node.getAlgorithm().getInputs();
+        for(Data input: inputs){
             this.addInputFX(input);
         }
         boxInputs.getChildren().addAll(inputsFX);
@@ -95,8 +95,8 @@ public class NodeFX extends BorderPane implements INodeFX{
         boxOutputs.setSpacing(3);
         boxOutputs.setPadding(new Insets(5, -OutputFX.circleRadius, 5, 0));
         boxOutputs.setAlignment(Pos.CENTER_RIGHT);
-        LinkedList<AbstractData> outputs = node.getAlgorithm().getOutputs();
-        for(AbstractData output: outputs){
+        LinkedList<Data> outputs = node.getAlgorithm().getOutputs();
+        for(Data output: outputs){
             this.addOutputFX(output);
         }
         boxOutputs.getChildren().addAll(outputsFX);
@@ -114,13 +114,13 @@ public class NodeFX extends BorderPane implements INodeFX{
         // TODO: make resizable
     }
 
-    public void addInputFX(AbstractData e){
+    public void addInputFX(Data e){
         InputFX inputFX = new InputFX(e);
         inputFX.setNodeFX(this);
         this.inputsFX.add(inputFX);
     }
 
-    public void addOutputFX(AbstractData e){
+    public void addOutputFX(Data e){
         OutputFX outputFX = new OutputFX(e);
         outputFX.setNodeFX(this);
         this.outputsFX.add(outputFX);
@@ -238,6 +238,8 @@ public class NodeFX extends BorderPane implements INodeFX{
         if(!me.isPrimaryButtonDown()){
             this.setLayoutX(this.getLayoutX() + me.getX() - dragDelta.x);
             this.setLayoutY(this.getLayoutY() + me.getY() - dragDelta.y);
+            this.node.setLayoutX(this.getLayoutX());
+            this.node.setLayoutY(this.getLayoutY());
         }
     };
 

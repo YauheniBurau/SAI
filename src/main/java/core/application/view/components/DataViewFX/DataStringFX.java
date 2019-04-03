@@ -1,7 +1,7 @@
 package core.application.view.components.DataViewFX;
 
 import core.application.view.components.WorkFlowFX.AbstractDataFX;
-import core.application.workflow.data.DataString;
+import core.application.workflow.workflow.Data;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -9,9 +9,9 @@ import javafx.scene.layout.HBox;
 /**
  * Created by anonymous on 27.03.2019.
  */
-public class DataStringFX extends AbstractDataFX<DataString> {
+public class DataStringFX extends AbstractDataFX<Data<String>> {
 
-    public DataStringFX(DataString data) {
+    public DataStringFX(Data<String> data) {
         super(data);
         HBox hBox = new HBox();
         Label label = new Label(this.getData().getName());

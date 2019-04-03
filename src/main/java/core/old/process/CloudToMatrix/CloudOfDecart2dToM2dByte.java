@@ -4,21 +4,20 @@ import core.old.VertexValue.coords.Decart2d;
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.cloud.CloudOfDecart2d;
 import core.old.VertexValue.matrix.Matrix2dByte;
-import core.old.Model;
 
 /**
  * Created by anonymous on 10.12.2018.
  */
 public class CloudOfDecart2dToM2dByte extends AbstractAlgorithmFX {
-    protected Model model;
-    private String inKey;
-    private String outKey;
-
-    public CloudOfDecart2dToM2dByte(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
+//    protected Model model;
+//    private String inKey;
+//    private String outKey;
+//
+//    public CloudOfDecart2dToM2dByte(Model model, String inKey, String outKey) {
+//        this.model = model;
+//        this.inKey = inKey;
+//        this.outKey = outKey;
+//    }
 
     /**
      *  Matrix2d<Byte> -> CloudOfDecart2dInt rootCoud and all subclouds as innerClouds

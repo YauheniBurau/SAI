@@ -11,17 +11,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends AbstractAlgorith
     public Boolean process() {
         return null;
     }
-//    protected Model model;
-//    private String inKey;
-//    private String outKey;
-//
-//    public M2dByteToGraphVertexSegmentByteDecart2dInt(Model model, String inKey, String outKey) {
-//        this.model = model;
-//        this.inKey = inKey;
-//        this.outKey = outKey;
-//    }
-//
-//
+
 //    /**
 //     * find all points that connected with point(x,y) and have the same value
 //     * @param in

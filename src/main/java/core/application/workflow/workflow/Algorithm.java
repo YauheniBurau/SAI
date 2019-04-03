@@ -1,4 +1,4 @@
-package core.application.workflow.algo;
+package core.application.workflow.workflow;
 
 import java.lang.annotation.*;
 

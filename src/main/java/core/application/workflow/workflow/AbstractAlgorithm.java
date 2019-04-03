@@ -1,17 +1,16 @@
-package core.application.workflow.algo;
+package core.application.workflow.workflow;
 
-import core.application.workflow.data.AbstractData;
-import core.application.workflow.param.IParam;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
-public abstract class AbstractAlgorithm implements IAlgorithm {
+public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     private String name = "undefined";
-    private LinkedList<IParam> params = new LinkedList<>();
-    private LinkedList<AbstractData> inputs = new LinkedList<>();
-    private LinkedList<AbstractData> outputs = new LinkedList<>();
+    private LinkedList<Param> params = new LinkedList<>();
+    private LinkedList<Data> inputs = new LinkedList<>();
+    private LinkedList<Data> outputs = new LinkedList<>();
 
     @Override
     public String getName() {
@@ -31,42 +30,42 @@ public abstract class AbstractAlgorithm implements IAlgorithm {
     }
 
     @Override
-    public LinkedList<IParam> getParams() {
+    public LinkedList<Param> getParams() {
         return this.params;
     }
 
     @Override
-    public void addParam(IParam value) {
+    public void addParam(Param value) {
         this.params.add(value);
     }
 
     @Override
-    public AbstractData getInput(Integer key) {
+    public Data getInput(Integer key) {
         return this.inputs.get(key);
     }
 
     @Override
-    public LinkedList<AbstractData> getInputs() {
+    public LinkedList<Data> getInputs() {
         return this.inputs;
     }
 
     @Override
-    public void addInput(AbstractData value) {
+    public void addInput(Data value) {
         this.inputs.add(value);
     }
 
     @Override
-    public AbstractData getOutput(Integer key) {
+    public Data getOutput(Integer key) {
         return this.outputs.get(key);
     }
 
     @Override
-    public LinkedList<AbstractData> getOutputs() {
+    public LinkedList<Data> getOutputs() {
         return this.outputs;
     }
 
     @Override
-    public void addOutput(AbstractData value) {
+    public void addOutput(Data value) {
         this.outputs.add(value);
     }
 

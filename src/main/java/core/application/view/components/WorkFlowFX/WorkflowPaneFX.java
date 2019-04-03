@@ -1,10 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.connection.Connection;
-import core.application.workflow.data.AbstractData;
-import core.application.workflow.data.IData;
-import core.application.workflow.node.Node;
-import core.application.workflow.workflow.Workflow;
+import core.application.workflow.workflow.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
@@ -35,6 +31,7 @@ public class WorkflowPaneFX extends Pane {
 
     public WorkflowPaneFX(Workflow value) {
         this.workflow = value;
+        this.setMinSize(value.getSizeX(), value.getSizeY());
         LinkedList<Node> nodes = value.getNodes();
         for(Node node: nodes){
             this.addNodeFX(node);
@@ -106,7 +103,7 @@ public class WorkflowPaneFX extends Pane {
         }
     }
 
-    public ArrayList<ConnectionFX> findConnectionsFX(AbstractData dataIO){
+    public ArrayList<ConnectionFX> findConnectionsFX(Data dataIO){
         ArrayList<ConnectionFX> conns = new ArrayList<>();
         for (ConnectionFX conn: this.connectionsFX){
             if(conn.getConnection().getStart()==dataIO || conn.getConnection().getEnd()==dataIO ){
@@ -120,6 +117,10 @@ public class WorkflowPaneFX extends Pane {
         value.setWorkflowPaneFX(this);
         this.connectionsFX.add(value);
         this.getChildren().add(value);
+    }
+
+    public Workflow getWorkflow() {
+        return this.workflow;
     }
 
     /**

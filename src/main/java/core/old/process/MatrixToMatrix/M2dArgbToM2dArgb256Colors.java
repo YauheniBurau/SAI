@@ -4,22 +4,11 @@ import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.Colors256ARGB;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
-import core.old.Model;
 
 /**
  * Created by anonymous on 13.12.2018.
  */
 public class M2dArgbToM2dArgb256Colors extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-
-    public M2dArgbToM2dArgb256Colors(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
@@ -27,14 +16,6 @@ public class M2dArgbToM2dArgb256Colors extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<ARGB> in = this.model.matrix2dArgbList.get(this.inKey);
-        Matrix2d<ARGB> out;
-        if(in!=null) {
-            out = this.transform(in);
-            this.model.matrix2dArgbList.put(this.outKey, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

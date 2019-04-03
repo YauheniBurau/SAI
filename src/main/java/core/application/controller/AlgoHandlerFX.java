@@ -6,10 +6,10 @@ import javafx.event.EventHandler;
 /**
  * Created by anonymous on 22.03.2019.
  */
-public class AlgoHandler<T extends Event> implements EventHandler<T> {
+public class AlgoHandlerFX<T extends Event> implements EventHandler<T> {
     private IAlgorithmFX algorithm = null;
 
-    public AlgoHandler(IAlgorithmFX algorithm) {
+    public AlgoHandlerFX(IAlgorithmFX algorithm) {
         this.algorithm = algorithm;
     }
 

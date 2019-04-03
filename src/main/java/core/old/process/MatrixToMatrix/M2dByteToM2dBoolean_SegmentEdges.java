@@ -3,21 +3,11 @@ package core.old.process.MatrixToMatrix;
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
-import core.old.Model;
 
 /**
  * Created by anonymous on 31.10.2018.
  */
 public class M2dByteToM2dBoolean_SegmentEdges extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-
-    public M2dByteToM2dBoolean_SegmentEdges(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      * Matrix2d<Byte> -> Matrix2d<Boolean> as Contour edges
@@ -25,14 +15,6 @@ public class M2dByteToM2dBoolean_SegmentEdges extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<Byte> in = this.model.matrix2dByteList.get(this.inKey);
-        Matrix2d<Boolean> out;
-        if(in!=null) {
-            out = this.transform(in);
-            this.model.matrix2dBoolList.put(this.outKey, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.param.IParam;
+import core.application.workflow.workflow.IParam;
 
 /**
  * Created by anonymous on 27.03.2019.

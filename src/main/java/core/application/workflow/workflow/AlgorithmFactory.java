@@ -1,4 +1,8 @@
-package core.application.workflow.algo;
+package core.application.workflow.workflow;
+
+import core.application.workflow.algo.AlgoBufferedImageToFilePng;
+import core.application.workflow.algo.AlgoFilePngToBufferedImage;
+import core.application.workflow.algo.AlgoTest;
 
 /**
  * Created by anonymous on 29.03.2019.

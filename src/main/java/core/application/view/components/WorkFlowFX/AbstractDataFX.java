@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.data.IData;
+import core.application.workflow.workflow.IData;
 import javafx.scene.layout.Pane;
 
 /**

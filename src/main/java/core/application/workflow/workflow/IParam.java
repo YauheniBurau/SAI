@@ -1,4 +1,4 @@
-package core.application.workflow.param;
+package core.application.workflow.workflow;
 
 /**
  * Created by anonymous on 26.03.2019.

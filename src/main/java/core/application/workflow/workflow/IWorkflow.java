@@ -1,9 +1,5 @@
 package core.application.workflow.workflow;
 
-import core.application.workflow.connection.Connection;
-import core.application.workflow.data.AbstractData;
-import core.application.workflow.node.Node;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -20,6 +16,11 @@ public interface IWorkflow {
     LinkedList<Node> getNodes();
     LinkedList<Connection> getConnections();
     void deleteConnections(ArrayList<Connection> list);
-    ArrayList<Connection> findConnections(AbstractData dataIO);
+    ArrayList<Connection> findConnections(Data dataIO);
+
+    double getSizeX();
+    void setSizeX(double sizeX);
+    double getSizeY();
+    void setSizeY(double sizeY);
 
 }

@@ -1,6 +1,6 @@
 package core.application.view;
 
-import core.application.controller.AlgoHandler;
+import core.application.controller.AlgoHandlerFX;
 import core.application.controller.IAlgorithmFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
 import javafx.event.EventHandler;
@@ -76,7 +76,7 @@ public class HelperFX {
      */
     public static Button createButton(String title, IAlgorithmFX algo) {
         Button btn = new Button(title);
-        btn.setOnAction(new AlgoHandler<>(algo));
+        btn.setOnAction(new AlgoHandlerFX<>(algo));
         return btn;
     }
 

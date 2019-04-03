@@ -1,12 +1,12 @@
 package core.application.view.components.WorkFlowFX;
 
 import core.application.view.HelperFX;
-import core.application.view.components.DataViewFX.DataViewFactory;
+import core.application.view.components.DataViewFX.DataFactoryFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
-import core.application.view.components.ParamEditFX.ParamViewFactory;
-import core.application.workflow.data.AbstractData;
-import core.application.workflow.data.IData;
-import core.application.workflow.param.IParam;
+import core.application.view.components.ParamEditFX.ParamFactoryFX;
+import core.application.workflow.workflow.Data;
+import core.application.workflow.workflow.IParam;
+import core.application.workflow.workflow.Param;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -44,10 +44,10 @@ public class NodeEditViewStageFX extends StageFX {
         // Params Tab
         Tab paramTab;
         AbstractParamFX paramEditFX;
-        LinkedList<IParam> params = nodeFX.getNode().getAlgorithm().getParams();
+        LinkedList<Param> params = nodeFX.getNode().getAlgorithm().getParams();
         this.paramsEditFX = new LinkedList<>();
-        for(IParam param: params){
-            paramEditFX = ParamViewFactory.constructParamFX(param);
+        for(Param param: params){
+            paramEditFX = ParamFactoryFX.constructParamFX(param);
             this.paramsEditFX.add(paramEditFX);
             paramTab = new Tab("P: " + param.getName(), paramEditFX);
             paramTab.setClosable(false);
@@ -56,10 +56,10 @@ public class NodeEditViewStageFX extends StageFX {
         // tab for every input
         Tab inputTab;
         AbstractDataFX dataViewFX;
-        LinkedList<AbstractData> inputs = nodeFX.getNode().getAlgorithm().getInputs();
+        LinkedList<Data> inputs = nodeFX.getNode().getAlgorithm().getInputs();
         this.inputsViewFX = new LinkedList<>();
-        for(IData data: inputs){
-            dataViewFX = DataViewFactory.constructDataFX(data);
+        for(Data data: inputs){
+            dataViewFX = DataFactoryFX.constructDataFX(data);
             this.inputsViewFX.add(dataViewFX);
             inputTab = new Tab("I: " + data.getName(), dataViewFX);
             inputTab.setClosable(false);
@@ -67,10 +67,10 @@ public class NodeEditViewStageFX extends StageFX {
         }
         // tab for every output
         Tab outputTab;
-        LinkedList<AbstractData> outputs = nodeFX.getNode().getAlgorithm().getOutputs();
+        LinkedList<Data> outputs = nodeFX.getNode().getAlgorithm().getOutputs();
         this.outputsViewFX = new LinkedList<>();
-        for(IData data: outputs){
-            dataViewFX = DataViewFactory.constructDataFX(data);
+        for(Data data: outputs){
+            dataViewFX = DataFactoryFX.constructDataFX(data);
             this.outputsViewFX.add(dataViewFX);
             outputTab = new Tab("O: " + data.getName(), dataViewFX);
             outputTab.setClosable(false);

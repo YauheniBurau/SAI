@@ -8,7 +8,6 @@ import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.FileException;
 import core.application.exceptions.InputParamException;
 import core.old.process.ColorToPrimitive.ArgbToIntegerArgb;
-import core.old.Model;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -21,15 +20,6 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  * Created by anonymous on 09.11.2018.
  */
 public class M2dByteToPngFile extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-
-    public M2dByteToPngFile(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      * Matrix2dByte -> PngFile
@@ -37,13 +27,6 @@ public class M2dByteToPngFile extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<Byte> in = this.model.matrix2dByteList.get(this.inKey);
-        PngFile out = this.model.pngFileList.get(this.outKey);
-        if(in!=null && out!=null) {
-            out = this.transform(in, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.data.AbstractData;
+import core.application.workflow.workflow.Data;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
 /**
  * Created by anonymous on 22.03.2019.
  */
-public class OutputFX<T extends AbstractData> extends HBox {
+public class OutputFX<T extends Data> extends HBox {
     public static final double circleRadius = 5;
     private T value = null;
     private Circle circle;

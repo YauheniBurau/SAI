@@ -1,11 +1,18 @@
-package core.application.workflow.param;
+package core.application.workflow.workflow;
+
+import java.io.Serializable;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
-public abstract class AbstractParam<T> implements IParam<T> {
+public class Param<T> implements IParam<T>, Serializable {
     private String name;
     private T value;
+
+    public Param(String name, T value) {
+        this.name = name;
+        this.value = value;
+    }
 
     @Override
     public void setName(String value) {

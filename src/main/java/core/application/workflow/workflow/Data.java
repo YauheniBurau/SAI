@@ -1,20 +1,40 @@
-package core.application.workflow.data;
+package core.application.workflow.workflow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+//import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
-public class AbstractData <T> implements IData<T> {
+public class Data<T> implements IData<T>, Serializable {
+//    private static AtomicInteger uniqueId=new AtomicInteger();
+//    private int id; //id=uniqueId.getAndIncrement();
     private String name;
-    private T value;
-    private ArrayList<AbstractData<T>> outputs = new ArrayList<>();
-    private AbstractData<T> input = null;
+    private transient T value;
+    private ArrayList<Data<T>> outputs = new ArrayList<>();
+    private Data<T> input = null;
 
-    public AbstractData(String name, T value) {
+    public Data(String name, T value) {
         this.name = name;
         this.value = value;
     }
+
+//    public static AtomicInteger getUniqueId() {
+//        return uniqueId;
+//    }
+//
+//    public static void setUniqueId(AtomicInteger uniqueId) {
+//        AbstractData.uniqueId = uniqueId;
+//    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     @Override
     public void setName(String value) {
@@ -38,17 +58,17 @@ public class AbstractData <T> implements IData<T> {
 
 
     @Override
-    public ArrayList<AbstractData<T>> getOutputs(){
+    public ArrayList<Data<T>> getOutputs(){
         return this.outputs;
     }
 
     @Override
-    public AbstractData getInput(){
+    public Data getInput(){
         return this.input;
     }
 
     @Override
-    public void addOutput(AbstractData dataIO){
+    public void addOutput(Data dataIO){
         if( !this.outputs.contains(dataIO) ){
             this.outputs.add(dataIO);
             dataIO.setInput(this);
@@ -56,7 +76,7 @@ public class AbstractData <T> implements IData<T> {
     }
 
     @Override
-    public void setInput(AbstractData dataIO){
+    public void setInput(Data dataIO){
         if(this.input==null){
             this.input = dataIO;
             dataIO.addOutput(this);
@@ -72,7 +92,7 @@ public class AbstractData <T> implements IData<T> {
     }
 
     @Override
-    public void removeOutput(AbstractData dataIO){
+    public void removeOutput(Data dataIO){
         if( this.outputs.remove(dataIO) ){
             dataIO.removeInput();
         }

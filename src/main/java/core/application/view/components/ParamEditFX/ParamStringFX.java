@@ -1,7 +1,7 @@
 package core.application.view.components.ParamEditFX;
 
 import core.application.view.components.WorkFlowFX.AbstractParamFX;
-import core.application.workflow.param.ParamString;
+import core.application.workflow.workflow.Param;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,10 +10,10 @@ import javafx.scene.layout.HBox;
 /**
  * Created by anonymous on 27.03.2019.
  */
-public class ParamStringFX  extends AbstractParamFX<ParamString> {
+public class ParamStringFX  extends AbstractParamFX<Param<String>> {
     private StringProperty textProperty = null;
 
-    public ParamStringFX(ParamString data) {
+    public ParamStringFX(Param<String> data) {
         super(data);
         HBox hBox = new HBox();
         Label label = new Label(this.getParam().getName());

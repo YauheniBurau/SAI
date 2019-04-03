@@ -2,7 +2,6 @@ package core.old.process.FileToMatrix;
 
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToColor.IntegerArgbToArgb;
-import core.old.Model;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
 import core.old.VertexValue.color.ARGB;
@@ -19,15 +18,6 @@ import java.io.IOException;
  * Created by anonymous on 13.10.2018.
  */
 public class PngFileToM2dArgb extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-
-    public PngFileToM2dArgb(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     /**
      * PngFile -> Matrix2dArgb
@@ -35,14 +25,6 @@ public class PngFileToM2dArgb extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        PngFile in = this.model.pngFileList.get(this.inKey);
-        Matrix2d<ARGB> out;
-        if(in!=null) {
-            out = this.transform(in);
-            this.model.matrix2dArgbList.put(this.outKey, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

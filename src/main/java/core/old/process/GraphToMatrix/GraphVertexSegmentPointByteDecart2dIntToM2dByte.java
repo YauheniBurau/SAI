@@ -1,21 +1,11 @@
 package core.old.process.GraphToMatrix;
 
 import core.application.controller.AbstractAlgorithmFX;
-import core.old.Model;
 
 /**
  * Created by anonymous on 02.12.2018.
  */
 public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends AbstractAlgorithmFX {
-    protected Model model;
-    private String inKey;
-    private String outKey;
-
-    public GraphVertexSegmentPointByteDecart2dIntToM2dByte(Model model, String inKey, String outKey) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-    }
 
     @Override
     public Boolean process() {

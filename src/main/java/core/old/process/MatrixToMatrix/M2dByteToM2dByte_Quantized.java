@@ -4,27 +4,11 @@ import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.matrix.Matrix2dByte;
 import core.old.process.PrimitiveToPrimitive.UnsignedIntToSignedByte;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
-import core.old.Model;
 
 /**
  * Created by anonymous on 08.11.2018.
  */
 public class M2dByteToM2dByte_Quantized extends AbstractAlgorithmFX {
-    private Model model;
-    private String inKey;
-    private String outKey;
-    private int quantizeValue; // [2..256]
-
-    public M2dByteToM2dByte_Quantized(Model model, String inKey, String outKey, int quantizeValue) {
-        if(quantizeValue<2 || quantizeValue>256){
-            throw new InputParamException("Wrong quantizeValue param. it must be in [2..256]");
-        }
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-        this.quantizeValue = quantizeValue;
-    }
 
     /**
      * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
@@ -32,14 +16,6 @@ public class M2dByteToM2dByte_Quantized extends AbstractAlgorithmFX {
      */
     @Override
     public Boolean process() {
-        Matrix2d<Byte> in = this.model.matrix2dByteList.get(this.inKey);
-        Matrix2d<Byte> out;
-        if(in!=null) {
-            out = this.transform(in, this.quantizeValue);
-            this.model.matrix2dByteList.put(this.outKey, out);
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
         return Boolean.TRUE;
     }
 

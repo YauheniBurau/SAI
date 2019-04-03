@@ -5,7 +5,6 @@ import core.old.process.PrimitiveToPrimitive.UnsignedDoubleToSignedByte;
 import core.old.VertexValue.color.Lab;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.InputParamException;
-import core.old.Model;
 
 /**
  * Created by anonymous on 31.10.2018.
@@ -15,45 +14,12 @@ public class M2dLabToM2dByte_L_A_B extends AbstractAlgorithmFX {
     public static final int BY_A = 2;
     public static final int BY_B = 3;
 
-    private Model model;
-    private String inKey;
-    private String outKey;
-    private int transformType;
-
-    public M2dLabToM2dByte_L_A_B(Model model, String inKey, String outKey, int transformType) {
-        this.model = model;
-        this.inKey = inKey;
-        this.outKey = outKey;
-        this.transformType = transformType;
-    }
-
     /**
      * Matrix2d<Lab> -> Matrix2d<Byte> By Light from Lab
      * @return
      */
     @Override
     public Boolean process() {
-        Matrix2d<Lab> in = this.model.matrix2dLabList.get(this.inKey);
-        Matrix2d<Byte> out;
-        if(in!=null) {
-            switch(this.transformType) {
-                case BY_L: { out = this.transformL(in);
-                    break;
-                }
-                case BY_A: { out = this.transformA(in);
-                    break;
-                }
-                case BY_B: { out = this.transformB(in);
-                    break;
-                }
-                default: {
-                    throw new InputParamException("Wrong transformType param value transformPoints not exists");
-                }
-            }
-        }else{
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
-        }
-        this.model.matrix2dByteList.put(this.outKey, out);
         return Boolean.TRUE;
     }
 

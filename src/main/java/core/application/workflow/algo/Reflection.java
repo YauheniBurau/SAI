@@ -1,6 +1,6 @@
-package core.application.reflection;
+package core.application.workflow.algo;
 
-import core.application.workflow.algo.Algorithm;
+import core.application.workflow.workflow.Algorithm;
 
 import java.io.File;
 import java.io.IOException;
