@@ -23,10 +23,10 @@ public class AlgoBufferedImageToBufferedImage extends AbstractAlgorithm implemen
 
     @Override
     public Boolean onProcess() {
-        BufferedImage inBuffImg = inBufferedImage.getValue();
+        BufferedImage inBuffImg = inBufferedImage.getInput().getValue(); // link to data from outputAlgo Previous -> inputAlgo Current
         BufferedImage outBuffImg = new BufferedImage(inBuffImg.getWidth(),inBuffImg.getHeight(), TYPE_INT_ARGB);
-        int y = inBuffImg.getWidth();
-        int x = inBuffImg.getHeight();
+        int x = inBuffImg.getWidth();
+        int y = inBuffImg.getHeight();
         for(int j = 0; j<y; j++){
             for(int i = 0; i<x; i++){
                 outBuffImg.setRGB( i, j, inBuffImg.getRGB(i, j));

@@ -5,14 +5,13 @@ import java.io.Serializable;
 /**
  * Created by anonymous on 26.03.2019.
  */
-public abstract class AbstractNode<T extends IAlgorithm> implements INode<T>, Serializable{
+public abstract class AbstractNode<T extends AbstractAlgorithm> implements INode<T>, Serializable{
     private String name;
     private T algorithm;
     private double translateX;
     private double translateY;
     private double sizeX;
     private double sizeY;
-
 
     public T getAlgorithm() {
         return this.algorithm;

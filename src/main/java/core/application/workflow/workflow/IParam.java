@@ -13,4 +13,7 @@ public interface IParam<T> {
     Class getParamFXClass();
     void setParamFXClass(Class paramFXClass);
 
+    void setAlgorithm(AbstractAlgorithm algorithm);
+    AbstractAlgorithm getAlgorithm();
 }
+

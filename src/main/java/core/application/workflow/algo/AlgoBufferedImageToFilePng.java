@@ -40,8 +40,8 @@ public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Ser
     @Override
     public Boolean onProcess() {
         Boolean result = true;
-        try{
-            ImageIO.write(this.inBufferedImage.getValue(), "png", this.paramFileOut.getValue().getFile());
+        try{ // link to data from outputAlgo Previous -> inputAlgo Current this.inBufferedImage.getInput().getValue()
+            ImageIO.write(this.inBufferedImage.getInput().getValue(), "png", this.paramFileOut.getValue().getFile());
         } catch (IOException e) {
             e.printStackTrace();
             result = false;

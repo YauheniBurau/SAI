@@ -61,20 +61,28 @@ public class Data<T> implements IData<T>, Serializable {
     }
 
     @Override
-    public Data getInput(){
+    public Data<T> getInput(){
         return this.input;
     }
 
+    /**
+     * set for current output data(source) have to contain all links -> all outputs (destinations)
+     * @param dataIO
+     */
     @Override
-    public void addOutput(Data dataIO){
+    public void addOutput(Data<T> dataIO){
         if( !this.outputs.contains(dataIO) ){
             this.outputs.add(dataIO);
             dataIO.setInput(this);
         }
     }
 
+    /**
+     * set for current input data(source) have to contain only one previous link -> from output (destinations)
+     * @param dataIO
+     */
     @Override
-    public void setInput(Data dataIO){
+    public void setInput(Data<T> dataIO){
         if(this.input==null){
             this.input = dataIO;
             dataIO.addOutput(this);
@@ -109,6 +117,10 @@ public class Data<T> implements IData<T>, Serializable {
 
     public void setDataFXClass(Class dataFXClass) {
         this.dataFXClass = dataFXClass;
+    }
+
+    public void setAlgorithm(AbstractAlgorithm algorithm) {
+        this.algorithm = algorithm;
     }
 
     public AbstractAlgorithm getAlgorithm() {

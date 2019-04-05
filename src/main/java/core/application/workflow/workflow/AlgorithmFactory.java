@@ -2,6 +2,7 @@ package core.application.workflow.workflow;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 
 /**
  * Created by anonymous on 29.03.2019.
@@ -23,6 +24,9 @@ public class AlgorithmFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        // init: add link to algorithm into Params and Data Inputs and data outputs
+        //LinkedList params = algo.getParams();
+
         return algo;
     }
 }

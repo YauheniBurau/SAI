@@ -42,10 +42,10 @@ public class AI_Application extends Application {
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 1366, 768);
 
-        Workflow wf = new Workflow(1000, 1000);
-        wf.addNode(new Node("test Algo", new AlgoTest(), 200, 200, 200, 80) );
-        WorkflowFX wfFX = new WorkflowFX(wf);
-        root.getChildren().add(wfFX);
+//        Workflow wf = new Workflow(1000, 1000);
+//        wf.addNode(new Node("test Algo", new AlgoTest(), 200, 200, 200, 80) );
+//        WorkflowFX wfFX = new WorkflowFX(wf);
+//        root.getChildren().add(wfFX);
         // =========================================== GUI MENU BAR ====================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus

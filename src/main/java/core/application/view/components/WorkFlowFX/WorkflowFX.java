@@ -24,6 +24,7 @@ public class WorkflowFX extends Pane {
     public ConnectionFX getTempConnectionFX() {
         return tempConnectionFX;
     }
+    private ThreadProcessWorkflowFX ThreadProcessWorkflowFX = null;
 
     public void setTempConnectionFX(ConnectionFX tempConnectionFX) {
         this.tempConnectionFX = tempConnectionFX;
@@ -122,6 +123,18 @@ public class WorkflowFX extends Pane {
 
     public Workflow getWorkflow() {
         return this.workflow;
+    }
+
+    public ThreadProcessWorkflowFX getThreadProcessWorkflowFX() {
+        return ThreadProcessWorkflowFX;
+    }
+
+    public void setThreadProcessWorkflowFX(ThreadProcessWorkflowFX threadProcessWorkflowFX) {
+        ThreadProcessWorkflowFX = threadProcessWorkflowFX;
+    }
+
+    public ArrayList<NodeFX> getNodesFX() {
+        return nodesFX;
     }
 
     /**

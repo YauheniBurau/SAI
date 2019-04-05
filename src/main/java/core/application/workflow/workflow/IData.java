@@ -17,8 +17,8 @@ public interface IData<T> {
 
     ArrayList<Data<T>> getOutputs();
     Data<T> getInput();
-    void addOutput(Data dataIO);
-    void setInput(Data dataIO);
+    void addOutput(Data<T> dataIO);
+    void setInput(Data<T> dataIO);
     void removeInput();
     void removeOutput(Data dataIO);
     void removeOutputs();

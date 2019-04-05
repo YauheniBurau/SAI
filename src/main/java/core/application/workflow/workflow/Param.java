@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by anonymous on 26.03.2019.
  */
 public class Param<T> implements IParam<T>, Serializable {
+    private AbstractAlgorithm algorithm;
     private String name;
     private T value;
     private Class paramFXClass;
@@ -39,6 +40,14 @@ public class Param<T> implements IParam<T>, Serializable {
 
     public void setParamFXClass(Class paramFXClass) {
         this.paramFXClass = paramFXClass;
+    }
+
+    public void setAlgorithm(AbstractAlgorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public AbstractAlgorithm getAlgorithm() {
+        return algorithm;
     }
 
 }

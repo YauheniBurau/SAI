@@ -18,5 +18,5 @@ public interface IAlgorithm {
     IData getOutput(Integer key);
     LinkedList<Data> getOutputs();
     Data addOutput(Data value);
-
+    boolean isProcessed();
 }

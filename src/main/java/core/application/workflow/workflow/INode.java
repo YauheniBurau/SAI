@@ -3,7 +3,7 @@ package core.application.workflow.workflow;
 /**
  * Created by anonymous on 26.03.2019.
  */
-public interface INode<T extends IAlgorithm> {
+public interface INode<T extends AbstractAlgorithm> {
     INode setName(String name);
     String getName();
     T getAlgorithm();

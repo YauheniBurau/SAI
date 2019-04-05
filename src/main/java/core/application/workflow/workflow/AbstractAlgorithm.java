@@ -11,7 +11,7 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     private LinkedList<Param> params = new LinkedList<>();
     private LinkedList<Data> inputs = new LinkedList<>();
     private LinkedList<Data> outputs = new LinkedList<>();
-    public boolean isProcessed = false;
+    private transient boolean isProcessed = false;
 
     public String getName() {
         return this.name;
@@ -32,6 +32,7 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     public Param addParam(Param value) {
+        value.setAlgorithm(this);
         this.params.add(value);
         return value;
     }
@@ -45,6 +46,7 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     public Data addInput(Data value) {
+        value.setAlgorithm(this);
         this.inputs.add(value);
         return value;
     }
@@ -58,6 +60,7 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     public Data addOutput(Data value) {
+        value.setAlgorithm(this);
         this.outputs.add(value);
         return value;
     }
@@ -68,5 +71,9 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
      */
     public void setProcessed(boolean processed) {
         isProcessed = processed;
+    }
+
+    public boolean isProcessed() {
+        return isProcessed;
     }
 }

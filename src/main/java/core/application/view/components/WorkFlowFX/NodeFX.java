@@ -3,6 +3,7 @@ package core.application.view.components.WorkFlowFX;
 import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.workflow.workflow.Data;
 import core.application.workflow.workflow.Node;
+import core.application.workflow.workflow.ThreadAlgoProcess;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -74,6 +75,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, new CornerRadii(10),
                 new BorderWidths(2,2,2,2, false, false, false, false))) );
+        //this.setStyle("-fx-background-color: LIGHTGREEN");
         // add inputsFX and outputsFX
         VBox boxInputs = new VBox();
         boxInputs.setMaxWidth(100);
@@ -178,7 +180,14 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hProcessBtn.setOnAction
      */
     EventHandler<ActionEvent> hProcessBtn = (e) -> {
-//        this.getNode().getAlgorithm().onProcess(); // TODO:
+        if( this.getWorkflowFX().getThreadProcessWorkflowFX()!= null &&
+            this.getWorkflowFX().getThreadProcessWorkflowFX().isAlive()==true ){
+            this.getWorkflowFX().getThreadProcessWorkflowFX().interrupt();
+        }
+        this.getWorkflowFX().setThreadProcessWorkflowFX(null);
+        ThreadProcessWorkflowFX t = new ThreadProcessWorkflowFX(this);
+        this.getWorkflowFX().setThreadProcessWorkflowFX(t);
+        t.start();
     };
 
     /**
