@@ -30,7 +30,7 @@ public class WorkflowStageFX extends StageFX {
         this.setMinWidth(640);
         this.setMinHeight(480);
         this.toFront();
-        this.setIconified(true);
+        this.setIconified(false);
         ZoomableScrollPaneFX scrollPane = new ZoomableScrollPaneFX(this.workflowFX);
         scrollPane.setPannable(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);

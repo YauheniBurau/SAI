@@ -1,14 +1,13 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.view.HelperFX;
 import core.application.view.components.DataViewFX.DataFactoryFX;
+import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
 import core.application.view.components.ParamEditFX.ParamFactoryFX;
 import core.application.workflow.workflow.Data;
 import core.application.workflow.workflow.Param;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
@@ -29,12 +28,13 @@ public class EditNodeStageFX extends StageFX {
 
     public EditNodeStageFX(NodeFX value) {
         this.nodeFX = value;
+        init();
     }
 
     @Override
     public void init(){
         Pane root = new Pane();
-        Button btnUpdate = HelperFX.createButton("Update", hBtnUpdate);
+        ButtonFX btnUpdate = new ButtonFX().withText("Update").withOnAction(hBtnUpdate);
         TabPane tabPane = new TabPane();
         VBox vbox = new VBox(tabPane, btnUpdate);
         root.getChildren().add(vbox);

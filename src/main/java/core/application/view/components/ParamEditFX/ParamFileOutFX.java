@@ -1,6 +1,7 @@
 package core.application.view.components.ParamEditFX;
 
 import core.application.view.HelperFX;
+import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.WorkFlowFX.AbstractParamFX;
 import core.application.workflow.param.FileOut;
 import core.application.workflow.workflow.Param;
@@ -28,7 +29,7 @@ public class ParamFileOutFX  extends AbstractParamFX<Param<FileOut>> {
         Label label = new Label(this.getParam().getName());
         TextField field = new TextField();
         field.editableProperty().set(false);
-        Button btn = HelperFX.createButton("...", hBtn);
+        ButtonFX btn = new ButtonFX().withText("...").withOnAction(hBtn);
         hBox.getChildren().addAll(label, field, btn);
         this.getChildren().add(hBox);
         if(this.getParam().getValue()!=null) field.setText( this.getParam().getValue().getFile().getAbsolutePath() );

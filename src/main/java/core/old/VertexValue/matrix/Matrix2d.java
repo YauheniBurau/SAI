@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * states for porcessing and storing temporal data about activity element
  * true = Active, selected, processed
  * false = not active, not selected, not processed
- * null = processed, no element, no need to process, excluded from processing
+ * null = processed, no element, no need to onProcess, excluded from processing
  */
 public class Matrix2d<T> implements IMatrix {
     private Class<T> elementClass;

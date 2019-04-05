@@ -3,6 +3,7 @@ package core.application.view.components.app;
 import core.application.AI_Application;
 import core.application.controller.AlgoStageHideFX;
 import core.application.view.HelperFX;
+import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
 import core.application.view.components.ParamEditFX.ParamDoubleFX;
 import core.application.view.components.WorkFlowFX.WorkflowFX;
@@ -37,8 +38,8 @@ public class EditCanvasSizeStageFX extends StageFX {
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true);
         this.fieldSizeX = new ParamDoubleFX( new Param<Double>("SizeX:", pane.getMinWidth(), ParamDoubleFX.class) );
         this.fieldSizeY = new ParamDoubleFX( new Param<Double>("SizeY:", pane.getMinHeight(), ParamDoubleFX.class) );
-        Button btnOk = HelperFX.createButton("Ok", hBtnOk);
-        Button btnCancel = HelperFX.createButton("Cancel", new AlgoStageHideFX(this) );
+        ButtonFX btnOk = new ButtonFX().withText("Ok").withOnAction(hBtnOk);
+        Button btnCancel = new ButtonFX().withText("Cancel").withOnAction(new AlgoStageHideFX(this));
         root.add(fieldSizeX, 0, 0,2, 1);
         root.add(fieldSizeY, 0, 1,2, 1);
         root.add(btnOk, 0, 2,1, 1);

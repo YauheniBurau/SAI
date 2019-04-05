@@ -1,6 +1,6 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.view.HelperFX;
+import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.workflow.workflow.Data;
 import core.application.workflow.workflow.Node;
 import javafx.event.ActionEvent;
@@ -9,13 +9,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -27,19 +26,15 @@ public class NodeFX extends BorderPane implements INodeFX{
         public double x;
         public double y;
     }
-
     private Node node;
 
     private WorkflowFX workflowFX;
-
-    private Stage EditViewStage;
-    private HBox topButtons;
-    private Button closeBtn;
-    private Button toogleBtn;
-    protected Button editBtn;
-    protected Button processBtn;
-    private Button minBtn;
-    private Button maxBtn;
+    private HBox headerButtons;
+    protected ButtonFX closeBtn;
+    protected ButtonFX editBtn;
+    protected ButtonFX processBtn;
+    protected ButtonFX unprocessBtn;
+    protected ButtonFX stopProcessBtn;
     protected Label title;
 
     private LinkedList<InputFX> inputsFX = new LinkedList<>();
@@ -56,20 +51,23 @@ public class NodeFX extends BorderPane implements INodeFX{
         // add control buttons
         this.node = node;
         this.title = new Label(node.getName() + " : " + node.getAlgorithm().getName());
-        this.topButtons = new HBox();
-        this.closeBtn = HelperFX.createButton("X", hCloseBtn );
-        this.toogleBtn = HelperFX.createButton("_", (EventHandler) null);
-        this.editBtn = HelperFX.createButton("E", hEditBtn );
-        this.processBtn = HelperFX.createButton("P", hProcessBtn);
-        this.minBtn = HelperFX.createButton("-", (EventHandler) null);
-        this.maxBtn = HelperFX.createButton("+", (EventHandler) null);
-        topButtons.getChildren().addAll(closeBtn, toogleBtn, editBtn, processBtn, minBtn, maxBtn);
-        VBox topBox = new VBox();
-        topBox.setAlignment(Pos.CENTER);
-        topBox.getChildren().addAll(title, topButtons);
-        this.setTop(topBox);
-        this.setMinWidth(200);
-        this.setMinHeight(80);
+        this.headerButtons = new HBox();
+        this.closeBtn = new ButtonFX().withText("X").withOnAction(hCloseBtn).withTooltip("close");
+        this.editBtn = new ButtonFX().withText("E").withOnAction(hEditBtn).withTooltip("edit");
+        this.processBtn = new ButtonFX().withText("P").withOnAction(hProcessBtn).withTooltip("process");
+        this.unprocessBtn = new ButtonFX().withText("U").withOnAction(hUnprocessBtn).withTooltip("unprocess");
+        this.stopProcessBtn = new ButtonFX().withText("S").withOnAction(hStopProcessBtn).withTooltip("stop process");
+        headerButtons.getChildren().addAll(closeBtn, editBtn, processBtn, unprocessBtn, stopProcessBtn);
+        headerButtons.setAlignment(Pos.CENTER);
+
+        BorderPane header = new BorderPane();
+        header.setTop(title);
+        header.setAlignment(title, Pos.CENTER);
+        header.setBottom(headerButtons);
+
+        this.setTop(header);
+        this.setMinWidth(this.node.getSizeX());
+        this.setMinHeight(this.node.getSizeY());
         this.setLayoutX(node.getLayoutX());
         this.setLayoutY(node.getLayoutY());
 
@@ -105,13 +103,14 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.setRight(boxOutputs);
         this.setMouseTransparent(false);
 
-        // made draggable
+        // TODO: move to DragResizeNodeFX Class
         this.title.setOnMouseEntered(hOnMouseEnteredTitle);
         this.title.setOnMouseExited(hOnMouseExitedTitle);
         this.title.setOnMousePressed(hOnMousePressedTitle);
         this.title.setOnMouseDragged(hOnMouseDraggedTitle);
         this.title.setOnMouseReleased(hOnMouseReleasedTitle);
-        // TODO: make resizable
+
+        DragResizerNodeFX.makeResizable(this);
     }
 
     public void addInputFX(Data e){
@@ -179,16 +178,32 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hProcessBtn.setOnAction
      */
     EventHandler<ActionEvent> hProcessBtn = (e) -> {
-        this.getNode().getAlgorithm().process();
+//        this.getNode().getAlgorithm().onProcess(); // TODO:
     };
+
+    /**
+     * eventHandler for hUnprocessBtn.setOnAction
+     */
+    EventHandler<ActionEvent> hUnprocessBtn = (e) -> {
+//        this.getNode().getAlgorithm().onProcess(); // TODO:
+    };
+
+    /**
+     * eventHandler for hStopProcessBtn.setOnAction
+     */
+    EventHandler<ActionEvent> hStopProcessBtn = (e) -> {
+//        this.getNode().getAlgorithm().onProcess(); // TODO:
+    };
+
 
     /**
      * eventHandler for hProcessBtn.setOnAction
      */
     EventHandler<ActionEvent> hEditBtn = (e) -> {
-        HelperFX.showStage(new EditNodeStageFX(this));
+        new EditNodeStageFX(this).show();
     };
 
+    // TODO: move to DragResizeNodeFX Class
     /**
      * eventHandler for title drag and drop
      */
@@ -199,6 +214,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         me.consume();
     };
 
+    // TODO: move to DragResizeNodeFX Class
     /**
      * eventHandler for title drag and drop
      */
@@ -209,6 +225,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         }
     };
 
+    // TODO: move to DragResizeNodeFX Class
     /**
      * eventHandler for title drag and drop
      */
@@ -221,6 +238,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         }
     };
 
+    // TODO: move to DragResizeNodeFX Class
     /**
      * eventHandler for title drag and drop
      */
@@ -230,6 +248,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         me.consume();
     };
 
+    // TODO: move to DragResizeNodeFX Class
     /**
      * eventHandler for title drag and drop
      */

@@ -7,6 +7,7 @@ package core.application;
 import core.application.controller.AlgoHandlerFX;
 import core.application.controller.AlgoStageShowFX;
 import core.application.view.components.app.WorkflowStageFX;
+import core.application.workflow.algo.AlgoTest;
 import core.application.workflow.algo.Reflection;
 import core.application.view.HelperFX;
 import core.application.view.components.app.AddNewNodeStageFX;
@@ -16,6 +17,7 @@ import core.application.view.components.app.EditCanvasSizeStageFX;
 import core.application.view.components.app.UtilityStage1FX;
 import core.application.view.components.app.UtilityStage2FX;
 import core.application.view.components.app.UtilityStage3FX;
+import core.application.workflow.workflow.Node;
 import core.application.workflow.workflow.Workflow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -40,6 +42,10 @@ public class AI_Application extends Application {
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 1366, 768);
 
+        Workflow wf = new Workflow(1000, 1000);
+        wf.addNode(new Node("test Algo", new AlgoTest(), 200, 200, 200, 80) );
+        WorkflowFX wfFX = new WorkflowFX(wf);
+        root.getChildren().add(wfFX);
         // =========================================== GUI MENU BAR ====================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus

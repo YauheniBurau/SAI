@@ -1,10 +1,9 @@
 package core.application.view.components.app;
 
 import core.application.AI_Application;
-import core.application.view.HelperFX;
+import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.GuiBuilderFX.GridPaneFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
-import core.application.view.components.ParamEditFX.ParamFactoryFX;
 import core.application.view.components.ParamEditFX.ParamStringFX;
 import core.application.view.components.WorkFlowFX.WorkflowFX;
 import core.application.workflow.workflow.AbstractAlgorithm;
@@ -13,7 +12,6 @@ import core.application.workflow.workflow.Node;
 import core.application.workflow.workflow.Param;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.stage.StageStyle;
 
 /**
@@ -35,13 +33,11 @@ public class AddNewNodeStageFX extends StageFX {
         this.nodeTitle = new ParamStringFX(
                 new Param<String>("New node title", "undefined", ParamStringFX.class)
         );
-
-        Button btnCreate = HelperFX.createButton("Create", hBtnCreate);
+        ButtonFX btnCreate = new ButtonFX().withText("Create").withOnAction(hBtnCreate);
         root.withNode(nodeTitle, 0, 0, 2, 1);
         root.withNode(btnCreate, 1, 1, 1, 1);
         this.withScene(root, 320, 240).withTitle("Add new node : " + algoClass.getCanonicalName())
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true);
-        btnCreate.setOnAction(hBtnCreate);
     }
 
     /**
@@ -51,10 +47,13 @@ public class AddNewNodeStageFX extends StageFX {
         WorkflowFX workflowFX = this.application.getWorkflowStageFXActive().getWorkflowFX();
         double translateX = workflowFX.getWidth()/2;
         double translateY = workflowFX.getHeight()/2;
+        double minSizeX = 200;
+        double minSizeY = 80;
+
         this.nodeTitle.updateToModel();
         String title = this.nodeTitle.getParam().getValue();
         AbstractAlgorithm algo = AlgorithmFactory.constructAlgorithm(this.algoClass);
-        Node node = new Node(title, algo, translateX, translateY);
+        Node node = new Node(title, algo, translateX, translateY, minSizeX, minSizeY);
         // add node to workflow model and add node to WorkflowFX
         workflowFX.getWorkflow().addNode(node);
         workflowFX.addNodeFX(node);

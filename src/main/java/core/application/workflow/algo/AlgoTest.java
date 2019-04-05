@@ -16,6 +16,7 @@ import java.io.Serializable;
  */
 @Algorithm
 public class AlgoTest extends AbstractAlgorithm implements Serializable {
+    { this.setName("AlgoTest"); }
     // PARAMS
     private Param<Integer> paramInteger1 = this.addParam( new Param<Integer>("SizeX", 0, ParamIntegerFX.class) );
     private Param<Integer> paramInteger2 = this.addParam(new Param<Integer>("SizeY", 0, ParamIntegerFX.class ) );
@@ -32,12 +33,12 @@ public class AlgoTest extends AbstractAlgorithm implements Serializable {
     private Data<String> outString1 = this.addOutput(new Data<String>("TitleOut", "", DataStringFX.class ));
     private Data<String> outString2 = this.addOutput(new Data<String>("DescrOut", "", DataStringFX.class ));
 
-    public AlgoTest() {
-        this.setName("AlgoTest");
-    }
+//
+//    public AlgoTest() {
+//    }
 
     @Override
-    public Boolean process() {
+    public Boolean onProcess() {
         Boolean result = true;
         this.outInteger1.setValue( this.inInteger1.getValue() + this.paramInteger1.getValue() );
         this.outInteger2.setValue( this.inInteger2.getValue() + this.paramInteger2.getValue() );

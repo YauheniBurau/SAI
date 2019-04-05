@@ -312,7 +312,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends AbstractAlgorith
 //     * @return
 //     */
 //    @Override
-//    public Boolean process() {
+//    public Boolean onProcess() {
 //        Matrix2d<Byte> in = this.model.matrix2dByteList.get(this.inKey);
 //        GraphVertexSegmentByteDecart2dInt out;
 //        if(in!=null) {

@@ -18,7 +18,7 @@ import java.util.Optional;
  * Created by anonymous on 25.03.2019.
  */
 public class ConnectionFX extends Line implements IConnectionFX{
-    private Connection connection;
+    private Connection connection = null;
 
     private OutputFX start = null;
     private InputFX end = null;

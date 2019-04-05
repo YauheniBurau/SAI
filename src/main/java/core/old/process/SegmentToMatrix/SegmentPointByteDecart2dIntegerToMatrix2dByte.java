@@ -26,7 +26,7 @@ public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends AbstractAlgor
 //     * @return
 //     */
 //    @Override
-//    public Boolean process() {
+//    public Boolean onProcess() {
 //        SegmentPointDecart2dInt in = this.model.segmentByteDecart2dIntList.get(this.inKey);
 //        Matrix2d<Byte> out;
 //        if(in!=null) {

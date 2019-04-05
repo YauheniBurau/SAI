@@ -19,7 +19,7 @@ public class LayerThread extends Thread {
             do {
                 // get layer state. check layerState. run refreshing all neurons
                 if(false){
-                    // process all neuron in layer
+                    // onProcess all neuron in layer
                     // send signals to sub layers
                 }else {
                     this.wait(1000);

@@ -26,4 +26,6 @@ public interface IData<T> {
     Class getDataFXClass();
     void setDataFXClass(Class dataFXClass);
 
+    AbstractAlgorithm getAlgorithm();
+
 }

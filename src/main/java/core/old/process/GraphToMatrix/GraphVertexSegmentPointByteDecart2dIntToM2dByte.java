@@ -17,7 +17,7 @@ public class GraphVertexSegmentPointByteDecart2dIntToM2dByte extends AbstractAlg
 //     * @return
 //     */
 //    @Override
-//    public Boolean process() {
+//    public Boolean onProcess() {
 //        GraphVertexSegmentByteDecart2dInt in =
 //                this.model.graphVertexSegmentByteDecart2dIntList.get(this.inKey);
 //        Matrix2d<Byte> out;

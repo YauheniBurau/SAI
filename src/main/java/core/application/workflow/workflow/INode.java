@@ -13,4 +13,8 @@ public interface INode<T extends IAlgorithm> {
     double getLayoutY();
     INode setLayoutY(double value);
 
+    double getSizeX();
+    void setSizeX(double sizeX);
+    double getSizeY();
+    void setSizeY(double sizeY);
 }

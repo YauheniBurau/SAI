@@ -1,17 +1,10 @@
 package core.application.view;
 
-import core.application.controller.AlgoHandlerFX;
-import core.application.controller.IAlgorithmFX;
-import core.application.view.components.GuiBuilderFX.StageFX;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.util.converter.DoubleStringConverter;
 import java.io.File;
-import java.util.regex.Pattern;
 
 /**
  * Created by anonymous on 08.10.2018.
@@ -68,19 +61,9 @@ public class HelperFX {
         return btn;
     }
 
-    /**
-     * create button with setted up eventHandler onClick event
-     * @param title
-     * @param algo
-     * @return
-     */
-    public static Button createButton(String title, IAlgorithmFX algo) {
-        Button btn = new Button(title);
-        btn.setOnAction(new AlgoHandlerFX<>(algo));
-        return btn;
-    }
 
-// TODO: remove later or implement
+    // TODO: remove later or implement
+
 //    /**
 //     * create TextField JavaFX with TextFormatter only "double" values
 //     * @return
@@ -115,15 +98,6 @@ public class HelperFX {
         return imageView;
     }
 
-    /**
-     * init and show stage window
-     * @param stage
-     */
-    public static void showStage(StageFX stage){
-        Boolean result = true;
-        stage.init();
-        if(!stage.isShowing()) stage.show();
-    }
 
 //    // TODO: make nodeFX draggable that way via dragboard
 //    public static void makeNodeFxDraggable(WorkflowPaneFX workflowPaneFX, NodeFX nodeFX, javafx.scene.Node source) {
@@ -192,4 +166,6 @@ public class HelperFX {
 //
 //    }
 
+
 }
+

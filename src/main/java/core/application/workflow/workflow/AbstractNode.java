@@ -10,49 +10,59 @@ public abstract class AbstractNode<T extends IAlgorithm> implements INode<T>, Se
     private T algorithm;
     private double translateX;
     private double translateY;
+    private double sizeX;
+    private double sizeY;
 
-    @Override
+
     public T getAlgorithm() {
         return this.algorithm;
     }
 
-    @Override
     public INode setAlgorithm(T algorithm) {
         this.algorithm = algorithm;
         return this;
     }
 
-    @Override
     public INode setName(String name) {
         this.name = name;
         return this;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public double getLayoutX() {
         return this.translateX;
     }
 
-    @Override
     public INode setLayoutX(double value) {
         this.translateX = value;
         return this;
     }
 
-    @Override
     public double getLayoutY() {
         return this.translateY;
     }
 
-    @Override
     public INode setLayoutY(double value) {
         this.translateY = value;
         return this;
     }
 
+    public double getSizeX() {
+        return sizeX;
+    }
+
+    public void setSizeX(double sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    public double getSizeY() {
+        return sizeY;
+    }
+
+    public void setSizeY(double sizeY) {
+        this.sizeY = sizeY;
+    }
 }

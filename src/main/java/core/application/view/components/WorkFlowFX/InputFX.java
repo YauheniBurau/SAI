@@ -14,7 +14,7 @@ import javafx.scene.shape.Circle;
  */
 public class InputFX<T extends Data> extends HBox {
     public static final double circleRadius = 5;
-    private T value = null; // TODO: to AbstractData
+    private T value = null;
     private Circle circle;
     private Label label;
 

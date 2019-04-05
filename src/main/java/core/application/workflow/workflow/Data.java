@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * Created by anonymous on 26.03.2019.
  */
 public class Data<T> implements IData<T>, Serializable {
+    private AbstractAlgorithm algorithm;
     private Class classValue;
     private String name;
     private transient T value;
@@ -108,5 +109,9 @@ public class Data<T> implements IData<T>, Serializable {
 
     public void setDataFXClass(Class dataFXClass) {
         this.dataFXClass = dataFXClass;
+    }
+
+    public AbstractAlgorithm getAlgorithm() {
+        return algorithm;
     }
 }

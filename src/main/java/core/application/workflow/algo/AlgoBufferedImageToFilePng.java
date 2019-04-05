@@ -22,36 +22,28 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  */
 @Algorithm
 public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Serializable{
+    { this.setName("BufferedImage->Png"); }
     // PARAMS
-    private Param<FileOut> paramFileOut;
+    private Param<FileOut> paramFileOut = this.addParam(
+            new Param<FileOut>("FilePngOut",
+                    new FileOut(new File(System.getProperty("user.home")),
+                            new FileChooser.ExtensionFilter("save *.png", "*.png")),
+                    ParamFileOutFX.class
+            )
+    );
     // INPUTS
-    private Data<BufferedImage> inBufferedImage;
+    private Data<BufferedImage> inBufferedImage = this.addInput( new Data<BufferedImage>(
+                    "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class)
+    );
     // OUTPUTS
 
-    public AlgoBufferedImageToFilePng() {
-        this.setName("BufferedImage->Png");
-        // PARAMS
-        this.paramFileOut = new Param<FileOut>("FilePngOut",
-                new FileOut(new File(System.getProperty("user.home")),
-                        new FileChooser.ExtensionFilter("save *.png", "*.png")),
-                ParamFileOutFX.class
-        );
-        this.addParam(this.paramFileOut);
-        // INPUTS
-        // OUTPUTS
-        this.inBufferedImage = new Data<BufferedImage>(
-                "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class);
-        this.addInput(this.inBufferedImage);
-    }
-
     @Override
-    public Boolean process() {
+    public Boolean onProcess() {
         Boolean result = true;
         try{
             ImageIO.write(this.inBufferedImage.getValue(), "png", this.paramFileOut.getValue().getFile());
         } catch (IOException e) {
-            // TODO: add exception processer
-            //throw new FileException("Can't write BufferedImage to png-file", e);
+            e.printStackTrace();
             result = false;
         }
         return result;

@@ -55,7 +55,7 @@ public final class Graph implements IGraph {
         for(IVertex v: this.vertexes){
             System.out.println( v.getClass().toGenericString() );
             result = v.toHumanFile(path);
-            // TODO: check for errors and process if error, like log, warning and
+            // TODO: check for errors and onProcess if error, like log, warning and
         }
         return result;
     }

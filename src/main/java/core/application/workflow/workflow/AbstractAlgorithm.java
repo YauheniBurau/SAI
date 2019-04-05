@@ -11,65 +11,62 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     private LinkedList<Param> params = new LinkedList<>();
     private LinkedList<Data> inputs = new LinkedList<>();
     private LinkedList<Data> outputs = new LinkedList<>();
+    public boolean isProcessed = false;
 
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public void setName(String name){
         this.name = name;
     }
 
-    @Override
-    public abstract Boolean process();
+    public abstract Boolean onProcess();
 
     public IParam getParam(Integer key) {
         return this.params.get(key);
     }
 
-    @Override
     public LinkedList<Param> getParams() {
         return this.params;
     }
 
-    @Override
     public Param addParam(Param value) {
         this.params.add(value);
         return value;
     }
 
-    @Override
     public Data getInput(Integer key) {
         return this.inputs.get(key);
     }
 
-    @Override
     public LinkedList<Data> getInputs() {
         return this.inputs;
     }
 
-    @Override
     public Data addInput(Data value) {
         this.inputs.add(value);
         return value;
     }
 
-    @Override
     public Data getOutput(Integer key) {
         return this.outputs.get(key);
     }
 
-    @Override
     public LinkedList<Data> getOutputs() {
         return this.outputs;
     }
 
-    @Override
     public Data addOutput(Data value) {
         this.outputs.add(value);
         return value;
     }
 
+    /**
+     * only change flag of algorithm
+     * @param processed
+     */
+    public void setProcessed(boolean processed) {
+        isProcessed = processed;
+    }
 }

@@ -23,38 +23,30 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  */
 @Algorithm
 public class AlgoFilePngToBufferedImage extends AbstractAlgorithm implements Serializable {
+    { this.setName("Png->BufferedImage"); }
     // PARAMS
-    private Param<FileIn> paramFileIn;
+    private Param<FileIn> paramFileIn = this.addParam(
+            new Param<FileIn>("FilePngIn",
+                    new FileIn(new File(System.getProperty("user.home")),
+                            new FileChooser.ExtensionFilter("select *.png", "*.png")),
+                    ParamFileInFX.class
+            )
+    );
     // INPUTS
     // OUTPUTS
-    private Data<BufferedImage> outBufferedImage;
-
-    public AlgoFilePngToBufferedImage() {
-        this.setName("Png->BufferedImage");
-        // PARAMS
-        this.paramFileIn = new Param<FileIn>("FilePngIn",
-                new FileIn(new File(System.getProperty("user.home")),
-                        new FileChooser.ExtensionFilter("select *.png", "*.png")),
-                ParamFileInFX.class
-        );
-        this.addParam(this.paramFileIn);
-        // INPUTS
-        // OUTPUTS
-        this.outBufferedImage = new Data<BufferedImage>(
-                "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class);
-        this.addOutput(this.outBufferedImage);
-    }
+    private Data<BufferedImage> outBufferedImage = this.addOutput( new Data<BufferedImage>(
+            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class)
+    );
 
     @Override
-    public Boolean process() {
+    public Boolean onProcess() {
         Boolean result = true;
         BufferedImage img;
         try {
             img = ImageIO.read(new FileImageInputStream(this.paramFileIn.getValue().getFile()));
             this.outBufferedImage.setValue(img);
         } catch (IOException e) {
-            // TODO: add processing for exception later
-            //throw new FileException("Can't read png-file into BufferedImage", e);
+            e.printStackTrace();
             result = false;
         }
         return result;
