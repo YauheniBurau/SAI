@@ -30,7 +30,7 @@ public class NodeFX extends BorderPane implements INodeFX{
 
     private Node node;
 
-    private WorkflowPaneFX workflowPaneFX;
+    private WorkflowFX workflowFX;
 
     private Stage EditViewStage;
     private HBox topButtons;
@@ -145,13 +145,13 @@ public class NodeFX extends BorderPane implements INodeFX{
     }
 
     @Override
-    public void setWorkflowPaneFX(WorkflowPaneFX workflowPaneFX) {
-        this.workflowPaneFX = workflowPaneFX;
+    public void setWorkflowFX(WorkflowFX workflowFX) {
+        this.workflowFX = workflowFX;
     }
 
     @Override
-    public WorkflowPaneFX getWorkflowPaneFX() {
-        return this.workflowPaneFX;
+    public WorkflowFX getWorkflowFX() {
+        return this.workflowFX;
     }
 
 
@@ -169,7 +169,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         alert.setContentText("You can't discard that changes. Are you sure?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            this.getWorkflowPaneFX().deleteNodeFX(this);
+            this.getWorkflowFX().deleteNodeFX(this);
         } else {
             // ... user chose CANCEL or closed the dialog
         }
@@ -186,7 +186,7 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hProcessBtn.setOnAction
      */
     EventHandler<ActionEvent> hEditBtn = (e) -> {
-        HelperFX.showStage(new NodeEditViewStageFX(this));
+        HelperFX.showStage(new EditNodeStageFX(this));
     };
 
     /**

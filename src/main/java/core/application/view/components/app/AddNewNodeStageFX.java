@@ -1,10 +1,12 @@
-package core.application.view.components.WorkFlowFX;
+package core.application.view.components.app;
 
 import core.application.AI_Application;
 import core.application.view.HelperFX;
 import core.application.view.components.GuiBuilderFX.GridPaneFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
+import core.application.view.components.ParamEditFX.ParamFactoryFX;
 import core.application.view.components.ParamEditFX.ParamStringFX;
+import core.application.view.components.WorkFlowFX.WorkflowFX;
 import core.application.workflow.workflow.AbstractAlgorithm;
 import core.application.workflow.workflow.AlgorithmFactory;
 import core.application.workflow.workflow.Node;
@@ -17,12 +19,12 @@ import javafx.stage.StageStyle;
 /**
  * Created by anonymous on 29.03.2019.
  */
-public class NodeNewStageFX extends StageFX {
+public class AddNewNodeStageFX extends StageFX {
     private AI_Application application = null;
     private Class algoClass = null;
     private ParamStringFX nodeTitle = null;
 
-    public NodeNewStageFX(Class value, AI_Application app) {
+    public AddNewNodeStageFX(Class value, AI_Application app) {
         this.application = app;
         this.algoClass = value;
     }
@@ -30,11 +32,14 @@ public class NodeNewStageFX extends StageFX {
     @Override
     public void init() {
         GridPaneFX root = new GridPaneFX();
-        this.nodeTitle = new ParamStringFX(new Param<String>("New node title", "undefined"));
+        this.nodeTitle = new ParamStringFX(
+                new Param<String>("New node title", "undefined", ParamStringFX.class)
+        );
+
         Button btnCreate = HelperFX.createButton("Create", hBtnCreate);
         root.withNode(nodeTitle, 0, 0, 2, 1);
         root.withNode(btnCreate, 1, 1, 1, 1);
-        this.withScene(root, 320, 240).withTitle("New node : " + algoClass.getCanonicalName())
+        this.withScene(root, 320, 240).withTitle("Add new node : " + algoClass.getCanonicalName())
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true);
         btnCreate.setOnAction(hBtnCreate);
     }
@@ -43,7 +48,7 @@ public class NodeNewStageFX extends StageFX {
      * eventHandler for btnCreate.setOnAction
      */
     EventHandler<ActionEvent> hBtnCreate = (e) -> {
-        WorkflowPaneFX workflowFX = this.application.getWorkflowStageFXActive().getWorkflowFX();
+        WorkflowFX workflowFX = this.application.getWorkflowStageFXActive().getWorkflowFX();
         double translateX = workflowFX.getWidth()/2;
         double translateY = workflowFX.getHeight()/2;
         this.nodeTitle.updateToModel();

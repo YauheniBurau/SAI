@@ -13,10 +13,6 @@ public class Workflow implements IWorkflow, Serializable {
     private double sizeX = 0;
     private double sizeY = 0;
 
-    public Workflow(){
-
-    }
-
     public Workflow(double sizeX, double sizeY){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -49,8 +45,8 @@ public class Workflow implements IWorkflow, Serializable {
     public void deleteConnection(Connection e) {
         // delete data links to inputs and outputs from Algorithm
         if(e!=null) {
-            e.getStart().removeInput();
-            e.getEnd().removeOutputs();
+            e.getStart().removeOutputs();
+            e.getEnd().removeInput();
             // delete connection from workflow
             this.connections.remove(e);
         }
@@ -96,6 +92,16 @@ public class Workflow implements IWorkflow, Serializable {
     public void setSizeY(double sizeY) {
         this.sizeY = sizeY;
     }
+
+
+    public void unprocess(){
+        // TODO:
+    }
+
+    public void process(){
+        // TODO:
+    }
+
 
     /**
      * serialize and save workflow object to File

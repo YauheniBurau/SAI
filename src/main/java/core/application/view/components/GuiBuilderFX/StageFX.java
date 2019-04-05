@@ -3,6 +3,7 @@ package core.application.view.components.GuiBuilderFX;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -44,5 +45,13 @@ public class StageFX extends Stage implements IStageFX{
         return this;
     }
 
+    public StageFX withModality(Modality initModality){
+        this.initModality(initModality);
+        return this;
+    }
 
+    public StageFX withOwner(Stage owner){
+        this.initOwner(owner);
+        return this;
+    }
 }

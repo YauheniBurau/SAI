@@ -23,7 +23,7 @@ public class ConnectionFX extends Line implements IConnectionFX{
     private OutputFX start = null;
     private InputFX end = null;
     private Circle end1 = null;
-    private WorkflowPaneFX workflowPaneFX = null;
+    private WorkflowFX workflowFX = null;
 
     private StartXBinding sX = null;
     private StartYBinding sY = null;
@@ -169,13 +169,13 @@ public class ConnectionFX extends Line implements IConnectionFX{
     }
 
     @Override
-    public void setWorkflowPaneFX(WorkflowPaneFX workflowPaneFX) {
-        this.workflowPaneFX = workflowPaneFX;
+    public void setWorkflowFX(WorkflowFX workflowFX) {
+        this.workflowFX = workflowFX;
     }
 
     @Override
-    public WorkflowPaneFX getWorkflowPaneFX() {
-        return this.workflowPaneFX;
+    public WorkflowFX getWorkflowFX() {
+        return this.workflowFX;
     }
 
     @Override
@@ -267,7 +267,7 @@ public class ConnectionFX extends Line implements IConnectionFX{
         alert.setContentText("You can't discard that changes. Are you sure?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            this.getWorkflowPaneFX().deleteConnectionFX(this);
+            this.getWorkflowFX().deleteConnectionFX(this);
         } else {
             // ... user chose CANCEL or closed the dialog
         }
@@ -279,8 +279,8 @@ public class ConnectionFX extends Line implements IConnectionFX{
      * add Connection to Workflow Model
      */
     private EventHandler<DragEvent> hOnDragDone = (e) ->{
-        WorkflowPaneFX wfFX = this.getWorkflowPaneFX();
-        if(this.getEnd1()==null){
+        WorkflowFX wfFX = this.getWorkflowFX();
+        if(this.getEnd1()==null && this.getEnd()!=null){
             Connection conn = new Connection(start.getValue(), end.getValue());
             this.setConnection( conn );
             wfFX.getChildren().remove(this);

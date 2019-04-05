@@ -2,8 +2,7 @@ package core.application.view.components.app;
 
 import core.application.AI_Application;
 import core.application.view.components.GuiBuilderFX.StageFX;
-import core.application.view.components.WorkFlowFX.WorkflowPaneFX;
-import core.application.view.components.ZoomableScrollPaneFX;
+import core.application.view.components.WorkFlowFX.WorkflowFX;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.StageStyle;
@@ -15,19 +14,23 @@ import java.io.File;
  */
 public class WorkflowStageFX extends StageFX {
     private AI_Application ai_application;
-    private WorkflowPaneFX workflowFX;
+    private WorkflowFX workflowFX;
     private File workflowFile;
 
-    public WorkflowStageFX(AI_Application ai_application, File workflowFile, WorkflowPaneFX workflowFX) {
+    public WorkflowStageFX(AI_Application ai_application, File workflowFile, WorkflowFX workflowFX) {
         this.ai_application = ai_application;
         this.workflowFile = workflowFile;
         this.workflowFX = workflowFX;
+        this.initOwner(ai_application.getApplicationStage());
+
         BorderPane root = new BorderPane();
-        this.withScene(root, 640, 480)
+        this.withScene(root, workflowFX.getMinWidth(), workflowFX.getMinHeight())
                 .withTitle(this.workflowFile.getAbsolutePath())
                 .withInitStyle(StageStyle.UNIFIED);
+        this.setMinWidth(640);
+        this.setMinHeight(480);
         this.toFront();
-        this.setIconified(false);
+        this.setIconified(true);
         ZoomableScrollPaneFX scrollPane = new ZoomableScrollPaneFX(this.workflowFX);
         scrollPane.setPannable(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -37,7 +40,7 @@ public class WorkflowStageFX extends StageFX {
                 (prop, oldNode, newNode) -> ai_application.setWorkflowStageFXActive(this) );
     }
 
-    public WorkflowPaneFX getWorkflowFX() {
+    public WorkflowFX getWorkflowFX() {
         return workflowFX;
     }
 

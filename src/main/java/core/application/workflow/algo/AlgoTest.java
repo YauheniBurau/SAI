@@ -1,5 +1,9 @@
 package core.application.workflow.algo;
 
+import core.application.view.components.DataViewFX.DataIntegerFX;
+import core.application.view.components.DataViewFX.DataStringFX;
+import core.application.view.components.ParamEditFX.ParamIntegerFX;
+import core.application.view.components.ParamEditFX.ParamStringFX;
 import core.application.workflow.workflow.AbstractAlgorithm;
 import core.application.workflow.workflow.Algorithm;
 import core.application.workflow.workflow.Data;
@@ -13,60 +17,23 @@ import java.io.Serializable;
 @Algorithm
 public class AlgoTest extends AbstractAlgorithm implements Serializable {
     // PARAMS
-    private Param<Integer> paramInteger1;
-    private Param<Integer> paramInteger2;
-    private Param<String> paramString1;
-    private Param<String> paramString2;
+    private Param<Integer> paramInteger1 = this.addParam( new Param<Integer>("SizeX", 0, ParamIntegerFX.class) );
+    private Param<Integer> paramInteger2 = this.addParam(new Param<Integer>("SizeY", 0, ParamIntegerFX.class ) );
+    private Param<String> paramString1 = this.addParam(new Param<String>("Title", "", ParamStringFX.class));
+    private Param<String> paramString2 = this.addParam(new Param<String>("Description", "", ParamStringFX.class));
     // INPUTS
-    private Data<Integer> inInteger1;
-    private Data<Integer> inInteger2;
-    private Data<String> inString1;
-    private Data<String> inString2;
+    private Data<Integer> inInteger1 = this.addInput(new Data<Integer>("SizeX add", 0, DataIntegerFX.class ));
+    private Data<Integer> inInteger2 = this.addInput(new Data<Integer>("SizeY add", 0, DataIntegerFX.class ));
+    private Data<String> inString1 = this.addInput(new Data<String>("addToTitle", "", DataStringFX.class ));
+    private Data<String> inString2 = this.addInput(new Data<String>("addToDescr", "", DataStringFX.class));
     // OUTPUTS
-    private Data<String> outString1;
-    private Data<String> outString2;
-    private Data<Integer> outInteger1;
-    private Data<Integer> outInteger2;
-
+    private Data<Integer> outInteger1 = this.addOutput(new Data<Integer>("SizeXOut", 0, DataIntegerFX.class));
+    private Data<Integer> outInteger2 = this.addOutput(new Data<Integer>("SizeYOut", 0, DataIntegerFX.class));
+    private Data<String> outString1 = this.addOutput(new Data<String>("TitleOut", "", DataStringFX.class ));
+    private Data<String> outString2 = this.addOutput(new Data<String>("DescrOut", "", DataStringFX.class ));
 
     public AlgoTest() {
         this.setName("AlgoTest");
-        // PARAMS
-        this.paramInteger1 = new Param<Integer>("SizeX", 0 );
-        this.addParam(this.paramInteger1);
-
-        this.paramInteger2 = new Param<Integer>("SizeY", 0 );
-        this.addParam(this.paramInteger2);
-
-        this.paramString1 = new Param<String>("Title", "GUI AI" );
-        this.addParam(this.paramString1);
-
-        this.paramString2 = new Param<String>("Description", "That is example of ParamString" );
-        this.addParam(this.paramString2);
-        // INPUTS
-        this.inInteger1 = new Data<Integer>("SizeX add", 24 );
-        this.addInput(this.inInteger1);
-
-        this.inInteger2 = new Data<Integer>("SizeY add", 48 );
-        this.addInput(this.inInteger2);
-
-        this.inString1 = new Data<String>("addToTitle", " - text added ttl" );
-        this.addInput(this.inString1);
-
-        this.inString2 = new Data<String>("addToDescr", " - text added dscr" );
-        this.addInput(this.inString2);
-        // OUTPUTS
-        this.outInteger1 = new Data<Integer>("SizeXOut", 0);
-        this.addOutput(this.outInteger1);
-
-        this.outInteger2 = new Data<Integer>("SizeYOut", 0 );
-        this.addOutput(this.outInteger2);
-
-        this.outString1 = new Data<String>("TitleOut", "" );
-        this.addOutput(this.outString1);
-
-        this.outString2 = new Data<String>("DescrOut", "" );
-        this.addOutput(this.outString2);
     }
 
     @Override

@@ -9,8 +9,8 @@ import javafx.scene.layout.Pane;
 public abstract class AbstractParamFX<T extends IParam> extends Pane implements IParamFX<T> {
     private T param;
 
-    public AbstractParamFX(T data) {
-        this.param = data;
+    public AbstractParamFX(T param) {
+        this.param = param;
     }
 
     public T getParam() {

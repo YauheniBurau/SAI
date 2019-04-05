@@ -5,7 +5,6 @@ import core.application.view.components.DataViewFX.DataFactoryFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
 import core.application.view.components.ParamEditFX.ParamFactoryFX;
 import core.application.workflow.workflow.Data;
-import core.application.workflow.workflow.IParam;
 import core.application.workflow.workflow.Param;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,14 +20,14 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 27.03.2019.
  */
-public class NodeEditViewStageFX extends StageFX {
+public class EditNodeStageFX extends StageFX {
     private NodeFX nodeFX = null;
     // temporal lists
-    private LinkedList<AbstractParamFX> paramsEditFX;
-    private LinkedList<AbstractDataFX> inputsViewFX;
-    private LinkedList<AbstractDataFX> outputsViewFX;
+    private LinkedList<AbstractParamFX<Param>> paramsEditFX;
+    private LinkedList<AbstractDataFX<Data>> inputsViewFX;
+    private LinkedList<AbstractDataFX<Data>> outputsViewFX;
 
-    public NodeEditViewStageFX(NodeFX value) {
+    public EditNodeStageFX(NodeFX value) {
         this.nodeFX = value;
     }
 

@@ -1,5 +1,7 @@
 package core.application.workflow.algo;
 
+import core.application.view.components.DataViewFX.DataBufferedImageFX;
+import core.application.view.components.ParamEditFX.ParamFileOutFX;
 import core.application.workflow.workflow.AbstractAlgorithm;
 import core.application.workflow.workflow.Algorithm;
 import core.application.workflow.workflow.Data;
@@ -31,12 +33,14 @@ public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Ser
         // PARAMS
         this.paramFileOut = new Param<FileOut>("FilePngOut",
                 new FileOut(new File(System.getProperty("user.home")),
-                        new FileChooser.ExtensionFilter("save *.png", "*.png"))
+                        new FileChooser.ExtensionFilter("save *.png", "*.png")),
+                ParamFileOutFX.class
         );
         this.addParam(this.paramFileOut);
         // INPUTS
         // OUTPUTS
-        this.inBufferedImage = new Data<BufferedImage>("BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB));
+        this.inBufferedImage = new Data<BufferedImage>(
+                "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class);
         this.addInput(this.inBufferedImage);
     }
 

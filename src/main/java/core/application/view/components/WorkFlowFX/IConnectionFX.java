@@ -6,8 +6,8 @@ import core.application.workflow.workflow.Connection;
  * Created by anonymous on 26.03.2019.
  */
 public interface IConnectionFX {
-    void setWorkflowPaneFX(WorkflowPaneFX workflowPaneFX);
-    WorkflowPaneFX getWorkflowPaneFX();
+    void setWorkflowFX(WorkflowFX workflowFX);
+    WorkflowFX getWorkflowFX();
     Connection getConnection();
     void setConnection(Connection value);
 }

@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * Created by anonymous on 26.03.2019.
  */
 public interface IData<T> {
+    Class getClassValue();
+    void setClassValue(Class classValue);
+
     void setName(String value);
     String getName();
 
@@ -20,6 +23,7 @@ public interface IData<T> {
     void removeOutput(Data dataIO);
     void removeOutputs();
 
-//    void setId(int id);
-//    int getId();
+    Class getDataFXClass();
+    void setDataFXClass(Class dataFXClass);
+
 }

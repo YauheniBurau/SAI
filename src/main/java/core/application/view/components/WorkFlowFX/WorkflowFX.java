@@ -12,7 +12,7 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 26.03.2019.
  */
-public class WorkflowPaneFX extends Pane {
+public class WorkflowFX extends Pane {
     private Workflow workflow = null;
     private ArrayList<NodeFX> nodesFX = new ArrayList<>();
     private ArrayList<ConnectionFX> connectionsFX = new ArrayList<>();
@@ -29,9 +29,10 @@ public class WorkflowPaneFX extends Pane {
         this.tempConnectionFX = tempConnectionFX;
     }
 
-    public WorkflowPaneFX(Workflow value) {
+    public WorkflowFX(Workflow value) {
         this.workflow = value;
         this.setMinSize(value.getSizeX(), value.getSizeY());
+        this.setMaxSize(value.getSizeX(), value.getSizeY());
         LinkedList<Node> nodes = value.getNodes();
         for(Node node: nodes){
             this.addNodeFX(node);
@@ -50,7 +51,7 @@ public class WorkflowPaneFX extends Pane {
      */
     public void addNodeFX(Node e){
         NodeFX nodeFX = new NodeFX(e);
-        nodeFX.setWorkflowPaneFX(this);
+        nodeFX.setWorkflowFX(this);
         this.getChildren().add(nodeFX);
         this.nodesFX.add(nodeFX);
         LinkedList<InputFX> inputsFX = nodeFX.getInputsFX();
@@ -67,7 +68,7 @@ public class WorkflowPaneFX extends Pane {
         OutputFX startFX = outputsMap.get(e.getStart());
         InputFX endFX = inputsMap.get(e.getEnd());
         ConnectionFX connectionFX = new ConnectionFX(startFX, endFX);
-        connectionFX.setWorkflowPaneFX(this);
+        connectionFX.setWorkflowFX(this);
         this.connectionsFX.add(connectionFX);
         this.getChildren().add(connectionFX);
     }
@@ -114,7 +115,7 @@ public class WorkflowPaneFX extends Pane {
     }
 
     public void addConnectionFX(ConnectionFX value) {
-        value.setWorkflowPaneFX(this);
+        value.setWorkflowFX(this);
         this.connectionsFX.add(value);
         this.getChildren().add(value);
     }
@@ -124,11 +125,11 @@ public class WorkflowPaneFX extends Pane {
     }
 
     /**
-     * handler for hOnDragOver above WorkflowFX
+     * handler for NodeFX dragging over WorkflowFX
      */
     private EventHandler<DragEvent> hOnDragOver = (e)->{
         e.acceptTransferModes(TransferMode.MOVE);
-        if(this.tempConnectionFX!=null && e.getTarget() instanceof WorkflowPaneFX){
+        if(this.tempConnectionFX!=null && e.getTarget() instanceof WorkflowFX){
             this.tempConnectionFX.getEnd1().setTranslateX(e.getX());
             this.tempConnectionFX.getEnd1().setTranslateY(e.getY());
         }

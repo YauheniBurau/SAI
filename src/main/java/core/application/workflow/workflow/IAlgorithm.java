@@ -11,13 +11,12 @@ public interface IAlgorithm {
     Boolean process();
     IParam getParam(Integer key);
     LinkedList<Param> getParams();
-    void addParam(Param value);
+    Param addParam(Param value);
     IData getInput(Integer key);
     LinkedList<Data> getInputs();
-    void addInput(Data value);
+    Data addInput(Data value);
     IData getOutput(Integer key);
     LinkedList<Data> getOutputs();
-    void addOutput(Data value);
-
+    Data addOutput(Data value);
 
 }

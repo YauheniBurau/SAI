@@ -1,4 +1,4 @@
-package core.application.view.components;
+package core.application.view.components.app;
 
 
 import javafx.event.EventHandler;

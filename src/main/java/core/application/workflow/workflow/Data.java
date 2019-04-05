@@ -2,39 +2,36 @@ package core.application.workflow.workflow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-//import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
 public class Data<T> implements IData<T>, Serializable {
-//    private static AtomicInteger uniqueId=new AtomicInteger();
-//    private int id; //id=uniqueId.getAndIncrement();
+    private Class classValue;
     private String name;
     private transient T value;
+    private Class dataFXClass;
     private ArrayList<Data<T>> outputs = new ArrayList<>();
     private Data<T> input = null;
 
-    public Data(String name, T value) {
-        this.name = name;
-        this.value = value;
+    public Data(){
+
     }
 
-//    public static AtomicInteger getUniqueId() {
-//        return uniqueId;
-//    }
-//
-//    public static void setUniqueId(AtomicInteger uniqueId) {
-//        AbstractData.uniqueId = uniqueId;
-//    }
-//
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public Data(String name, T value, Class dataFXClass) {
+        this.classValue = value.getClass();
+        this.name = name;
+        this.value = value;
+        this.dataFXClass = dataFXClass;
+    }
+
+    public Class getClassValue() {
+        return classValue;
+    }
+
+    public void setClassValue(Class classValue) {
+        this.classValue = classValue;
+    }
 
     @Override
     public void setName(String value) {
@@ -105,4 +102,11 @@ public class Data<T> implements IData<T>, Serializable {
         }
     }
 
+    public Class getDataFXClass() {
+        return dataFXClass;
+    }
+
+    public void setDataFXClass(Class dataFXClass) {
+        this.dataFXClass = dataFXClass;
+    }
 }

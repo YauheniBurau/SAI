@@ -1,31 +1,31 @@
 package core.application.view.components.ParamEditFX;
 
 import core.application.view.components.WorkFlowFX.AbstractParamFX;
-import core.application.workflow.param.*;
 import core.application.workflow.workflow.Param;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by anonymous on 27.03.2019.
  */
 public class ParamFactoryFX {
     public static AbstractParamFX constructParamFX(Param param){
-        if( checkParamType(param, FileIn.class) ){ return new ParamFileInFX(param); }
-        if( checkParamType(param, FileOut.class) ){ return new ParamFileOutFX(param); }
-        if( checkParamType(param, Integer.class) ){ return new ParamIntegerFX(param); }
-        if( checkParamType(param, String.class) ){ return new ParamStringFX(param); }
-        if( checkParamType(param, Double.class) ){ return new ParamDoubleFX(param); }
-        // TODO: add here new Data classes
-        return null;
-    }
-
-    private static boolean checkParamType(Param param, Class clazz){
-        boolean result = false;
-        if(param.getValue().getClass() == clazz){
-            result = true;
+        Class classParamFX = param.getParamFXClass();
+        Constructor<?> cons;
+        AbstractParamFX paramFX = null;
+        try {
+            cons = classParamFX.getConstructor(param.getClass());
+            paramFX = (AbstractParamFX) cons.newInstance(param);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
-        return result;
+        return paramFX;
     }
-
-
-
 }

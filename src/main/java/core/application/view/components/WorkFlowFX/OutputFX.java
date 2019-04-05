@@ -77,7 +77,7 @@ public class OutputFX<T extends Data> extends HBox {
     };
 
     private EventHandler<MouseEvent> hOnDragDetected = (e)->{
-        WorkflowPaneFX wfFX = this.getNodeFX().getWorkflowPaneFX();
+        WorkflowFX wfFX = this.getNodeFX().getWorkflowFX();
         ConnectionFX newConnectionFX;
         CircleFX end1;
         if(wfFX.getTempConnectionFX() == null) {

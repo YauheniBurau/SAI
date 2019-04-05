@@ -10,5 +10,7 @@ public interface IParam<T> {
     void setValue(T value);
     T getValue();
 
+    Class getParamFXClass();
+    void setParamFXClass(Class paramFXClass);
 
 }

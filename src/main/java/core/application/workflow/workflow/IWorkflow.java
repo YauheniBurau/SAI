@@ -1,5 +1,6 @@
 package core.application.workflow.workflow;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -22,5 +23,8 @@ public interface IWorkflow {
     void setSizeX(double sizeX);
     double getSizeY();
     void setSizeY(double sizeY);
+
+    void unprocess();
+    void process();
 
 }

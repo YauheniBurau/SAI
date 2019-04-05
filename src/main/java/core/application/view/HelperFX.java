@@ -80,28 +80,28 @@ public class HelperFX {
         return btn;
     }
 
-    /**
-     * create TextField JavaFX with TextFormatter only "double" values
-     * @return
-     */
-    public static TextField createDoubleTextField(){
-        TextField textField = new TextField();
-        Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
-        TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), 0.0,
-                change -> {
-                    String newText = change.getControlNewText() ;
-                    if (validDoubleText.matcher(newText).matches()) {
-                        return change ;
-                    } else return null ;
-                });
-        textField.setTextFormatter(textFormatter);
-        return textField;
-        // TODO: remove later
+// TODO: remove later or implement
+//    /**
+//     * create TextField JavaFX with TextFormatter only "double" values
+//     * @return
+//     */
+//    public static TextField createDoubleTextField(){
+//        TextField textField = new TextField();
+//        Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
+//        TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), 0.0,
+//                change -> {
+//                    String newText = change.getControlNewText() ;
+//                    if (validDoubleText.matcher(newText).matches()) {
+//                        return change ;
+//                    } else return null ;
+//                });
+//        textField.setTextFormatter(textFormatter);
+//        return textField;
 //        textFormatter.valueProperty().addListener((obs, oldValue, newValue) -> {
 //            System.out.println("New double value "+newValue);
 //        });
-
-    }
+//
+//    }
 
     /**
      * create JavaFX ImageView
@@ -156,29 +156,6 @@ public class HelperFX {
 //                    /* allow for both copying and moving, whatever user chooses */
 //                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 //                }
-//                event.consume();
-//            }
-//        });
-
-//        target.setOnDragEntered(new EventHandler<DragEvent>() {
-//            public void handle(DragEvent event) {
-//                /* the drag-and-drop gesture entered the target */
-//                System.out.println("onDragEntered");
-//                /* show to the user that it is an actual gesture target */
-//                if (event.getGestureSource() != target &&
-//                        event.getDragboard().hasString()) {
-//                    target.setFill(Color.GREEN);
-//                }
-//
-//                event.consume();
-//            }
-//        });
-
-//        target.setOnDragExited(new EventHandler<DragEvent>() {
-//            public void handle(DragEvent event) {
-//                /* mouse moved away, remove the graphical cues */
-//                target.setFill(Color.BLACK);
-//
 //                event.consume();
 //            }
 //        });

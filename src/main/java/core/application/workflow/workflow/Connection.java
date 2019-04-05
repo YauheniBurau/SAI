@@ -12,6 +12,8 @@ public class Connection implements IConnection, Serializable {
     public Connection(Data start, Data end) {
         this.start = start;
         this.end = end;
+        this.start.addOutput(end);
+        this.end.setInput(start);
     }
 
     @Override

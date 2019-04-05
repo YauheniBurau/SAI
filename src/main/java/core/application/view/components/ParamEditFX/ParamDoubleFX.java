@@ -11,10 +11,10 @@ import javafx.scene.layout.HBox;
  * Created by anonymous on 30.03.2019.
  */
 public class ParamDoubleFX extends AbstractParamFX<Param<Double>> {
-    private StringProperty textProperty = null;
+    private StringProperty textProperty;
 
-    public ParamDoubleFX(Param<Double> data) {
-        super(data);
+    public ParamDoubleFX(Param<Double> param) {
+        super(param);
         HBox hBox = new HBox();
         Label label = new Label(this.getParam().getName());
         String value = this.getParam().getValue().toString();

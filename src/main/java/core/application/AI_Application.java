@@ -9,8 +9,8 @@ import core.application.controller.AlgoStageShowFX;
 import core.application.view.components.app.WorkflowStageFX;
 import core.application.workflow.algo.Reflection;
 import core.application.view.HelperFX;
-import core.application.view.components.WorkFlowFX.NodeNewStageFX;
-import core.application.view.components.WorkFlowFX.WorkflowPaneFX;
+import core.application.view.components.app.AddNewNodeStageFX;
+import core.application.view.components.WorkFlowFX.WorkflowFX;
 import core.application.view.components.GuiBuilderFX.MenuBarFX;
 import core.application.view.components.app.EditCanvasSizeStageFX;
 import core.application.view.components.app.UtilityStage1FX;
@@ -29,10 +29,13 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class AI_Application extends Application {
+    private Stage applicationStage = null;
     private WorkflowStageFX workflowStageFXActive = null;
+
 
     @Override
     public void start(Stage stage) {
+        this.applicationStage = stage;
         // ======================================= create main scene ===================================================
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 1366, 768);
@@ -56,15 +59,15 @@ public class AI_Application extends Application {
         menuBar.withMenuItem("Copy", editMenu, new AlgoHandlerFX<>(null));
         menuBar.withMenuItem("Paste", editMenu, new AlgoHandlerFX<>(null));
 
-        menuBar.withMenuItem("Utility1", toolsMenu, new AlgoStageShowFX(new UtilityStage1FX()));
-        menuBar.withMenuItem("Utility2", toolsMenu, new AlgoStageShowFX(new UtilityStage2FX()));
-        menuBar.withMenuItem("Utility3", toolsMenu, new AlgoStageShowFX(new UtilityStage3FX()));
+        menuBar.withMenuItem("Utility1", toolsMenu, new AlgoStageShowFX(new UtilityStage1FX(this)));
+        menuBar.withMenuItem("Utility2", toolsMenu, new AlgoStageShowFX(new UtilityStage2FX(this)));
+        menuBar.withMenuItem("Utility3", toolsMenu, new AlgoStageShowFX(new UtilityStage3FX(this)));
 
         menuBar.withMenuItem("Resize canvas", canvasMenu, new AlgoStageShowFX(new EditCanvasSizeStageFX(this)) ); //TODO: replace with handler
 
         Class[] algoClasses = Reflection.getAlgoClasses();
         for (Class cl: algoClasses) {
-            menuBar.withMenuItem(cl.getSimpleName(), nodesMenu, new AlgoStageShowFX<>(new NodeNewStageFX(cl,this)) );  //TODO: replace with handler
+            menuBar.withMenuItem(cl.getSimpleName(), nodesMenu, new AlgoStageShowFX<>(new AddNewNodeStageFX(cl,this)) );  //TODO: replace with handler
         }
 
         menuBar.withMenuItem("Help", helpMenu, new AlgoHandlerFX<>(null));
@@ -89,6 +92,10 @@ public class AI_Application extends Application {
         this.workflowStageFXActive = workflowStageFXActive;
     }
 
+    public Stage getApplicationStage() {
+        return applicationStage;
+    }
+
     /**
      * EventHandler for menu File.New OnAction - open dialog for creating new empty workflow file and stage
      */
@@ -96,7 +103,7 @@ public class AI_Application extends Application {
         WorkflowStageFX stg = new WorkflowStageFX(
                 this,
                 new File(System.getProperty("user.home")+"\\"+"newWorkflow.wfs" ),
-                new WorkflowPaneFX(new Workflow(640, 480))
+                new WorkflowFX(new Workflow(640, 480))
         );
         this.setWorkflowStageFXActive(stg);
         stg.show();
@@ -131,13 +138,13 @@ public class AI_Application extends Application {
         FileChooser fileChooser = HelperFX.createFileChooser("Load workflow from file",
                 new File(System.getProperty("user.home")),
                 "select *.wfs", "*.wfs"); // *.wfx - WorkFlow Serialized
-        File file = fileChooser.showOpenDialog(null);
+        File file = fileChooser.showOpenDialog(this.applicationStage);
         if (file != null){
             Workflow workflow = Workflow.load(file);
             WorkflowStageFX stg = new WorkflowStageFX(
                     this,
                     file,
-                    new WorkflowPaneFX(workflow));
+                    new WorkflowFX(workflow));
             this.setWorkflowStageFXActive(stg);
             stg.show();
         }

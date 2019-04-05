@@ -62,13 +62,12 @@ public class InputFX<T extends Data> extends HBox {
      * change circle input if mouse on it
      */
     private EventHandler<DragEvent> hOnDragEntered = (e) -> {
-        WorkflowPaneFX wfFX = this.getNodeFX().getWorkflowPaneFX();
+        WorkflowFX wfFX = this.getNodeFX().getWorkflowFX();
         ConnectionFX newConnectionFX = wfFX.getTempConnectionFX();
         if(newConnectionFX != null) {
             OutputFX start = newConnectionFX.getStart();
-            if(start.getValue().getClass() == this.getValue().getClass()
-                // TODO: add check if node is already busy
-
+            if(start.getValue().getClassValue() == this.getValue().getClassValue() &&
+                this.getValue().getInput() == null
             ){
                 circle.setFill(Color.LIGHTGREEN);
             }else{
@@ -84,7 +83,7 @@ public class InputFX<T extends Data> extends HBox {
      */
     private EventHandler<DragEvent> hOnDragExited = (e) -> {
         circle.setFill(Color.BLACK);
-        WorkflowPaneFX wfFX = this.getNodeFX().getWorkflowPaneFX();
+        WorkflowFX wfFX = this.getNodeFX().getWorkflowFX();
         ConnectionFX newConnectionFX = wfFX.getTempConnectionFX();
         newConnectionFX.setEnd1( newConnectionFX.getEnd1() );
         e.consume();
@@ -96,16 +95,19 @@ public class InputFX<T extends Data> extends HBox {
     private EventHandler<DragEvent> hOnDragDropped = (e)->{
         boolean isSuccess = false;
         if( e.getGestureSource() instanceof ConnectionFX){
-            ConnectionFX connFX = this.getNodeFX().getWorkflowPaneFX().getTempConnectionFX();
-            if(connFX.getStart().getValue().getClass() == this.getValue().getClass()) {
+            ConnectionFX connFX = this.getNodeFX().getWorkflowFX().getTempConnectionFX();
+            OutputFX start = connFX.getStart();
+            if(start.getValue().getClassValue() == this.getValue().getClassValue()
+                    && this.getValue().getInput() == null )
+            {
                 isSuccess = true;
-                this.getNodeFX().getWorkflowPaneFX().getChildren().remove(connFX.getEnd1());
+                this.getNodeFX().getWorkflowFX().getChildren().remove(connFX.getEnd1());
                 connFX.setEnd1(null);
                 connFX.setEnd(this);
             }
         }
         e.setDropCompleted(isSuccess);
-        e.consume();
+        //e.consume();
     };
 
 }

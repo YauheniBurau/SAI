@@ -35,8 +35,9 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     @Override
-    public void addParam(Param value) {
+    public Param addParam(Param value) {
         this.params.add(value);
+        return value;
     }
 
     @Override
@@ -50,8 +51,9 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     @Override
-    public void addInput(Data value) {
+    public Data addInput(Data value) {
         this.inputs.add(value);
+        return value;
     }
 
     @Override
@@ -65,8 +67,9 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     @Override
-    public void addOutput(Data value) {
+    public Data addOutput(Data value) {
         this.outputs.add(value);
+        return value;
     }
 
 }

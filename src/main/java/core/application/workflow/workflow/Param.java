@@ -8,31 +8,37 @@ import java.io.Serializable;
 public class Param<T> implements IParam<T>, Serializable {
     private String name;
     private T value;
+    private Class paramFXClass;
 
-    public Param(String name, T value) {
+    public Param(String name, T value, Class paramFXClass) {
         this.name = name;
         this.value = value;
+        this.paramFXClass = paramFXClass;
     }
 
-    @Override
+
     public void setName(String value) {
         this.name = value;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public void setValue(T value) {
         this.value = value;
     }
 
-    @Override
     public T getValue() {
         return this.value;
     }
 
+    public Class getParamFXClass() {
+        return this.paramFXClass;
+    }
+
+    public void setParamFXClass(Class paramFXClass) {
+        this.paramFXClass = paramFXClass;
+    }
 
 }
