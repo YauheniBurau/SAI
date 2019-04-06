@@ -11,18 +11,22 @@ public class ThreadAlgoUnprocess extends Thread {
 
     @Override
     public void run() {
-//        algorithm.setState(AlgorithmStateEnum.NOT_PROCESSED);
-//        LinkedList<Data> outputs = this.algorithm.getOutputs();
-//        for (Data output: outputs) {
-//            output.get
-//            ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(output.getgetAlgorithm());
-//            t.start();
-//            try {
-//                t.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        LinkedList<Data> inputs = this.algorithm.getInputs();
+        for (Data input: inputs) {
+            if(input.getConnections().size()==1){
+                ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(input.getConnection(0).getAlgorithm());
+                System.out.println("starting algo: " + input.getConnection(0).getAlgorithm().getName());
+                t.start();
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    algorithm.setState(AlgorithmStateEnum.EXCEPTION);
+                    // TODO: add code for storing exception state to use it to see in workflowFX
+                    e.printStackTrace();
+                }
+            }
+        }
+        algorithm.setState(AlgorithmStateEnum.NOT_PROCESSED);
     }
 
 }

@@ -8,9 +8,9 @@ package core.old;
 import java.awt.Color;
 
 public class Color_Space_Converter{
+    javafx.scene.paint.Color clr;
 
     public class ColorSpaceConverter {
-
         /**
          * reference white in XYZ coordinates
          */

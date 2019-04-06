@@ -3,7 +3,6 @@ package core.application.view.components.WorkFlowFX;
 import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.workflow.workflow.Data;
 import core.application.workflow.workflow.Node;
-import core.application.workflow.workflow.ThreadAlgoProcess;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -193,13 +192,13 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hProcessBtn.setOnAction
      */
     EventHandler<ActionEvent> hProcessBtn = (e) -> {
-        if( this.getWorkflowFX().getThreadProcessWorkflowFX()!= null &&
-            this.getWorkflowFX().getThreadProcessWorkflowFX().isAlive()==true ){
-            this.getWorkflowFX().getThreadProcessWorkflowFX().interrupt();
+        if( this.getWorkflowFX().getCurrentTaskThreadWorkflowFX()!= null &&
+            this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().isAlive()==true ){
+            this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().interrupt();
         }
-        this.getWorkflowFX().setThreadProcessWorkflowFX(null);
+        this.getWorkflowFX().setCurrentTaskThreadWorkflowFX(null);
         ThreadProcessWorkflowFX t = new ThreadProcessWorkflowFX(this);
-        this.getWorkflowFX().setThreadProcessWorkflowFX(t);
+        this.getWorkflowFX().setCurrentTaskThreadWorkflowFX(t);
         t.start();
     };
 
@@ -207,7 +206,14 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hUnprocessBtn.setOnAction
      */
     EventHandler<ActionEvent> hUnprocessBtn = (e) -> {
-//        this.getNode().getAlgorithm().onProcess(); // TODO:
+        if( this.getWorkflowFX().getCurrentTaskThreadWorkflowFX()!= null &&
+                this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().isAlive()==true ){
+            this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().interrupt();
+        }
+        this.getWorkflowFX().setCurrentTaskThreadWorkflowFX(null);
+        ThreadUnprocessWorkflowFX t = new ThreadUnprocessWorkflowFX(this);
+        this.getWorkflowFX().setCurrentTaskThreadWorkflowFX(t);
+        t.start();
     };
 
     /**

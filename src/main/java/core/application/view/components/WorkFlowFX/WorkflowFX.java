@@ -22,7 +22,7 @@ public class WorkflowFX extends Pane {
     private HashMap<IData, OutputFX> outputsMap = new HashMap<>();
 
     private ConnectionFX tempConnectionFX;
-    private ThreadProcessWorkflowFX ThreadProcessWorkflowFX = null;
+    private Thread currentTaskThreadWorkflowFX = null;
 
     public ConnectionFX getTempConnectionFX() {
         return tempConnectionFX;
@@ -116,16 +116,6 @@ public class WorkflowFX extends Pane {
         start.addConnection(end); // that method is bidirectional linking, link if not linked yet
     }
 
-//    /** + that method is used for adding temp ConnectionFX for connect nodeFX inputs and outputs
-//     * add that ConnectionFX to workflowFX without adding it to Model
-//     * @param value
-//     */
-//    public void addTempConnectionFX(ConnectionFX value) {
-//        value.setWorkflowFX(this);
-//        this.getChildren().add(value);
-//        this.tempConnectionFX = value;
-//    }
-
     /**
      * + delete node from workflowFX and from model
      * @param nodeFX
@@ -190,12 +180,12 @@ public class WorkflowFX extends Pane {
         return this.workflow;
     }
 
-    public ThreadProcessWorkflowFX getThreadProcessWorkflowFX() {
-        return ThreadProcessWorkflowFX;
+    public Thread getCurrentTaskThreadWorkflowFX() {
+        return currentTaskThreadWorkflowFX;
     }
 
-    public void setThreadProcessWorkflowFX(ThreadProcessWorkflowFX threadProcessWorkflowFX) {
-        ThreadProcessWorkflowFX = threadProcessWorkflowFX;
+    public void setCurrentTaskThreadWorkflowFX(Thread currentTaskThreadWorkflowFX) {
+        this.currentTaskThreadWorkflowFX = currentTaskThreadWorkflowFX;
     }
 
     public ArrayList<NodeFX> getNodesFX() {
