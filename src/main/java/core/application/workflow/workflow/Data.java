@@ -12,18 +12,14 @@ public class Data<T> implements IData<T>, Serializable {
     private String name;
     private transient T value;
     private Class dataFXClass;
-    private ArrayList<Data<T>> outputs = new ArrayList<>();
-    private Data<T> input = null;
+    private ArrayList<Data<T>> connections = new ArrayList<>();
 
-    public Data(){
-
-    }
-
-    public Data(String name, T value, Class dataFXClass) {
+    public Data(String name, T value, AbstractAlgorithm algo, Class dataFXClass) {
         this.classValue = value.getClass();
         this.name = name;
         this.value = value;
         this.dataFXClass = dataFXClass;
+        this.algorithm = algo;
     }
 
     public Class getClassValue() {
@@ -34,80 +30,54 @@ public class Data<T> implements IData<T>, Serializable {
         this.classValue = classValue;
     }
 
-    @Override
     public void setName(String value) {
         this.name = value;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public void setValue(T value) {
         this.value = value;
     }
 
-    @Override
     public T getValue() {
         return this.value;
     }
 
-
-    @Override
-    public ArrayList<Data<T>> getOutputs(){
-        return this.outputs;
+    public ArrayList<Data<T>> getConnections() {
+        return connections;
     }
 
-    @Override
-    public Data<T> getInput(){
-        return this.input;
+    public Data<T> getConnection(int index) {
+        return connections.get(index);
     }
 
     /**
-     * set for current output data(source) have to contain all links -> all outputs (destinations)
+     * that method is bidirectional linking "this" Data to DataIO
+     * link if not linked yet
      * @param dataIO
      */
-    @Override
-    public void addOutput(Data<T> dataIO){
-        if( !this.outputs.contains(dataIO) ){
-            this.outputs.add(dataIO);
-            dataIO.setInput(this);
+    public void addConnection(Data<T> dataIO){
+        if(!this.connections.contains(dataIO)){
+            this.connections.add(dataIO);
+            dataIO.addConnection(this);
         }
     }
 
-    /**
-     * set for current input data(source) have to contain only one previous link -> from output (destinations)
-     * @param dataIO
-     */
-    @Override
-    public void setInput(Data<T> dataIO){
-        if(this.input==null){
-            this.input = dataIO;
-            dataIO.addOutput(this);
+    public void removeConnection(Data<T> dataIO){
+        if(this.connections.contains(dataIO)){
+            this.connections.remove(dataIO);
+        }
+        if(dataIO.connections.contains(this)){
+            dataIO.connections.remove(this);
         }
     }
 
-    @Override
-    public void removeInput(){
-        if(this.input != null) {
-            this.input.removeOutput(this);
-            this.input = null;
-        }
-    }
-
-    @Override
-    public void removeOutput(Data dataIO){
-        if( this.outputs.remove(dataIO) ){
-            dataIO.removeInput();
-        }
-    }
-
-    @Override
-    public void removeOutputs(){
-        while(this.outputs.size()>0){
-            removeOutput( this.outputs.get(0) );
+    public void removeConnections(){
+        while(this.connections.size()>0){
+            removeConnection( this.connections.get(0) );
         }
     }
 

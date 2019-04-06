@@ -11,19 +11,18 @@ public class ThreadAlgoUnprocess extends Thread {
 
     @Override
     public void run() {
-        if(algorithm.isProcessed() == true){
-            algorithm.setProcessed(false);
-            LinkedList<Data> outputs = this.algorithm.getOutputs();
-            for (Data output: outputs) {
-                ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(output.getAlgorithm());
-                t.start();
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+//        algorithm.setState(AlgorithmStateEnum.NOT_PROCESSED);
+//        LinkedList<Data> outputs = this.algorithm.getOutputs();
+//        for (Data output: outputs) {
+//            output.get
+//            ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(output.getgetAlgorithm());
+//            t.start();
+//            try {
+//                t.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
 }

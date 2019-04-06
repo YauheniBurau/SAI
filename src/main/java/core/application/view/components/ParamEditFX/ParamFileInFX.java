@@ -39,9 +39,12 @@ public class ParamFileInFX extends AbstractParamFX<Param<FileIn>> {
      * EventHandler for btn.setOnAction - open dialog for choose load file
      */
     EventHandler<ActionEvent> hBtn = (e) -> {
-        FileChooser fileChooser = HelperFX.createFileChooser(this.getParam().getValue().getExtensionFilter().getDescription(),
-                new File(System.getProperty("user.home")),
-                this.getParam().getValue().getExtensionFilter());
+        FileIn fileIn = this.getParam().getValue();
+            FileChooser fileChooser = HelperFX.createFileChooser(
+                    fileIn.getFileChooserTitle(),
+                    fileIn.getFileChooserInitialDirector(),
+                    fileIn.getFileChooserComment(),
+                    fileIn.getExtensions());
         File file = fileChooser.showOpenDialog(null);
         if (file != null) this.getParam().getValue().setFile(file);
         this.updateFromModel();

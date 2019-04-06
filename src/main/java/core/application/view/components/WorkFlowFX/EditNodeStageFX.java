@@ -58,7 +58,7 @@ public class EditNodeStageFX extends StageFX {
         LinkedList<Data> inputs = nodeFX.getNode().getAlgorithm().getInputs();
         this.inputsViewFX = new LinkedList<>();
         for(Data data: inputs){
-            dataViewFX = DataFactoryFX.constructDataFX( data.getInput()==null? data : data.getInput() );
+            dataViewFX = DataFactoryFX.constructDataFX( data.getConnections().size()==1? data.getConnection(0) : data );
             this.inputsViewFX.add(dataViewFX);
             inputTab = new Tab("I: " + data.getName(), dataViewFX);
             inputTab.setClosable(false);

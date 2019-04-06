@@ -7,8 +7,6 @@ import core.application.workflow.workflow.Algorithm;
 import core.application.workflow.workflow.Data;
 import core.application.workflow.param.FileIn;
 import core.application.workflow.workflow.Param;
-import javafx.stage.FileChooser;
-
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
 import java.awt.image.BufferedImage;
@@ -26,16 +24,19 @@ public class AlgoFilePngToBufferedImage extends AbstractAlgorithm implements Ser
     { this.setName("Png->BufferedImage"); }
     // PARAMS
     private Param<FileIn> paramFileIn = this.addParam(
-            new Param<FileIn>("FilePngIn",
-                    new FileIn(new File(System.getProperty("user.home")),
-                            new FileChooser.ExtensionFilter("select *.png", "*.png")),
+            new Param<FileIn>("FilePngIn", new FileIn(
+                    new File(System.getProperty("user.home")),
+                    "Select file *.png to load",
+                    new File(System.getProperty("user.home")),
+                    "select *.png",
+                    "*.png"),
                     ParamFileInFX.class
             )
     );
     // INPUTS
     // OUTPUTS
     private Data<BufferedImage> outBufferedImage = this.addOutput( new Data<BufferedImage>(
-            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class)
+            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), this, DataBufferedImageFX.class)
     );
 
     @Override

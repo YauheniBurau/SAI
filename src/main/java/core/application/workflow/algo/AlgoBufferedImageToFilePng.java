@@ -7,8 +7,6 @@ import core.application.workflow.workflow.Algorithm;
 import core.application.workflow.workflow.Data;
 import core.application.workflow.param.FileOut;
 import core.application.workflow.workflow.Param;
-import javafx.stage.FileChooser;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,15 +23,18 @@ public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Ser
     { this.setName("BufferedImage->Png"); }
     // PARAMS
     private Param<FileOut> paramFileOut = this.addParam(
-            new Param<FileOut>("FilePngOut",
-                    new FileOut(new File(System.getProperty("user.home")),
-                            new FileChooser.ExtensionFilter("save *.png", "*.png")),
+            new Param<FileOut>("FilePngOut", new FileOut(
+                    new File(System.getProperty("user.home")),
+                    "Select file *.png to save",
+                    new File(System.getProperty("user.home")),
+                    "select *.png",
+                    "*.png"),
                     ParamFileOutFX.class
             )
     );
     // INPUTS
     private Data<BufferedImage> inBufferedImage = this.addInput( new Data<BufferedImage>(
-                    "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class)
+                    "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), this, DataBufferedImageFX.class)
     );
     // OUTPUTS
 
@@ -41,7 +42,7 @@ public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Ser
     public Boolean onProcess() {
         Boolean result = true;
         try{ // link to data from outputAlgo Previous -> inputAlgo Current this.inBufferedImage.getInput().getValue()
-            ImageIO.write(this.inBufferedImage.getInput().getValue(), "png", this.paramFileOut.getValue().getFile());
+            ImageIO.write(this.inBufferedImage.getConnections().get(0).getValue(), "png", this.paramFileOut.getValue().getFile());
         } catch (IOException e) {
             e.printStackTrace();
             result = false;

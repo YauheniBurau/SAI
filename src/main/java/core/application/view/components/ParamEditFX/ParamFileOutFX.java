@@ -3,6 +3,7 @@ package core.application.view.components.ParamEditFX;
 import core.application.view.HelperFX;
 import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.WorkFlowFX.AbstractParamFX;
+import core.application.workflow.param.FileIn;
 import core.application.workflow.param.FileOut;
 import core.application.workflow.workflow.Param;
 import javafx.beans.property.StringProperty;
@@ -39,14 +40,18 @@ public class ParamFileOutFX  extends AbstractParamFX<Param<FileOut>> {
     /**
      * EventHandler for btn.setOnAction - open dialog for choose save file
      */
-    private EventHandler<ActionEvent> hBtn = (e) -> {
-        FileChooser fileChooser = HelperFX.createFileChooser(this.getParam().getValue().getExtensionFilter().getDescription(),
-                new File(System.getProperty("user.home")),
-                this.getParam().getValue().getExtensionFilter());
+    EventHandler<ActionEvent> hBtn = (e) -> {
+        FileOut fileOut = this.getParam().getValue();
+        FileChooser fileChooser = HelperFX.createFileChooser(
+                fileOut.getFileChooserTitle(),
+                fileOut.getFileChooserInitialDirector(),
+                fileOut.getFileChooserComment(),
+                fileOut.getExtensions());
         File file = fileChooser.showSaveDialog(null);
         if (file != null) this.getParam().getValue().setFile(file);
         this.updateFromModel();
     };
+
 
     @Override
     public void updateToModel() {

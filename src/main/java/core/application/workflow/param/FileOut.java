@@ -9,19 +9,34 @@ import java.io.Serializable;
  */
 public class FileOut implements Serializable{
     private File file;
-    private transient FileChooser.ExtensionFilter extensionFilter;
+    private String fileChooserTitle;
+    private File FileChooserInitialDirector;
+    private String FileChooserComment;
+    private String[] extensions;
+    //private transient FileChooser.ExtensionFilter extensionFilter;
 
-    public FileOut(File file, FileChooser.ExtensionFilter extensionFilter) {
+    public FileOut(File file, String fileChooserTitle, File fileChooserInitialDirector, String fileChooserComment, String... extensions) {
         this.file = file;
-        this.extensionFilter = extensionFilter;
+        this.fileChooserTitle = fileChooserTitle;
+        FileChooserInitialDirector = fileChooserInitialDirector;
+        FileChooserComment = fileChooserComment;
+        this.extensions = extensions;
     }
 
-    public FileChooser.ExtensionFilter getExtensionFilter() {
-        return extensionFilter;
+    public String getFileChooserTitle() {
+        return fileChooserTitle;
     }
 
-    public void setExtensionFilter(FileChooser.ExtensionFilter extensionFilter) {
-        this.extensionFilter = extensionFilter;
+    public File getFileChooserInitialDirector() {
+        return FileChooserInitialDirector;
+    }
+
+    public String getFileChooserComment() {
+        return FileChooserComment;
+    }
+
+    public String[] getExtensions() {
+        return extensions;
     }
 
     public File getFile() {
@@ -31,4 +46,5 @@ public class FileOut implements Serializable{
     public void setFile(File file) {
         this.file = file;
     }
+
 }

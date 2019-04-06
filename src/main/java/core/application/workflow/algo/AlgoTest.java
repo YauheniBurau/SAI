@@ -23,19 +23,15 @@ public class AlgoTest extends AbstractAlgorithm implements Serializable {
     private Param<String> paramString1 = this.addParam(new Param<String>("Title", "", ParamStringFX.class));
     private Param<String> paramString2 = this.addParam(new Param<String>("Description", "", ParamStringFX.class));
     // INPUTS
-    private Data<Integer> inInteger1 = this.addInput(new Data<Integer>("SizeX add", 0, DataIntegerFX.class ));
-    private Data<Integer> inInteger2 = this.addInput(new Data<Integer>("SizeY add", 0, DataIntegerFX.class ));
-    private Data<String> inString1 = this.addInput(new Data<String>("addToTitle", "", DataStringFX.class ));
-    private Data<String> inString2 = this.addInput(new Data<String>("addToDescr", "", DataStringFX.class));
+    private Data<Integer> inInteger1 = this.addInput(new Data<Integer>("SizeX add", 0, this, DataIntegerFX.class ));
+    private Data<Integer> inInteger2 = this.addInput(new Data<Integer>("SizeY add", 0, this, DataIntegerFX.class ));
+    private Data<String> inString1 = this.addInput(new Data<String>("addToTitle", "", this, DataStringFX.class ));
+    private Data<String> inString2 = this.addInput(new Data<String>("addToDescr", "", this, DataStringFX.class));
     // OUTPUTS
-    private Data<Integer> outInteger1 = this.addOutput(new Data<Integer>("SizeXOut", 0, DataIntegerFX.class));
-    private Data<Integer> outInteger2 = this.addOutput(new Data<Integer>("SizeYOut", 0, DataIntegerFX.class));
-    private Data<String> outString1 = this.addOutput(new Data<String>("TitleOut", "", DataStringFX.class ));
-    private Data<String> outString2 = this.addOutput(new Data<String>("DescrOut", "", DataStringFX.class ));
-
-//
-//    public AlgoTest() {
-//    }
+    private Data<Integer> outInteger1 = this.addOutput(new Data<Integer>("SizeXOut", 0, this, DataIntegerFX.class));
+    private Data<Integer> outInteger2 = this.addOutput(new Data<Integer>("SizeYOut", 0, this, DataIntegerFX.class));
+    private Data<String> outString1 = this.addOutput(new Data<String>("TitleOut", "", this, DataStringFX.class ));
+    private Data<String> outString2 = this.addOutput(new Data<String>("DescrOut", "", this, DataStringFX.class ));
 
     @Override
     public Boolean onProcess() {

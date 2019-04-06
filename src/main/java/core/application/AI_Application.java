@@ -6,6 +6,7 @@ package core.application;
 
 import core.application.controller.AlgoHandlerFX;
 import core.application.controller.AlgoStageShowFX;
+import core.application.view.components.WorkFlowFX.NodeFX;
 import core.application.view.components.app.WorkflowStageFX;
 import core.application.workflow.algo.AlgoTest;
 import core.application.workflow.algo.Reflection;
@@ -22,9 +23,14 @@ import core.application.workflow.workflow.Workflow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -46,7 +52,9 @@ public class AI_Application extends Application {
 //        wf.addNode(new Node("test Algo", new AlgoTest(), 200, 200, 200, 80) );
 //        WorkflowFX wfFX = new WorkflowFX(wf);
 //        root.getChildren().add(wfFX);
-        // =========================================== GUI MENU BAR ====================================================
+//        NodeFX nodeFX = wfFX.getNodesFX().get(0);
+//        nodeFX.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(NodeFX.cornerRadii), Insets.EMPTY)));
+// =========================================== GUI MENU BAR ====================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus
         Menu fileMenu = menuBar.withMenu("File", null);
@@ -79,7 +87,6 @@ public class AI_Application extends Application {
         menuBar.withMenuItem("Help", helpMenu, new AlgoHandlerFX<>(null));
 
         root.setTop(menuBar);
-
         // ================================ STAGE ======================================================================
         stage.setTitle("As Kon - Code GIAS(Global Intelligence Artificial System)");
         stage.setScene(scene);

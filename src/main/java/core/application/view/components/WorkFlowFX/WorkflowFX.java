@@ -16,38 +16,74 @@ public class WorkflowFX extends Pane {
     private Workflow workflow = null;
     private ArrayList<NodeFX> nodesFX = new ArrayList<>();
     private ArrayList<ConnectionFX> connectionsFX = new ArrayList<>();
+
+    // TODO: make in one array, but better to remove that HashMaps
     private HashMap<IData, InputFX> inputsMap = new HashMap<>();
     private HashMap<IData, OutputFX> outputsMap = new HashMap<>();
 
     private ConnectionFX tempConnectionFX;
+    private ThreadProcessWorkflowFX ThreadProcessWorkflowFX = null;
 
     public ConnectionFX getTempConnectionFX() {
         return tempConnectionFX;
     }
-    private ThreadProcessWorkflowFX ThreadProcessWorkflowFX = null;
 
-    public void setTempConnectionFX(ConnectionFX tempConnectionFX) {
-        this.tempConnectionFX = tempConnectionFX;
+    public ConnectionFX createTempConnectionFX(OutputFX outputFX) {
+        CircleFX end1;
+        end1 = new CircleFX(5);
+        end1.setTranslateX( outputFX.getLocalToSceneTransform().getTx() );
+        end1.setTranslateY( outputFX.getLocalToSceneTransform().getTy() );
+        this.getChildren().add(end1);
+        this.tempConnectionFX = new ConnectionFX();
+        this.tempConnectionFX.setStart(outputFX);
+        this.tempConnectionFX.setEnd1(end1);
+        tempConnectionFX.setWorkflowFX(this);
+        this.getChildren().add(tempConnectionFX);
+        return this.tempConnectionFX;
     }
 
+    /** +
+     * remove tempConnectionFX. it doesn't hae any representation in Model
+     */
+    public void removeTempConnectionFX() {
+        // delete form pane circle connector
+        this.getChildren().remove(tempConnectionFX.getEnd1());
+        // delete form pane ConnectionFX
+        this.getChildren().remove(tempConnectionFX);
+        // var = null, means at current moment no temp drag and drop ConnectionFX
+        this.tempConnectionFX = null;
+    }
+
+    /** +
+     * constructor for WorkflowFX
+     * @param value
+     */
     public WorkflowFX(Workflow value) {
         this.workflow = value;
         this.setMinSize(value.getSizeX(), value.getSizeY());
         this.setMaxSize(value.getSizeX(), value.getSizeY());
         LinkedList<Node> nodes = value.getNodes();
+        // create NodeFX
         for(Node node: nodes){
             this.addNodeFX(node);
         }
-        LinkedList<Connection> connections = value.getConnections();
-        for(Connection connection: connections){
-            this.addConnectionFX(connection);
+        // create all connectionFX for NodeFX
+        for(Node node: nodes) {
+            LinkedList<Data> inputs = node.getAlgorithm().getInputs();
+            Data output;
+            for (Data input : inputs) {
+                if (input.getConnections().size() == 1) {
+                    output = input.getConnection(0);
+                    this.addConnectionFX(output, input);
+                }
+            }
         }
-        // Event for drag new connectionFX in WorkflowFX
+        // Event for drag any new connectionFX in WorkflowFX
         this.setOnDragOver(hOnDragOver);
     }
 
-    /**
-     * use already existing node and generate NodeFX from it and add to WorkflowFX
+    /** +
+     * use already existing node and generate NodeFX from it and add to WorkflowFX (without data input/output connections)
      * @param e Node
      */
     public void addNodeFX(Node e){
@@ -65,15 +101,35 @@ public class WorkflowFX extends Pane {
         }
     }
 
-    public void addConnectionFX(Connection e){
-        OutputFX startFX = outputsMap.get(e.getStart());
-        InputFX endFX = inputsMap.get(e.getEnd());
+    /** +
+     * Change in model and in WorkflowFX
+     * @param start
+     * @param end
+     */
+    public void addConnectionFX(Data start, Data end){
+        OutputFX startFX = outputsMap.get(start);
+        InputFX endFX = inputsMap.get(end);
         ConnectionFX connectionFX = new ConnectionFX(startFX, endFX);
         connectionFX.setWorkflowFX(this);
         this.connectionsFX.add(connectionFX);
         this.getChildren().add(connectionFX);
+        start.addConnection(end); // that method is bidirectional linking, link if not linked yet
     }
 
+//    /** + that method is used for adding temp ConnectionFX for connect nodeFX inputs and outputs
+//     * add that ConnectionFX to workflowFX without adding it to Model
+//     * @param value
+//     */
+//    public void addTempConnectionFX(ConnectionFX value) {
+//        value.setWorkflowFX(this);
+//        this.getChildren().add(value);
+//        this.tempConnectionFX = value;
+//    }
+
+    /**
+     * + delete node from workflowFX and from model
+     * @param nodeFX
+     */
     public void deleteNodeFX(NodeFX nodeFX){
         // delete nodeFX and all connectionsFX from workflowFX and pane
         LinkedList<InputFX> inputsFX = nodeFX.getInputsFX();
@@ -89,15 +145,25 @@ public class WorkflowFX extends Pane {
         this.nodesFX.remove(nodeFX);
         this.getChildren().remove(nodeFX);
         // Delete node model with all connections  from workflow model
-        this.workflow.deleteNode(nodeFX.getNode());
+        this.workflow.removeNode(nodeFX.getNode());
     }
 
+    /** +
+     * remove ConnectionFX from workflowFX and Model workflow
+      * @param e
+     */
     public void deleteConnectionFX(ConnectionFX e) {
+        // remove connectionFX from WorkflowFX
         this.connectionsFX.remove(e);
         this.getChildren().remove(e);
-        this.workflow.deleteConnection(e.getConnection());
+        // remove connection from Model
+        e.getEnd().getValue().removeConnections();
     }
 
+    /** +
+     * delete all ConnectionFX from WorkflowFX and from Model
+     * @param list
+     */
     public void deleteConnectionsFX(ArrayList<ConnectionFX> list) {
         while(list.size()>0){
             this.deleteConnectionFX(list.get(0));
@@ -105,20 +171,19 @@ public class WorkflowFX extends Pane {
         }
     }
 
+    /** +
+     * find all connectionFX in WorkflowFX by DataIO
+     * @param dataIO
+     * @return
+     */
     public ArrayList<ConnectionFX> findConnectionsFX(Data dataIO){
         ArrayList<ConnectionFX> conns = new ArrayList<>();
         for (ConnectionFX conn: this.connectionsFX){
-            if(conn.getConnection().getStart()==dataIO || conn.getConnection().getEnd()==dataIO ){
+            if(conn.getStart().getValue()==dataIO || conn.getEnd().getValue()==dataIO ){
                 conns.add(conn);
             }
         }
         return conns;
-    }
-
-    public void addConnectionFX(ConnectionFX value) {
-        value.setWorkflowFX(this);
-        this.connectionsFX.add(value);
-        this.getChildren().add(value);
     }
 
     public Workflow getWorkflow() {
@@ -138,7 +203,7 @@ public class WorkflowFX extends Pane {
     }
 
     /**
-     * handler for NodeFX dragging over WorkflowFX
+     * handler for ConnectionFX dragging over WorkflowFX
      */
     private EventHandler<DragEvent> hOnDragOver = (e)->{
         e.acceptTransferModes(TransferMode.MOVE);

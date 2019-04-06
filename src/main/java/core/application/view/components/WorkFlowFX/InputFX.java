@@ -13,7 +13,6 @@ import javafx.scene.shape.Circle;
  * Created by anonymous on 22.03.2019.
  */
 public class InputFX<T extends Data> extends HBox {
-    public static final double circleRadius = 5;
     private T value = null;
     private Circle circle;
     private Label label;
@@ -39,7 +38,7 @@ public class InputFX<T extends Data> extends HBox {
     private void init(T value) {
         this.value = value;
         this.setMaxWidth(80);
-        this.circle = new Circle(circleRadius);
+        this.circle = new Circle(CircleFX.radius);
         //this.circle.setUserData(Boolean.FALSE);
         this.label = new Label(value.getName());
         this.getChildren().addAll(this.circle, this.label);
@@ -67,8 +66,7 @@ public class InputFX<T extends Data> extends HBox {
         if(newConnectionFX != null) {
             OutputFX start = newConnectionFX.getStart();
             if(start.getValue().getClassValue() == this.getValue().getClassValue() &&
-                this.getValue().getInput() == null
-            ){
+                this.getValue().getConnections().size() == 0){
                 circle.setFill(Color.LIGHTGREEN);
             }else{
                 circle.setFill(Color.RED);
@@ -98,7 +96,7 @@ public class InputFX<T extends Data> extends HBox {
             ConnectionFX connFX = this.getNodeFX().getWorkflowFX().getTempConnectionFX();
             OutputFX start = connFX.getStart();
             if(start.getValue().getClassValue() == this.getValue().getClassValue()
-                    && this.getValue().getInput() == null )
+                    && this.getValue().getConnections().size() == 0)
             {
                 isSuccess = true;
                 this.getNodeFX().getWorkflowFX().getChildren().remove(connFX.getEnd1());

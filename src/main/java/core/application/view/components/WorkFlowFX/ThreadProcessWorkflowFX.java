@@ -26,11 +26,7 @@ public class ThreadProcessWorkflowFX extends Thread {
         // then change colors of nodes
         ArrayList<NodeFX> nodesFX = this.nodeFX.getWorkflowFX().getNodesFX();
         for (NodeFX nodeFX: nodesFX) {
-            if(nodeFX.getNode().getAlgorithm().isProcessed()==true){
-                nodeFX.setStyle("-fx-background-color: LIGHTGREEN");
-            }else{
-                nodeFX.setStyle("-fx-background-color: TRANSPARENT");
-            }
+            nodeFX.updateState();
         }
     }
 

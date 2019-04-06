@@ -14,16 +14,17 @@ public class AlgoBufferedImageToBufferedImage extends AbstractAlgorithm implemen
     // PARAMS
     // INPUTS
     private Data<BufferedImage> inBufferedImage = this.addInput( new Data<BufferedImage>(
-            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class)
+            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), this, DataBufferedImageFX.class)
     );
     // OUTPUTS
     private Data<BufferedImage> outBufferedImage = this.addOutput( new Data<BufferedImage>(
-            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), DataBufferedImageFX.class)
+            "BufferedImage", new BufferedImage(1,1, TYPE_INT_ARGB), this,  DataBufferedImageFX.class)
     );
 
     @Override
     public Boolean onProcess() {
-        BufferedImage inBuffImg = inBufferedImage.getInput().getValue(); // link to data from outputAlgo Previous -> inputAlgo Current
+        Boolean result = true;
+        BufferedImage inBuffImg = inBufferedImage.getConnections().get(0).getValue(); // link to data from outputAlgo Previous -> inputAlgo Current
         BufferedImage outBuffImg = new BufferedImage(inBuffImg.getWidth(),inBuffImg.getHeight(), TYPE_INT_ARGB);
         int x = inBuffImg.getWidth();
         int y = inBuffImg.getHeight();
@@ -33,7 +34,6 @@ public class AlgoBufferedImageToBufferedImage extends AbstractAlgorithm implemen
             }
         }
         outBufferedImage.setValue(outBuffImg);
-        Boolean result = true;
         return result;
     }
 

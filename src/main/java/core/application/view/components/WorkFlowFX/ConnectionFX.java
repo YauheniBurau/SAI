@@ -1,6 +1,5 @@
 package core.application.view.components.WorkFlowFX;
 
-import core.application.workflow.workflow.Connection;
 import javafx.beans.binding.DoubleBinding;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -18,8 +17,6 @@ import java.util.Optional;
  * Created by anonymous on 25.03.2019.
  */
 public class ConnectionFX extends Line implements IConnectionFX{
-    private Connection connection = null;
-
     private OutputFX start = null;
     private InputFX end = null;
     private Circle end1 = null;
@@ -159,7 +156,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
         this.endYProperty().bind(this.eY);
 
         // TODO: move to init()
-        this.connection = new Connection(start.getValue(), end.getValue());
         // add handlers for select delete connection
         this.setOnMouseEntered(hOnMouseEntered);
         this.setOnMouseExited(hOnMouseExited);
@@ -176,16 +172,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
     @Override
     public WorkflowFX getWorkflowFX() {
         return this.workflowFX;
-    }
-
-    @Override
-    public Connection getConnection() {
-        return connection;
-    }
-
-    @Override
-    public void setConnection(Connection value) {
-        this.connection = value;
     }
 
     public OutputFX getStart() {
@@ -281,16 +267,9 @@ public class ConnectionFX extends Line implements IConnectionFX{
     private EventHandler<DragEvent> hOnDragDone = (e) ->{
         WorkflowFX wfFX = this.getWorkflowFX();
         if(this.getEnd1()==null && this.getEnd()!=null){
-            Connection conn = new Connection(start.getValue(), end.getValue());
-            this.setConnection( conn );
-            wfFX.getChildren().remove(this);
-            wfFX.addConnectionFX(this);
-            wfFX.getWorkflow().addConnection(conn);
-        }else{
-            wfFX.getChildren().remove(this.end1);
-            wfFX.deleteConnectionFX( this );
+            wfFX.addConnectionFX(start.getValue(), end.getValue());
         }
-        wfFX.setTempConnectionFX(null);
+        wfFX.removeTempConnectionFX();
         e.consume();
     };
 

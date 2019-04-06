@@ -8,10 +8,13 @@ import java.util.LinkedList;
  */
 public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     private String name = "undefined";
+    // TODO: improvement - add algo description: txt, or link to data-file, html or other
     private LinkedList<Param> params = new LinkedList<>();
     private LinkedList<Data> inputs = new LinkedList<>();
     private LinkedList<Data> outputs = new LinkedList<>();
-    private transient boolean isProcessed = false;
+    // for storing state of algo node during processing all workflow
+    private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED;
+
 
     public String getName() {
         return this.name;
@@ -32,7 +35,7 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     public Param addParam(Param value) {
-        value.setAlgorithm(this);
+//        value.setAlgorithm(this);
         this.params.add(value);
         return value;
     }
@@ -46,7 +49,6 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     public Data addInput(Data value) {
-        value.setAlgorithm(this);
         this.inputs.add(value);
         return value;
     }
@@ -60,20 +62,16 @@ public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
     }
 
     public Data addOutput(Data value) {
-        value.setAlgorithm(this);
         this.outputs.add(value);
         return value;
     }
 
-    /**
-     * only change flag of algorithm
-     * @param processed
-     */
-    public void setProcessed(boolean processed) {
-        isProcessed = processed;
+    public AlgorithmStateEnum getState() {
+        return state;
     }
 
-    public boolean isProcessed() {
-        return isProcessed;
+    public void setState(AlgorithmStateEnum state) {
+        this.state = state;
     }
+
 }

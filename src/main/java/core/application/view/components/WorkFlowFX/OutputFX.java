@@ -16,7 +16,6 @@ import javafx.scene.shape.Circle;
  * Created by anonymous on 22.03.2019.
  */
 public class OutputFX<T extends Data> extends HBox {
-    public static final double circleRadius = 5;
     private T value = null;
     private Circle circle;
     private Label label;
@@ -38,7 +37,7 @@ public class OutputFX<T extends Data> extends HBox {
     private void init(T value){
         this.value = value;
         this.setMaxWidth(80);
-        this.circle = new Circle(circleRadius);
+        this.circle = new Circle(CircleFX.radius);
         this.label = new Label(value.getName());
         this.setAlignment(Pos.CENTER_RIGHT);
         this.getChildren().addAll(this.label, this.circle);
@@ -78,21 +77,12 @@ public class OutputFX<T extends Data> extends HBox {
 
     private EventHandler<MouseEvent> hOnDragDetected = (e)->{
         WorkflowFX wfFX = this.getNodeFX().getWorkflowFX();
-        ConnectionFX newConnectionFX;
-        CircleFX end1;
+        ConnectionFX tempConnectionFX;
         if(wfFX.getTempConnectionFX() == null) {
-            end1 = new CircleFX(5);
-            end1.setTranslateX(e.getSceneX());
-            end1.setTranslateY(e.getSceneY());
-            wfFX.getChildren().add(end1);
-            newConnectionFX = new ConnectionFX();
-            newConnectionFX.setStart(this);
-            newConnectionFX.setEnd1(end1);
-            wfFX.addConnectionFX(newConnectionFX);
-            wfFX.setTempConnectionFX(newConnectionFX);
-            Dragboard db = newConnectionFX.startDragAndDrop(TransferMode.ANY);
+            tempConnectionFX = wfFX.createTempConnectionFX(this);
+            Dragboard db = tempConnectionFX.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
-            content.putString("Hello!");
+            content.putString("TempConnectionFX");
             db.setContent(content);
         }
         e.consume();

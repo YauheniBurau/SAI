@@ -23,6 +23,7 @@ import java.util.Optional;
  * Created by anonymous on 20.03.2019.
  */
 public class NodeFX extends BorderPane implements INodeFX{
+    public static final int cornerRadii = 10;
     private class Delta {
         public double x;
         public double y;
@@ -73,7 +74,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.setLayoutY(node.getLayoutY());
 
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, new CornerRadii(10),
+                BorderStrokeStyle.SOLID, new CornerRadii(cornerRadii),
                 new BorderWidths(2,2,2,2, false, false, false, false))) );
         //this.setStyle("-fx-background-color: LIGHTGREEN");
         // add inputsFX and outputsFX
@@ -84,7 +85,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         boxOutputs.setMaxWidth(100);
 
         boxInputs.setSpacing(3);
-        boxInputs.setPadding(new Insets(5, 0, 5, -InputFX.circleRadius));
+        boxInputs.setPadding(new Insets(5, 0, 5, -CircleFX.radius));
         boxInputs.setAlignment(Pos.CENTER_LEFT);
         LinkedList<Data> inputs = node.getAlgorithm().getInputs();
         for(Data input: inputs){
@@ -93,7 +94,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         boxInputs.getChildren().addAll(inputsFX);
 
         boxOutputs.setSpacing(3);
-        boxOutputs.setPadding(new Insets(5, -OutputFX.circleRadius, 5, 0));
+        boxOutputs.setPadding(new Insets(5, -CircleFX.radius, 5, 0));
         boxOutputs.setAlignment(Pos.CENTER_RIGHT);
         LinkedList<Data> outputs = node.getAlgorithm().getOutputs();
         for(Data output: outputs){
@@ -158,6 +159,18 @@ public class NodeFX extends BorderPane implements INodeFX{
 
     public Node getNode() {
         return node;
+    }
+
+    public void updateState(){
+        this.setBackground(
+                new Background(
+                        new BackgroundFill(
+                                this.getNode().getAlgorithm().getState().color(),
+                                new CornerRadii(NodeFX.cornerRadii),
+                                Insets.EMPTY
+                        )
+                )
+        );
     }
 
     /**
