@@ -19,9 +19,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 /**
  * Created by anonymous on 30.03.2019.
  */
-@Algorithm
+@Algorithm(name = "Png->BufferedImage")
 public class AlgoFilePngToBufferedImage extends AbstractAlgorithm implements Serializable {
-    { this.setName("Png->BufferedImage"); }
     // PARAMS
     private Param<FileIn> paramFileIn = this.addParam(
             new Param<FileIn>("FilePngIn", new FileIn(

@@ -8,9 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
-@Algorithm
+@Algorithm(name="BuffImage->BuffImage")
 public class AlgoBufferedImageToBufferedImage extends AbstractAlgorithm implements Serializable {
-    { this.setName("BuffImage->BuffImage"); }
     // PARAMS
     // INPUTS
     private Data<BufferedImage> inBufferedImage = this.addInput( new Data<BufferedImage>(

@@ -14,9 +14,16 @@ import java.io.Serializable;
 /**
  * Created by anonymous on 23.03.2019.
  */
-@Algorithm
+@Algorithm( name = "AlgoTest",
+        description = "Just simple test algo. \n" +
+                "Definition - What does Algorithm mean?\n" +
+                "An algorithm is a step by step method of solving a problem.\n" +
+                "It is commonly used for data processing, calculation and other \n" +
+                "related computer and mathematical operations.\n" +
+                "An algorithm is also used to manipulate data in various ways, \n" +
+                "such as inserting a new data item, searching for a particular item" +
+                " or sorting an item.\n")
 public class AlgoTest extends AbstractAlgorithm implements Serializable {
-    { this.setName("AlgoTest"); }
     // PARAMS
     private Param<Integer> paramInteger1 = this.addParam( new Param<Integer>("SizeX", 0, ParamIntegerFX.class) );
     private Param<Integer> paramInteger2 = this.addParam(new Param<Integer>("SizeY", 0, ParamIntegerFX.class ) );

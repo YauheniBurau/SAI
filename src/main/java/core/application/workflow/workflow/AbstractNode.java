@@ -7,22 +7,32 @@ import java.io.Serializable;
  */
 public abstract class AbstractNode<T extends AbstractAlgorithm> implements INode<T>, Serializable{
     private String name;
+    private Workflow workflow;
     private T algorithm;
     private double translateX;
     private double translateY;
     private double sizeX;
     private double sizeY;
 
+    public Workflow getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(Workflow workflow) {
+        this.workflow = workflow;
+    }
+
     public T getAlgorithm() {
         return this.algorithm;
     }
 
-    public INode setAlgorithm(T algorithm) {
+    public AbstractNode setAlgorithm(T algorithm) {
+        algorithm.setNode(this);
         this.algorithm = algorithm;
         return this;
     }
 
-    public INode setName(String name) {
+    public AbstractNode setName(String name) {
         this.name = name;
         return this;
     }
@@ -35,7 +45,7 @@ public abstract class AbstractNode<T extends AbstractAlgorithm> implements INode
         return this.translateX;
     }
 
-    public INode setLayoutX(double value) {
+    public AbstractNode setLayoutX(double value) {
         this.translateX = value;
         return this;
     }
@@ -44,7 +54,7 @@ public abstract class AbstractNode<T extends AbstractAlgorithm> implements INode
         return this.translateY;
     }
 
-    public INode setLayoutY(double value) {
+    public AbstractNode setLayoutY(double value) {
         this.translateY = value;
         return this;
     }
@@ -53,15 +63,17 @@ public abstract class AbstractNode<T extends AbstractAlgorithm> implements INode
         return sizeX;
     }
 
-    public void setSizeX(double sizeX) {
+    public AbstractNode setSizeX(double sizeX) {
         this.sizeX = sizeX;
+        return this;
     }
 
     public double getSizeY() {
         return sizeY;
     }
 
-    public void setSizeY(double sizeY) {
+    public AbstractNode setSizeY(double sizeY) {
         this.sizeY = sizeY;
+        return this;
     }
 }

@@ -11,6 +11,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -52,6 +53,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         // add control buttons
         this.node = node;
         this.title = new Label(node.getName() + " : " + node.getAlgorithm().getName());
+        this.title.setTooltip(new Tooltip(this.node.getAlgorithm().getName() + "\n" + this.node.getAlgorithm().getDescription()));
         this.headerButtons = new HBox();
         this.closeBtn = new ButtonFX().withText("X").withOnAction(hCloseBtn).withTooltip("close");
         this.editBtn = new ButtonFX().withText("E").withOnAction(hEditBtn).withTooltip("edit");
@@ -192,6 +194,7 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hProcessBtn.setOnAction
      */
     EventHandler<ActionEvent> hProcessBtn = (e) -> {
+        new CurrentTaskWorkflowStageFX(this.getWorkflowFX()).show();
         if( this.getWorkflowFX().getCurrentTaskThreadWorkflowFX()!= null &&
             this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().isAlive()==true ){
             this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().interrupt();
@@ -206,6 +209,7 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hUnprocessBtn.setOnAction
      */
     EventHandler<ActionEvent> hUnprocessBtn = (e) -> {
+        new CurrentTaskWorkflowStageFX(this.getWorkflowFX()).show();
         if( this.getWorkflowFX().getCurrentTaskThreadWorkflowFX()!= null &&
                 this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().isAlive()==true ){
             this.getWorkflowFX().getCurrentTaskThreadWorkflowFX().interrupt();

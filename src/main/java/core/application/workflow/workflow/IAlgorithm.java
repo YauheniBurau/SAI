@@ -7,7 +7,6 @@ import java.util.LinkedList;
  */
 public interface IAlgorithm {
     String getName();
-    void setName(String name);
     Boolean onProcess();
     IParam getParam(Integer key);
     LinkedList<Param> getParams();

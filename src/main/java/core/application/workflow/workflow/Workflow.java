@@ -3,21 +3,25 @@ package core.application.workflow.workflow;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 /**
  * Created by anonymous on 26.03.2019.
  */
 public class Workflow implements IWorkflow, Serializable {
+    private transient Logger logger;
     private LinkedList<Node> nodes = new LinkedList<>();
     private double sizeX = 1;
     private double sizeY = 1;
 
     public Workflow(double sizeX, double sizeY){
+        this.logger = Logger.getLogger(this.getClass().toString());
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
 
     public void addNode(Node e) {
+        e.setWorkflow(this);
         this.nodes.add(e);
     }
 
@@ -51,6 +55,14 @@ public class Workflow implements IWorkflow, Serializable {
         this.sizeY = sizeY;
     }
 
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
     /**
      * serialize and save workflow object to File
      * @param file
@@ -77,6 +89,7 @@ public class Workflow implements IWorkflow, Serializable {
             FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath());
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             workflow = (Workflow) objectInputStream.readObject();
+            workflow.setLogger(Logger.getLogger(workflow.getClass().toString()) );
             objectInputStream.close();
         } catch (IOException e) {
             e.printStackTrace();

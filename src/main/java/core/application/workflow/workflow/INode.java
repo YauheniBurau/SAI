@@ -4,17 +4,17 @@ package core.application.workflow.workflow;
  * Created by anonymous on 26.03.2019.
  */
 public interface INode<T extends AbstractAlgorithm> {
-    INode setName(String name);
+    AbstractNode setName(String name);
     String getName();
     T getAlgorithm();
-    INode setAlgorithm(T algorithm);
+    AbstractNode setAlgorithm(T algorithm);
     double getLayoutX();
-    INode setLayoutX(double value);
+    AbstractNode setLayoutX(double value);
     double getLayoutY();
-    INode setLayoutY(double value);
+    AbstractNode setLayoutY(double value);
 
     double getSizeX();
-    void setSizeX(double sizeX);
+    AbstractNode setSizeX(double sizeX);
     double getSizeY();
-    void setSizeY(double sizeY);
+    AbstractNode setSizeY(double sizeY);
 }

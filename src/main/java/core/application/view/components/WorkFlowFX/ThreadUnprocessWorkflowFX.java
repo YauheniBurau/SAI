@@ -3,6 +3,7 @@ package core.application.view.components.WorkFlowFX;
 import core.application.workflow.workflow.ThreadAlgoUnprocess;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class ThreadUnprocessWorkflowFX extends Thread {
     private NodeFX nodeFX;
@@ -13,16 +14,16 @@ public class ThreadUnprocessWorkflowFX extends Thread {
 
     @Override
     public void run() {
+        Logger log = nodeFX.getWorkflowFX().getWorkflow().getLogger();
+        log.info("workflow process started for end Node: " + this.getName() + "\n");
         ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(this.nodeFX.getNode().getAlgorithm());
-        System.out.println("starting Init node: " + nodeFX.getNode().getName());
         t.start();
         try {
             t.join();
-            System.out.println("finished Init node: " + nodeFX.getNode().getName());
         } catch (InterruptedException e) {
             // TODO: add here get data and put into workflowFX
+            System.out.println("exception in workflow init process: " + nodeFX.getNode().getName() + " : " + e.getMessage() + "\n");
             e.printStackTrace();
-            System.out.println("exception in Init node: " + nodeFX.getNode().getName());
         }
         // wait until join sub threads count all algorithms
         // then change colors of nodes
@@ -30,6 +31,7 @@ public class ThreadUnprocessWorkflowFX extends Thread {
         for (NodeFX nodeFX: nodesFX) {
             nodeFX.updateState();
         }
+        log.info("workflow process finished for end Node: " + this.getName() + "\n");
     }
 
 

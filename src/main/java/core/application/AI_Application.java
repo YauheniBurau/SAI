@@ -6,7 +6,8 @@ package core.application;
 
 import core.application.controller.AlgoHandlerFX;
 import core.application.controller.AlgoStageShowFX;
-import core.application.view.components.WorkFlowFX.NodeFX;
+import core.application.view.components.GuiBuilderFX.ButtonFX;
+import core.application.view.components.WorkFlowFX.CurrentTaskWorkflowStageFX;
 import core.application.view.components.app.WorkflowStageFX;
 import core.application.workflow.algo.AlgoTest;
 import core.application.workflow.algo.Reflection;
@@ -23,14 +24,9 @@ import core.application.workflow.workflow.Workflow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -54,7 +50,15 @@ public class AI_Application extends Application {
 //        root.getChildren().add(wfFX);
 //        NodeFX nodeFX = wfFX.getNodesFX().get(0);
 //        nodeFX.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(NodeFX.cornerRadii), Insets.EMPTY)));
-// =========================================== GUI MENU BAR ====================================================
+
+        // test Button for test onActionEvent
+//        ButtonFX testBtn = new ButtonFX().withText("testBtn").withOnAction(e->{
+//            CurrentTaskWorkflowStageFX stg = new CurrentTaskWorkflowStageFX(wfFX);
+//            stg.show();
+//        });
+//        root.setCenter(testBtn);
+
+        // =========================================== GUI MENU BAR ====================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus
         Menu fileMenu = menuBar.withMenu("File", null);

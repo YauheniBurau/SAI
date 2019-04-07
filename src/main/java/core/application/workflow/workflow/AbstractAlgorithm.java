@@ -7,21 +7,37 @@ import java.util.LinkedList;
  * Created by anonymous on 26.03.2019.
  */
 public abstract class AbstractAlgorithm implements IAlgorithm, Serializable {
-    private String name = "undefined";
-    // TODO: improvement - add algo description: txt, or link to data-file, html or other
+    private AbstractNode node;
     private LinkedList<Param> params = new LinkedList<>();
     private LinkedList<Data> inputs = new LinkedList<>();
     private LinkedList<Data> outputs = new LinkedList<>();
     // for storing state of algo node during processing all workflow
     private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED;
 
-
-    public String getName() {
-        return this.name;
+    public AbstractNode getNode() {
+        return node;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setNode(AbstractNode node) {
+        this.node = node;
+    }
+
+    /**
+     * get that value from annotation "Algorithm"
+     * @return
+     */
+    public String getName() {
+        Algorithm a = this.getClass().getAnnotation(Algorithm.class);
+        return a.name();
+    }
+
+    /**
+     * get that value from annotation "Algorithm"
+     * @return
+     */
+    public String getDescription() {
+        Algorithm a = this.getClass().getAnnotation(Algorithm.class);
+        return a.description();
     }
 
     public abstract Boolean onProcess();
