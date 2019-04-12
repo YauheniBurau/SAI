@@ -1,6 +1,5 @@
 package core.old.process.ColorToColor;
 
-import core.application.exceptions.InputParamException;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.Lab;
 
@@ -25,7 +24,7 @@ public class LabToArgb {
      */
     public static ARGB transform(Lab in, double[] whitePoint) {
         if( in == null ){
-            throw new InputParamException("input Lab must be not null");
+            //throw new InputParamException("input Lab must be not null");
         }
         return XYZToArgb.transform( LabToXYZ.transform(in, whitePoint) );
     }

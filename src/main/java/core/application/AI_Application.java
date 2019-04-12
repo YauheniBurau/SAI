@@ -6,34 +6,25 @@ package core.application;
 
 import core.application.controller.AlgoHandlerFX;
 import core.application.controller.AlgoStageShowFX;
-import core.application.view.components.GuiBuilderFX.ButtonFX;
-import core.application.view.components.WorkFlowFX.CurrentTaskWorkflowStageFX;
-import core.application.view.components.app.WorkflowStageFX;
-import core.application.workflow.algo.AlgoTest;
-import core.application.workflow.algo.Reflection;
-import core.application.view.HelperFX;
-import core.application.view.components.app.AddNewNodeStageFX;
-import core.application.view.components.WorkFlowFX.WorkflowFX;
+import core.application.workflowView.WorkflowStageFX;
+import core.application.workflowController.WorkflowController;
+import core.application.workflowPlugins.algo.Reflection;
 import core.application.view.components.GuiBuilderFX.MenuBarFX;
-import core.application.view.components.app.EditCanvasSizeStageFX;
 import core.application.view.components.app.UtilityStage1FX;
 import core.application.view.components.app.UtilityStage2FX;
 import core.application.view.components.app.UtilityStage3FX;
-import core.application.workflow.workflow.Node;
-import core.application.workflow.workflow.Workflow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class AI_Application extends Application {
     private Stage applicationStage = null;
+
+    // TODO: remove that code
     private WorkflowStageFX workflowStageFXActive = null;
 
 
@@ -81,11 +72,13 @@ public class AI_Application extends Application {
         menuBar.withMenuItem("Utility2", toolsMenu, new AlgoStageShowFX(new UtilityStage2FX(this)));
         menuBar.withMenuItem("Utility3", toolsMenu, new AlgoStageShowFX(new UtilityStage3FX(this)));
 
-        menuBar.withMenuItem("Resize canvas", canvasMenu, new AlgoStageShowFX(new EditCanvasSizeStageFX(this)) ); //TODO: replace with handler
+        menuBar.withMenuItem("Resize canvas", canvasMenu,
+                e->this.workflowStageFXActive.getWorkflowFX().getController().showEditCanvasSizeDialog() );
 
         Class[] algoClasses = Reflection.getAlgoClasses();
         for (Class cl: algoClasses) {
-            menuBar.withMenuItem(cl.getSimpleName(), nodesMenu, new AlgoStageShowFX<>(new AddNewNodeStageFX(cl,this)) );  //TODO: replace with handler
+            menuBar.withMenuItem(cl.getSimpleName(),
+                    nodesMenu, e->this.workflowStageFXActive.getWorkflowFX().getController().showAddNodeDialog(cl));
         }
 
         menuBar.withMenuItem("Help", helpMenu, new AlgoHandlerFX<>(null));
@@ -101,70 +94,44 @@ public class AI_Application extends Application {
         launch(args);
     }
 
-    public WorkflowStageFX getWorkflowStageFXActive() {
-        return workflowStageFXActive;
-    }
-
-    public void setWorkflowStageFXActive(WorkflowStageFX workflowStageFXActive) {
-        this.workflowStageFXActive = workflowStageFXActive;
-    }
+    // TODO: remove that code
+//    public WorkflowStageFX getWorkflowStageFXActive() {
+//        return workflowStageFXActive;
+//    }
+//    public void setWorkflowStageFXActive(WorkflowStageFX workflowStageFXActive) {
+//        this.workflowStageFXActive = workflowStageFXActive;
+//    }
 
     public Stage getApplicationStage() {
         return applicationStage;
     }
 
     /**
-     * EventHandler for menu File.New OnAction - open dialog for creating new empty workflow file and stage
+     * EventHandler for menu File.New OnAction - open dialog for creating new empty workflowModel file and stage
      */
     private EventHandler<ActionEvent> hOnFileNew = (e) -> {
-        WorkflowStageFX stg = new WorkflowStageFX(
-                this,
-                new File(System.getProperty("user.home")+"\\"+"newWorkflow.wfs" ),
-                new WorkflowFX(new Workflow(640, 480))
-        );
-        this.setWorkflowStageFXActive(stg);
-        stg.show();
+        new WorkflowController(this).showNewDialog();
     };
 
     /**
-     * EventHandler for menu File.SaveAs OnAction - open dialog for choose file where to save scheme workflow
+     * EventHandler for menu File.SaveAs OnAction - open dialog for choose file where to save scheme workflowModel
      */
     private EventHandler<ActionEvent> hOnFileSaveAs = (e) -> {
-        FileChooser fileChooser = HelperFX.createFileChooser("Save workflow To file",
-                workflowStageFXActive.getWorkflowFile().getParentFile(),
-                "select *.wfs", "*.wfs"); // *.wfx - WorkFlow Serialized
-        File file = fileChooser.showSaveDialog(this.getWorkflowStageFXActive());
-        if (file != null){
-            workflowStageFXActive.setWorkflowFile(file);
-            Workflow.save(workflowStageFXActive.getWorkflowFile(), workflowStageFXActive.getWorkflowFX().getWorkflow());
-            workflowStageFXActive.setTitle(file.getAbsolutePath());
-        }
+        workflowStageFXActive.getWorkflowFX().getController().showSaveDialog();
     };
 
     /**
-     * EventHandler for menu File.Save OnAction - open dialog for choose file where to save scheme workflow
+     * EventHandler for menu File.Save OnAction - open dialog for choose file where to save scheme workflowModel
      */
     private EventHandler<ActionEvent> hOnFileSave = (e) -> {
-        Workflow.save(workflowStageFXActive.getWorkflowFile(), workflowStageFXActive.getWorkflowFX().getWorkflow());
+        workflowStageFXActive.getWorkflowFX().getController().showSaveDialog();
     };
 
     /**
-     * EventHandler for menu File.Load OnAction - open dialog for choose file for loading scheme workflow
+     * EventHandler for menu File.Load OnAction - open dialog for choose file for loading scheme workflowModel
      */
     private EventHandler<ActionEvent> hOnFileOpen = (e) -> {
-        FileChooser fileChooser = HelperFX.createFileChooser("Load workflow from file",
-                new File(System.getProperty("user.home")),
-                "select *.wfs", "*.wfs"); // *.wfx - WorkFlow Serialized
-        File file = fileChooser.showOpenDialog(this.applicationStage);
-        if (file != null){
-            Workflow workflow = Workflow.load(file);
-            WorkflowStageFX stg = new WorkflowStageFX(
-                    this,
-                    file,
-                    new WorkflowFX(workflow));
-            this.setWorkflowStageFXActive(stg);
-            stg.show();
-        }
+        workflowStageFXActive.getWorkflowFX().getController().showOpenDialog();
     };
 
 }

@@ -4,7 +4,6 @@ import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.BooleanToIntegerArgb;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.FileException;
-import core.application.exceptions.InputParamException;
 import core.old.VertexValue.file.PngFile;
 
 import javax.imageio.ImageIO;

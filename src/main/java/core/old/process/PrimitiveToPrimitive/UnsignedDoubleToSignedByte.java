@@ -1,6 +1,5 @@
 package core.old.process.PrimitiveToPrimitive;
 
-import core.application.exceptions.InputParamException;
 
 /**
  * Created by anonymous on 28.10.2018.
@@ -14,7 +13,7 @@ public class UnsignedDoubleToSignedByte {
      */
     public static byte transform(double value){
         if(value>255 || value<0){
-            throw new InputParamException("input int must be in [0..255]");
+            //throw new InputParamException("input int must be in [0..255]");
         }
         return (byte)(value-128);
     }

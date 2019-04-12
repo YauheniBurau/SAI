@@ -2,7 +2,6 @@ package core.old.process.MatrixToMatrix;
 
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
 
 /**
  * Created by anonymous on 31.10.2018.

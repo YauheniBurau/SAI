@@ -1,7 +1,5 @@
 package core.old.process.PrimitiveToPrimitive;
 
-import core.application.exceptions.InputParamException;
-
 /**
  * Created by anonymous on 17.12.2018.
  */
@@ -12,7 +10,7 @@ public class LongToHexString {
      */
     public static String transform(Long in) {
         if( in == null ){
-            throw new InputParamException("input Long must be not null");
+            //throw new InputParamException("input Long must be not null");
         }
         return Long.toHexString(in);
     }

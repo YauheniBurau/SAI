@@ -1,7 +1,5 @@
 package core.old.process.PrimitiveToPrimitive;
 
-import core.application.exceptions.InputParamException;
-
 /**
  * Created by anonymous on 10.11.2018.
  */
@@ -14,7 +12,7 @@ public class SignedIntToSignedByte {
      */
     public static byte transform(int value){
         if(value<-128 || value>127){
-            throw new InputParamException("input int must be in [-128..+127]");
+            //throw new InputParamException("input int must be in [-128..+127]");
         }
         return (byte)(value);
     }

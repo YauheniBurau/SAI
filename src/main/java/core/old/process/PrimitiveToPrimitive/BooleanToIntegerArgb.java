@@ -1,7 +1,5 @@
 package core.old.process.PrimitiveToPrimitive;
 
-import core.application.exceptions.InputParamException;
-
 /**
  * Created by anonymous on 28.10.2018.
  */
@@ -14,7 +12,7 @@ public class BooleanToIntegerArgb {
      */
     public static int transform(Boolean in){
         if(in == null){
-            throw new InputParamException("Wrong in and out params. At least one of them is null");
+            //throw new InputParamException("Wrong in and out params. At least one of them is null");
         }
         int v;
         if(in == false) v = 0xff000000;

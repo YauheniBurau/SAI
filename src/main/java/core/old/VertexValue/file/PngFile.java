@@ -1,7 +1,5 @@
 package core.old.VertexValue.file;
 
-import core.application.exceptions.InputParamException;
-
 /**
  * Created by anonymous on 21.09.2018.
  */
@@ -16,7 +14,7 @@ public class PngFile implements IFile {
         if(urlFile.substring(start).equalsIgnoreCase("png")) {
             this.urlFile = urlFile;
         }else{
-            throw new InputParamException("String uri contains wrong file type");
+            //throw new InputParamException("String uri contains wrong file type");
         }
     }
 

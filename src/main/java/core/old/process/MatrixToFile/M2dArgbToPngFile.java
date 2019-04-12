@@ -4,7 +4,6 @@ import core.old.process.ColorToPrimitive.ArgbToIntegerArgb;
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
 import core.old.VertexValue.file.PngFile;
 import core.application.exceptions.FileException;
 

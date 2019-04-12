@@ -6,7 +6,6 @@ import core.old.VertexValue.color.Colors256ARGB;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.application.exceptions.FileException;
-import core.application.exceptions.InputParamException;
 import core.old.process.ColorToPrimitive.ArgbToIntegerArgb;
 
 import javax.imageio.ImageIO;

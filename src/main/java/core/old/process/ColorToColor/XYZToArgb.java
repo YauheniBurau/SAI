@@ -1,6 +1,5 @@
 package core.old.process.ColorToColor;
 
-import core.application.exceptions.InputParamException;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.XYZ;
 
@@ -23,7 +22,7 @@ public class XYZToArgb {
      */
     public static ARGB transform(XYZ in) {
         if( in == null ){
-            throw new InputParamException("input XYZ must be not null");
+            //throw new InputParamException("input XYZ must be not null");
         }
         ARGB value;
         double x = in.x / 100.0;

@@ -4,7 +4,6 @@ import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.Colors256ARGB;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
 
 /**
  * Created by anonymous on 13.12.2018.

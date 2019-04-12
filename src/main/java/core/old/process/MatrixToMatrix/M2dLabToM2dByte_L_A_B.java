@@ -4,7 +4,6 @@ import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.UnsignedDoubleToSignedByte;
 import core.old.VertexValue.color.Lab;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
 
 /**
  * Created by anonymous on 31.10.2018.

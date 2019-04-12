@@ -1,6 +1,5 @@
 package core.application.view.components.app;
 
-
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;

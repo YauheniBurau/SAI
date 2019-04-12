@@ -3,7 +3,6 @@ package core.old.process.MatrixToMatrix;
 import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.SignedIntToSignedByte;
 import core.old.VertexValue.matrix.Matrix2d;
-import core.application.exceptions.InputParamException;
 
 /**
  * Created by anonymous on 10.11.2018.
