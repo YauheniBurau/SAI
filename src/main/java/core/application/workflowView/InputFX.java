@@ -16,8 +16,8 @@ public class InputFX<T extends Data> extends HBox {
     private T value = null;
     private Circle circle;
     private Label label;
-
     private NodeFX nodeFX;
+    private ConnectionFX connectionFX;
 
     public NodeFX getNodeFX() {
         return nodeFX;
@@ -26,6 +26,19 @@ public class InputFX<T extends Data> extends HBox {
     public void setNodeFX(NodeFX nodeFX) {
         this.nodeFX = nodeFX;
     }
+
+    public ConnectionFX getConnectionFX() {
+        return connectionFX;
+    }
+
+    public void setConnectionFX(ConnectionFX connectionFX) {
+        this.connectionFX = connectionFX;
+    }
+
+    public void removeConnectionFX(){
+        this.connectionFX = null;
+    }
+
 
     /**
      * value must be not null value - at list empty Object

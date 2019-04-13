@@ -6,7 +6,6 @@ import java.util.LinkedList;
 /**
  * Created by anonymous on 26.03.2019.
  */
-
 public abstract class AbstractAlgorithm implements Serializable {
     private Node node;
     private LinkedList<Param> params = new LinkedList<>();
@@ -16,7 +15,7 @@ public abstract class AbstractAlgorithm implements Serializable {
     private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED;
 
     /**
-     * get that description value from annotation @Algo
+     * get that "description" value from annotation @Algo
      * @return
      */
     public String getName() {
@@ -25,13 +24,23 @@ public abstract class AbstractAlgorithm implements Serializable {
     }
 
     /**
-     * get that description value from annotation @Algo
+     * get that "description" value from annotation @Algo
      * @return
      */
     public String getDescription() {
         Algo a = this.getClass().getAnnotation(Algo.class);
         return a.description();
     }
+
+    /**
+     * get that "group" value from annotation @Algo
+     * @return
+     */
+    public String getGroup() {
+        Algo a = this.getClass().getAnnotation(Algo.class);
+        return a.group();
+    }
+
 
     public Node getNode() {
         return node;

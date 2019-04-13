@@ -15,6 +15,8 @@ import javafx.stage.StageStyle;
 
 import java.util.LinkedList;
 
+
+// TODO: Move to Controller
 /**
  * Created by anonymous on 27.03.2019.
  */
@@ -57,7 +59,7 @@ public class EditNodeStageFX extends StageFX {
         LinkedList<Data> inputs = nodeFX.getNode().getAlgorithm().getInputs();
         this.inputsViewFX = new LinkedList<>();
         for(Data data: inputs){
-            dataViewFX = DataFactoryFX.constructDataFX( data.getConnections().size()==1? data.getConnection(0) : data );
+            dataViewFX = DataFactoryFX.constructDataFX( data.getConnections().size()==1? data.getConnection(0).getStart() : data );
             this.inputsViewFX.add(dataViewFX);
             inputTab = new Tab("I: " + data.getName(), dataViewFX);
             inputTab.setClosable(false);

@@ -21,7 +21,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  */
 @Algo(
         name = "BuffImage->Png",
-        description = "Save BufferedImage into png-file")
+        description = "Save BufferedImage into png-file",
+        group = "outputs")
 public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Serializable{
     // PARAMS
     private Param<FileOut> paramFileOut = this.addParam(
@@ -44,7 +45,7 @@ public class AlgoBufferedImageToFilePng extends AbstractAlgorithm implements Ser
     public Boolean onProcess() {
         Boolean result = true;
         try{ // link to data from outputAlgo Previous -> inputAlgo Current this.inBufferedImage.getInput().getValue()
-            ImageIO.write(this.inBufferedImage.getConnections().get(0).getValue(), "png", this.paramFileOut.getValue().getFile());
+            ImageIO.write(this.inBufferedImage.getConnections().get(0).getStart().getValue(), "png", this.paramFileOut.getValue().getFile());
         } catch (IOException e) {
             e.printStackTrace();
             result = false;

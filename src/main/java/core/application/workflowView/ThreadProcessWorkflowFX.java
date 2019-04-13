@@ -24,11 +24,11 @@ public class ThreadProcessWorkflowFX extends Thread {
             e.printStackTrace();
         }
         // wait until join sub threads count all algorithms
-        // then change colors of nodes
-        ArrayList<NodeFX> nodesFX = this.nodeFX.getWorkflowFX().getNodesFX();
-        for (NodeFX nodeFX: nodesFX) {
-            nodeFX.updateState();
-        }
+        // TODO: move to another place then change colors of nodes
+//        ArrayList<NodeFX> nodesFX = this.nodeFX.getWorkflowFX().getNodesFX();
+//        for (NodeFX nodeFX: nodesFX) {
+//            nodeFX.updateState();
+//        }
         log.info("workflowModel process finished for end Node: " + this.getName() + "\n");
     }
 

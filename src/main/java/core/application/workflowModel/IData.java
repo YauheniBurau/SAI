@@ -15,14 +15,15 @@ public interface IData<T> {
     void setValue(T value);
     T getValue();
 
-    ArrayList<Data<T>> getConnections();
-    void addConnection(Data<T> dataIO);
-    void removeConnection(Data<T> dataIO);
-    void removeConnections();
+    ArrayList<IConnection<T>> getConnections();
+    void addConnection(IConnection<T> connection);
+    void removeConnection(IConnection<T> connection);
+    void removeAllConnections();
 
     Class getDataFXClass();
     void setDataFXClass(Class dataFXClass);
 
     AbstractAlgorithm getAlgorithm();
     void setAlgorithm(AbstractAlgorithm algorithm);
+
 }

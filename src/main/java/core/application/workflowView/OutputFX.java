@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
+
 /**
  * Created by anonymous on 22.03.2019.
  */
@@ -19,22 +21,14 @@ public class OutputFX<T extends Data> extends HBox {
     private T value = null;
     private Circle circle;
     private Label label;
-
     private NodeFX nodeFX;
-
-    public NodeFX getNodeFX() {
-        return nodeFX;
-    }
-
-    public void setNodeFX(NodeFX nodeFX) {
-        this.nodeFX = nodeFX;
-    }
+    private ArrayList<ConnectionFX> connectionsFX = new ArrayList<>();
 
     public OutputFX(T value) {
         this.init(value);
     }
 
-    private void init(T value){
+        private void init(T value){
         this.value = value;
         this.setMaxWidth(80);
         this.circle = new Circle(CircleFX.radius);
@@ -47,6 +41,30 @@ public class OutputFX<T extends Data> extends HBox {
 //        circle.setOnMousePressed(hOnMousePressed);
         circle.setOnDragDetected(hOnDragDetected);
 
+    }
+
+    public void addConnectionFX(ConnectionFX connectionFX){
+        this.connectionsFX.add(connectionFX);
+    }
+
+    public void RemoveConnectionFX(ConnectionFX connectionFX){
+        this.connectionsFX.remove(connectionFX);
+    }
+
+    public void removeConnectionFX(){
+        this.connectionsFX = new ArrayList<>();
+    }
+
+    public ArrayList<ConnectionFX> getConnectionsFX() {
+        return connectionsFX;
+    }
+
+    public NodeFX getNodeFX() {
+        return nodeFX;
+    }
+
+    public void setNodeFX(NodeFX nodeFX) {
+        this.nodeFX = nodeFX;
     }
 
     public Circle getCircle() {

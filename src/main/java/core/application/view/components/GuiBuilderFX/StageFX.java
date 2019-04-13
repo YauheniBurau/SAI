@@ -42,6 +42,7 @@ public class StageFX extends Stage implements IStageFX{
         }else{
             this.setScene( new Scene(root, width, height) );
         }
+        this.getScene().getStylesheets().add("AI_Application.css");
         return this;
     }
 

@@ -17,8 +17,8 @@ public class ThreadAlgoUnprocess extends Thread {
         LinkedList<Data> inputs = this.algorithm.getInputs();
         for (Data input: inputs) {
             if(input.getConnections().size()==1){
-                ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(input.getConnection(0).getAlgorithm());
-                log.info("starting algo: " + input.getConnection(0).getAlgorithm().getName());
+                ThreadAlgoUnprocess t = new ThreadAlgoUnprocess(input.getConnection(0).getStart().getAlgorithm());
+                log.info("starting algo: " + input.getConnection(0).getStart().getAlgorithm().getName());
                 t.start();
                 try {
                     t.join();

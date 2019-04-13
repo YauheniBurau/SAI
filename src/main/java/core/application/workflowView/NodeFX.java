@@ -24,13 +24,18 @@ import java.util.Optional;
  */
 public class NodeFX extends BorderPane implements INodeFX{
     public static final int cornerRadii = 10;
+    // TODO: try remove that code from NodeFX
     private class Delta {
         public double x;
         public double y;
     }
-    private Node node;
 
+    private Node node;
     private WorkflowFX workflowFX;
+    private LinkedList<InputFX> inputsFX = new LinkedList<>();
+    private LinkedList<OutputFX> outputsFX = new LinkedList<>();
+
+    // TODO: try remove
     private HBox headerButtons;
     protected ButtonFX closeBtn;
     protected ButtonFX editBtn;
@@ -39,8 +44,6 @@ public class NodeFX extends BorderPane implements INodeFX{
     protected ButtonFX stopProcessBtn;
     protected Label title;
 
-    private LinkedList<InputFX> inputsFX = new LinkedList<>();
-    private LinkedList<OutputFX> outputsFX = new LinkedList<>();
 
     private Delta dragDelta = new Delta();
 
@@ -178,16 +181,7 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hCloseBtn.setOnAction
      */
     EventHandler<ActionEvent> hCloseBtn = (e) -> {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete node from workflowModel");
-        alert.setHeaderText("It will remove Node and all own conection from Workflow");
-        alert.setContentText("You can't discard that changes. Are you sure?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            this.getWorkflowFX().deleteNodeFX(this);
-        } else {
-            // ... user chose CANCEL or closed the dialog
-        }
+        this.getWorkflowFX().getController().showRemoveNodeDialog(this);
     };
 
     /**

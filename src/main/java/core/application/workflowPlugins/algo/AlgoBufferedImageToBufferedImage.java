@@ -10,7 +10,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 @Algo(
         name = "BuffImage->BuffImage",
-        description = "Replicate without any change BufferedImage from input to output")
+        description = "Replicate without any change BufferedImage from input to output",
+        group = "processors")
 public class AlgoBufferedImageToBufferedImage extends AbstractAlgorithm implements Serializable {
     // PARAMS
     // INPUTS
@@ -25,7 +26,7 @@ public class AlgoBufferedImageToBufferedImage extends AbstractAlgorithm implemen
     @Override
     public Boolean onProcess() {
         Boolean result = true;
-        BufferedImage inBuffImg = inBufferedImage.getConnections().get(0).getValue(); // link to data from outputAlgo Previous -> inputAlgo Current
+        BufferedImage inBuffImg = inBufferedImage.getConnections().get(0).getStart().getValue(); // link to data from outputAlgo Previous -> inputAlgo Current
         BufferedImage outBuffImg = new BufferedImage(inBuffImg.getWidth(),inBuffImg.getHeight(), TYPE_INT_ARGB);
         int x = inBuffImg.getWidth();
         int y = inBuffImg.getHeight();

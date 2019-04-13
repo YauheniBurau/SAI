@@ -22,7 +22,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  */
 @Algo(
         name = "PngFile->BuffImage",
-        description = "Load png-file and create BufferedImage as output")
+        description = "Load png-file and create BufferedImage as output",
+        group = "inputs")
 public class AlgoFilePngToBufferedImage extends AbstractAlgorithm implements Serializable {
     // PARAMS
     private Param<FileIn> paramFileIn = this.addParam(

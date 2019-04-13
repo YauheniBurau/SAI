@@ -8,7 +8,7 @@ import core.application.workflowPlugins.param.FileIn;
 import java.io.File;
 
 @Algo(
-        name = "TestAlgoAnnotated",
+        name = "AlgoAnnotatedTest",
         description = "Just simple test algo. \n" +
                 "Definition - What does Algorithm mean?\n" +
                 "An algorithm is a step by step method of solving a problem.\n" +
@@ -16,21 +16,20 @@ import java.io.File;
                 "related computer and mathematical operations.\n" +
                 "An algorithm is also used to manipulate data in various ways, \n" +
                 "such as inserting a new data item, searching for a particular item" +
-                " or sorting an item.\n")
-public class TestAlgoAnnotated extends AbstractAlgorithm {
+                " or sorting an item.\n",
+        group = "test")
+public class AlgoAnnotatedTest extends AbstractAlgorithm {
     // PARAMS
     @AlgoParam(
-            name="",
-            description = "",
+            name="param1",
+            description = "description of param",
             showName = true,
             showParam = false,
             paramFXClass = ParamFileInFX.class)
     private Param<FileIn> paramFileIn = this.addParam(
             new Param<FileIn>("Png-file", new FileIn(
-                    new File(System.getProperty("user.home")),
-                    "Select file *.png to load",
-                    new File(System.getProperty("user.home")),
-                    "select *.png",
+                    new File(System.getProperty("user.home")), "Select file *.png to load",
+                    new File(System.getProperty("user.home")),"select *.png",
                     "*.png"),
                     ParamFileInFX.class
             )

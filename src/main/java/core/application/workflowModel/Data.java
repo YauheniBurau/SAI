@@ -11,8 +11,8 @@ public class Data<T> implements IData<T>, Serializable {
     private Class classValue;
     private String name;
     private transient T value;
-    private Class dataFXClass;
-    private ArrayList<Data<T>> connections = new ArrayList<>();
+    private Class dataFXClass; // TODO: find the way remove
+    private ArrayList<IConnection<T>> connections = new ArrayList<>();
 
     public Data(String name, T value, AbstractAlgorithm algo, Class dataFXClass) {
         this.classValue = value.getClass();
@@ -46,36 +46,35 @@ public class Data<T> implements IData<T>, Serializable {
         return this.value;
     }
 
-    public ArrayList<Data<T>> getConnections() {
+    public ArrayList<IConnection<T>> getConnections() {
         return connections;
     }
 
-    public Data<T> getConnection(int index) {
+    public IConnection<T> getConnection(int index) {
         return connections.get(index);
     }
 
     /**
-     * that method is bidirectional linking "this" Data to DataIO
      * link if not linked yet
-     * @param dataIO
+     * @param connection
      */
-    public void addConnection(Data<T> dataIO){
-        if(!this.connections.contains(dataIO)){
-            this.connections.add(dataIO);
-            dataIO.addConnection(this);
+    public void addConnection(IConnection<T> connection){
+        if(!this.connections.contains(connection)){
+            this.connections.add(connection);
         }
     }
 
-    public void removeConnection(Data<T> dataIO){
-        if(this.connections.contains(dataIO)){
-            this.connections.remove(dataIO);
-        }
-        if(dataIO.connections.contains(this)){
-            dataIO.connections.remove(this);
+    /**
+     * unlink if linked
+     * @param connection
+     */
+    public void removeConnection(IConnection<T> connection){
+        if(this.connections.contains(connection)){
+            this.connections.remove(connection);
         }
     }
 
-    public void removeConnections(){
+    public void removeAllConnections(){
         while(this.connections.size()>0){
             removeConnection( this.connections.get(0) );
         }

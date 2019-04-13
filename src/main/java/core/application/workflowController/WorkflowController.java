@@ -1,22 +1,27 @@
 package core.application.workflowController;
 
-import core.application.AI_Application;
 import core.application.view.HelperFX;
 import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.GuiBuilderFX.GridPaneFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
+import core.application.view.components.app.ApplicationController;
 import core.application.workflowPlugins.param.ParamDoubleFX;
+import core.application.workflowView.ConnectionFX;
+import core.application.workflowView.NodeFX;
 import core.application.workflowView.WorkflowStageFX;
 import core.application.workflowModel.*;
 import core.application.workflowPlugins.param.ParamStringFX;
 import core.application.workflowView.WorkflowFX;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-
 import java.io.*;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -24,80 +29,106 @@ import java.util.logging.Logger;
  * and after that, make changes in GUI view
  */
 public class WorkflowController {
-    private AI_Application application;
-    private WorkflowFX view;
-    private Workflow model;
     private File file;
+    private Workflow model;
+    private WorkflowFX view;
+    private ApplicationController applicationController;
 
-    public WorkflowController(AI_Application application) {
-        this.application = application;
-        this.model = new Workflow(640, 480);
-        this.view = new WorkflowFX().buildFrom(this.model);
-        this.view.setController(this);
+    public WorkflowController(ApplicationController applicationController) {
+        this.setFile(new File(System.getProperty("user.home")));
+        this.setModel(new Workflow(640, 480));
+        this.setView(new WorkflowFX(this.model));
+        this.setApplicationController(applicationController);
     }
 
-    // TODO: add feature for openning dialog for creation new workflow and open new workflow edit window
-    /**
-     * show open dialog for open *.wfs-file, if choosed, then create new WorkflowStageFX in application
-     */
-    public void showNewDialog(){
-        WorkflowStageFX stg = new WorkflowStageFX(
-                application, new File(System.getProperty("user.home")+"\\"+"newWorkflow.wfs" ), view);
-        stg.show();
+    public void setApplicationController(ApplicationController applicationController) {
+        this.applicationController = applicationController;
+    }
+
+    public void setView(WorkflowFX view) {
+        this.view = view;
+        view.setController(this);
+    }
+
+    public void setModel(Workflow model) {
+        this.model = model;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     /**
      * load file and deserialize to workflowModel object
+     *
      * @param file
      */
-    public void loadWorkflow(File file){
+    private void loadWorkflow(File file) {
+        Workflow workflow;
         try {
             FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath());
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            this.model = (Workflow) objectInputStream.readObject();
-            model.setLogger(Logger.getLogger(this.model.getClass().toString()) );
+            workflow = (Workflow) objectInputStream.readObject();
+            workflow.setLogger(Logger.getLogger(this.model.getClass().toString()));
             objectInputStream.close();
+            this.setFile(file);
+            this.setModel(workflow);
+            this.setView(new WorkflowFX(workflow));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+
+    /**
+     * show new dialog for new *.wfs-file, if choosed, then create new WorkflowStageFX in application
+     */
+    public WorkflowStageFX showNewDialog() {
+        this.setFile(new File(System.getProperty("user.home") + "\\" + "newWorkflow.wfs"));
+        this.setModel(new Workflow(640, 480));
+        this.setView(new WorkflowFX(this.model));
+        this.setApplicationController(applicationController);
+        WorkflowStageFX stg = new WorkflowStageFX(file.getAbsolutePath(), this.applicationController, view);
+        return stg;
     }
 
     /**
      * show open dialog for open *.wfs-file, if choosed, then create new WorkflowStageFX in application
      */
-    public void showOpenDialog(){
+    public WorkflowStageFX showOpenDialog() {
         FileChooser fileChooser = HelperFX.createFileChooser("Load workflowModel from file",
                 new File(System.getProperty("user.home")),
                 "select *.wfs", "*.wfs"); // *.wfx - WorkFlow Serialized
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null){
+        this.file = fileChooser.showOpenDialog(null);
+        WorkflowStageFX stg = null;
+        if (this.file != null) {
             this.loadWorkflow(file);
-            WorkflowStageFX stg = new WorkflowStageFX(this.application, file, new WorkflowFX().buildFrom(this.model));
-            stg.show();
+            stg = new WorkflowStageFX(this.file.getAbsolutePath(), this.applicationController, this.view);
         }
+        return stg;
     }
 
 
     /**
      * serialize and save workflowModel object to File
+     *
      * @param file
      */
-    public void saveWorkflow(File file){
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath());
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-                objectOutputStream.writeObject(model);
-                objectOutputStream.close();
-                this.file = file;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void saveWorkflow(File file) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(model);
+            objectOutputStream.close();
+            this.setFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-    /**
+   /**
      * serialize and save workflowModel object to File
      */
     public void saveWorkflow(){
@@ -109,7 +140,6 @@ public class WorkflowController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -117,12 +147,11 @@ public class WorkflowController {
      */
     public void showSaveDialog(){
         FileChooser fileChooser = HelperFX.createFileChooser(
-                "Save workflowModel To file", this.file,"select *.wfs", "*.wfs");
-        File file = fileChooser.showSaveDialog(view.getScene().getWindow());
-        if (file != null){
-            this.file = file;
-            this.saveWorkflow(this.file);
-            view.getStage().setTitle(file.getAbsolutePath());
+                "Save workflowModel To file", this.file.getParentFile(),"select *.wfs", "*.wfs");
+        File f = fileChooser.showSaveDialog(view.getStage());
+        if (f != null){
+            this.saveWorkflow(f);
+            view.getStage().setTitle(f.getAbsolutePath());
         }
     }
 
@@ -143,10 +172,15 @@ public class WorkflowController {
         });
         root.withNode(nodeTitle, 0, 0, 2, 1);
         root.withNode(btnCreate, 1, 1, 1, 1);
-        stg.withScene(root, 320, 240).withTitle("Add new node : " + algoClass.getCanonicalName())
+        stg.withScene(root, 320, 80).withTitle("Add new node : " + algoClass.getCanonicalName())
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true);
+        stg.show();
     }
 
+    /**
+     * open dialog of changeing size of workflow canvas
+     * if ok then change model and view
+     */
     public void showEditCanvasSizeDialog(){
         // TODO: use something more compact for creating form controlsFX
         ParamDoubleFX fieldSizeX;
@@ -172,8 +206,14 @@ public class WorkflowController {
         root.add(fieldSizeY, 0, 1,2, 1);
         root.add(btnOk, 0, 2,1, 1);
         root.add(btnCancel, 1, 2,1, 1);
+        stg.show();
     }
 
+    /**
+     * change workflow size in model and in view
+     * @param sizeX
+     * @param sizeY
+     */
     public void changeWorkflowSize(double sizeX, double sizeY){
         view.setMinSize(sizeX, sizeY);
         view.setMaxSize(sizeX, sizeY);
@@ -195,20 +235,59 @@ public class WorkflowController {
         Node node = new Node(title, algo, translateX, translateY, minSizeX, minSizeY);
         // add node to workflowModel model and add node to WorkflowFX
         model.addNode(node);
-        view.addNodeFX(node);
+        view.addNodeFX(new NodeFX(node));
     }
 
+    /**
+     * open dialog of confirmation, remove node or leave node, if remove then remove from model and view
+     * @param nodeFX
+     */
+    public void showRemoveNodeDialog(NodeFX nodeFX){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete node from workflowModel");
+        alert.setHeaderText("It will remove Node and all own connections from Workflow");
+        alert.setContentText("You can't discard that changes. Are you sure?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            this.removeNode(nodeFX);
+        }
+    }
+
+    /**
+     * remove Node with all connections from model and view
+     * @param nodeFX
+     */
+    public void removeNode(NodeFX nodeFX){
+        view.removeNodeFX(nodeFX);
+        model.removeNode(nodeFX.getNode());
+    }
+
+    /**
+     * show dialog for confirmation delete connection, if ok then delete form view and model
+     */
+    public void showRemoveConnectionDialog(ConnectionFX connectionFX){
+        connectionFX.setEffect(null);
+        connectionFX.setStroke(Color.BLACK);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete connection from workflowModel");
+        alert.setHeaderText("It will remove connection from Workflow");
+        alert.setContentText("You can't discard that changes. Are you sure?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            this.removeConnection(connectionFX);
+        }
+    }
+
+    /**
+     * remove Connection fromm view and model
+     */
+    public void removeConnection(ConnectionFX connectionFX){
+        view.removeConnectionFX(connectionFX);
+        model.removeConnection(connectionFX.getConnection());
+    }
 
     public void addConnection(){
-
-    }
-
-    public void removeNode(){
-
-    }
-
-    public void removeConnection(){
-
+        //TODO:
     }
 
 

@@ -1,5 +1,6 @@
 package core.application.workflowPlugins.algo;
 
+import core.application.workflowModel.AbstractAlgorithm;
 import core.application.workflowModel.Algo;
 
 import java.io.File;
@@ -15,10 +16,10 @@ import java.util.List;
  */
 public class Reflection {
 
-    public static Class[] getAlgoClasses(){
-        Class[] algoClasses = null;
+    public static Class<? extends AbstractAlgorithm>[] getAlgoClasses(){
+        Class<? extends AbstractAlgorithm>[] algoClasses = null;
         try {
-            Class[] classes = Reflection.getClasses("core.application.workflowPlugins.algo");
+            Class<? extends AbstractAlgorithm>[] classes = Reflection.getClasses("core.application.workflowPlugins.algo");
             algoClasses = Reflection.filterClasses(classes, Algo.class);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

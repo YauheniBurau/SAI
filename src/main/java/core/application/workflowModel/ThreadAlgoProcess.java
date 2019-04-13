@@ -18,7 +18,7 @@ public class ThreadAlgoProcess extends Thread {
             LinkedList<Data> inputs = this.algorithm.getInputs();
             for (Data input: inputs) {
                 if(input.getConnections().size()==1){
-                    ThreadAlgoProcess t = new ThreadAlgoProcess(input.getConnection(0).getAlgorithm());
+                    ThreadAlgoProcess t = new ThreadAlgoProcess(input.getConnection(0).getStart().getAlgorithm());
                     t.start();
                     try {
                         t.join();

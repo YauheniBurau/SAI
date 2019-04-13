@@ -24,7 +24,8 @@ import java.io.Serializable;
                 "related computer and mathematical operations.\n" +
                 "An algorithm is also used to manipulate data in various ways, \n" +
                 "such as inserting a new data item, searching for a particular item" +
-                " or sorting an item.\n")
+                " or sorting an item.\n",
+        group = "processors")
 public class AlgoTest extends AbstractAlgorithm implements Serializable {
     // PARAMS
     private Param<Integer> paramInteger1 = this.addParam( new Param<Integer>("SizeX", 0, ParamIntegerFX.class) );

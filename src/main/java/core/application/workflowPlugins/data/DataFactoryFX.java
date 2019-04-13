@@ -1,5 +1,6 @@
 package core.application.workflowPlugins.data;
 
+import core.application.workflowModel.IData;
 import core.application.workflowView.AbstractDataFX;
 import core.application.workflowModel.Data;
 import java.lang.reflect.Constructor;
@@ -9,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
  * Created by anonymous on 27.03.2019.
  */
 public class DataFactoryFX {
-    public static AbstractDataFX constructDataFX(Data data) {
+    public static AbstractDataFX constructDataFX(IData data) {
         Class classDataFX = data.getDataFXClass();
         Constructor<?> cons;
         AbstractDataFX dataFX = null;
