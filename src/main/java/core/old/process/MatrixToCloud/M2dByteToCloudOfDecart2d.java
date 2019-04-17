@@ -84,7 +84,7 @@ public class M2dByteToCloudOfDecart2d extends AbstractAlgorithmFX {
 //            outClouds = M2dByteToCloudOfDecart2d.transform(in, inClouds);
 //            inClouds = outClouds;
 ////            for (CloudOfDecart2dInt cl: inClouds) {
-////                CloudOfDecart2dInt.saveCloud("E:\\temp\\out\\" + cloud_uid + "byte.png", cl, in);
+////                CloudOfDecart2dInt.saveCloud("Edge:\\temp\\out\\" + cloud_uid + "byte.png", cl, in);
 ////                cloud_uid+=1;
 ////            }
 //        }

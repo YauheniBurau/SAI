@@ -11,20 +11,17 @@ import javafx.stage.StageStyle;
  * Created by anonymous on 21.03.2019.
  */
 public class UtilityStage2FX extends StageFX {
-    private ApplicationController applicationController;
 
-    public UtilityStage2FX(ApplicationController applicationController){
-        this.applicationController = applicationController;
-        this.init();
+    public UtilityStage2FX(AI_Application app){
+        this.init(app);
     }
 
-    @Override
-    public void init(){
+    public void init(AI_Application app){
         // 1. stage window
         Pane root = new Pane();
         this.withScene(root, 240, 320).withTitle("Utility2 instruments")
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
-                .withOwner(this.applicationController.getApplicationStage())
+                .withOwner(app.getApplicationStage())
                 .setOnCloseRequest( new AlgoHandlerFX(new AlgoStageHideFX(this)) );
     }
 

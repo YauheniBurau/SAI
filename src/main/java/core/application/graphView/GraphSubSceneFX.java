@@ -1,12 +1,13 @@
-package com.yauheni.burau.sai;
+package core.application.graphView;
 
 import javafx.scene.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 
-public class SubScene3dFX extends SubScene {
-    private Pane3dFX pane3dFX;
+// TODO: refactor
+public class GraphSubSceneFX extends SubScene {
+    private GraphFX graphFX;
     private static final double SENSITIVITY = 1;
     private static final double ZOOM_SENSITIVITY = 0.2;
     double angleX = 0;
@@ -21,23 +22,23 @@ public class SubScene3dFX extends SubScene {
     private Rotate cameraRotateY = new Rotate(0, 0, 0, 0, Rotate.Y_AXIS);
     private Rotate cameraRotateZ = new Rotate(0, 0, 0, 0, Rotate.Z_AXIS);
 
-    public SubScene3dFX(Pane3dFX pane3dFX, double sizeX, double sizeY, boolean depthBuffer, SceneAntialiasing msaa) {
-        super(pane3dFX, sizeX, sizeY, depthBuffer, msaa);
-        this.pane3dFX = pane3dFX;
+    public GraphSubSceneFX(GraphFX graphFX, double sizeX, double sizeY, boolean depthBuffer, SceneAntialiasing msaa) {
+        super(graphFX, sizeX, sizeY, depthBuffer, msaa);
+        this.graphFX = graphFX;
         camera.setTranslateZ(0);
 //        camera.setFarClip(300);
 //        camera.setNearClip(100);
 //        camera.setFieldOfView(20);
         this.setCamera(camera);
 
-        this.pane3dFX.getChildren().add(light);
+        this.graphFX.getChildren().add(light);
         //        camera.getTransforms().addAll(cameraPos, cameraRotateX, cameraRotateY, cameraRotateZ);
         Transform t;
 //        light.getTransforms().addAll(cameraPos, cameraRotateX, cameraRotateY, cameraRotateZ);
     }
 
-    public Pane3dFX getPane3dFX() {
-        return pane3dFX;
+    public GraphFX getGraphFX() {
+        return graphFX;
     }
 
     public AmbientLight getLight() {
@@ -66,8 +67,8 @@ public class SubScene3dFX extends SubScene {
 
     public void translateCamera(double dX, double dY, double dZ){
         Transform t = new Translate(dX, dY, dZ);
-        pane3dFX.getTransforms().removeAll();
-        pane3dFX.getTransforms().add(t);
+        graphFX.getTransforms().removeAll();
+        graphFX.getTransforms().add(t);
     }
 
     public void rotateCamera(double angleX, double angleY, double angleZ){
@@ -85,6 +86,5 @@ public class SubScene3dFX extends SubScene {
     public void ZoomCamera(double diffZ) {
 
     }
-
 
 }

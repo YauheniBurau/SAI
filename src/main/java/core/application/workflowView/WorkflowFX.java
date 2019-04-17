@@ -18,20 +18,11 @@ import java.util.LinkedList;
  * Created by anonymous on 26.03.2019.
  */
 public class WorkflowFX extends Pane implements IWorkflowFX{
-    private WorkflowController controller;
     private WorkflowStageFX stage = null;
     private Workflow workflow = null;
 
     private ConnectionFX tempConnectionFX;
     private Thread currentTaskThreadWorkflowFX = null;
-
-    public WorkflowController getController() {
-        return controller;
-    }
-
-    public void setController(WorkflowController controller) {
-        this.controller = controller;
-    }
 
     public WorkflowStageFX getStage() {
         return stage;
@@ -73,7 +64,8 @@ public class WorkflowFX extends Pane implements IWorkflowFX{
         for(IConnection connection: connections) {
             startFX = outputsFX.get(connection.getStart());
             endFX = inputsFX.get(connection.getEnd());
-            connectionFX = new ConnectionFX(startFX, endFX);
+            connectionFX = new ConnectionFX().setStart(startFX).setEnd(endFX);
+            connectionFX.setConnection(connection);
             this.addConnectionFX(connectionFX);
         }
         // Event for drag any new connectionFX in WorkflowFX

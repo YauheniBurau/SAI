@@ -4,8 +4,6 @@ import core.old.VertexValue.coords.Decart2d;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2dBool;
 import core.old.VertexValue.matrix.Matrix2dByte;
-import core.old.graph.IVertexValue;
-import core.old.graph.Vertex;
 import core.old.process.CloudToMatrix.CloudOfDecart2dToM2dBool;
 import core.old.process.CloudToMatrix.CloudOfDecart2dToM2dByte;
 import core.old.process.MatrixToFile.M2dBooleanToPngFile;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by anonymous on 09.12.2018.
  */
-public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
+public class CloudOfDecart2d extends Cloud<Decart2d> {
     private CloudParams params = new CloudParams();
     private CloudOfDecart2d outerCloud = null;
     private ArrayList<CloudOfDecart2d> innerClouds = null;
@@ -306,20 +304,6 @@ public class CloudOfDecart2d extends Cloud<Decart2d> implements IVertexValue{
     public static void saveCloud(String uri, CloudOfDecart2d cloud, Matrix2dByte m2d){
         Matrix2dByte out = CloudOfDecart2dToM2dByte.transform(cloud, m2d);
         M2dByteToPngFile.transform(out, new PngFile(uri) );
-    }
-
-    @Override
-    public Boolean toHumanFile(Vertex vertex, String path) {
-        this.countCloudParams();
-        Matrix2dBool m2d = CloudOfDecart2dToM2dBool.transform(this);
-        M2dBooleanToPngFile.transform(m2d, new PngFile(path + LongToHexString.transform( vertex.getuId() ) + ".png"));
-        return true;
-    }
-
-    @Override
-    public Boolean toDataFile(Vertex vertex, String path) {
-        // TODO:
-        return null;
     }
 
 //    public Graph outerCloudToContourAsGraphDecart2d(){

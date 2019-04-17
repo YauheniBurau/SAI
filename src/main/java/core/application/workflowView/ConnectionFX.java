@@ -1,18 +1,15 @@
 package core.application.workflowView;
 
+import core.application.workflowController.WorkflowController;
 import core.application.workflowModel.IConnection;
 import javafx.beans.binding.DoubleBinding;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.effect.Bloom;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-
-import java.util.Optional;
 
 /**
  * Created by anonymous on 25.03.2019.
@@ -134,7 +131,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
     }
 
     public ConnectionFX() {
-        // TODO: move to init()
         this.setOnMouseEntered(hOnMouseEntered);
         this.setOnMouseExited(hOnMouseExited);
         this.setOnMousePressed(hOnMousePressed);
@@ -142,31 +138,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
         // style
         this.setStrokeWidth(2);
     }
-
-    public ConnectionFX(OutputFX start, InputFX end) {
-        this.start = start;
-        this.end = end;
-
-        this.sX = new StartXBinding();
-        this.sY = new StartYBinding();
-        this.eX = new EndXBinding();
-        this.eY = new EndYBinding();
-
-        this.startXProperty().bind(this.sX);
-        this.startYProperty().bind(this.sY);
-        this.endXProperty().bind(this.eX);
-        this.endYProperty().bind(this.eY);
-
-        // TODO: move to init()
-        // add handlers for select delete connection
-        this.setOnMouseEntered(hOnMouseEntered);
-        this.setOnMouseExited(hOnMouseExited);
-        this.setOnMousePressed(hOnMousePressed);
-        // style
-        this.setStrokeWidth(2);
-    }
-
-
 
     @Override
     public void setWorkflowFX(WorkflowFX workflowFX) {
@@ -182,20 +153,21 @@ public class ConnectionFX extends Line implements IConnectionFX{
         return start;
     }
 
-    public void setStart(OutputFX start) {
+    public ConnectionFX setStart(OutputFX start) {
         this.start = start;
         start.addConnectionFX(this);
         this.sX = new StartXBinding();
         this.sY = new StartYBinding();
         this.startXProperty().bind(this.sX);
         this.startYProperty().bind(this.sY);
+        return this;
     }
 
     public InputFX getEnd() {
         return end;
     }
 
-    public void setEnd(InputFX end) {
+    public ConnectionFX setEnd(InputFX end) {
         this.end = end;
         end.setConnectionFX(this);
         this.eX = new EndXBinding();
@@ -203,13 +175,14 @@ public class ConnectionFX extends Line implements IConnectionFX{
         this.endXProperty().bind(this.eX);
         this.endYProperty().bind(this.eY);
         if( this.end1!=null){ this.end1.setVisible(false); }
+        return this;
     }
 
     public Circle getEnd1() {
         return end1;
     }
 
-    public void setEnd1(Circle end1) {
+    public ConnectionFX setEnd1(Circle end1) {
         if(end1==null){
             this.end1 = null;
             this.eX1 = null;
@@ -222,6 +195,7 @@ public class ConnectionFX extends Line implements IConnectionFX{
             this.endYProperty().bind(this.eY1);
         }
         if( this.end1!=null){ this.end1.setVisible(true); }
+        return this;
     }
 
     public IConnection getConnection() {
@@ -231,7 +205,6 @@ public class ConnectionFX extends Line implements IConnectionFX{
     public void setConnection(IConnection connection) {
         this.connection = connection;
     }
-
 
     // TODO: refactor and move into WorkflowController
     /**
@@ -260,8 +233,8 @@ public class ConnectionFX extends Line implements IConnectionFX{
      * on click show alert to choose delete on leave connection
      */
     private EventHandler<MouseEvent> hOnMousePressed = (e) -> {
-        e.consume(); // TODO: move to controller if possible, do the same for all eventHandlers
-        this.getWorkflowFX().getController().showRemoveConnectionDialog(this);
+        e.consume();
+        WorkflowController.showRemoveConnectionDialog(this.workflowFX.getStage(), this);
     };
 
     /**
@@ -272,8 +245,8 @@ public class ConnectionFX extends Line implements IConnectionFX{
     private EventHandler<DragEvent> hOnDragDone = (e) ->{
         WorkflowFX wfFX = this.getWorkflowFX();
         if(this.getEnd1()==null && this.getEnd()!=null){
-            ConnectionFX conn = new ConnectionFX(start, end);
-            wfFX.addConnectionFX(conn);
+            ConnectionFX conn = new ConnectionFX().setStart(start).setEnd(end);
+            WorkflowController.addConnection(wfFX.getStage(), conn);
         }
         wfFX.removeTempConnectionFX();
         e.consume();

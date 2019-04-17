@@ -5,8 +5,8 @@ package core.old;
  */
 public class Arc2dTests {
 
-    String dirIn = "E:\\temp\\in\\";
-    String dirOut = "E:\\temp\\out\\";
+    String dirIn = "Edge:\\temp\\in\\";
+    String dirOut = "Edge:\\temp\\out\\";
     String imageFile = "round.png";
 
 //    @Test

@@ -1,5 +1,6 @@
 package core.application.workflowView;
 
+import core.application.view.components.app.ZoomableScrollPaneFX;
 import core.application.workflowPlugins.data.DataFactoryFX;
 import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
@@ -7,9 +8,13 @@ import core.application.workflowModel.Data;
 import core.application.workflowModel.Param;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
 
@@ -34,47 +39,45 @@ public class EditNodeStageFX extends StageFX {
 
     @Override
     public void init(){
-        Pane root = new Pane();
+        StackPane root = new StackPane();
+        Accordion accordion = new Accordion();
         ButtonFX btnUpdate = new ButtonFX().withText("Update").withOnAction(hBtnUpdate);
-        TabPane tabPane = new TabPane();
-        VBox vbox = new VBox(tabPane, btnUpdate);
-        root.getChildren().add(vbox);
+        HBox hBox = new HBox(btnUpdate);
+        VBox vBox = new VBox(hBox, accordion);
+        root.getChildren().addAll(vBox);
         this.withScene(root, 640, 480).withTitle("Edit node : " + this.nodeFX.getNode().getName())
                 .withInitStyle(StageStyle.DECORATED);
         // Params Tab
-        Tab paramTab;
+        TitledPane paramTab;
         AbstractParamFX paramEditFX;
         LinkedList<Param> params = nodeFX.getNode().getAlgorithm().getParams();
         this.paramsEditFX = new LinkedList<>();
         for(Param param: params){
             paramEditFX = ParamFactoryFX.constructParamFX(param);
             this.paramsEditFX.add(paramEditFX);
-            paramTab = new Tab("P: " + param.getName(), paramEditFX);
-            paramTab.setClosable(false);
-            tabPane.getTabs().add(paramTab);
+            paramTab = new TitledPane("P: " + param.getName(), paramEditFX);
+            accordion.getPanes().add(paramTab);
         }
         // tab for every input
-        Tab inputTab;
+        TitledPane inputTab;
         AbstractDataFX dataViewFX;
         LinkedList<Data> inputs = nodeFX.getNode().getAlgorithm().getInputs();
         this.inputsViewFX = new LinkedList<>();
         for(Data data: inputs){
             dataViewFX = DataFactoryFX.constructDataFX( data.getConnections().size()==1? data.getConnection(0).getStart() : data );
             this.inputsViewFX.add(dataViewFX);
-            inputTab = new Tab("I: " + data.getName(), dataViewFX);
-            inputTab.setClosable(false);
-            tabPane.getTabs().add(inputTab);
+            inputTab = new TitledPane("I: " + data.getName(), dataViewFX);
+            accordion.getPanes().add(inputTab);
         }
         // tab for every output
-        Tab outputTab;
+        TitledPane outputTab;
         LinkedList<Data> outputs = nodeFX.getNode().getAlgorithm().getOutputs();
         this.outputsViewFX = new LinkedList<>();
         for(Data data: outputs){
             dataViewFX = DataFactoryFX.constructDataFX(data);
             this.outputsViewFX.add(dataViewFX);
-            outputTab = new Tab("O: " + data.getName(), dataViewFX);
-            outputTab.setClosable(false);
-            tabPane.getTabs().add(outputTab);
+            outputTab = new TitledPane("O: " + data.getName(), dataViewFX);
+            accordion.getPanes().add(outputTab);
         }
     }
 

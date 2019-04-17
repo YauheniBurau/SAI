@@ -1,5 +1,5 @@
 .root{
-    -fx-base: rgba(225, 225, 225, 255);
+    -fx-base: rgba(250, 250, 250, 255);
     /*-fx-base: rgba(60, 63, 65, 255);*/
 }
 
@@ -7,6 +7,10 @@
     -fx-background-color: rgba(200, 200, 200, 200);
 }
 
-.tree-view .tree-cell{
-    -fx-background-color: rgba(225, 225, 225, 255);
-}
+/*.tree-view .tree-cell{*/
+    /*-fx-background-color: rgba(225, 225, 225, 255);*/
+/*}*/
+
+/*#NodeFX {*/
+    /*-fx-background-color: white*/
+/*}*/

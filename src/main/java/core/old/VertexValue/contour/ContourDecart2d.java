@@ -3,15 +3,13 @@ package core.old.VertexValue.contour;
 import core.old.VertexValue.coords.Decart2d;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2dBool;
-import core.old.graph.IVertexValue;
-import core.old.graph.Vertex;
 import core.old.process.MatrixToFile.M2dBooleanToPngFile;
 import core.old.process.PrimitiveToPrimitive.LongToHexString;
 
 /**
  * Created by anonymous on 20.12.2018.
  */
-public class ContourDecart2d extends AbstractContour<Decart2d> implements IVertexValue{
+public class ContourDecart2d extends AbstractContour<Decart2d>{
     public ContourParams params = null;
     public Decart2d center = null;
 
@@ -71,30 +69,6 @@ public class ContourDecart2d extends AbstractContour<Decart2d> implements IVerte
         int sizeY = (int)Math.ceil(params.eY - params.sY + 1);
         Matrix2dBool m2dMask = new Matrix2dBool(sizeX, sizeY, false);
         // TODO:
-        return null;
-    }
-
-    /**
-     * implementaion from IVertexValue
-     * @param vertex
-     * @param path
-     * @return
-     */
-    @Override
-    public Boolean toHumanFile(Vertex vertex, String path) {
-        Matrix2dBool m2d = this.toM2dBool();
-        M2dBooleanToPngFile.transform(m2d, new PngFile(path + LongToHexString.transform( vertex.getuId() ) + ".png"));
-        return true;
-    }
-
-    /**
-     * implementaion from IVertexValue
-     * @param vertex
-     * @param path
-     * @return
-     */
-    @Override
-    public Boolean toDataFile(Vertex vertex, String path) {
         return null;
     }
 

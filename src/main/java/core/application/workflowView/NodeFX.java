@@ -1,6 +1,7 @@
 package core.application.workflowView;
 
 import core.application.view.components.GuiBuilderFX.ButtonFX;
+import core.application.workflowController.WorkflowController;
 import core.application.workflowModel.Data;
 import core.application.workflowModel.Node;
 import javafx.event.ActionEvent;
@@ -8,8 +9,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.*;
@@ -17,7 +16,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
-import java.util.Optional;
 
 /**
  * Created by anonymous on 20.03.2019.
@@ -54,12 +52,13 @@ public class NodeFX extends BorderPane implements INodeFX{
     public void init(Node node){
         // GENERATE ALL FROM NODE
         // add control buttons
+        this.setStyle("-fx-background-color: rgba(255, 255, 255, 1.0)");
         this.node = node;
         this.title = new Label(node.getName() + " : " + node.getAlgorithm().getName());
         this.title.setTooltip(new Tooltip(this.node.getAlgorithm().getName() + "\n" + this.node.getAlgorithm().getDescription()));
         this.headerButtons = new HBox();
         this.closeBtn = new ButtonFX().withText("X").withOnAction(hCloseBtn).withTooltip("close");
-        this.editBtn = new ButtonFX().withText("E").withOnAction(hEditBtn).withTooltip("edit");
+        this.editBtn = new ButtonFX().withText("Edge").withOnAction(hEditBtn).withTooltip("edit");
         this.processBtn = new ButtonFX().withText("P").withOnAction(hProcessBtn).withTooltip("process");
         this.unprocessBtn = new ButtonFX().withText("U").withOnAction(hUnprocessBtn).withTooltip("unprocess");
         this.stopProcessBtn = new ButtonFX().withText("S").withOnAction(hStopProcessBtn).withTooltip("stop process");
@@ -181,7 +180,7 @@ public class NodeFX extends BorderPane implements INodeFX{
      * eventHandler for hCloseBtn.setOnAction
      */
     EventHandler<ActionEvent> hCloseBtn = (e) -> {
-        this.getWorkflowFX().getController().showRemoveNodeDialog(this);
+        WorkflowController.showRemoveNodeDialog(this.getWorkflowFX().getStage(), this);
     };
 
     /**

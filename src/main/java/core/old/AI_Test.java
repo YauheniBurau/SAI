@@ -5,6 +5,7 @@ package core.old;
 //import com.github.sarxos.webcam.WebcamResolution;
 //import com.github.sarxos.webcam.WebcamUtils;
 //import com.github.sarxos.webcam.util.ImageUtils;
+import com.google.common.graph.NetworkBuilder;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.input.InputDataSensor;
@@ -21,26 +22,21 @@ import org.junit.Test;
  * Created by anonymous on 08.10.2016.
  */
 public class AI_Test {
-    String dirIn = "E:\\temp\\in\\";
-    String dirOut = "E:\\temp\\out\\";
+    String dirIn = "Edge:\\temp\\in\\";
+    String dirOut = "Edge:\\temp\\out\\";
     String imageFile = "star3.png";
 
-    @Test
-    public void orientdb_gephi() {
-        //Graph graph = new Graph
-    }
-
-    @Test
-    public void Png_Contour() {
-        PngFile pngFileIn = new PngFile(dirIn + imageFile);
-        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
-        Matrix2dByte m2dByte = M2dArgbToM2dByte256Colors.transform(m2dArgb);
-        InputDataSensor inputDataSensor = new InputDataSensor();
-        inputDataSensor.setInputM2d(m2dByte);
-        inputDataSensor.countContourM2d(400, 250);
-        PngFile pngFileOut = new PngFile(dirOut + "C_" + imageFile);
-        M2dDecart2dIntLinksToPngFile.transform(inputDataSensor.contourM2d, pngFileOut);
-    }
+//    @Test
+//    public void Png_Contour() {
+//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
+//        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
+//        Matrix2dByte m2dByte = M2dArgbToM2dByte256Colors.transform(m2dArgb);
+//        InputDataSensor inputDataSensor = new InputDataSensor();
+//        inputDataSensor.setInputM2d(m2dByte);
+//        inputDataSensor.countContourM2d(400, 250);
+//        PngFile pngFileOut = new PngFile(dirOut + "C_" + imageFile);
+//        M2dDecart2dIntLinksToPngFile.transform(inputDataSensor.contourM2d, pngFileOut);
+//    }
 
 //    @Test
 //    public void saveCurrent(){

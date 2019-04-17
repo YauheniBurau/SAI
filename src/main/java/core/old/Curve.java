@@ -340,12 +340,12 @@ public class Curve {
 //        double B = p2.y - p1.y;
 //        double C = p3.x - p1.x;
 //        double D = p3.y - p1.y;
-//        double E = A * (p1.x + p2.x) + B * (p1.y + p2.y);
+//        double Edge = A * (p1.x + p2.x) + B * (p1.y + p2.y);
 //        double F = C * (p1.x + p3.x) + D * (p1.y + p3.y);
 //        double G = 2 * (A * (p3.y - p2.y) - B * (p3.x - p2.x));
 //        if(G != 0) {
-//            int x = (int) Math.round((D * E - B * F)/G);
-//            int y = (int) Math.round((A * F - C * E)/G);
+//            int x = (int) Math.round((D * Edge - B * F)/G);
+//            int y = (int) Math.round((A * F - C * Edge)/G);
 //            result = new Point(x, y);
 //        }
 //        return result;

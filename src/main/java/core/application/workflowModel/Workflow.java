@@ -82,7 +82,7 @@ public class Workflow implements IWorkflow, Serializable {
     }
 
     /**
-     * remove node and all node connection from workflow model
+     * remove node connection from workflow model
      * @param connection
      */
     public void removeConnection(IConnection connection) {

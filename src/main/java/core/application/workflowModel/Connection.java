@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class Connection<T> implements IConnection<T>, Serializable {
     private IData<T> start;
     private IData<T> end;
+    private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
 
     public Connection(IData<T> start, IData<T> end) {
         this.start = start;
@@ -23,5 +24,11 @@ public class Connection<T> implements IConnection<T>, Serializable {
         return end;
     }
 
+    public AlgorithmStateEnum getState() {
+        return state;
+    }
 
+    public void setState(AlgorithmStateEnum state) {
+        this.state = state;
+    }
 }
