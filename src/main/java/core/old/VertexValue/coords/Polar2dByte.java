@@ -3,11 +3,11 @@ package core.old.VertexValue.coords;
 /**
  * Created by anonymous on 20.12.2018.
  */
-public class Polar2d implements ICoords{
+public class Polar2dByte implements ICoords {
     public byte a;
     public byte r;
 
-    public Polar2d(byte a, byte r) {
+    public Polar2dByte(byte a, byte r) {
         this.a = a;
         this.r = r;
     }
@@ -17,7 +17,7 @@ public class Polar2d implements ICoords{
      * @param angle
      * @return
      */
-    public Polar2d centralRotate(int angle){
+    public Polar2dByte centralRotate(int angle){
         int newAngle = (this.a + 128 + angle) % 256;
         if(newAngle>=0) {
             this.a = (byte)(newAngle - 128);

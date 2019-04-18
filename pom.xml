@@ -6,7 +6,7 @@
 
     <groupId>SAI</groupId>
     <artifactId>core</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <build>
         <finalName>AI_Application</finalName>
         <plugins>
@@ -55,19 +55,8 @@
                     </execution>
                 </executions>
             </plugin>
-
-
         </plugins>
-
     </build>
-
-    <repositories>
-        <repository>
-            <id>yWorks</id>
-            <name></name>
-            <url>http://titania.fs.uni-saarland.de/nexus/content/repositories/stchair/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -94,7 +83,12 @@
             <artifactId>reflections</artifactId>
             <version>0.9.11</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.1-jre</version>
+        </dependency>
 
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.controlsfx/controlsfx &ndash;&gt;-->
         <!--<dependency>-->
@@ -102,27 +96,12 @@
             <!--<artifactId>controlsfx</artifactId>-->
             <!--<version>11.0.0-RC2</version>-->
         <!--</dependency>-->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.gephi/graph-api &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.gephi</groupId>-->
-            <!--<artifactId>graph-api</artifactId>-->
-            <!--<version>0.9.2</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; test &ndash;&gt;-->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.gephi/gephi-toolkit &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.gephi</groupId>-->
-            <!--<artifactId>gephi-toolkit</artifactId>-->
-            <!--<version>0.9.2</version>-->
-        <!--</dependency>-->
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture &ndash;&gt;-->
         <!--<dependency>-->
             <!--<groupId>com.github.sarxos</groupId>-->
             <!--<artifactId>webcam-capture</artifactId>-->
             <!--<version>0.3.11</version>-->
         <!--</dependency>-->
-
-
     </dependencies>
 
 </project>

@@ -6,13 +6,13 @@ public interface IEdgeFX {
 
     IEdge getEdge();
 
-    void setVertexU(VertexFX vertexU);
+    EdgeFX setVertexU(IVertexFX vertexU);
 
-    void setVertexV(VertexFX vertexV);
+    EdgeFX setVertexV(IVertexFX vertexV);
 
     /**
      * read data from model and VertexFX positions and update view and position of EdgeFX
      */
-    void update();
+    EdgeFX update();
 
 }

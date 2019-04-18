@@ -1,6 +1,5 @@
 package core.application.workflowView;
 
-import core.application.workflowController.WorkflowController;
 import core.application.workflowModel.Data;
 import core.application.workflowModel.IConnection;
 import core.application.workflowModel.Node;
@@ -20,7 +19,6 @@ import java.util.LinkedList;
 public class WorkflowFX extends Pane implements IWorkflowFX{
     private WorkflowStageFX stage = null;
     private Workflow workflow = null;
-
     private ConnectionFX tempConnectionFX;
     private Thread currentTaskThreadWorkflowFX = null;
 

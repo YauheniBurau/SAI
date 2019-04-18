@@ -1,21 +1,16 @@
 package core.old.VertexValue.cloud;
 
-import core.old.VertexValue.coords.Decart2d;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2dBool;
 import core.old.VertexValue.matrix.Matrix2dByte;
-import core.old.process.CloudToMatrix.CloudOfDecart2dToM2dBool;
 import core.old.process.CloudToMatrix.CloudOfDecart2dToM2dByte;
-import core.old.process.MatrixToFile.M2dBooleanToPngFile;
 import core.old.process.MatrixToFile.M2dByteToPngFile;
-import core.old.process.PrimitiveToPrimitive.LongToHexString;
-
 import java.util.ArrayList;
 
 /**
  * Created by anonymous on 09.12.2018.
  */
-public class CloudOfDecart2d extends Cloud<Decart2d> {
+public class CloudOfDecart2d{
     private CloudParams params = new CloudParams();
     private CloudOfDecart2d outerCloud = null;
     private ArrayList<CloudOfDecart2d> innerClouds = null;
@@ -27,36 +22,28 @@ public class CloudOfDecart2d extends Cloud<Decart2d> {
         super();
     }
 
-    /**
-     * constructor
-     * @param elements
-     */
-    public CloudOfDecart2d(ArrayList<Decart2d> elements) {
-        super(elements);
-    }
-
-    /**
-     * count cloud params as max and min dimensions
-     * @return
-     */
-    public CloudParams countCloudParams(){
-        CloudParams params = new CloudParams();
-        // 1. find shift by x and y
-        params.sX = Integer.MAX_VALUE;
-        params.sY = Integer.MAX_VALUE;
-        params.sZ = 0;
-        params.eX = Integer.MIN_VALUE;
-        params.eY = Integer.MIN_VALUE;
-        params.eZ = 0;
-        for (Decart2d p : this.elements) {
-            if (p.x < params.sX) params.sX = p.x;
-            if (p.y < params.sY) params.sY = p.y;
-            if (p.x > params.eX) params.eX = p.x;
-            if (p.y > params.eY) params.eY = p.y;
-        }
-        this.params = params;
-        return this.params;
-    }
+//    /**
+//     * count cloud params as max and min dimensions
+//     * @return
+//     */
+//    public CloudParams countCloudParams(){
+//        CloudParams params = new CloudParams();
+//        // 1. find shift by x and y
+//        params.sX = Integer.MAX_VALUE;
+//        params.sY = Integer.MAX_VALUE;
+//        params.sZ = 0;
+//        params.eX = Integer.MIN_VALUE;
+//        params.eY = Integer.MIN_VALUE;
+//        params.eZ = 0;
+//        for (Decart2d p : this.elements) {
+//            if (p.x < params.sX) params.sX = p.x;
+//            if (p.y < params.sY) params.sY = p.y;
+//            if (p.x > params.eX) params.eX = p.x;
+//            if (p.y > params.eY) params.eY = p.y;
+//        }
+//        this.params = params;
+//        return this.params;
+//    }
 
     public double countWidth(){
         return this.params.eX - this.params.sX + 1;
@@ -66,43 +53,43 @@ public class CloudOfDecart2d extends Cloud<Decart2d> {
         return this.params.eY - this.params.sY + 1;
     }
 
-    /**
-     * cloud -> create Matrix2d where coordinates are shfited for the left and up values
-     * @param cloud
-     * @return
-     */
-    public static Matrix2dBool cloudToM2dShiftedMask(CloudOfDecart2d cloud){
-        CloudParams cloudParams = cloud.params;
-        int sizeX = (int)Math.ceil(cloudParams.eX - cloudParams.sX + 1);
-        int sizeY = (int)Math.ceil(cloudParams.eY - cloudParams.sY + 1);
-        Matrix2dBool m2d = new Matrix2dBool(sizeX, sizeY, false);
-        int shiftLeft = (int)cloud.params.sX;
-        int shiftUp = (int)cloud.params.sY;
-        for(Decart2d p: cloud.elements) {
-            m2d.setValue((int)p.x - shiftLeft, (int)p.y - shiftUp,true);
-        }
-        return m2d;
-    }
+//    /**
+//     * cloud -> create Matrix2d where coordinates are shfited for the left and up values
+//     * @param cloud
+//     * @return
+//     */
+//    public static Matrix2dBool cloudToM2dShiftedMask(CloudOfDecart2d cloud){
+//        CloudParams cloudParams = cloud.params;
+//        int sizeX = (int)Math.ceil(cloudParams.eX - cloudParams.sX + 1);
+//        int sizeY = (int)Math.ceil(cloudParams.eY - cloudParams.sY + 1);
+//        Matrix2dBool m2d = new Matrix2dBool(sizeX, sizeY, false);
+//        int shiftLeft = (int)cloud.params.sX;
+//        int shiftUp = (int)cloud.params.sY;
+//        for(Decart2d p: cloud.elements) {
+//            m2d.setValue((int)p.x - shiftLeft, (int)p.y - shiftUp,true);
+//        }
+//        return m2d;
+//    }
 
 
-    /**
-     * Matrix2d where coordinates are shfited for the left and up values -> Cloud where coordinates are unshifted
-     * @param m2dShiftedMask
-     * @return
-     */
-    private static CloudOfDecart2d M2dShiftedMaskToCloud(Matrix2dBool m2dShiftedMask, int shiftX, int shiftY){
-        CloudOfDecart2d outCloud = new CloudOfDecart2d();
-        int sizeX = m2dShiftedMask.sizeX;
-        int sizeY = m2dShiftedMask.sizeY;
-        for (int j = 0; j < sizeY; j++) {
-            for (int i = 0; i < sizeX; i++) {
-                if( m2dShiftedMask.getValue(i, j) ){
-                    outCloud.elements.add(new Decart2d(i+shiftX, j+shiftY));
-                }
-            }
-        }
-        return outCloud;
-    }
+//    /**
+//     * Matrix2d where coordinates are shfited for the left and up values -> Cloud where coordinates are unshifted
+//     * @param m2dShiftedMask
+//     * @return
+//     */
+//    private static CloudOfDecart2d M2dShiftedMaskToCloud(Matrix2dBool m2dShiftedMask, int shiftX, int shiftY){
+//        CloudOfDecart2d outCloud = new CloudOfDecart2d();
+//        int sizeX = m2dShiftedMask.sizeX;
+//        int sizeY = m2dShiftedMask.sizeY;
+//        for (int j = 0; j < sizeY; j++) {
+//            for (int i = 0; i < sizeX; i++) {
+//                if( m2dShiftedMask.getValue(i, j) ){
+//                    outCloud.elements.add(new Decart2d(i+shiftX, j+shiftY));
+//                }
+//            }
+//        }
+//        return outCloud;
+//    }
 
 //    /**
 //     *
@@ -295,16 +282,16 @@ public class CloudOfDecart2d extends Cloud<Decart2d> {
         return this.innerClouds.add(cloud);
     }
 
-    /**
-     * select all points from matrix by cloud and save nto file
-     * @param uri
-     * @param cloud
-     * @param m2d
-     */
-    public static void saveCloud(String uri, CloudOfDecart2d cloud, Matrix2dByte m2d){
-        Matrix2dByte out = CloudOfDecart2dToM2dByte.transform(cloud, m2d);
-        M2dByteToPngFile.transform(out, new PngFile(uri) );
-    }
+//    /**
+//     * select all points from matrix by cloud and save nto file
+//     * @param uri
+//     * @param cloud
+//     * @param m2d
+//     */
+//    public static void saveCloud(String uri, CloudOfDecart2d cloud, Matrix2dByte m2d){
+//        Matrix2dByte out = CloudOfDecart2dToM2dByte.transform(cloud, m2d);
+//        M2dByteToPngFile.transform(out, new PngFile(uri) );
+//    }
 
 //    public Graph outerCloudToContourAsGraphDecart2d(){
 //        this.countCloudParams();
@@ -317,7 +304,7 @@ public class CloudOfDecart2d extends Cloud<Decart2d> {
 //        int sizeY = m2dOuterMask.sizeY;
 //        for (int j = 0; j < sizeY; j++) {
 //            for (int i = 0; i < sizeX; i++) {
-//                // TODO: create and connect all m2d2Links
+//                // create and connect all m2d2Links
 //            }
 //        }
 //        // find first not null Decart2dInt2Links elements, it will be root of graph

@@ -5,7 +5,6 @@ public class Edge<T> implements IEdge<T>{
     private T value;
     private IVertex vertexU;
     private IVertex vertexV;
-    //    private Vector<IVertex> vertexes = new Vector<>();
 
     public Edge(T value) {
         this.value = value;

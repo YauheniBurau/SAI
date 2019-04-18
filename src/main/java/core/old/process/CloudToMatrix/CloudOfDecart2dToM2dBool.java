@@ -18,14 +18,14 @@ public class CloudOfDecart2dToM2dBool extends AbstractAlgorithmFX {
 //        this.outKey = outKey;
 //    }
 
-    /**
-     *  CloudOfDecart2dInt -> M2dBool
-     * @param cloud
-     * @return
-     */
-    public static Matrix2dBool transform(CloudOfDecart2d cloud) {
-        return CloudOfDecart2d.cloudToM2dShiftedMask(cloud);
-    }
+//    /**
+//     *  CloudOfDecart2dInt -> M2dBool
+//     * @param cloud
+//     * @return
+//     */
+//    public static Matrix2dBool transform(CloudOfDecart2d cloud) {
+//        return CloudOfDecart2d.cloudToM2dShiftedMask(cloud);
+//    }
 
     @Override
     public Boolean process() {

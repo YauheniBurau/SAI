@@ -8,10 +8,9 @@ import javafx.scene.shape.Sphere;
 
 public class VertexFX extends Sphere implements IVertexFX{
     private IVertex vertex;
-    private Point3D position;
 
     public VertexFX(IVertex vertex, int divisions){
-        super(1, divisions);
+        super(2, divisions);
         this.setMaterial(new PhongMaterial(Color.RED));
         this.vertex = vertex;
     }
@@ -21,11 +20,12 @@ public class VertexFX extends Sphere implements IVertexFX{
     }
 
     public Point3D getPosition() {
-        return position;
+        return new Point3D(this.getTranslateX(), this.getTranslateY(), this.getTranslateZ());
     }
 
     public void setPosition(Point3D position) {
-        this.position = position;
+        this.setTranslateX(position.getX());
+        this.setTranslateY(position.getY());
+        this.setTranslateZ(position.getZ());
     }
-
 }

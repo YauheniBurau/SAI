@@ -10,8 +10,8 @@ import javafx.scene.transform.Translate;
 
 public class EdgeFX extends Cylinder implements IEdgeFX {
     private IEdge edge;
-    private VertexFX vertexU;
-    private VertexFX vertexV;
+    private IVertexFX vertexU;
+    private IVertexFX vertexV;
 
     public EdgeFX(IEdge edge, int divisions) {
         super(1,1, divisions);
@@ -23,18 +23,20 @@ public class EdgeFX extends Cylinder implements IEdgeFX {
         return edge;
     }
 
-    public void setVertexU(VertexFX vertexU) {
+    public EdgeFX setVertexU(IVertexFX vertexU) {
         this.vertexU = vertexU;
+        return this;
     }
 
-    public void setVertexV(VertexFX vertexV) {
+    public EdgeFX setVertexV(IVertexFX vertexV) {
         this.vertexV = vertexV;
+        return this;
     }
 
     /**
      * read data from model and VertexFX positions and update view and position of EdgeFX
      */
-    public void update(){
+    public EdgeFX update(){
         Point3D origin = vertexU.getPosition();
         Point3D target = vertexV.getPosition();
         Point3D yAxis = new Point3D(0, 1, 0);
@@ -49,6 +51,7 @@ public class EdgeFX extends Cylinder implements IEdgeFX {
         this.setMaterial(new PhongMaterial(Color.BLUE));
         this.getTransforms().removeAll();
         this.getTransforms().addAll(moveToMidpoint, rotateAroundCenter);
+        return this;
     }
 
 }
