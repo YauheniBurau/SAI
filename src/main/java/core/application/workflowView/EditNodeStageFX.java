@@ -1,6 +1,5 @@
 package core.application.workflowView;
 
-import core.application.view.components.app.ZoomableScrollPaneFX;
 import core.application.workflowPlugins.data.DataFactoryFX;
 import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.GuiBuilderFX.StageFX;
@@ -9,11 +8,8 @@ import core.application.workflowModel.Param;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;

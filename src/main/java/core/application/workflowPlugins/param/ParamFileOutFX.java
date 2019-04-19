@@ -17,10 +17,10 @@ import java.io.File;
 /**
  * Created by anonymous on 31.03.2019.
  */
-public class ParamFileOutFX  extends AbstractParamFX<Param<FileOut>> {
+public class ParamFileOutFX  extends AbstractParamFX<Param<AFile>> {
     private StringProperty textProperty = null;
 
-    public ParamFileOutFX(Param<FileOut> paramFileOut) {
+    public ParamFileOutFX(Param<AFile> paramFileOut) {
         // 1. init
         super(paramFileOut);
         HBox hBox = new HBox();
@@ -38,10 +38,10 @@ public class ParamFileOutFX  extends AbstractParamFX<Param<FileOut>> {
      * EventHandler for btn.setOnAction - open dialog for choose save file
      */
     EventHandler<ActionEvent> hBtn = (e) -> {
-        FileOut fileOut = this.getParam().getValue();
+        AFile fileOut = this.getParam().getValue();
         FileChooser fileChooser = HelperFX.createFileChooser(
                 fileOut.getFileChooserTitle(),
-                fileOut.getFileChooserInitialDirector(),
+                fileOut.getFileChooserInitialDirectory(),
                 fileOut.getFileChooserComment(),
                 fileOut.getExtensions());
         File file = fileChooser.showSaveDialog(null);

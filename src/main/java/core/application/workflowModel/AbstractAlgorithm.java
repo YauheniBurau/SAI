@@ -1,8 +1,7 @@
 package core.application.workflowModel;
 
-import core.old.RunProcess;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.LinkedList;
 
 /**
@@ -10,9 +9,6 @@ import java.util.LinkedList;
  */
 public abstract class AbstractAlgorithm implements Serializable {
     private Node node;
-    private LinkedList<Param> params = new LinkedList<>();
-    private LinkedList<Data> inputs = new LinkedList<>();
-    private LinkedList<Data> outputs = new LinkedList<>();
     private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
 
     /**
@@ -51,44 +47,55 @@ public abstract class AbstractAlgorithm implements Serializable {
         this.node = node;
     }
 
-    public IParam getParam(Integer key) {
-        return this.params.get(key);
-    }
-
     public LinkedList<Param> getParams() {
-        return this.params;
-    }
-
-    public Param addParam(Param value) {
-//        value.setAlgorithm(this);
-        this.params.add(value);
-        return value;
-    }
-
-    public Data getInput(Integer key) {
-        return this.inputs.get(key);
+        LinkedList<Param> params = new LinkedList<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field f: fields) {
+            if(f.isAnnotationPresent(AlgoParam.class)){
+                try {
+                    f.setAccessible(true);
+                    params.add((Param)f.get(this));
+                    f.setAccessible(false);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return params;
     }
 
     public LinkedList<Data> getInputs() {
-        return this.inputs;
-    }
-
-    public Data addInput(Data value) {
-        this.inputs.add(value);
-        return value;
-    }
-
-    public Data getOutput(Integer key) {
-        return this.outputs.get(key);
+        LinkedList<Data> inputs = new LinkedList<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field f: fields) {
+            if(f.isAnnotationPresent(AlgoDataIn.class)){
+                try {
+                    f.setAccessible(true);
+                    inputs.add((Data)f.get(this));
+                    f.setAccessible(false);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return inputs;
     }
 
     public LinkedList<Data> getOutputs() {
-        return this.outputs;
-    }
-
-    public Data addOutput(Data value) {
-        this.outputs.add(value);
-        return value;
+        LinkedList<Data> outputs = new LinkedList<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field f: fields) {
+            if(f.isAnnotationPresent(AlgoDataOut.class)){
+                try {
+                    f.setAccessible(true);
+                    outputs.add((Data)f.get(this));
+                    f.setAccessible(false);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return outputs;
     }
 
     /**
@@ -105,7 +112,7 @@ public abstract class AbstractAlgorithm implements Serializable {
      */
     public void setState(AlgorithmStateEnum state) {
         this.state = state;
-        for (Data output: this.outputs) {
+        for (Data output: this.getOutputs()) {
             output.setState(state);
         }
     }
@@ -122,7 +129,7 @@ public abstract class AbstractAlgorithm implements Serializable {
      */
     public boolean isReadyToProcess(){
         boolean isReady = true;
-        for (Data input: this.inputs) {
+        for (Data input: this.getInputs()) {
             if(input.getState()!=AlgorithmStateEnum.SUCCESS){
                 isReady = false;
                 break;
@@ -130,6 +137,9 @@ public abstract class AbstractAlgorithm implements Serializable {
         }
         return isReady;
     }
+
+}
+
 
     // TODO: remove or refactor
 //    public void signalCountPrevious(){
@@ -161,5 +171,3 @@ public abstract class AbstractAlgorithm implements Serializable {
 //            signalCountPrevious();
 //        }
 //    }
-
-}

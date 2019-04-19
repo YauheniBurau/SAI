@@ -16,7 +16,6 @@ public class Param<T> implements IParam<T>, Serializable {
         this.paramFXClass = paramFXClass;
     }
 
-
     public void setName(String value) {
         this.name = value;
     }

@@ -1,23 +1,26 @@
 package core.application.workflowPlugins.param;
 
-import core.application.workflowView.AbstractParamFX;
 import core.application.workflowModel.Param;
+import core.application.workflowView.AbstractParamFX;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 /**
- * Created by anonymous on 27.03.2019.
+ * visualization for Param of value Template
  */
-public class ParamIntegerFX extends AbstractParamFX<Param<Integer>> {
+public class ParamTemplateFX extends AbstractParamFX<Param<Template>> {
     private StringProperty textProperty = null;
-
-    public ParamIntegerFX(Param<Integer> data) {
+    /**
+     * constructor
+     * @param data
+     */
+    public ParamTemplateFX(Param<Template> data) {
         super(data);
         HBox hBox = new HBox();
         Label label = new Label(this.getParam().getName());
-        Integer value = this.getParam().getValue();
+        Template value = this.getParam().getValue();
         TextField field;
         if(value!=null) field = new TextField(value.toString());
         else field = new TextField("undefined");
@@ -28,12 +31,13 @@ public class ParamIntegerFX extends AbstractParamFX<Param<Integer>> {
 
     @Override
     public void updateToModel() {
-        this.getParam().setValue( Integer.parseInt(this.textProperty.getValue()) );
+        this.getParam().setValue( new Template(this.textProperty.getValue()) );
     }
 
     @Override
     public void updateFromModel() {
-        this.textProperty.setValue( this.getParam().getValue().toString() );
+        this.textProperty.setValue( this.getParam().getValue().value );
     }
+
 
 }

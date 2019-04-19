@@ -6,6 +6,7 @@ import core.application.workflowModel.Algo;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -80,6 +81,10 @@ public class Reflection {
             }
         }
         return classes;
+    }
+
+    public static boolean isAnnotatedWith(Field field, Class<? extends Annotation> annotationClass){
+        return field.isAnnotationPresent(annotationClass);
     }
 
 }

@@ -10,34 +10,33 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.FIELD)
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface AlgoDataIn {
-    /**
-     * every algoDataIn must have it own unique TypeName
-     * @return
-     */
-    String name() default "";
-
-    /**
-     * for showing info in tooltip
-     * @return
-     */
-    String description() default "no description";
-
-    /**
-     * name of AlgoDataIn
-     * if true - on GUI on Node you can see it
-     * @return
-     */
-    boolean showName() default true;
-
-    /**
-     * if true - on GUI on Node you can see it
-     * @return
-     */
-    boolean showDataIn() default false;
-
-    /**
-     * class for view in JavaFX GUI
-     */
-    Class dataFXClass() default DataDefaultFX.class;
-
+//    /**
+//     * every algoDataIn must have it own unique TypeName
+//     * @return
+//     */
+//    String name() default "";
+//
+//    /**
+//     * for showing info in tooltip
+//     * @return
+//     */
+//    String description() default "no description";
+//
+//    /**
+//     * name of AlgoDataIn
+//     * if true - on GUI on Node you can see it
+//     * @return
+//     */
+//    boolean showName() default true;
+//
+//    /**
+//     * if true - on GUI on Node you can see it
+//     * @return
+//     */
+//    boolean showDataIn() default false;
+//
+//    /**
+//     * class for view in JavaFX GUI
+//     */
+//    Class dataFXClass() default DataDefaultFX.class;
 }

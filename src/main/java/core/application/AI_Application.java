@@ -3,30 +3,18 @@ package core.application;
 /**
  * Created by anonymous on 24.09.2018.
  */
-
 import core.application.controller.AlgoHandlerFX;
-import core.application.graphView.GraphLayoutDefault;
-import core.application.graphView.GraphPaneFX;
-import core.application.graphView.GraphSubSceneFX;
-import core.application.view.components.GuiBuilderFX.ButtonFX;
 import core.application.view.components.app.ApplicationController;
 import core.application.view.components.GuiBuilderFX.MenuBarFX;
 import core.application.view.components.app.NodesPaletteStageFX;
 import core.application.view.components.app.UtilityStage1FX;
 import core.application.view.components.app.UtilityStage2FX;
 import core.application.workflowView.WorkflowStageFX;
-import core.application.graph.Graph;
-import core.application.graph.GraphGenerator;
-import core.application.graphView.GraphStageFX;
 import javafx.application.Application;
-import javafx.scene.AmbientLight;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class AI_Application extends Application {
     private Stage applicationStage = null;
@@ -43,23 +31,17 @@ public class AI_Application extends Application {
         Scene scene = new Scene(root, 1366, 768);
         scene.getStylesheets().add("AI_Application.css");
 
-        // ============= add test button into main window with event to openn graph visualization window ===============
-        ButtonFX btnTest = new ButtonFX().withText("testBtn").withOnAction(e->{
-            int vertexesNumber = 500;
-            int edgesNumber = 2000;
-            int layoutRadius = 1000;
-            Graph graph = GraphGenerator.generate(vertexesNumber, edgesNumber);
-            GraphPaneFX graphPaneFX = new GraphPaneFX()
-                    .setDivisions(8)
-                    .addLight(new AmbientLight())
-                    .setGraph(graph);
-            GraphLayoutDefault graphLayoutDefault = new GraphLayoutDefault().setSphereRadius(layoutRadius);
-            graphLayoutDefault.process(graphPaneFX.getGraphFX());
-            GraphSubSceneFX graphSubSceneFX = new GraphSubSceneFX(graphPaneFX, 1024, 1024, true, SceneAntialiasing.BALANCED);
-            GraphStageFX stg = new GraphStageFX(this, new File("E:\\temp"), graphSubSceneFX);
-            stg.show();
-        });
-        root.setCenter(btnTest);
+        // ============= add test button into main window with event to open graph visualization window ===============
+//        ButtonFX btnTest = new ButtonFX().withText("testBtn").withOnAction(e->{
+//            GraphPaneFX graphPaneFX = new GraphPaneFX()
+//                    .setDivisions(8)
+//                    .addLight(new AmbientLight())
+//                    .setGraph(graph);
+//            GraphSubSceneFX graphSubSceneFX = new GraphSubSceneFX(graphPaneFX, 1024, 1024, true, SceneAntialiasing.BALANCED);
+//            GraphStageFX stg = new GraphStageFX(this, new File("E:\\temp"), graphSubSceneFX);
+//            stg.show();
+//        });
+//        root.setCenter(btnTest);
         // =========================================== GUI MENU BAR ====================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus

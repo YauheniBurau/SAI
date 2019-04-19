@@ -11,7 +11,7 @@ import java.util.Vector;
 /**
  * count layout position of graphFX vertexes and edges accordingly
  */
-public class GraphLayoutDefault {
+public class GraphLayoutDefault extends AbstractGraphLayout {
     private double sphereRadius = 1000; // all elements will be randomly positioned in sphere of radius
 
     public double getSphereRadius() {
@@ -45,5 +45,4 @@ public class GraphLayoutDefault {
             e.update();
         }
     }
-
 }

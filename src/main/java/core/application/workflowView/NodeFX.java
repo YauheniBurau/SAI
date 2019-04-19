@@ -42,7 +42,6 @@ public class NodeFX extends BorderPane implements INodeFX{
     protected ButtonFX stopProcessBtn;
     protected Label title;
 
-
     private Delta dragDelta = new Delta();
 
     public NodeFX(Node node) {
@@ -58,7 +57,7 @@ public class NodeFX extends BorderPane implements INodeFX{
         this.title.setTooltip(new Tooltip(this.node.getAlgorithm().getName() + "\n" + this.node.getAlgorithm().getDescription()));
         this.headerButtons = new HBox();
         this.closeBtn = new ButtonFX().withText("X").withOnAction(hCloseBtn).withTooltip("close");
-        this.editBtn = new ButtonFX().withText("Edge").withOnAction(hEditBtn).withTooltip("edit");
+        this.editBtn = new ButtonFX().withText("V").withOnAction(hEditBtn).withTooltip("edit");
         this.processBtn = new ButtonFX().withText("P").withOnAction(hProcessBtn).withTooltip("process");
         this.unprocessBtn = new ButtonFX().withText("U").withOnAction(hUnprocessBtn).withTooltip("unprocess");
         this.stopProcessBtn = new ButtonFX().withText("S").withOnAction(hStopProcessBtn).withTooltip("stop process");
@@ -219,7 +218,6 @@ public class NodeFX extends BorderPane implements INodeFX{
     EventHandler<ActionEvent> hStopProcessBtn = (e) -> {
 //        this.getNode().getAlgorithm().onProcess(); // TODO:
     };
-
 
     /**
      * eventHandler for hProcessBtn.setOnAction

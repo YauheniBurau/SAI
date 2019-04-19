@@ -1,6 +1,5 @@
 package core.application.workflowPlugins.data;
 
-import core.application.view.components.app.ZoomableScrollPaneFX;
 import core.application.workflowView.AbstractDataFX;
 import core.application.workflowModel.Data;
 import javafx.embed.swing.SwingFXUtils;
@@ -13,9 +12,9 @@ import java.awt.image.BufferedImage;
 /**
  * Created by anonymous on 21.03.2019.
  */
-public class DataBufferedImageFX extends AbstractDataFX<Data<BufferedImage>> {
+public class DataBuffImgFX extends AbstractDataFX<Data<BuffPicImg>> {
 
-    public DataBufferedImageFX(Data<BufferedImage> data) {
+    public DataBuffImgFX(Data<BuffPicImg> data) {
         super(data);
         ImageView imageView = new ImageView();
         ScrollPane scrollPane = new ScrollPane();

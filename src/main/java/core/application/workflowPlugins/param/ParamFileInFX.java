@@ -16,10 +16,10 @@ import java.io.File;
 /**
  * Created by anonymous on 21.03.2019.
  */
-public class ParamFileInFX extends AbstractParamFX<Param<FileIn>> {
+public class ParamFileInFX extends AbstractParamFX<Param<AFile>> {
     private StringProperty textProperty = null;
 
-    public ParamFileInFX(Param<FileIn> paramFileIn) {
+    public ParamFileInFX(Param<AFile> paramFileIn) {
         // 1. init
         super(paramFileIn);
         HBox hBox = new HBox();
@@ -37,10 +37,10 @@ public class ParamFileInFX extends AbstractParamFX<Param<FileIn>> {
      * EventHandler for btn.setOnAction - open dialog for choose load file
      */
     EventHandler<ActionEvent> hBtn = (e) -> {
-        FileIn fileIn = this.getParam().getValue();
+        AFile fileIn = this.getParam().getValue();
             FileChooser fileChooser = HelperFX.createFileChooser(
                     "Select file: " + fileIn.getExtensions(),
-                    fileIn.getFileChooserInitialDirector(),
+                    fileIn.getFileChooserInitialDirectory(),
                     fileIn.getFileChooserComment(),
                     fileIn.getExtensions());
         File file = fileChooser.showOpenDialog(null);
