@@ -5,14 +5,17 @@ package core.application.graph;
  */
 public class GraphGenerator {
 
-    public static Graph<IVertex, IEdge> generate(int vertexesNumber, int edgesNumber){
-        Graph<IVertex, IEdge> g = new Graph<>();
+    public static GraphModel generate(int vertexesNumber, int edgesNumber){
+        GraphModel g = new GraphModel();
+        g.setId(0);
+        g.setsId("TestGraph");
         int n;
         IVertex v;
         IEdge e;
         // VERTEXES
         for (n = 0; n < vertexesNumber; n++) {
             v = new Vertex<Integer>(n);
+            v.setId( g.askVertexCounter() );
             g.addVertex(v);
         }
         // EDGES
@@ -21,6 +24,7 @@ public class GraphGenerator {
             start = (int)Math.round(Math.random()*(vertexesNumber-1));
             end = (int)Math.round(Math.random()*(vertexesNumber-1));
             e = new Edge<Integer>(n);
+            e.setId( g.askEdgeCounter() );
             e.setVertexU( g.getVertexes().get(start) );
             e.setVertexV( g.getVertexes().get(end) );
             g.addEdge(e);

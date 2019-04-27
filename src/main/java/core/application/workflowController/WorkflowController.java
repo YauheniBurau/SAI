@@ -29,7 +29,6 @@ public class WorkflowController {
 
     /**
      * load file and deserialize to workflowModel object
-     *
      * @param file
      */
     public static Workflow loadWorkflow(File file) {

@@ -75,7 +75,7 @@ public class AI_Application extends Application {
         stage.setScene(scene);
         stage.show();
         // ================================ OPEN CUSTOM ENVIRONMENT ====================================================
-//        ApplicationController.showNodesPalleteStageFX(this);
+        ApplicationController.showNodesPalleteStageFX(this);
 //        ApplicationController.showFileOpenDialog(this);
     }
 

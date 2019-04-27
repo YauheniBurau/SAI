@@ -4,6 +4,7 @@ import core.application.workflowModel.Data;
 import core.application.workflowModel.IConnection;
 import core.application.workflowModel.Node;
 import core.application.workflowModel.Workflow;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Workflow view
@@ -166,6 +168,27 @@ public class WorkflowFX extends Pane implements IWorkflowFX{
         }
     }
 
+    public ArrayList<NodeFX> getNodesFX() {
+        ArrayList<NodeFX> list = new ArrayList<>();
+        for(javafx.scene.Node node: this.getChildren()){
+            if(node.getClass() == NodeFX.class){
+                list.add((NodeFX)node );
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<ConnectionFX> getConnectionsFX() {
+        ArrayList<ConnectionFX> list = new ArrayList<>();
+        for(javafx.scene.Node node: this.getChildren()){
+            if(node.getClass() == ConnectionFX.class){
+                list.add((ConnectionFX)node );
+            }
+        }
+        return list;
+    }
+
+
     public Thread getCurrentTaskThreadWorkflowFX() {
         return currentTaskThreadWorkflowFX;
     }
@@ -187,5 +210,4 @@ public class WorkflowFX extends Pane implements IWorkflowFX{
         }
         e.consume();
     };
-
 }

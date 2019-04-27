@@ -1,45 +1,97 @@
 package core.application.graph;
 
-public class Edge<T> implements IEdge<T>{
-    private long id;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+public class Edge<T> implements IEdge<T>, Externalizable {
+    private static int counterId = 0;
+    private int id;
+    private int uId; // for load edge from file
+    private int vId; // for load edge from file
     private T value;
     private IVertex vertexU;
     private IVertex vertexV;
 
+    public Edge(){
+
+    }
+
     public Edge(T value) {
+        this.id = counterId;
+        Edge.counterId+=1;
         this.value = value;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public Edge setId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public int getuId() {
+        return uId;
+    }
+
+    public Edge setuId(int uId) {
+        this.uId = uId;
+        return this;
+    }
+
+    public int getvId() {
+        return vId;
+    }
+
+    public Edge setvId(int vId) {
+        this.vId = vId;
+        return this;
     }
 
     public T getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public Edge setValue(T value) {
         this.value = value;
+        return this;
     }
 
     public IVertex getVertexU() {
         return vertexU;
     }
 
-    public void setVertexU(IVertex vertexU) {
+    public Edge setVertexU(IVertex vertexU) {
         this.vertexU = vertexU;
+        return this;
     }
 
     public IVertex getVertexV() {
         return vertexV;
     }
 
-    public void setVertexV(IVertex vertexV) {
+    public Edge setVertexV(IVertex vertexV) {
         this.vertexV = vertexV;
+        return this;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(id);
+        out.writeInt(vertexU.getId());
+        out.writeInt(vertexV.getId());
+        out.writeObject(value);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        setId(in.readInt());
+        setuId(in.readInt());
+        setvId(in.readInt());
+        setValue((T)in.readObject());
     }
 
 }

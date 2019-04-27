@@ -1,47 +1,49 @@
-package core.application.graphView;
+package core.application.GraphLayouter;
 
 import core.application.data.Decart3d;
 import core.application.data.Polar3d;
 import core.application.dataConverters.Polar3d_Decart3d;
-import core.application.graph.Graph;
-import javafx.geometry.Point3D;
+import core.application.graph.AbstractGraphLayouter;
+import core.application.graph.GraphLayout;
+import core.application.graph.IEdgeLayout;
+import core.application.graph.IVertexLayout;
+import javafx.scene.paint.Color;
 
 import java.util.Vector;
 
 /**
  * count layout position of graphFX vertexes and edges accordingly
  */
-public class GraphLayoutDefault extends AbstractGraphLayout {
+public class GL_Default extends AbstractGraphLayouter {
     private double sphereRadius = 1000; // all elements will be randomly positioned in sphere of radius
 
     public double getSphereRadius() {
         return sphereRadius;
     }
 
-    public GraphLayoutDefault setSphereRadius(double sphereRadius) {
+    public GL_Default setSphereRadius(double sphereRadius) {
         this.sphereRadius = sphereRadius;
         return this;
     }
 
-    /**
-     * convert all coordinates of graphFX vertexeFX and edgeFX accordingly random algorithm
-     * @param graphFX
-     */
-    public void process(Graph<IVertexFX, IEdgeFX> graphFX){
+    public void process(GraphLayout graphLayout){
         double r;
         double latitudeAngle;
         double longitudeAngle;
-        Vector<IVertexFX> vertexes = graphFX.getVertexes();
+        Vector<IVertexLayout> vertexes = graphLayout.getVertexes();
         Decart3d p3d;
-        for(IVertexFX v: vertexes) {
+        for(IVertexLayout v: vertexes) {
             r = Math.random()*this.sphereRadius;
             latitudeAngle = Math.random()*2*Math.PI;
             longitudeAngle = Math.random()*2*Math.PI;
             p3d = Polar3d_Decart3d.convert(new Polar3d(r, latitudeAngle, longitudeAngle));
-            v.setPosition( new Point3D(p3d.x, p3d.y, p3d.z) );
+            v.setPosition(p3d);
+            v.setColor(Color.RED);
+            v.setRadius(2);
         }
-        Vector<IEdgeFX> edges = graphFX.getEdges();
-        for(IEdgeFX e: edges) {
+        Vector<IEdgeLayout> edges = graphLayout.getEdges();
+        for(IEdgeLayout e: edges) {
+            e.setColor(Color.BLUE);
             e.update();
         }
     }

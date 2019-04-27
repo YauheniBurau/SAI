@@ -1,42 +1,42 @@
-package core.application.graphView;
+package core.application.graph;
 
-import core.application.graph.IEdge;
 import javafx.geometry.Point3D;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-public class EdgeFX extends Cylinder implements IEdgeFX {
-    private IEdge edge;
-    private IVertexFX vertexU;
-    private IVertexFX vertexV;
+public class EdgeView extends Cylinder implements IEdgeView {
+    private IEdgeLayout edge;
+    private IVertexView vertexU;
+    private IVertexView vertexV;
 
-    public EdgeFX(IEdge edge, int divisions) {
+    public EdgeView( int divisions, IEdgeLayout edge, IVertexView vertexU, IVertexView vertexV) {
         super(1,1, divisions);
-        this.setMaterial(new PhongMaterial(Color.BLUE));
         this.edge = edge;
+        this.vertexU = vertexU;
+        this.vertexV = vertexV;
+        this.update();
     }
 
-    public IEdge getEdge() {
+    public IEdgeLayout getEdge() {
         return edge;
     }
 
-    public EdgeFX setVertexU(IVertexFX vertexU) {
+    public EdgeView setVertexU(IVertexView vertexU) {
         this.vertexU = vertexU;
         return this;
     }
 
-    public EdgeFX setVertexV(IVertexFX vertexV) {
+    public EdgeView setVertexV(IVertexView vertexV) {
         this.vertexV = vertexV;
         return this;
     }
 
     /**
-     * read data from model and VertexFX positions and update view and position of EdgeFX
+     * read data from graphLayout and update GraphView
      */
-    public EdgeFX update(){
+    public EdgeView update(){
         Point3D origin = vertexU.getPosition();
         Point3D target = vertexV.getPosition();
         Point3D yAxis = new Point3D(0, 1, 0);
@@ -48,7 +48,7 @@ public class EdgeFX extends Cylinder implements IEdgeFX {
         double angle = Math.acos(diff.normalize().dotProduct(yAxis));
         Rotate rotateAroundCenter = new Rotate(-Math.toDegrees(angle), axisOfRotation);
         this.setHeight(height);
-        this.setMaterial(new PhongMaterial(Color.BLUE));
+        this.setMaterial(new PhongMaterial(edge.getColor()));
         this.getTransforms().removeAll();
         this.getTransforms().addAll(moveToMidpoint, rotateAroundCenter);
         return this;

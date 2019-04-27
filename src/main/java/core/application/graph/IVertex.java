@@ -6,10 +6,10 @@ import java.util.Vector;
  * Created by anonymous on 03.11.2018.
  */
 public interface IVertex<T> {
-    long getId();
-    void setId(long id);
+    int getId();
+    Vertex setId(int id);
     T getValue();
-    void setValue(T value);
+    Vertex setValue(T value);
     Vector<IEdge> getEdges();
     boolean addEdge(IEdge e);
     boolean removeEdge(IEdge e);

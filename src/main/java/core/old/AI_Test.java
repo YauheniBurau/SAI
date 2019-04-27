@@ -5,28 +5,103 @@ package core.old;
 //import com.github.sarxos.webcam.WebcamResolution;
 //import com.github.sarxos.webcam.WebcamUtils;
 //import com.github.sarxos.webcam.util.ImageUtils;
-import com.google.common.graph.NetworkBuilder;
-import core.old.VertexValue.color.ARGB;
-import core.old.VertexValue.file.PngFile;
-import core.old.VertexValue.input.InputDataSensor;
-import core.old.VertexValue.matrix.Matrix2d;
-import core.old.VertexValue.matrix.Matrix2dByte;
-import core.old.process.FileToMatrix.PngFileToM2dArgb;
-import core.old.process.MatrixToFile.M2dDecart2dIntLinksToPngFile;
-import core.old.process.MatrixToMatrix.M2dArgbToM2dByte256Colors;
+import core.application.graph.Edge;
+import core.application.graph.Vertex;
 import org.apache.commons.cli.*;
 import org.junit.Test;
+
+import java.io.*;
 //import javax.swing.*;
 
 /**
  * Created by anonymous on 08.10.2016.
  */
 public class AI_Test {
-    String dirIn = "Edge:\\temp\\in\\";
-    String dirOut = "Edge:\\temp\\out\\";
+    String dirIn = "E:\\temp\\in\\";
+    String dirOut = "E:\\temp\\out\\";
     String imageFile = "star3.png";
+    String edgesFile = "edges.edg";
+    String vertexesFile = "vertexes.edg";
 
-//    @Test
+    @Test
+    public void externalize_graph_Edge(){
+        // prepare test data
+        Edge edge1 = new Edge<Integer>(24).setId(1).setuId(2).setvId(3);
+        Edge edge2 = new Edge<String>("test").setId(4).setuId(5).setvId(6);
+        Edge edge3 = new Edge<Double>(26.0).setId(7).setuId(8).setvId(9);
+        // write
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            // for writing or saving binary data
+            fos = new FileOutputStream(dirOut + edgesFile);
+            oos = new ObjectOutputStream(fos);
+            // writing or saving customer object's value to stream
+            oos.writeObject(edge1);
+            oos.writeObject(edge2);
+            oos.writeObject(edge3);
+            oos.flush();
+            oos.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        // read
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(dirOut + edgesFile);
+            ois = new ObjectInputStream(fis);
+            edge1 = (Edge) ois.readObject();
+            edge2 = (Edge) ois.readObject();
+            edge3 = (Edge) ois.readObject();
+            ois.close();
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(edge1 + "\n" + edge2 + "\n" + edge3);
+    }
+
+    @Test
+    public void externalize_graph_Vertex(){
+        // prepare test data
+        Vertex v1 = new Vertex<Integer>(24).setId(1);
+        Vertex v2 = new Vertex<String>("test").setId(2);
+        Vertex v3 = new Vertex<Double>(26.0).setId(3);
+        // write
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            // for writing or saving binary data
+            fos = new FileOutputStream(dirOut + vertexesFile);
+            oos = new ObjectOutputStream(fos);
+            // writing or saving customer object's value to stream
+            oos.writeObject(v1);
+            oos.writeObject(v2);
+            oos.writeObject(v3);
+            oos.flush();
+            oos.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        // read
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(dirOut + edgesFile);
+            ois = new ObjectInputStream(fis);
+            v1 = (Vertex) ois.readObject();
+            v2 = (Vertex) ois.readObject();
+            v3 = (Vertex) ois.readObject();
+            ois.close();
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(v1 + "\n" + v2 + "\n" + v3);
+    }
+
+
+
+    //    @Test
 //    public void Png_Contour() {
 //        PngFile pngFileIn = new PngFile(dirIn + imageFile);
 //        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);

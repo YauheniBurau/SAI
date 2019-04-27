@@ -24,7 +24,7 @@ public enum AlgorithmStateEnum {
     NOT_PROCESSED{
         public int value(){return 3;}
         public Color color(){
-            return Color.TRANSPARENT;
+            return Color.WHITE;
         }
     };
 

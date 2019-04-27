@@ -1,20 +1,18 @@
 package core.application.workflowPlugins.data;
 
-import core.application.graph.Graph;
-import core.application.graph.IEdge;
-import core.application.graph.IVertex;
+import core.application.graph.GraphModel;
 import core.application.workflowModel.Data;
 import core.application.workflowView.AbstractDataFX;
 
 /**
  * visualization for DataIO of value Graph
  */
-public class DataGraphFX  extends AbstractDataFX<Data<Graph<IVertex, IEdge>>> {
+public class DataGraphModelFX extends AbstractDataFX<Data<GraphModel>> {
     /**
      * constructor
      * @param data
      */
-    public DataGraphFX(Data<Graph<IVertex, IEdge>> data) {
+    public DataGraphModelFX(Data<GraphModel> data) {
         super(data);
         // TODO: add view
     }

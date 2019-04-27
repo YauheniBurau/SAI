@@ -12,9 +12,8 @@ public class Data<T> implements IData<T>, Serializable {
     private String name;
     private transient T value;
     private ArrayList<IConnection<T>> connections = new ArrayList<>();
-    private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
+    private transient AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
     private Class dataFXClass;
-
 
     public Data(String name, T value, AbstractAlgorithm algo, Class dataFXClass) {
         this.classValue = value.getClass();

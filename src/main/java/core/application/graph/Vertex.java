@@ -1,30 +1,40 @@
 package core.application.graph;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Vector;
 
-public class Vertex<T> implements IVertex<T>{
-    private long id;
+public class Vertex<T> implements IVertex<T>, Externalizable {
+    private int id;
     private T value;
     private Vector<IEdge> edges = new Vector<>();
+
+    public Vertex(){
+
+    }
 
     public Vertex(T value) {
         this.value = value;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public Vertex setId(int id) {
         this.id = id;
+        return this;
     }
 
     public T getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public Vertex setValue(T value) {
         this.value = value;
+        return this;
     }
 
     public Vector<IEdge> getEdges() {
@@ -43,4 +53,15 @@ public class Vertex<T> implements IVertex<T>{
         return this.edges.contains(e);
     }
 
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(id);
+        out.writeObject(value);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        setId(in.readInt());
+        setValue((T)in.readObject());
+    }
 }

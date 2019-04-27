@@ -9,7 +9,7 @@ import java.util.LinkedList;
  */
 public abstract class AbstractAlgorithm implements Serializable {
     private Node node;
-    private AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
+    private transient AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
 
     /**
      * get that "description" value from annotation @Algo

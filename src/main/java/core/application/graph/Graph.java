@@ -3,19 +3,51 @@ package core.application.graph;
 import java.util.Vector;
 
 /**
- * Created by anonymous on 02.12.2018.
+ * Main Data Graph structure
  */
-public final class Graph<V, E>{
-    private long id; // unique long id for Graph
+public class Graph<V, E>{
+    private int vertexCounter = 0;
+    private int edgeCounter = 0;
+    private int id; // unique long id for Graph
     private String sId; // unique string id for Graph
     private Vector<V> vertexes = new Vector<>();
     private Vector<E> edges = new Vector<>();
 
-    public long getId() {
+    public Graph() {
+
+    }
+
+    public int getVertexCounter() {
+        return vertexCounter;
+    }
+
+    public void setVertexCounter(int vertexCounter) {
+        this.vertexCounter = vertexCounter;
+    }
+
+    public int askVertexCounter() {
+        this.vertexCounter+=1;
+        return this.vertexCounter;
+    }
+
+    public int getEdgeCounter() {
+        return edgeCounter;
+    }
+
+    public void setEdgeCounter(int edgeCounter) {
+        this.edgeCounter = edgeCounter;
+    }
+
+    public int askEdgeCounter() {
+        this.edgeCounter+=1;
+        return this.edgeCounter;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -36,19 +68,26 @@ public final class Graph<V, E>{
         // TODO: remove all edges
     }
 
+    public void clearVertexes() {
+        this.vertexes.clear();
+    }
+
     public boolean containsVertex(V value) {
         return this.vertexes.contains(value);
     }
 
-
     public boolean addEdge(E value) {
         return this.edges.add(value);
-        // TODO: add alslo into vertexes links to edges
+        // TODO: add also into vertexes links to edges
     }
 
     public boolean removeEdge(E value) {
         return this.edges.remove(value);
         // TODO: remove links from vertexes
+    }
+
+    public void clearEdges() {
+        this.edges.clear();
     }
 
     public boolean containsEdge(E value) {
@@ -62,7 +101,5 @@ public final class Graph<V, E>{
     public Vector<E> getEdges() {
         return edges;
     }
-
-
 
 }

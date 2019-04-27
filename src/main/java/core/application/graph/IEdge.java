@@ -1,12 +1,16 @@
 package core.application.graph;
 
 public interface IEdge<T> {
-    long getId();
-    void setId(long id);
+    int getId();
+    Edge setId(int id);
+    int getuId();
+    Edge setuId(int uId);
+    int getvId();
+    Edge setvId(int vId);
     T getValue();
-    void setValue(T value);
+    Edge setValue(T value);
     IVertex getVertexU();
-    void setVertexU(IVertex vertexU) ;
+    Edge setVertexU(IVertex vertexU) ;
     IVertex getVertexV();
-    void setVertexV(IVertex vertexV);
+    Edge setVertexV(IVertex vertexV);
 }
