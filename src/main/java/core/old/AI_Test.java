@@ -8,10 +8,27 @@ package core.old;
 import core.application.graph.Edge;
 import core.application.graph.Vertex;
 import org.apache.commons.cli.*;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
+import org.apache.ftpserver.FtpServer;
+import org.apache.ftpserver.FtpServerFactory;
+import org.apache.ftpserver.ftplet.FtpException;
+import org.apache.ftpserver.ftplet.UserManager;
+import org.apache.ftpserver.listener.ListenerFactory;
+import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
+import org.apache.ftpserver.usermanager.impl.BaseUser;
 import org.junit.Test;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import sun.net.ftp.FtpProtocolException;
+
 
 import java.io.*;
-//import javax.swing.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by anonymous on 08.10.2016.
@@ -22,6 +39,37 @@ public class AI_Test {
     String imageFile = "star3.png";
     String edgesFile = "edges.edg";
     String vertexesFile = "vertexes.edg";
+
+    @Test
+    public void ftpGetFileList() throws FtpException {
+        Properties pFile = new Properties();
+        try {
+            String fileName = "AI_Config.properties";
+            ClassLoader classLoader = new Ftp_Server_Application().getClass().getClassLoader();
+            File file = new File(classLoader.getResource(fileName).getFile());
+            pFile.load( new FileReader(file) );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String dir = pFile.getProperty("local.ftp.dir");
+        String port = pFile.getProperty("local.ftp.port");
+        String name = pFile.getProperty("local.ftp.userName");
+        String password = pFile.getProperty("local.ftp.userPassword");
+
+        FTPClient client = new FTPClient();
+        try {
+            client.connect("localhost", Integer.parseInt(port));
+            client.login("user", "password" );
+            client.changeToParentDirectory();
+            FTPFile[] dirFiles = client.listFiles();
+            for (FTPFile f: dirFiles) {
+                System.out.println(f.getName());
+            }
+            client.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void externalize_graph_Edge(){
@@ -99,6 +147,30 @@ public class AI_Test {
         System.out.println(v1 + "\n" + v2 + "\n" + v3);
     }
 
+//    @Test
+//    public void neo4j_RW(){
+//        // run neo4j
+//        GraphDatabaseService graphDb = startNeo4j( new File("pathtoConfig.cng"), new File("E:\\temp\\in\\") );
+//        registerShutdownHook( graphDb );
+//
+//
+//    }
+//
+//
+//    private static void addVertex(GraphDatabaseService graphDb){
+//        try ( Transaction tx = graphDb.beginTx() )
+//        {
+//            firstNode = graphDb.createNode();
+//            firstNode.setProperty( "message", "Hello, " );
+//            secondNode = graphDb.createNode();
+//            secondNode.setProperty( "message", "World!" );
+//
+//            relationship = firstNode.createRelationshipTo( secondNode, RelTypes.KNOWS );
+//            relationship.setProperty( "message", "brave Neo4j " );
+//            // Database operations go here
+//            tx.success();
+//        }
+//    }
 
 
     //    @Test
