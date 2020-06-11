@@ -1,4 +1,4 @@
-package core.application.graphController;
+package core.old.graphController;
 
 import core.application.graph.Edge;
 import core.application.graph.GraphModel;
@@ -46,12 +46,12 @@ public class GraphModelController {
     }
 
     public Vertex setIdIntoVertex(GraphModel graphModel, Vertex vertex){
-        vertex.setId( graphModel.askVertexCounter() );
+        vertex.setvId( graphModel.askVertexCounter() );
         return vertex;
     }
 
     public Edge setIdIntoEdge(GraphModel graphModel, Edge edge){
-        edge.setId( graphModel.askEdgeCounter() );
+        edge.seteId( graphModel.askEdgeCounter() );
         return edge;
     }
 

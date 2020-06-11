@@ -24,13 +24,12 @@ public class Edge<T> implements IEdge<T>, Externalizable {
         this.value = value;
     }
 
-    public int getId() {
+    public int geteId() {
         return id;
     }
 
-    public Edge setId(int id) {
+    public void seteId(int id) {
         this.id = id;
-        return this;
     }
 
     public int getuId() {
@@ -81,14 +80,14 @@ public class Edge<T> implements IEdge<T>, Externalizable {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(id);
-        out.writeInt(vertexU.getId());
-        out.writeInt(vertexV.getId());
+        out.writeInt(vertexU.getvId());
+        out.writeInt(vertexV.getvId());
         out.writeObject(value);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        seteId(in.readInt());
         setuId(in.readInt());
         setvId(in.readInt());
         setValue((T)in.readObject());

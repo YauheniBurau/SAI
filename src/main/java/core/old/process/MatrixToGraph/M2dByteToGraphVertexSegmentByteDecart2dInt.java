@@ -301,7 +301,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends AbstractAlgorith
 //        }
 //        // organize vertexes of segments into tree hierarchy
 //        // create rootVertex
-//        // add all vertexSegments into root Segment
+//        // add all vertexSegments into first Segment
 //        // TODO:
 //        return out;
 //    }

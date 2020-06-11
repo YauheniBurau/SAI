@@ -1,4 +1,4 @@
-package core.application.GraphLayouter;
+package core.old.graphLayouter;
 
 import core.application.data.Decart3d;
 import core.application.data.Polar3d;
@@ -9,7 +9,7 @@ import core.application.graph.IEdgeLayout;
 import core.application.graph.IVertexLayout;
 import javafx.scene.paint.Color;
 
-import java.util.Vector;
+import java.util.Collection;
 
 /**
  * count layout position of graphFX vertexes and edges accordingly
@@ -30,7 +30,7 @@ public class GL_Default extends AbstractGraphLayouter {
         double r;
         double latitudeAngle;
         double longitudeAngle;
-        Vector<IVertexLayout> vertexes = graphLayout.getVertexes();
+        Collection<IVertexLayout> vertexes = graphLayout.getVertexes();
         Decart3d p3d;
         for(IVertexLayout v: vertexes) {
             r = Math.random()*this.sphereRadius;
@@ -41,7 +41,7 @@ public class GL_Default extends AbstractGraphLayouter {
             v.setColor(Color.RED);
             v.setRadius(2);
         }
-        Vector<IEdgeLayout> edges = graphLayout.getEdges();
+        Collection<IEdgeLayout> edges = graphLayout.getEdges();
         for(IEdgeLayout e: edges) {
             e.setColor(Color.BLUE);
             e.update();

@@ -1,8 +1,8 @@
 package core.application.graph;
 
 public interface IEdge<T> {
-    int getId();
-    Edge setId(int id);
+    int geteId();
+    void seteId(int id);
     int getuId();
     Edge setuId(int uId);
     int getvId();

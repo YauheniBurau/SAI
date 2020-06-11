@@ -3,7 +3,7 @@ package core.application.graph;
 import javafx.geometry.Point3D;
 import java.util.Vector;
 
-public interface IVertexView {
+public interface IVertexView extends IVertex{
     /**
      * get VertexLayout - basis for current VertexView JavaFX component
      * @return

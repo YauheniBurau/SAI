@@ -3,9 +3,10 @@ package core.application.graph;
 import core.application.data.Decart3d;
 import javafx.scene.paint.Color;
 
-public interface IEdgeLayout {
-    long getId();
-    void setId(long id);
+
+public interface IEdgeLayout extends IEdge{
+    int geteId();
+    void seteId(int id);
     IEdge getValue();
     void setValue(IEdge value);
     IVertexLayout getVertexU();

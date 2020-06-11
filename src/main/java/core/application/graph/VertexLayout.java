@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import java.util.Vector;
 
 public class VertexLayout implements IVertexLayout {
-    private long id;
+    private int id;
     private IVertex value;
     private Decart3d position = new Decart3d();
     private Color color = Color.RED;
@@ -17,16 +17,20 @@ public class VertexLayout implements IVertexLayout {
         this.value = value;
     }
 
-    public long getId() {
+    public int getvId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setvId(int id) {
         this.id = id;
     }
 
     public IVertex getValue() {
         return value;
+    }
+
+    @Override
+    public void setValue(Object value) {
     }
 
     public void setValue(IVertex value) {
@@ -61,6 +65,21 @@ public class VertexLayout implements IVertexLayout {
         return this.edges;
     }
 
+    @Override
+    public boolean addEdge(IEdge e) {
+        return false;
+    }
+
+    @Override
+    public boolean removeEdge(IEdge e) {
+        return false;
+    }
+
+    @Override
+    public boolean containsEdge(IEdge e) {
+        return false;
+    }
+
     public boolean addEdge(IEdgeLayout e) {
         return this.edges.add(e);
     }
@@ -72,5 +91,8 @@ public class VertexLayout implements IVertexLayout {
     public boolean containsEdge(IEdgeLayout e) {
         return this.edges.contains(e);
     }
+
+
+
 
 }

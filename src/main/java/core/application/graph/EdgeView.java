@@ -1,6 +1,7 @@
 package core.application.graph;
 
 import javafx.geometry.Point3D;
+import javafx.scene.Node;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
@@ -52,6 +53,71 @@ public class EdgeView extends Cylinder implements IEdgeView {
         this.getTransforms().removeAll();
         this.getTransforms().addAll(moveToMidpoint, rotateAroundCenter);
         return this;
+    }
+
+    @Override
+    public void seteId(int id) {
+
+    }
+
+    @Override
+    public int geteId() {
+        return 0;
+    }
+
+    @Override
+    public int getuId() {
+        return 0;
+    }
+
+    @Override
+    public Edge setuId(int uId) {
+        return null;
+    }
+
+    @Override
+    public int getvId() {
+        return 0;
+    }
+
+    @Override
+    public Edge setvId(int vId) {
+        return null;
+    }
+
+    @Override
+    public Object getValue() {
+        return null;
+    }
+
+    @Override
+    public Edge setValue(Object value) {
+        return null;
+    }
+
+    @Override
+    public IVertex getVertexU() {
+        return null;
+    }
+
+    @Override
+    public Edge setVertexU(IVertex vertexU) {
+        return null;
+    }
+
+    @Override
+    public IVertex getVertexV() {
+        return null;
+    }
+
+    @Override
+    public Edge setVertexV(IVertex vertexV) {
+        return null;
+    }
+
+    @Override
+    public Node getStyleableNode() {
+        return null;
     }
 
 }

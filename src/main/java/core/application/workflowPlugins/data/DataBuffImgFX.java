@@ -2,7 +2,6 @@ package core.application.workflowPlugins.data;
 
 import core.application.workflowView.AbstractDataFX;
 import core.application.workflowModel.Data;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,10 +27,11 @@ public class DataBuffImgFX extends AbstractDataFX<Data<BuffPicImg>> {
         this.getChildren().add(scrollPane);
 //        this.getChildren().add(new ZoomableScrollPaneFX(imageView));
         BufferedImage value = this.getData().getValue();
-        if(value !=null) {
-            Image image = SwingFXUtils.toFXImage(value, null);
-            imageView.setImage(image);
-        }
+        // TODO: repair
+        //        if(value !=null) {
+//            Image image = SwingFXUtils.toFXImage(value, null);
+//            imageView.setImage(image);
+//        }
     }
 
 }

@@ -3,6 +3,7 @@ package core.application.view;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import java.io.File;
 
@@ -47,6 +48,19 @@ public class HelperFX {
     public static FileChooser createFileChooser(String title, File initialDirectory, String comment, String... extensions){
         FileChooser.ExtensionFilter extFilter = HelperFX.createFileChooserExtensionFilter(comment, extensions);
         return HelperFX.createFileChooser(title, initialDirectory, extFilter);
+    }
+
+    /**
+     * create javaFX directoryChooser
+     * @param title
+     * @param initialDirectory
+     * @return
+     */
+    public static DirectoryChooser createDirectoryChooser(String title, File initialDirectory){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle(title);
+        directoryChooser.setInitialDirectory(initialDirectory);
+        return directoryChooser;
     }
 
     /**

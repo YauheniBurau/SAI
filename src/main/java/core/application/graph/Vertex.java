@@ -19,22 +19,20 @@ public class Vertex<T> implements IVertex<T>, Externalizable {
         this.value = value;
     }
 
-    public int getId() {
+    public int getvId() {
         return id;
     }
 
-    public Vertex setId(int id) {
+    public void setvId(int id) {
         this.id = id;
-        return this;
     }
 
     public T getValue() {
         return value;
     }
 
-    public Vertex setValue(T value) {
+    public void setValue(T value) {
         this.value = value;
-        return this;
     }
 
     public Vector<IEdge> getEdges() {
@@ -61,7 +59,7 @@ public class Vertex<T> implements IVertex<T>, Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        setvId(in.readInt());
         setValue((T)in.readObject());
     }
 }

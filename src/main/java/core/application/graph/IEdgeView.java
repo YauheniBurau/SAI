@@ -1,6 +1,6 @@
-package core.application.graph;
+    package core.application.graph;
 
-public interface IEdgeView {
+public interface IEdgeView extends IEdge{
 
     IEdgeLayout getEdge();
 
@@ -9,8 +9,11 @@ public interface IEdgeView {
     EdgeView setVertexV(IVertexView vertexV);
 
     /**
-     * read data from model and VertexView positions and update view and position of EdgeView
+     * read data from model and VertexView positions and update view and position of EdgeFX
      */
     EdgeView update();
+
+
+
 
 }

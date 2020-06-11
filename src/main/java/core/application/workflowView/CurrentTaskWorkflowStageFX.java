@@ -68,7 +68,7 @@ public class CurrentTaskWorkflowStageFX extends StageFX {
         this.textArea.setPrefWidth(640);
         this.textArea.setPrefHeight(480);
         this.textArea.setEditable(false);
-        // root pane
+        // first pane
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
         root.setBottom(btnsBox);

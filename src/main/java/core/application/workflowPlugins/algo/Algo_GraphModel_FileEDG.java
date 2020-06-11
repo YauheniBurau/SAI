@@ -1,7 +1,7 @@
 package core.application.workflowPlugins.algo;
 
 import core.application.graph.GraphModel;
-import core.application.graphController.GraphModelController;
+import core.old.graphController.GraphModelController;
 import core.application.workflowModel.*;
 import core.application.workflowPlugins.data.DataGraphModelFX;
 import core.application.workflowPlugins.param.FileEDG;

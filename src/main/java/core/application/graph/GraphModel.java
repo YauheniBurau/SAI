@@ -37,13 +37,13 @@ public class GraphModel extends Graph<IVertex, IEdge> implements Externalizable 
         size = in.readInt();
         for (int i = 0; i < size; i++) {
             v = (IVertex)in.readObject();
-            this.addVertex( v );
-            map.put(v.getId(), v);
+            this.addVertex(v.getvId(), v );
+            map.put(v.getvId(), v);
         }
         size = in.readInt();
         for (int i = 0; i < size; i++) {
             e = (IEdge)in.readObject();
-            addEdge(e);
+            addEdge(e.geteId(), e);
             v1 = map.get(e.getuId());
             v2 = map.get(e.getvId());
             v1.addEdge(e);

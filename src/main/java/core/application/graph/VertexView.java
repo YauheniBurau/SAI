@@ -2,6 +2,7 @@ package core.application.graph;
 
 import core.application.data.Decart3d;
 import javafx.geometry.Point3D;
+import javafx.scene.Node;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 
@@ -25,8 +26,41 @@ public class VertexView extends Sphere implements IVertexView {
         return new Point3D(this.getTranslateX(), this.getTranslateY(), this.getTranslateZ());
     }
 
+    @Override
+    public void setvId(int id) {
+    }
+
+    @Override
+    public int getvId() {
+        return 0;
+    }
+
+    @Override
+    public Object getValue() {
+        return null;
+    }
+
+    @Override
+    public void setValue(Object value) {
+    }
+
     public Vector<IEdgeView> getEdges() {
         return this.edges;
+    }
+
+    @Override
+    public boolean addEdge(IEdge e) {
+        return false;
+    }
+
+    @Override
+    public boolean removeEdge(IEdge e) {
+        return false;
+    }
+
+    @Override
+    public boolean containsEdge(IEdge e) {
+        return false;
     }
 
     public boolean addEdge(IEdgeView e) {
@@ -48,5 +82,9 @@ public class VertexView extends Sphere implements IVertexView {
         this.setTranslateZ(p.z);
         this.setMaterial(new PhongMaterial(this.vertex.getColor()));
         this.setRadius(this.vertex.getRadius());
+    }
+
+    public Node getStyleableNode() {
+        return null;
     }
 }

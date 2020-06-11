@@ -15,8 +15,8 @@ public class GraphGenerator {
         // VERTEXES
         for (n = 0; n < vertexesNumber; n++) {
             v = new Vertex<Integer>(n);
-            v.setId( g.askVertexCounter() );
-            g.addVertex(v);
+            v.setvId( g.askVertexCounter() );
+            g.addVertex(n, v);
         }
         // EDGES
         int start, end;
@@ -24,10 +24,10 @@ public class GraphGenerator {
             start = (int)Math.round(Math.random()*(vertexesNumber-1));
             end = (int)Math.round(Math.random()*(vertexesNumber-1));
             e = new Edge<Integer>(n);
-            e.setId( g.askEdgeCounter() );
-            e.setVertexU( g.getVertexes().get(start) );
-            e.setVertexV( g.getVertexes().get(end) );
-            g.addEdge(e);
+            e.seteId( g.askEdgeCounter() );
+            e.setVertexU( g.getVertex(start) );
+            e.setVertexV( g.getVertex(end) );
+            g.addEdge(n, e);
         }
         return g;
     }

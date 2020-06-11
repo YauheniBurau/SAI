@@ -1,7 +1,7 @@
 package core.application.graph;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Vector;
 
 public class GraphView extends Graph<IVertexView, IEdgeView> {
     private GraphLayout graphLayout;
@@ -22,19 +22,19 @@ public class GraphView extends Graph<IVertexView, IEdgeView> {
         this.graphLayout = graphLayout;
         HashMap<IVertexLayout, VertexView> map = new HashMap<>();
         // create VertexView-s
-        Vector<IVertexLayout> vertexes = graphLayout.getVertexes();
+        Collection<IVertexLayout> vertexes = graphLayout.getVertexes();
         VertexView vV;
         for(IVertexLayout vL: vertexes){
             vV = new VertexView(vL, this.divisions);
             map.put(vL, vV);
-            this.addVertex(vV);
+            this.addVertex(vL.getvId(), vV);
         }
-        // create EdgeView-s
-        Vector<IEdgeLayout> edges = graphLayout.getEdges();
+        // create EdgeFX-s
+        Collection<IEdgeLayout> edges = graphLayout.getEdges();
         EdgeView eV;
         for (IEdgeLayout eL: edges) {
             eV = new EdgeView( this.divisions, eL, map.get(eL.getVertexU()), map.get(eL.getVertexV()) );
-            this.addEdge(eV);
+            this.addEdge(eL.geteId(), eV);
         }
     }
 

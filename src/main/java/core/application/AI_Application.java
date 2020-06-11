@@ -23,25 +23,37 @@ public class AI_Application extends Application {
     private UtilityStage1FX utilityStage1FX = null;
     private UtilityStage2FX utilityStage2FX = null;
 
+    char[] ascii = new String("Кластер (англ. cluster").toCharArray();
+
     @Override
     public void start(Stage stage) {
         this.setApplicationStage(stage);
         // ======================================= create main scene ===================================================
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 1366, 768);
-        scene.getStylesheets().add("AI_Application.css");
+//        scene.getStylesheets().add(getClass().getResource("AI_Application.css").getFile() );
+//        scene.getStylesheets().add(getClass().getResource("AI_Application.css").toExternalForm() );
 
-        // ============= add test button into main window with event to open graph visualization window ===============
+//        // create cluster graph
+//        ClusterGraph clusterGraph = new ClusterGraph(0, "ascii_cluster_graph");
+//        // fill with ascii data from ascii predefined array of char
+//        clusterGraph.writeRawData(ascii);
+//        // get cluster graph statistic
+//        ClusterGraphStatistic cgs1 = ClusterGraphStatistic.countStatistic(clusterGraph);
+//        System.out.println(cgs1);
+//        // compress data
+//        // get cluster graph statistic
+//        ClusterGraphStatistic cgs2 = ClusterGraphStatistic.countStatistic(clusterGraph);
+//        System.out.println(cgs2);
+//        // ============= add test button into main window with event to open graph visualization window ===============
 //        ButtonFX btnTest = new ButtonFX().withText("testBtn").withOnAction(e->{
-//            GraphPaneFX graphPaneFX = new GraphPaneFX()
-//                    .setDivisions(8)
-//                    .addLight(new AmbientLight())
-//                    .setGraph(graph);
-//            GraphSubSceneFX graphSubSceneFX = new GraphSubSceneFX(graphPaneFX, 1024, 1024, true, SceneAntialiasing.BALANCED);
-//            GraphStageFX stg = new GraphStageFX(this, new File("E:\\temp"), graphSubSceneFX);
-//            stg.show();
+//            ClusterGraphFX clusterGraphFX;
+//            clusterGraphFX = new ClusterGraphFX(clusterGraph);
+//            clusterGraphFX.init();
+//            clusterGraphFX.showAndWait();
 //        });
 //        root.setCenter(btnTest);
+
         // =========================================== GUI MENU BAR ====================================================
         MenuBarFX menuBar = new MenuBarFX();
         // Create menus
@@ -128,7 +140,7 @@ public class AI_Application extends Application {
 //        Workflow wf = new Workflow(1000, 1000);
 //        wf.addNode(new Node("test Algo", new AlgoTest(), 200, 200, 200, 80) );
 //        WorkflowFX wfFX = new WorkflowFX(wf);
-//        root.getChildren().add(wfFX);
+//        first.getChildren().add(wfFX);
 //        NodeFX nodeFX = wfFX.getNodesFX().get(0);
 //        nodeFX.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(NodeFX.cornerRadii), Insets.EMPTY)));
 
@@ -137,4 +149,16 @@ public class AI_Application extends Application {
 //            CurrentTaskWorkflowStageFX stg = new CurrentTaskWorkflowStageFX(wfFX);
 //            stg.show();
 //        });
-//        root.setCenter(testBtn);
+//        first.setCenter(testBtn);
+
+// ============= add test button into main window with event to open graph visualization window ===============
+//        ButtonFX btnTest = new ButtonFX().withText("testBtn").withOnAction(e->{
+//            GraphPaneFX graphPaneFX = new GraphPaneFX()
+//                    .setDivisions(8)
+//                    .addLight(new AmbientLight())
+//                    .setGraph(graph);
+//            GraphSubSceneFX graphSubSceneFX = new GraphSubSceneFX(graphPaneFX, 1024, 1024, true, SceneAntialiasing.BALANCED);
+//            GraphStageFX stg = new GraphStageFX(this, new File("E:\\temp"), graphSubSceneFX);
+//            stg.show();
+//        });
+//        first.setCenter(btnTest);

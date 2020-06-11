@@ -1,7 +1,7 @@
 package core.application.workflowPlugins.algo;
 
 import core.application.graph.*;
-import core.application.GraphLayouter.GL_Default;
+import core.old.graphLayouter.GL_Default;
 import core.application.workflowModel.*;
 import core.application.workflowPlugins.data.DataGraphLayoutFX;
 import core.application.workflowPlugins.data.DataGraphModelFX;
@@ -34,7 +34,7 @@ public class Algo_GraphLayouterDefault extends AbstractAlgorithm implements Seri
         Boolean result = true;
         graphModel.setValue(this.graphModel.getConnection(0).getStart().getValue());
         GL_Default layouter = new GL_Default().setSphereRadius(sphereLayoutRadius.getValue());
-        // that set method already recount GraphLayout and apply GraphLayouter
+        // that set method already recount GraphLayout and apply graphLayouter
         graphLayout.setValue( new GraphLayout(graphModel.getValue(), layouter) );
         return result;
     }

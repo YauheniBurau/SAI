@@ -307,7 +307,7 @@ public class CloudOfDecart2d{
 //                // create and connect all m2d2Links
 //            }
 //        }
-//        // find first not null Decart2dInt2Links elements, it will be root of graph
+//        // find first not null Decart2dInt2Links elements, it will be first of graph
 //        graph = new Graph();
 //        for (int j = 0; j < sizeY; j++) {
 //            for (int i = 0; i < sizeX; i++) {

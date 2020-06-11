@@ -5,9 +5,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Vector;
 
-public interface IVertexLayout {
-    long getId();
-    void setId(long id);
+public interface IVertexLayout extends IVertex{
+    int getvId();
+    void setvId(int id);
     IVertex getValue();
     void setValue(IVertex value);
     Decart3d getPosition();

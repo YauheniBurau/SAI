@@ -1,17 +1,18 @@
 package core.application.graph;
 
-import java.util.Vector;
+import java.util.Collection;
+import java.util.TreeMap;
 
 /**
  * Main Data Graph structure
  */
-public class Graph<V, E>{
+public class Graph<V extends IVertex, E extends IEdge>{
     private int vertexCounter = 0;
     private int edgeCounter = 0;
     private int id; // unique long id for Graph
     private String sId; // unique string id for Graph
-    private Vector<V> vertexes = new Vector<>();
-    private Vector<E> edges = new Vector<>();
+    private TreeMap<Integer, V> vertexes = new TreeMap<>();
+    private TreeMap<Integer, E> edges = new TreeMap<>();
 
     public Graph() {
 
@@ -59,47 +60,70 @@ public class Graph<V, E>{
         this.sId = sId;
     }
 
-    public boolean addVertex(V value) {
-        return this.vertexes.add(value);
+    public V addVertex(int key, V value) {
+        return this.vertexes.put(key, value);
     }
 
-    public boolean removeVertex(V value) {
-        return this.vertexes.remove(value);
-        // TODO: remove all edges
+    public V removeVertex(int key) {
+        IVertex vertex = this.getVertex(key);
+        Collection<IEdge> edges = vertex.getEdges();
+        for (IEdge edge: edges) {
+            this.removeEdge(edge.geteId());
+        }
+        return this.vertexes.remove(key);
     }
 
     public void clearVertexes() {
         this.vertexes.clear();
     }
 
-    public boolean containsVertex(V value) {
-        return this.vertexes.contains(value);
+    public boolean containsValueVertex(V value) {
+        return this.vertexes.containsValue(value);
     }
 
-    public boolean addEdge(E value) {
-        return this.edges.add(value);
-        // TODO: add also into vertexes links to edges
+    public boolean containsKeyVertex(int key) {
+        return this.vertexes.containsKey(key);
     }
 
-    public boolean removeEdge(E value) {
-        return this.edges.remove(value);
-        // TODO: remove links from vertexes
+    public E addEdge(int key, E value) {
+        value.getVertexU().addEdge(value);
+        value.getVertexV().addEdge(value);
+        return this.edges.put(key, value);
+    }
+
+    public E removeEdge(int key) {
+        IEdge edge = this.edges.get(key);
+        edge.getVertexU().removeEdge(edge);
+        edge.getVertexV().removeEdge(edge);
+        return this.edges.remove(key);
     }
 
     public void clearEdges() {
         this.edges.clear();
     }
 
-    public boolean containsEdge(E value) {
-        return this.edges.contains(value);
+    public boolean containsValueEdge(E value) {
+        return this.edges.containsValue(value);
     }
 
-    public Vector<V> getVertexes() {
-        return vertexes;
+    public boolean containsKeyEdge(int key) {
+        return this.edges.containsKey(key);
     }
 
-    public Vector<E> getEdges() {
-        return edges;
+    public Collection<V> getVertexes() {
+        return vertexes.values();
+    }
+
+    public V getVertex(int key) {
+        return vertexes.get(key);
+    }
+
+    public Collection<E> getEdges() {
+        return edges.values();
+    }
+
+    public E getEdge(int key) {
+        return edges.get(key);
     }
 
 }
