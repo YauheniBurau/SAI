@@ -1,13 +1,9 @@
 package core.old.process.CloudToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
-import core.old.VertexValue.cloud.CloudOfDecart2d;
-import core.old.VertexValue.matrix.Matrix2dByte;
-
 /**
  * Created by anonymous on 10.12.2018.
  */
-public class CloudOfDecart2dToM2dByte extends AbstractAlgorithmFX {
+//public class CloudOfDecart2dToM2dByte {
 //    protected Model model;
 //    private String inKey;
 //    private String outKey;
@@ -35,8 +31,8 @@ public class CloudOfDecart2dToM2dByte extends AbstractAlgorithmFX {
 //        return m2d;
 //    }
 
-    @Override
-    public Boolean process() {
-        return null;
-    }
-}
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
+//}

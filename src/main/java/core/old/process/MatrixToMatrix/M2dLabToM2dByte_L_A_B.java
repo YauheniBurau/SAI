@@ -1,6 +1,5 @@
 package core.old.process.MatrixToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.UnsignedDoubleToSignedByte;
 import core.old.VertexValue.color.Lab;
 import core.old.VertexValue.matrix.Matrix2d;
@@ -8,7 +7,7 @@ import core.old.VertexValue.matrix.Matrix2d;
 /**
  * Created by anonymous on 31.10.2018.
  */
-public class M2dLabToM2dByte_L_A_B extends AbstractAlgorithmFX {
+public class M2dLabToM2dByte_L_A_B {
     public static final int BY_L = 1;
     public static final int BY_A = 2;
     public static final int BY_B = 3;
@@ -17,10 +16,10 @@ public class M2dLabToM2dByte_L_A_B extends AbstractAlgorithmFX {
      * Matrix2d<Lab> -> Matrix2d<Byte> By Light from Lab
      * @return
      */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 
     /**
      * transformPoints Matrix2d<Lab> to matrix2d<Byte> where By L from Lab

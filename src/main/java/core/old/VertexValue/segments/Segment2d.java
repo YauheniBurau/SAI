@@ -8,7 +8,6 @@ import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.old.VertexValue.matrix.Matrix2dBool;
 import core.old.VertexValue.texture.ITexture;
-import core.old.process.MatrixToFile.M2dArgbToPngFile;
 import core.old.process.PrimitiveToPrimitive.LongToHexString;
 
 import java.util.ArrayList;

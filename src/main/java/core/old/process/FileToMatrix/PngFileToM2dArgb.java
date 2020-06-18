@@ -1,12 +1,5 @@
 package core.old.process.FileToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
-import core.old.process.PrimitiveToColor.IntegerArgbToArgb;
-import core.old.VertexValue.matrix.Matrix2d;
-import core.old.VertexValue.color.ARGB;
-import core.old.VertexValue.file.PngFile;
-import core.application.exceptions.FileException;
-
 //import javax.imageio.ImageIO;
 //import javax.imageio.stream.FileImageInputStream;
 //import java.awt.image.BufferedImage;
@@ -16,16 +9,16 @@ import core.application.exceptions.FileException;
 /**
  * Created by anonymous on 13.10.2018.
  */
-public class PngFileToM2dArgb extends AbstractAlgorithmFX {
+public class PngFileToM2dArgb {
 
-    /**
-     * PngFile -> Matrix2dArgb
-     * @return
-     */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    /**
+//     * PngFile -> Matrix2dArgb
+//     * @return
+//     */
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 //
 //    /**
 //     * PngFile -> Matrix2dArgb

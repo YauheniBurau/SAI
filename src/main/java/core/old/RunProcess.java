@@ -1,7 +1,5 @@
 package core.old;
 
-import core.application.workflowModel.AbstractAlgorithm;
-
 public class RunProcess extends Thread {
 //    private AbstractAlgorithm algo;
 //    public RunProcess(AbstractAlgorithm algo) {

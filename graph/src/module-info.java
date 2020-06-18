@@ -1,5 +1,5 @@
 module graph{
-    opens graph;
+    opens core.old.graph;
     opens process;
 
 }

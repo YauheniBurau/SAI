@@ -1,13 +1,9 @@
 package core.old.process.ContourToMatrix;
 
-import core.old.VertexValue.contour.ContourDecart2d;
-import core.application.controller.AbstractAlgorithmFX;
-import core.old.VertexValue.matrix.Matrix2dBool;
-
 /**
  * Created by anonymous on 16.12.2018.
  */
-public class ContourDecart2dToM2dBool extends AbstractAlgorithmFX {
+//public class ContourDecart2dToM2dBool {
 
 //    /**
 //     *  ContourDecart2d -> Matrix2dBool
@@ -25,8 +21,8 @@ public class ContourDecart2dToM2dBool extends AbstractAlgorithmFX {
 //        return m2d;
 //    }
 
-    @Override
-    public Boolean process() {
-        return null;
-    }
-}
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
+//}

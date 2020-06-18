@@ -4,11 +4,11 @@ in development, pre-alpha
 
 in development
 
-1. png-file -> graph<...>
+1. png-file -> core.old.graph<...>
 
-1.1 List of graph<...> -> find Consistent image patterns of contours and save in Graph with VertexTerms 
+1.1 List of core.old.graph<...> -> find Consistent image patterns of contours and save in Graph with VertexTerms 
 
-1.2 save any graph<...> into file
+1.2 save any core.old.graph<...> into file
 
 1.3 load from file -> Graph<...>
 
@@ -16,15 +16,15 @@ in development
 
 1.5 enter testImage
 
-1.6 testImage -> graph<...>
+1.6 testImage -> core.old.graph<...>
 
 1.7 find VertexTerms in testImage and output results
 
-2) audio-file ->graph<...>
+2) audio-file ->core.old.graph<...>
 
-List of graph<...> -> find Consistent audio patterns and save in Graph with VertexTerms 
+List of core.old.graph<...> -> find Consistent audio patterns and save in Graph with VertexTerms 
 
-save sound graph<...> into file
+save sound core.old.graph<...> into file
 
 load from file -> sound Graph<...>
 
@@ -32,7 +32,7 @@ test
 
 enter testSound
 
-testSound -> sound graph<...>
+testSound -> sound core.old.graph<...>
 
 find VertexTerms in testSound and output results
 

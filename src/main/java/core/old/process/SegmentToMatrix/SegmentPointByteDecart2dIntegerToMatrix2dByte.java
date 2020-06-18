@@ -1,16 +1,14 @@
 package core.old.process.SegmentToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
-
 // TODO: remove later
 /**
  * Created by anonymous on 12.11.2018.
  */
-public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends AbstractAlgorithmFX {
-    @Override
-    public Boolean process() {
-        return null;
-    }
+//public class SegmentPointByteDecart2dIntegerToMatrix2dByte {
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
 //    private Model model;
 //    private String inKey;
 //    private String outKey;
@@ -70,4 +68,4 @@ public class SegmentPointByteDecart2dIntegerToMatrix2dByte extends AbstractAlgor
 //        return out;
 //    }
 //
-}
+//}

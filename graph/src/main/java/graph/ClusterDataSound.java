@@ -1,18 +1,11 @@
 package graph;
 
+import com.orientechnologies.orient.core.record.OVertex;
+
 public class ClusterDataSound extends AbstractCluster {
-    private Sound value;
 
-    public ClusterDataSound(Sound value) {
-        this.value = value;
-    }
-
-    public void setData(Sound value) {
-        this.value = value;
-    }
-
-    public Sound getData() {
-        return value;
+    public ClusterDataSound(OVertex vertex) {
+        this.value = vertex;
     }
 
 }

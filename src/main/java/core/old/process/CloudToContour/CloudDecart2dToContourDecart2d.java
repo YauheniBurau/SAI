@@ -1,11 +1,9 @@
 package core.old.process.CloudToContour;
 
-import core.application.controller.AbstractAlgorithmFX;
-
 /**
  * Created by anonymous on 14.12.2018.
  */
-public class CloudDecart2dToContourDecart2d extends AbstractAlgorithmFX {
+//public class CloudDecart2dToContourDecart2d {
 //    protected Model model;
 //    private String inKey;
 //    private String outKey;
@@ -16,11 +14,11 @@ public class CloudDecart2dToContourDecart2d extends AbstractAlgorithmFX {
 //        this.outKey = outKey;
 //    }
 
-    @Override
-    public Boolean process() {
-        return null;
-    }
-
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
+//
 //    /**
 //     * @param cloud
 //     * @return
@@ -112,5 +110,5 @@ public class CloudDecart2dToContourDecart2d extends AbstractAlgorithmFX {
 //        }
 //        return contour;
 //    }
-
-}
+//
+//}

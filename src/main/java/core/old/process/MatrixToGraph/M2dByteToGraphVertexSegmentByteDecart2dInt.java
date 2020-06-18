@@ -1,17 +1,15 @@
 package core.old.process.MatrixToGraph;
 
-import core.application.controller.AbstractAlgorithmFX;
-
 // TODO: remove later
 /**
  * Created by anonymous on 02.12.2018.
  */
-public class M2dByteToGraphVertexSegmentByteDecart2dInt extends AbstractAlgorithmFX {
-    @Override
-    public Boolean process() {
-        return null;
-    }
-
+//public class M2dByteToGraphVertexSegmentByteDecart2dInt {
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
+//
 //    /**
 //     * find all points that connected with point(x,y) and have the same value
 //     * @param in
@@ -116,7 +114,7 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends AbstractAlgorith
 //    }
 //
 //    /**
-//     * conveerts edges boolean matrix to matrixof graph where you can see connections between points
+//     * conveerts edges boolean matrix to matrixof core.old.graph where you can see connections between points
 //     * @param in
 //     * @return
 //     */
@@ -323,5 +321,5 @@ public class M2dByteToGraphVertexSegmentByteDecart2dInt extends AbstractAlgorith
 //        }
 //        return Boolean.TRUE;
 //    }
-
-}
+//
+//}

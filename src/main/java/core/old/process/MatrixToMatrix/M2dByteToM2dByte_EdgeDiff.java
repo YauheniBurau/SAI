@@ -1,22 +1,21 @@
 package core.old.process.MatrixToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.PrimitiveToPrimitive.SignedIntToSignedByte;
 import core.old.VertexValue.matrix.Matrix2d;
 
 /**
  * Created by anonymous on 10.11.2018.
  */
-public class M2dByteToM2dByte_EdgeDiff  extends AbstractAlgorithmFX {
+public class M2dByteToM2dByte_EdgeDiff {
 
-    /**
-     * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
-     * @return
-     */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    /**
+//     * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
+//     * @return
+//     */
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 
     /**
      * Matrix2d<Byte> -> EdgeDiff values  in new Matrix2d<Byte>

@@ -3,8 +3,6 @@ package core.old.VertexValue.cloud;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2dBool;
 import core.old.VertexValue.matrix.Matrix2dByte;
-import core.old.process.CloudToMatrix.CloudOfDecart2dToM2dByte;
-import core.old.process.MatrixToFile.M2dByteToPngFile;
 import java.util.ArrayList;
 
 /**
@@ -295,7 +293,7 @@ public class CloudOfDecart2d{
 
 //    public Graph outerCloudToContourAsGraphDecart2d(){
 //        this.countCloudParams();
-//        Graph graph = null;
+//        Graph core.old.graph = null;
 //        CloudOfDecart2d outerCloud = this.countOuterCloud();
 //        Matrix2d<Decart2dInt2Links> m2d2Links = new Matrix2d<Decart2dInt2Links>(
 //                Decart2dInt2Links.class, (int)outerCloud.countWidth(), (int)outerCloud.countHeight() );
@@ -307,17 +305,17 @@ public class CloudOfDecart2d{
 //                // create and connect all m2d2Links
 //            }
 //        }
-//        // find first not null Decart2dInt2Links elements, it will be first of graph
-//        graph = new Graph();
+//        // find first not null Decart2dInt2Links elements, it will be first of core.old.graph
+//        core.old.graph = new Graph();
 //        for (int j = 0; j < sizeY; j++) {
 //            for (int i = 0; i < sizeX; i++) {
 //                if(m2d2Links.getValue(i, j)!=null){
-//                    graph.setRootVertex(new Vertex);
+//                    core.old.graph.setRootVertex(new Vertex);
 //                }
 //            }
 //        }
 //
-//        return graph;
+//        return core.old.graph;
 //    }
 
 

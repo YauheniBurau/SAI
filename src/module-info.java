@@ -10,6 +10,7 @@ module SAI {
     requires ftplet.api;
     requires junit;
     requires orientdb;
+    requires org.controlsfx.controls;
 
     opens core.application;
 }

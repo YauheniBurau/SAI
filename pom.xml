@@ -190,7 +190,14 @@
             <version>3.6</version>
         </dependency>
 
-        <!-- SAI.graph -->
+        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+
+        <!-- SAI.core.old.graph -->
         <dependency>
             <groupId>SAI</groupId>
             <artifactId>graph</artifactId>
@@ -249,7 +256,7 @@
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.neo4j/neo4j-graph-algo &ndash;&gt;-->
 <!--<dependency>-->
 <!--<groupId>org.neo4j</groupId>-->
-<!--<artifactId>neo4j-graph-algo</artifactId>-->
+<!--<artifactId>neo4j-core.old.graph-algo</artifactId>-->
 <!--<version>4.0.5</version>-->
 <!--</dependency>-->
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.neo4j/server-api &ndash;&gt;-->

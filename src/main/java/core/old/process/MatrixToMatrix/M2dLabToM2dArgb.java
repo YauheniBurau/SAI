@@ -1,6 +1,5 @@
 package core.old.process.MatrixToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
 import core.old.process.ColorToColor.LabToArgb;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.Lab;
@@ -9,16 +8,16 @@ import core.old.VertexValue.matrix.Matrix2d;
 /**
  * Created by anonymous on 30.10.2018.
  */
-public class M2dLabToM2dArgb extends AbstractAlgorithmFX {
+public class M2dLabToM2dArgb {
 
     /**
      * Matrix2d<Argb> -> Matrix2d<Lab>
      * @return
      */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 
     /**
      * transformPoints Matrix2d<Lab> to matrix2d<ARGB>

@@ -1,11 +1,9 @@
 package core.old.process.CloudToGraph;
 
-import core.application.controller.AbstractAlgorithmFX;
-
 /**
  * Created by anonymous on 19.12.2018.
  */
-public class CloudOfDecart2dIntToGraph extends AbstractAlgorithmFX {
+//public class CloudOfDecart2dIntToGraph {
 //    protected Model model;
 //    private String inKey;
 //    private String outKey;
@@ -22,7 +20,7 @@ public class CloudOfDecart2dIntToGraph extends AbstractAlgorithmFX {
 //     * @return
 //     */
 //    public static Graph transform(CloudOfDecart2d cloud) {
-//        Graph graph = new Graph();
+//        Graph core.old.graph = new Graph();
 //        Vertex<CloudOfDecart2d> rootV = new Vertex<>(cloud);
 //
 //        HashSet<Vertex<CloudOfDecart2d>> set = new HashSet<>();
@@ -32,10 +30,10 @@ public class CloudOfDecart2dIntToGraph extends AbstractAlgorithmFX {
 //            set = CloudOfDecart2dIntToGraph.cloudTreeToGraphTree(set);
 //            iterator = set.iterator();
 //            while(iterator.hasNext()){
-//                graph.add(iterator.next());
+//                core.old.graph.add(iterator.next());
 //            }
 //        }
-//        return graph;
+//        return core.old.graph;
 //    }
 //
 //    private static HashSet<Vertex<CloudOfDecart2d>> cloudTreeToGraphTree(HashSet<Vertex<CloudOfDecart2d>> vertexes){
@@ -53,9 +51,9 @@ public class CloudOfDecart2dIntToGraph extends AbstractAlgorithmFX {
 //        }
 //        return childsV;
 //    }
-
-    @Override
-    public Boolean process() {
-        return null;
-    }
-}
+//
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
+//}

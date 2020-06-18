@@ -5,8 +5,6 @@ package core.old;
 //import com.github.sarxos.webcam.WebcamResolution;
 //import com.github.sarxos.webcam.WebcamUtils;
 //import com.github.sarxos.webcam.util.ImageUtils;
-import core.application.clusterGraph.ClusterGraph;
-import core.application.clusterGraph.ClusterGraphStatistic;
 import core.old.ftpStorage.FtpStorageClient;
 //import org.apache.commons.cli.*;
 import org.apache.commons.net.ftp.FTPFile;
@@ -43,21 +41,6 @@ public class AI_Test {
 
     char[] ascii = new String("Кластер (англ. cluster").toCharArray();
 
-    @Test
-    public void clusterGraph_ascii() {
-        // create cluster graph
-        ClusterGraph clusterGraph = new ClusterGraph(0, "ascii_cluster_graph");
-        // fill with ascii data from ascii predefined array of char
-        clusterGraph.writeRawData(ascii);
-        // get cluster graph statistic
-        ClusterGraphStatistic cgs1 = ClusterGraphStatistic.countStatistic(clusterGraph);
-        System.out.println(cgs1);
-        // compress data
-
-        // get cluster graph statistic
-        ClusterGraphStatistic cgs2 = ClusterGraphStatistic.countStatistic(clusterGraph);
-        System.out.println(cgs2);
-    }
 
 
     @Test

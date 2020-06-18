@@ -1,6 +1,5 @@
 package core.old.process.MatrixToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.matrix.Matrix2dByte;
 import core.old.process.PrimitiveToPrimitive.UnsignedIntToSignedByte;
 import core.old.VertexValue.matrix.Matrix2d;
@@ -8,16 +7,16 @@ import core.old.VertexValue.matrix.Matrix2d;
 /**
  * Created by anonymous on 08.11.2018.
  */
-public class M2dByteToM2dByte_Quantized extends AbstractAlgorithmFX {
+public class M2dByteToM2dByte_Quantized {
 
-    /**
-     * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
-     * @return
-     */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    /**
+//     * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
+//     * @return
+//     */
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 
     /**
      * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>

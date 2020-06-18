@@ -1,16 +1,14 @@
 package core.old.process.MatrixToCloud;
 
-import core.application.controller.AbstractAlgorithmFX;
-
 /**
  * Created by anonymous on 10.12.2018.
  */
-public class M2dByteToCloudOfDecart2d extends AbstractAlgorithmFX {
+public class M2dByteToCloudOfDecart2d {
 
-    @Override
-    public Boolean process() {
-        return null;
-    }
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
 
 //    /**
 //     * remark: only fulfilled cloud without gaps must come into function as "cloud" param

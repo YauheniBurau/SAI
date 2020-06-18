@@ -1,7 +1,6 @@
 package core.old.process.DataElementToGuiElement;
 
 import core.old.process.ColorToPrimitive.ArgbToIntegerArgb;
-import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.old.VertexValue.color.ARGB;
 import javafx.scene.image.ImageView;
@@ -11,16 +10,16 @@ import javafx.scene.image.WritableImage;
 /**
  * Created by anonymous on 13.10.2018.
  */
-public class M2dArgbToImageView extends AbstractAlgorithmFX {
+public class M2dArgbToImageView {
 
     /**
      * Matrix2dArgb -> JavaFX ImageView
      * @return
      */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 
     /**
      * Matrix2dArgb -> JavaFX ImageView

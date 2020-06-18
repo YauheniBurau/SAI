@@ -1,6 +1,5 @@
 package core.old.process.MatrixToMatrix;
 
-import core.application.controller.AbstractAlgorithmFX;
 import core.old.VertexValue.color.ARGB;
 import core.old.VertexValue.color.Colors256ARGB;
 import core.old.VertexValue.matrix.Matrix2d;
@@ -8,16 +7,16 @@ import core.old.VertexValue.matrix.Matrix2d;
 /**
  * Created by anonymous on 13.12.2018.
  */
-public class M2dArgbToM2dArgb256Colors extends AbstractAlgorithmFX {
+public class M2dArgbToM2dArgb256Colors {
 
     /**
      * Matrix2d<Byte> -> quantize values  in new Matrix2d<Byte>
      * @return
      */
-    @Override
-    public Boolean process() {
-        return Boolean.TRUE;
-    }
+//    @Override
+//    public Boolean process() {
+//        return Boolean.TRUE;
+//    }
 
     /**
      * Matrix2d<Byte> -> EdgeDiff values  in new Matrix2d<Byte>

@@ -1,13 +1,9 @@
 package core.old.process.CloudToMatrix;
 
-import core.old.VertexValue.cloud.CloudOfDecart2d;
-import core.old.VertexValue.matrix.Matrix2dBool;
-import core.application.controller.AbstractAlgorithmFX;
-
 /**
  * Created by anonymous on 19.12.2018.
  */
-public class CloudOfDecart2dToM2dBool extends AbstractAlgorithmFX {
+//public class CloudOfDecart2dToM2dBool {
 //    protected Model model;
 //    private String inKey;
 //    private String outKey;
@@ -27,8 +23,8 @@ public class CloudOfDecart2dToM2dBool extends AbstractAlgorithmFX {
 //        return CloudOfDecart2d.cloudToM2dShiftedMask(cloud);
 //    }
 
-    @Override
-    public Boolean process() {
-        return null;
-    }
-}
+//    @Override
+//    public Boolean process() {
+//        return null;
+//    }
+//}

@@ -1,13 +1,11 @@
 package graph;
 
+import com.orientechnologies.orient.core.record.OVertex;
+
 public class ClusterLink extends AbstractCluster {
-    private ICluster cluster;
 
-    public ClusterLink(ICluster cluster){
-        this.cluster = cluster;
+    public ClusterLink(OVertex vertex) {
+        this.value = vertex;
     }
 
-    public ICluster getCluster() {
-        return cluster;
-    }
 }

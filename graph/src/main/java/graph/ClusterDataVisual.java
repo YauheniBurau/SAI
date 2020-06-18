@@ -1,18 +1,10 @@
 package graph;
 
+import com.orientechnologies.orient.core.record.OVertex;
+
 public class ClusterDataVisual extends AbstractCluster {
-    private Visual value;
 
-    public ClusterDataVisual(Visual value) {
-        this.value = value;
+    public ClusterDataVisual(OVertex vertex) {
+        this.value = vertex;
     }
-
-    public void setData(Visual value) {
-        this.value = value;
-    }
-
-    public Visual getData() {
-        return value;
-    }
-
 }
