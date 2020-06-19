@@ -1,13 +1,9 @@
 package core.application.gui.view.builder;
 
-import core.application.gui.view.View;
-
-public abstract class AbstractBaseFxBuilder<T> implements IFxBuilder{
-    protected View view;
-    protected String id;
+public abstract class AbstractBaseFxBuilder<T> implements IFxBuilder<T>{
     protected T value;
 
-    public T toFx(){
+    public T build(){
         return value;
     }
 

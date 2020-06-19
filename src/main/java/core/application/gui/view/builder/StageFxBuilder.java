@@ -1,28 +1,20 @@
 package core.application.gui.view.builder;
 
-import core.application.gui.eventHandler.ControllerHandler;
-import core.application.gui.view.View;
-import javafx.scene.Parent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class StageFxBuilder extends AbstractBaseFxBuilder<Stage> {
 
-    public StageFxBuilder(View ofx, String id) {
-        this.view = ofx;
+    public StageFxBuilder() {
         this.value = new Stage();
-        this.id = id;
-        ofx.add(this.id, this.value);
     }
 
-    public StageFxBuilder(View ofx, String id, Stage stg) {
-        this.view = ofx;
-        this.id = id;
-        this.value = stg;
-        ofx.add(this.id, this.value);
+    public StageFxBuilder(Stage stage) {
+        this.value = stage;
     }
 
     public StageFxBuilder withTitle(String title){
@@ -42,19 +34,8 @@ public class StageFxBuilder extends AbstractBaseFxBuilder<Stage> {
         return this;
     }
 
-    public StageFxBuilder withScene(SceneFxBuilder scene){
-        this.value.setScene(scene.toScene());
-        // this.getScene().getStylesheets().add(getClass().getResource("AI_Application.css").getFile() );
-        // this.getScene().getStylesheets().add(getClass().getResource("AI_Application.css").toExternalForm());
-        return this;
-    }
-
-    public StageFxBuilder withScene(Parent root, double width, double height){
-        if(root == null){
-            this.value.setScene( new Scene(new Pane(), width, height) );
-        }else{
-            this.value.setScene( new Scene(root, width, height) );
-        }
+    public StageFxBuilder withScene(Scene scene){
+        this.value.setScene(scene);
         // this.getScene().getStylesheets().add(getClass().getResource("AI_Application.css").getFile() );
         // this.getScene().getStylesheets().add(getClass().getResource("AI_Application.css").toExternalForm());
         return this;
@@ -70,7 +51,7 @@ public class StageFxBuilder extends AbstractBaseFxBuilder<Stage> {
         return this;
     }
 
-    public StageFxBuilder withOnCloseRequest(ControllerHandler handler){
+    public StageFxBuilder withOnCloseRequest(EventHandler<WindowEvent> handler){
         this.value.setOnCloseRequest(handler);
         return this;
     }

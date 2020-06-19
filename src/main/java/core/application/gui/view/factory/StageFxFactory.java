@@ -1,45 +1,39 @@
 package core.application.gui.view.factory;
 
-import core.application.gui.eventHandler.ControllerHandler;
-import core.application.gui.controller.StageControllers;
-import core.application.gui.model.Model;
+import core.application.gui.controller.StageController;
+import core.application.gui.view.builder.PaneFxBuilder;
+import core.application.gui.view.builder.SceneFxBuilder;
 import core.application.gui.view.builder.StageFxBuilder;
-import core.application.gui.view.View;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class StageFxFactory {
+    public static String STAGE1FX_ROOT = "stage1fx.root";
+    public static String STAGE2FX_ROOT = "stage2fx.root";
 
-    public static Stage createUtilityStage1FX(Model model, View view, String id){
-        StageFxBuilder stg = new StageFxBuilder(view, id);
-        Pane root = new Pane();
-        stg.withScene(root, 240, 320).withTitle("Utility1 instruments")
+    public static Stage createUtilityStage1FX(Stage stgOwner){
+        StageFxBuilder stg = new StageFxBuilder();
+        PaneFxBuilder root = new PaneFxBuilder(STAGE1FX_ROOT);
+        SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root.build(), 240, 320);
+        stg.withScene(scene.build()).withTitle("Utility1 instruments")
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
-                .withOwner(view.get(View.APPLICATION_STAGE, Stage.class))
-                .withOnCloseRequest(
-                        new ControllerHandler(model, view)
-                                .withFunction( StageControllers::hideStage )
-                                .withParam1(View.UTILITY_STAGE_1)
-                        );
-        return stg.toFx();
+                .withOwner(stgOwner)
+                .withOnCloseRequest( (e)-> StageController.hideStage(stg.build()) );
+        return stg.build();
     }
 
-    public static Stage createUtilityStage2FX(Model model, View view, String id){
-        StageFxBuilder stg = new StageFxBuilder(view, id);
-        Pane root = new Pane();
-        stg.withScene(root, 240, 320).withTitle("Utility2 instruments")
+    public static Stage createUtilityStage2FX(Stage stgOwner){
+        StageFxBuilder stg = new StageFxBuilder();
+        PaneFxBuilder root = new PaneFxBuilder(STAGE2FX_ROOT);
+        SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root.build(), 240, 320);
+        stg.withScene(scene.build()).withTitle("Utility2 instruments")
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
-                .withOwner(view.get(View.APPLICATION_STAGE, Stage.class))
-                .withOnCloseRequest(
-                        new ControllerHandler(model, view)
-                                .withFunction( StageControllers::hideStage )
-                                .withParam1(View.UTILITY_STAGE_2)
-                );
-        return stg.toFx();
+                .withOwner(stgOwner)
+                .withOnCloseRequest( (e)-> StageController.hideStage(stg.build()) );
+        return stg.build();
     }
 
-    public static Stage createNodesPaletteStageFX(View view, String id) {
+    public static Stage createNodesPaletteStageFX(Stage stgOwner) {
         // 1. stage window
 //        ScrollPane root = new ScrollPane();
 //        StageFxBuilder stg = new StageFxBuilder(view, id);

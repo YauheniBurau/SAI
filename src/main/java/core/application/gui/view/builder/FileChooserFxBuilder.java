@@ -1,24 +1,13 @@
 package core.application.gui.view.builder;
 
-import core.application.gui.view.View;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 
 public class FileChooserFxBuilder extends AbstractBaseFxBuilder<FileChooser> {
 
-    public FileChooserFxBuilder(View ofx, String id) {
-        this.view = ofx;
+    public FileChooserFxBuilder() {
         this.value = new FileChooser();
-        this.id = id;
-        this.view.add(this.id, this.value);
-    }
-
-    public FileChooserFxBuilder(View ofx, String id, FileChooser fc) {
-        this.view = ofx;
-        this.value = fc;
-        this.id = id;
-        this.view.add(this.id, this.value);
     }
 
     public FileChooserFxBuilder withTitle(String title){

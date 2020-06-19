@@ -1,22 +1,12 @@
 package core.application.gui.view.builder;
 
-import core.application.gui.view.View;
 import javafx.scene.image.ImageView;
 
 public class ImageViewFxBuilder extends AbstractBaseFxBuilder<ImageView> {
 
-    public ImageViewFxBuilder(View view, String id) {
-        this.view = view;
+    public ImageViewFxBuilder(String id) {
         this.value = new ImageView();
-        this.id = id;
-        view.add(this.id, this.value);
-    }
-
-    public ImageViewFxBuilder(View ofx, String id, ImageView iv) {
-        this.view = view;
-        this.value = iv;
-        this.id = id;
-        view.add(this.id, this.value);
+        this.value.setId(id);
     }
 
     public ImageViewFxBuilder withFitWidth(double value){

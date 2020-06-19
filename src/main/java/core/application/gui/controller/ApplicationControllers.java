@@ -1,7 +1,5 @@
 package core.application.gui.controller;
 
-import core.application.gui.model.Model;
-import core.application.gui.view.View;
 import core.application.gui.view.factory.StageFxFactory;
 import javafx.stage.Stage;
 
@@ -11,41 +9,9 @@ import javafx.stage.Stage;
 public class ApplicationControllers {
 
     /**
-     * event processor for Menu bar show UtilityStage1
-     */
-    public static void showUtilityStage1FX(Model model, View view){
-        Stage stg = view.get(View.UTILITY_STAGE_1, Stage.class);
-        if(stg==null) {
-            stg = StageFxFactory.createUtilityStage1FX(model, view, View.UTILITY_STAGE_1);
-            stg.show();
-        }else{
-            if(stg.isShowing()==false){
-                stg.show();
-            }
-        }
-    }
-
-
-    /**
-     * event processor for Menu bar show UtilityStage2
-     */
-    public static void showUtilityStage2FX(Model model, View view){
-        Stage stg = view.get(View.UTILITY_STAGE_2, Stage.class);
-        if(stg==null) {
-            stg = StageFxFactory.createUtilityStage2FX(model, view, View.UTILITY_STAGE_2);
-            stg.show();
-        }else{
-            if(stg.isShowing()==false){
-                stg.show();
-            }
-        }
-    }
-
-
-    /**
      * event processor for Menu bar show Palette of nodes algo
      */
-    public static void showNodesPalleteStageFX(Model model, View view){
+    public static void showNodesPalleteStageFX(){
     // TODO:
 //        NodesPaletteStageFX stg = app.getNodesPaletteStageFX();
 //        if(stg==null) {
@@ -62,7 +28,7 @@ public class ApplicationControllers {
     /**
      * if click Main menubar "Edit workflow canvas size" then show dialog for active Workflow Stage window
      */
-    public static void showEditCanvasSizeDialog(Model model, View view){
+    public static void showEditCanvasSizeDialog(){
         // TODO:
 //        WorkflowStageFX stg = app.getActiveWorkflowStageFX();
 //        if(stg!=null) {
@@ -73,7 +39,7 @@ public class ApplicationControllers {
     /**
      * EventHandler for menu File.SaveAs OnAction - open dialog for choose file where to save scheme workflowModel
      */
-    public static void showFileSaveAsDialog(Model model, View view) {
+    public static void showFileSaveAsDialog() {
         // TODO:
 //        WorkflowStageFX stg = app.getActiveWorkflowStageFX();
 //        File f = stg.getFile();
@@ -88,7 +54,7 @@ public class ApplicationControllers {
     /**
      * EventHandler for menu File.Save OnAction - open dialog for choose file where to save scheme workflowModel
      */
-    public static void saveActiveWorkflowStageFX(Model model, View view) {
+    public static void saveActiveWorkflowStageFX() {
         // TODO:
 //        WorkflowStageFX stg = app.getActiveWorkflowStageFX();
 //        WorkflowController.saveWorkflow(stg, stg.getFile());
@@ -97,7 +63,7 @@ public class ApplicationControllers {
     /**
      * show open dialog for open *.wfs-file, if chosen, then create new WorkflowStageFX in application
      */
-    public static void showFileOpenDialog(Model model, View view) {
+    public static void showFileOpenDialog() {
         // TODO:
 //        FileChooser fileChooser = HelperFX.createFileChooser("Load workflowModel from file",
 //                new File(System.getProperty("user.home")),
@@ -118,7 +84,7 @@ public class ApplicationControllers {
     /**
      * EventHandler for mene File.New OnAction - open dialog for creating new empty workflowModel file and stage
      */
-    public static void showFileNewDialog(Model model, View view){
+    public static void showFileNewDialog(){
         // TODO:
 //        File f = new File(System.getProperty("user.home") + "\\" + "newWorkflow.wfs");
 //        Workflow workflow = new Workflow(640, 480);
@@ -133,7 +99,7 @@ public class ApplicationControllers {
     /**
      * show that dialog if File.Exit chosen in Main Menubar
      */
-    public static void showApplicationExitDialog(Model model, View view){
+    public static void showApplicationExitDialog(){
         // TODO:
 //        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 //        alert.setTitle("Close Application dialog");
@@ -148,7 +114,7 @@ public class ApplicationControllers {
     /**
      * show that dialog if Help.Help chosen in Main Menubar
      */
-    public static void showAppHelpDialog(Model model, View view){
+    public static void showAppHelpDialog(){
         // TODO:
 //        StageFX stg = new StageFX();
 //        Pane root = new Pane();
@@ -163,7 +129,7 @@ public class ApplicationControllers {
     /**
      * show that dialog if Help.About chosen in Main Menubar
      */
-    public static void showAppAboutDialog(Model model, View view) {
+    public static void showAppAboutDialog() {
         // TODO:
 //        Label info = new Label("GIAS - Global Intellectual Artificial System.\n" +
 //                "Copyright \u00a9 2017-2019. As Kon \n");

@@ -1,6 +1,5 @@
 package core.application.gui.view.factory;
 
-import core.application.gui.view.View;
 import core.application.gui.view.builder.DirectoryChooserFxBuilder;
 import javafx.stage.DirectoryChooser;
 
@@ -14,11 +13,11 @@ public class DirectoryChooserFxFactory {
      * @param initialDirectory
      * @return
      */
-    public static DirectoryChooser createDirectoryChooser(View ofx, String id, String title, File initialDirectory){
-        DirectoryChooserFxBuilder dc = new DirectoryChooserFxBuilder(ofx, id)
+    public static DirectoryChooser createDirectoryChooser(String title, File initialDirectory){
+        DirectoryChooserFxBuilder dc = new DirectoryChooserFxBuilder()
                 .withTitle(title)
                 .withInitialDirectory(initialDirectory);
-        return dc.toFx();
+        return dc.build();
     }
 
 

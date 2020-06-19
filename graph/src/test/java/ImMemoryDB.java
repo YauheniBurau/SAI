@@ -1,3 +1,4 @@
+import Graph2.GraphODB.GraphODB;
 import com.orientechnologies.orient.core.Orient;
 import com.orientechnologies.orient.core.db.*;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
@@ -37,5 +38,15 @@ public class ImMemoryDB {
         session.close();
         orientDBEmbedded.close();
     }
+
+    @Test
+    public void graphODB_connect() {
+        GraphODB gr = new GraphODB("remote:localhost", "ai", "root", "12345678");
+        gr.connect();
+
+        gr.disconnect();
+
+    }
+
 
 }
