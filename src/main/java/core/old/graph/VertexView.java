@@ -1,8 +1,5 @@
 package core.old.graph;
 
-import core.application.gui.model.type.Decart3d;
-import javafx.geometry.Point3D;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 
 

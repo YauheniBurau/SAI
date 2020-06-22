@@ -3,6 +3,8 @@ package core.application;
 /**
  * Created by anonymous on 24.09.2018.
  */
+import core.application.gui.graphFxComponent.view.Graph2dFx;
+import core.application.gui.controller.StageController;
 import core.application.gui.view.builder.BorderPaneFxBuilder;
 import core.application.gui.view.builder.SceneFxBuilder;
 import core.application.gui.view.builder.StageFxBuilder;
@@ -12,6 +14,7 @@ import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class AI_Application extends Application {
     public static String APPLICATION_MENU_BAR = "app.menubar";
@@ -29,7 +32,8 @@ public class AI_Application extends Application {
         stg.withTitle("As Kon - Code GIAS(Global Intelligence Artificial System)");
         stg.withScene(scene.build());
         // ============= add test button into main window with event to open core.old.graph visualization window =======
-        Button btnTest = ButtonFxFactory.createButton("testButton", "testBtn", e->{ } );
+        Stage testStage = createTestStage(stage);
+        Button btnTest = ButtonFxFactory.createButton("testButton", "testBtn", e-> StageController.showStage(testStage) );
         root.build().setCenter(btnTest);
         stg.show();
     }
@@ -37,6 +41,27 @@ public class AI_Application extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
+    public static Stage createTestStage(Stage stgOwner){
+        StageFxBuilder stg = new StageFxBuilder();
+        BorderPaneFxBuilder root = new BorderPaneFxBuilder("testRootPane");
+        Graph2dFx grPanel = new Graph2dFx();
+        SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root.build(), 1024, 640);
+        stg.withScene(scene.build()).withTitle("Utility1 instruments")
+                .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
+                .withOwner(stgOwner)
+                .withOnCloseRequest( (e)-> StageController.hideStage(stg.build()) );
+        root.build().getChildren().add(grPanel);
+
+        grPanel.generate(20, 10);
+        grPanel.orderVertexesInSphere(500);
+        grPanel.setTranslateX(520);
+        grPanel.setTranslateY(340);
+        return stg.build();
+
+    }
+
 }
 
 

@@ -1,15 +1,33 @@
 package Graph2.GraphODB;
 
-import Graph2.Interface.AbstractGraph;
-import Graph2.Interface.IEdge;
-import Graph2.Interface.IVertex;
 import com.orientechnologies.orient.core.db.*;
 
-public class GraphODB extends AbstractGraph<EdgeODB, VertexODB> {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+public class GraphODB{
     private static String URL = "url";
     private static String DB_NAME = "dbname";
     private static String USER = "user";
     private static String PASSWORD = "password";
+
+    private Properties properties = new Properties();
+//    private List<E> edges = new ArrayList<E>();
+//    private List<V> vertexes = new ArrayList<V>();
+
+    public Properties properties(){
+        return this.properties;
+    }
+//    @Override
+//    public List<E> edges(){
+//        return this.edges;
+//    };
+//
+//    @Override
+//    public List<V> vertexes(){
+//        return this.vertexes;
+//    };
 
     private OrientDB orientDB;
     private ODatabasePool dbPool;
@@ -22,14 +40,12 @@ public class GraphODB extends AbstractGraph<EdgeODB, VertexODB> {
         this.properties().setProperty(GraphODB.PASSWORD, password);
     }
 
-    @Override
     public void disconnect() {
         this.dbSession.close();
 //        this.dbPool.close();
         orientDB.close();
     }
 
-    @Override
     public void connect() {
         OrientDBConfig dbConfig = OrientDBConfig.defaultConfig();
         this.orientDB = new OrientDB(this.properties().getProperty(GraphODB.URL), dbConfig);
@@ -46,43 +62,11 @@ public class GraphODB extends AbstractGraph<EdgeODB, VertexODB> {
 //        this.dbSession = dbPool.acquire();
     }
 
-    @Override
     public void beginTx() {
 
     }
 
-    @Override
     public void commitTx() {
-
-    }
-
-    @Override
-    public void save(IVertex v) {
-
-    }
-
-    @Override
-    public void save(IEdge e) {
-
-    }
-
-    @Override
-    public void newV(IVertex v) {
-
-    }
-
-    @Override
-    public void newE(IEdge e) {
-
-    }
-
-    @Override
-    public void removeV(IVertex v) {
-
-    }
-
-    @Override
-    public void removeE(IEdge e) {
 
     }
 

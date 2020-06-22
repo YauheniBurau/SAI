@@ -7,7 +7,6 @@ import core.old.VertexValue.contour.IContour;
 import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2d;
 import core.old.VertexValue.matrix.Matrix2dBool;
-import core.old.VertexValue.texture.ITexture;
 import core.old.process.PrimitiveToPrimitive.LongToHexString;
 
 import java.util.ArrayList;
@@ -16,20 +15,20 @@ import java.util.ArrayList;
  * Created by anonymous on 09.11.2018.
  */
 public class Segment2d implements ISegment{
-    public ITexture texture = null;
-    public IContour outerContour = null;
-    public ArrayList<IContour> innerContours = new ArrayList<>();
-
-    public Segment2d() {
-
-    }
-
-    public Segment2d(ITexture texture, IContour outerContour, ArrayList<IContour> innerContours) {
-        this.texture = texture;
-        this.outerContour = outerContour;
-        this.innerContours = innerContours;
-    }
-
+//    public ITexture texture = null;
+//    public IContour outerContour = null;
+//    public ArrayList<IContour> innerContours = new ArrayList<>();
+//
+//    public Segment2d() {
+//
+//    }
+//
+//    public Segment2d(ITexture texture, IContour outerContour, ArrayList<IContour> innerContours) {
+//        this.texture = texture;
+//        this.outerContour = outerContour;
+//        this.innerContours = innerContours;
+//    }
+//
 
 //    @Override
 //    public Boolean toHumanFile(Vertex vertex, String path) {

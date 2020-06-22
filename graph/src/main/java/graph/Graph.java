@@ -100,29 +100,29 @@ public class Graph implements IGraph{
     }
 
 
-    @Override
-    public ClusterDataChar createClusterDataChar(String ch) {
-        ClusterDataChar cl = this.selectClusterDataCharByValue(ch);
-        OVertex v = null;
-        if(cl.getValue() == null) {
-            v = this.dbSession.newVertex(oClassClusterDataChar);
-            v.setProperty(PROPERTY_VALUE, ch);
-        }
-        return new ClusterDataChar(v);
-    }
-
-    @Override
-    public ClusterLink createClusterLink(ICluster link) {
-        OVertex vertex = this.dbSession.newVertex(oClassClusterLink);
-        vertex.setProperty(PROPERTY_LINK, link.getValue());
-        return new ClusterLink(vertex);
-    }
-
-    @Override
-    public Cluster createClusterSequence() {
-        OVertex vertex = this.dbSession.newVertex(oClassClusterSequence);
-        return new Cluster(vertex);
-    }
+//    @Override
+//    public ClusterDataChar createClusterDataChar(String ch) {
+//        ClusterDataChar cl = this.selectClusterDataCharByValue(ch);
+//        OVertex v = null;
+//        if(cl.getValue() == null) {
+//            v = this.dbSession.newVertex(oClassClusterDataChar);
+//            v.setProperty(PROPERTY_VALUE, ch);
+//        }
+//        return new ClusterDataChar(v);
+//    }
+//
+//    @Override
+//    public ClusterLink createClusterLink(ICluster link) {
+//        OVertex vertex = this.dbSession.newVertex(oClassClusterLink);
+//        vertex.setProperty(PROPERTY_LINK, link.getValue());
+//        return new ClusterLink(vertex);
+//    }
+//
+//    @Override
+//    public Cluster createClusterSequence() {
+//        OVertex vertex = this.dbSession.newVertex(oClassClusterSequence);
+//        return new Cluster(vertex);
+//    }
 
     @Override
     public void connectDB(String url, String dbName, String user, String password){
@@ -184,106 +184,106 @@ public class Graph implements IGraph{
 
     }
 
-    @Override
-    public ClusterDataChar selectClusterDataCharByValue(String value){
-        //SELECT COUNT(*) AS size FROM INDEX:ClusterDataChar.value WHERE key = "o"
-        String statement = "SELECT FROM ? WHERE value = ?";
-        OResultSet rs = this.dbSession.query(statement, OCLASS_CLUSTER_DATA_CHAR, value);
-        OVertex v = null;
-        while(rs.hasNext()){
-            OResult row = rs.next();
-            Optional<OVertex> opt = row.getVertex();
-            v = opt.get();
-        }
-        rs.close();
-        return new ClusterDataChar(v);
-    }
+//    @Override
+//    public ClusterDataChar selectClusterDataCharByValue(String value){
+//        //SELECT COUNT(*) AS size FROM INDEX:ClusterDataChar.value WHERE key = "o"
+//        String statement = "SELECT FROM ? WHERE value = ?";
+//        OResultSet rs = this.dbSession.query(statement, OCLASS_CLUSTER_DATA_CHAR, value);
+//        OVertex v = null;
+//        while(rs.hasNext()){
+//            OResult row = rs.next();
+//            Optional<OVertex> opt = row.getVertex();
+//            v = opt.get();
+//        }
+//        rs.close();
+//        return new ClusterDataChar(v);
+//    }
 
-    @Override
-    public List<ClusterLink> selectClusterLinksByValue(OVertex value){
-        //SELECT COUNT(*) AS size FROM INDEX:ClusterDataChar.value WHERE key = "o"
-        String statement = "SELECT FROM "+OCLASS_CLUSTER_LINK+" WHERE "+PROPERTY_LINK+" = ?";
-        OResultSet rs = this.dbSession.query(statement, value.getIdentity());
-        OVertex v;
-        List<ClusterLink> list = new ArrayList<>();
-        while(rs.hasNext()){
-            OResult row = rs.next();
-            Optional<OVertex> opt = row.getVertex();
-            v = opt.get();
-            list.add(new ClusterLink(v));
-        }
-        rs.close();
-        return list;
-    }
+//    @Override
+//    public List<ClusterLink> selectClusterLinksByValue(OVertex value){
+//        //SELECT COUNT(*) AS size FROM INDEX:ClusterDataChar.value WHERE key = "o"
+//        String statement = "SELECT FROM "+OCLASS_CLUSTER_LINK+" WHERE "+PROPERTY_LINK+" = ?";
+//        OResultSet rs = this.dbSession.query(statement, value.getIdentity());
+//        OVertex v;
+//        List<ClusterLink> list = new ArrayList<>();
+//        while(rs.hasNext()){
+//            OResult row = rs.next();
+//            Optional<OVertex> opt = row.getVertex();
+//            v = opt.get();
+//            list.add(new ClusterLink(v));
+//        }
+//        rs.close();
+//        return list;
+//    }
 
-    @Override
-    public Cluster stringToClusterSequence(String str){
-        Cluster cluster = this.createClusterSequence();
-        ClusterDataChar clDataChar;
-        ICluster clNew;
-        char[] ascii = str.toCharArray();
-        for (char ch: ascii) {
-            clDataChar = this.selectClusterDataCharByValue( String.valueOf(ch) );
-            if( clDataChar.getValue()==null ){
-                clDataChar = this.createClusterDataChar( String.valueOf(ch) );
-                this.save(clDataChar);
-            }
-            clNew = this.createClusterLink(clDataChar);
-            cluster.append(clNew);
-        }
-        return cluster;
-    }
+//    @Override
+//    public Cluster stringToClusterSequence(String str){
+//        Cluster cluster = this.createClusterSequence();
+//        ClusterDataChar clDataChar;
+//        ICluster clNew;
+//        char[] ascii = str.toCharArray();
+//        for (char ch: ascii) {
+//            clDataChar = this.selectClusterDataCharByValue( String.valueOf(ch) );
+//            if( clDataChar.getValue()==null ){
+//                clDataChar = this.createClusterDataChar( String.valueOf(ch) );
+//                this.save(clDataChar);
+//            }
+//            clNew = this.createClusterLink(clDataChar);
+//            cluster.append(clNew);
+//        }
+//        return cluster;
+//    }
 
-    /**
-     * Convert txt file of chars UTF-8 into Cluster(ClusterSequence)
-     * @param f
-     * @return
-     */
-    public Cluster txtFileUtf8ToClusterSequence(File f){
-        Cluster cluster = this.createClusterSequence();
-        ClusterDataChar clDataChar;
-        ICluster clNew = null;
-         BufferedReader br;
-        char ch;
-        int in;
-        try {
-            br = new BufferedReader(
-                    new InputStreamReader(
-                            new FileInputStream(f.getAbsolutePath()), StandardCharsets.UTF_8 ), 1024 );
-            while( (in = br.read() ) !=-1 ){
-                ch = (char)in;
-                clDataChar = this.selectClusterDataCharByValue( String.valueOf(ch) );
-                if( clDataChar==null ){
-                    clDataChar = this.createClusterDataChar( String.valueOf(ch) );
-                    this.save(clDataChar);
-                }
-                clNew = this.createClusterLink(clDataChar);
-                cluster.append(clNew);
-            }
-            br.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return cluster;
-    }
+//    /**
+//     * Convert txt file of chars UTF-8 into Cluster(ClusterSequence)
+//     * @param f
+//     * @return
+//     */
+//    public Cluster txtFileUtf8ToClusterSequence(File f){
+//        Cluster cluster = this.createClusterSequence();
+//        ClusterDataChar clDataChar;
+//        ICluster clNew = null;
+//         BufferedReader br;
+//        char ch;
+//        int in;
+//        try {
+//            br = new BufferedReader(
+//                    new InputStreamReader(
+//                            new FileInputStream(f.getAbsolutePath()), StandardCharsets.UTF_8 ), 1024 );
+//            while( (in = br.read() ) !=-1 ){
+//                ch = (char)in;
+//                clDataChar = this.selectClusterDataCharByValue( String.valueOf(ch) );
+//                if( clDataChar==null ){
+//                    clDataChar = this.createClusterDataChar( String.valueOf(ch) );
+//                    this.save(clDataChar);
+//                }
+//                clNew = this.createClusterLink(clDataChar);
+//                cluster.append(clNew);
+//            }
+//            br.close();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        return cluster;
+//    }
 
-    public void save(ICluster cl){
-        this.beginTx();
-        for (ICluster v: cl.getClusters()) {
-            v.getValue().save();
-        }
-        this.commitTx();
-        this.beginTx();
-        for (IEdge e: cl.getEdges()) {
-            OEdge oe = this.connectClusterAfter(e.getPrev().getValue(), e.getNext().getValue());
-            e.setValue(oe);
-            if(e.getValue()!=null){
-                e.getValue().save();
-            }
-        }
-        this.commitTx();
-        cl.getValue().save();
-    }
+//    public void save(ICluster cl){
+//        this.beginTx();
+//        for (ICluster v: cl.getClusters()) {
+//            v.getValue().save();
+//        }
+//        this.commitTx();
+//        this.beginTx();
+//        for (IEdge e: cl.getEdges()) {
+//            OEdge oe = this.connectClusterAfter(e.getPrev().getValue(), e.getNext().getValue());
+//            e.setValue(oe);
+//            if(e.getValue()!=null){
+//                e.getValue().save();
+//            }
+//        }
+//        this.commitTx();
+//        cl.getValue().save();
+//    }
 
     @Override
     public void deleteAllEdges(OClass oEdgeClass){

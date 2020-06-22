@@ -1,11 +1,3 @@
-import Graph2.GraphODB.GraphODB;
-import com.orientechnologies.orient.core.command.OCommandRequest;
-import com.orientechnologies.orient.core.sql.OCommandExecutorSQLFactory;
-import com.orientechnologies.orient.graph.gremlin.OCommandGremlin;
-import com.orientechnologies.orient.graph.sql.OGraphCommandExecutorSQLFactory;
-import com.tinkerpop.blueprints.impls.orient.OrientGraph;
-import com.tinkerpop.blueprints.impls.orient.OrientGraphCommand;
-import graph.Cluster;
 import graph.Graph;
 import graph.IGraph;
 import org.junit.After;
@@ -105,19 +97,19 @@ public class OrientDB_Test {
         graph.closeDB();
     }
 
-    @Test
-    public void createClusterSequenceFromString() {
-//        String str = "dogs and cats live together.";
-        String str = "dogs";
-        Cluster clSeq = this.graph.stringToClusterSequence(str);
-        this.graph.save(clSeq);
-    }
-
-    @Test
-    public void createClusterSequenceFromTxtFileUtf8() {
-        Cluster clSeq = this.graph.txtFileUtf8ToClusterSequence(new File(dirIn + asciiFile4));
-        this.graph.save(clSeq);
-    }
+//    @Test
+//    public void createClusterSequenceFromString() {
+////        String str = "dogs and cats live together.";
+//        String str = "dogs";
+//        Cluster clSeq = this.graph.stringToClusterSequence(str);
+//        this.graph.save(clSeq);
+//    }
+//
+//    @Test
+//    public void createClusterSequenceFromTxtFileUtf8() {
+//        Cluster clSeq = this.graph.txtFileUtf8ToClusterSequence(new File(dirIn + asciiFile4));
+//        this.graph.save(clSeq);
+//    }
 
     @Test
     public void deleteAllEdgesAndVertes() {

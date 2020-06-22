@@ -21,17 +21,17 @@ public interface IGraph {
 
     void connectDB(String url, String dbName, String user, String password);
 
-    ClusterDataChar createClusterDataChar(String ch);
-    ClusterLink createClusterLink(ICluster link);
-    Cluster createClusterSequence();
+//    ClusterDataChar createClusterDataChar(String ch);
+//    ClusterLink createClusterLink(ICluster link);
+//    Cluster createClusterSequence();
 
-    ClusterDataChar selectClusterDataCharByValue(String value);
-    List<ClusterLink> selectClusterLinksByValue(OVertex value);
-
-    Cluster stringToClusterSequence(String str);
-    Cluster txtFileUtf8ToClusterSequence(File f);
-
-    void save(ICluster cl);
+//    ClusterDataChar selectClusterDataCharByValue(String value);
+//    List<ClusterLink> selectClusterLinksByValue(OVertex value);
+//
+//    Cluster stringToClusterSequence(String str);
+//    Cluster txtFileUtf8ToClusterSequence(File f);
+//
+//    void save(ICluster cl);
 
     void deleteAllEdges(OClass oEdgeClass);
     void deleteAllVertexes(OClass oVertexClass);

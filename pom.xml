@@ -63,6 +63,19 @@
         <module>graph</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>jzy3d-snapshots</id>
+            <name>Jzy3d Snapshots</name>
+            <url>http://maven.jzy3d.org/snapshots</url>
+        </repository>
+        <repository>
+            <id>jzy3d-releases</id>
+            <name>Jzy3d Releases</name>
+            <url>http://maven.jzy3d.org/releases</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
@@ -93,6 +106,37 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>27.1-jre</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.fxyz3d/fxyz3d -->
+        <dependency>
+            <groupId>org.fxyz3d</groupId>
+            <artifactId>fxyz3d</artifactId>
+            <version>0.5.2</version>
+        </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.jzy3d/jzy3d-javafx -->
+        <dependency>
+            <groupId>org.jzy3d</groupId>
+            <artifactId>jzy3d-javafx</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jzy3d/jzy3d-api -->
+        <dependency>
+            <groupId>org.jzy3d</groupId>
+            <artifactId>jzy3d-api</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core -->
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-core</artifactId>
+            <version>1.5.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
