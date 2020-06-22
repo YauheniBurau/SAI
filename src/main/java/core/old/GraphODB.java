@@ -1,9 +1,7 @@
-package Graph2.GraphODB;
+package core.old;
 
 import com.orientechnologies.orient.core.db.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class GraphODB{

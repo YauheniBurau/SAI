@@ -1,3 +1,5 @@
+package core.old;
+
 import com.orientechnologies.orient.core.record.OEdge;
 import com.orientechnologies.orient.core.record.OVertex;
 import org.jgrapht.Graph;

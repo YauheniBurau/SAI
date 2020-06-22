@@ -1,4 +1,4 @@
-package graph;
+package core.old;
 
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.record.OEdge;

@@ -1,10 +1,8 @@
-import graph.Graph;
-import graph.IGraph;
+package core.old;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
 
 
 public class OrientDB_Test {

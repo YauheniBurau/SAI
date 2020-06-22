@@ -1,7 +1,7 @@
-import Graph2.GraphODB.GraphODB;
+package core.old;
+
 import com.orientechnologies.orient.core.Orient;
 import com.orientechnologies.orient.core.db.*;
-import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import org.junit.Test;
 
 public class ImMemoryDB {
