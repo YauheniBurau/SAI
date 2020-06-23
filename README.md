@@ -4,44 +4,50 @@ in development, pre-alpha
 
 in development
 
-1. png-file -> core.old.graph<...>
+1. parse text and create graph -
 
-1.1 List of core.old.graph<...> -> find Consistent image patterns of contours and save in Graph with VertexTerms 
+2. 2d javafx visualizer of graph or subgraph +
 
-1.2 save any core.old.graph<...> into file
+3. Autolayout of vertexes in Graph2dFx -
 
-1.3 load from file -> Graph<...>
+4. storage for graph of AI. Used OrientDB +
 
-1.4 test
+5. Find pattern in graph and create new Vertexes -
 
-1.5 enter testImage
+6. code Text with Graph patterns -
 
-1.6 testImage -> core.old.graph<...>
+7. decode Text with Graph patterns -
 
-1.7 find VertexTerms in testImage and output results
+8. Image -> steps 1 - 7 -
+8.1 -
+8.2 -
+8.3 -
+8.4 -
+8.5 -
+8.6 -
+8.7 -
+9. Sounds -> steps 1 - 7 -
+9.1 -
+9.2 -
+9.3 -
+9.4 -
+9.5 -
+9.6 -
+9.7 -
 
-2) audio-file ->core.old.graph<...>
+10. Video -> steps 1 - 7 -
+10.1 -
+10.2 -
+10.3 -
+10.4 -
+10.5 -
+10.6 -
+10.7 -
 
-List of core.old.graph<...> -> find Consistent audio patterns and save in Graph with VertexTerms 
+11. add time markers to vertexes - 
 
-save sound core.old.graph<...> into file
+12 find Consistent patterns between text, sounds, images and video -
 
-load from file -> sound Graph<...>
+13. test enter sound data and get image letters analog -
 
-test
-
-enter testSound
-
-testSound -> sound core.old.graph<...>
-
-find VertexTerms in testSound and output results
-
-3) enter time connectedData like letters with pronounsiation
-
-find VertexTerms in connectedData and output results
-
-find Consistent patterns between sounds and images.
-
-test enter sound data and get image letters analog
-
-test enter image letters data and get audio analog
+14. test enter image letters data and get audio analog -
