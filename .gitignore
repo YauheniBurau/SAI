@@ -1,4 +1,5 @@
 /.idea/
-/JavaFXSmartGraph/
 /graph/target/
 /target/
+/.idea/libraries/
+/.idea/
