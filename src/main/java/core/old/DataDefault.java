@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class DataDefault {
     private String name = "empty";
-    private DataStructureEnum structureType = DataStructureEnum.DEFAULT;
+//    private DataStructureEnum structureType = DataStructureEnum.DEFAULT;
     private DataTypeEnum dataType = DataTypeEnum.DEFAULT;
     private int rows = 0;
     private int columns = 0;
@@ -17,23 +17,17 @@ public class DataDefault {
     private byte[][] data = null;
     private HashMap<Integer, String> rowNames = null;
 
-    /**
-     * constructor
-     * @param structureType
-     * @param dataType
-     * @param columnsMax
-     */
-    public DataDefault(DataStructureEnum structureType, DataTypeEnum dataType, int columnsMax, String name) {
-        this.structureType = structureType;
-        this.dataType = dataType;
-        if(columnsMax<=0){ this.columnsMax = 1;}
-        else{this.columnsMax = columnsMax;}
-        this.rowsMax = dataType.value();
-        this.rows = dataType.value();
-        this.data = new byte[this.rowsMax][this.columnsMax];
-        this.name = name;
-        this.rowNames = dataType.rowNames();
-    }
+//    public DataDefault(DataStructureEnum structureType, DataTypeEnum dataType, int columnsMax, String name) {
+//        this.structureType = structureType;
+//        this.dataType = dataType;
+//        if(columnsMax<=0){ this.columnsMax = 1;}
+//        else{this.columnsMax = columnsMax;}
+//        this.rowsMax = dataType.value();
+//        this.rows = dataType.value();
+//        this.data = new byte[this.rowsMax][this.columnsMax];
+//        this.name = name;
+//        this.rowNames = dataType.rowNames();
+//    }
 
     /**
      * add new row values

@@ -1,5 +1,5 @@
 module SAI {
-    requires javafx.*;
+    requires javafx;
 //    requires javafx.fxml;
 //    requires javafx.controls;
 //    requires javafx.graphics;
@@ -15,8 +15,8 @@ module SAI {
     requires org.aspectj.runtime;
     requires org.jgrapht.core;
     requires org.fxyz3d;
-
     requires org.jzy3d;
+    requires gremlin.java;
 
     opens core.application;
 }

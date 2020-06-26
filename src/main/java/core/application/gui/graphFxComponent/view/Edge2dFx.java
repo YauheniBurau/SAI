@@ -1,6 +1,5 @@
 package core.application.gui.graphFxComponent.view;
 
-import com.brunomnsilva.smartgraph.graphview.UtilitiesBindings;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;

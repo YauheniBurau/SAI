@@ -59,9 +59,9 @@
         </plugins>
     </build>
 
-    <modules>
-        <module>graph</module>
-    </modules>
+<!--    <modules>-->
+<!--        <module>graph</module>-->
+<!--    </modules>-->
 
     <repositories>
         <repository>
@@ -183,20 +183,6 @@
             <version>15-ea+6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>1.3.72</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.orientechnologies/orientdb-graphdb -->
         <dependency>
             <groupId>com.orientechnologies</groupId>
@@ -233,6 +219,13 @@
             <artifactId>orientdb-enterprise</artifactId>
             <version>2.2.0-beta</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.tinkerpop.gremlin/gremlin-java -->
+        <dependency>
+            <groupId>com.tinkerpop.gremlin</groupId>
+            <artifactId>gremlin-java</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.ftpserver/ftpserver-core -->
         <dependency>
@@ -253,14 +246,6 @@
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>11.0.1</version>
-        </dependency>
-
-        <!-- SAI.core.old.graph -->
-        <dependency>
-            <groupId>SAI</groupId>
-            <artifactId>graph</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
@@ -328,4 +313,11 @@
 <!--<groupId>org.neo4j</groupId>-->
 <!--<artifactId>neo4j-dbms</artifactId>-->
 <!--<version>4.0.5</version>-->
+<!--</dependency>-->
+
+<!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib -->
+<!--<dependency>-->
+<!--<groupId>org.jetbrains.kotlin</groupId>-->
+<!--<artifactId>kotlin-stdlib</artifactId>-->
+<!--<version>1.3.72</version>-->
 <!--</dependency>-->

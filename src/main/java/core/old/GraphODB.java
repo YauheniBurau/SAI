@@ -1,7 +1,6 @@
 package core.old;
 
 import com.orientechnologies.orient.core.db.*;
-
 import java.util.Properties;
 
 public class GraphODB{
@@ -60,12 +59,59 @@ public class GraphODB{
 //        this.dbSession = dbPool.acquire();
     }
 
-    public void beginTx() {
-
-    }
-
-    public void commitTx() {
-
-    }
-
 }
+
+//    /**
+//     * source -> destination
+//     * @param source
+//     * @param destination
+//     * @return
+//     */
+//    @Override
+//    public OEdge connectClusterBefore(OVertex source, OVertex destination) {
+//        OEdge e = this.createEdge(source, destination, oClassEdgePrevNext);
+//        return e;
+//    }
+//
+//    @Override
+//    public List<OEdge> connectClusterBetween(OVertex source, OVertex destStart, OVertex destEnd) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void removeEdge(OVertex destStart, OVertex destEnd) {
+//
+//    }
+
+//    /**
+//     * Convert txt file of chars UTF-8 into Cluster(ClusterSequence)
+//     * @param f
+//     * @return
+//     */
+//    public Cluster txtFileUtf8ToClusterSequence(File f){
+//        Cluster cluster = this.createClusterSequence();
+//        ClusterDataChar clDataChar;
+//        ICluster clNew = null;
+//         BufferedReader br;
+//        char ch;
+//        int in;
+//        try {
+//            br = new BufferedReader(
+//                    new InputStreamReader(
+//                            new FileInputStream(f.getAbsolutePath()), StandardCharsets.UTF_8 ), 1024 );
+//            while( (in = br.read() ) !=-1 ){
+//                ch = (char)in;
+//                clDataChar = this.selectClusterDataCharByValue( String.valueOf(ch) );
+//                if( clDataChar==null ){
+//                    clDataChar = this.createClusterDataChar( String.valueOf(ch) );
+//                    this.save(clDataChar);
+//                }
+//                clNew = this.createClusterLink(clDataChar);
+//                cluster.append(clNew);
+//            }
+//            br.close();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        return cluster;
+//    }

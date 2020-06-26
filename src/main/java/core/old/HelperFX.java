@@ -5,10 +5,6 @@ package core.old;
  * Created by anonymous on 08.10.2018.
  */
 public class HelperFX {
-
-
-
-
     // TODO: remove later or implement
 
 //    /**
@@ -97,9 +93,6 @@ public class HelperFX {
 //                event.consume();
 //            }
 //        });
-//
 //    }
-
-
 }
 

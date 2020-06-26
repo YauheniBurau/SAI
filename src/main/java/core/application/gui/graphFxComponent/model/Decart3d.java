@@ -1,10 +1,7 @@
-package core.old;
+package core.application.gui.graphFxComponent.model;
 
-import com.sun.javafx.geom.Point2D;
-import core.application.gui.graphFxComponent.model.Polar3d;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point3D;
 
 /**
  * Created by anonymous on 03.11.2018.
@@ -82,6 +79,4 @@ public class Decart3d {
         if(this.x.get()!=0.0 && this.y.get()!=0.0){ longitude = Math.atan2(this.y.get(), this.x.get()); }
         return new Polar3d(r, latitude, longitude);
     }
-
-
 }

@@ -94,16 +94,6 @@ public class CompareClusters {
 //        return false;
 //    }
 //
-//    /**
-//     * compare Clusters by Cluster Class
-//     * @param clL1
-//     * @param clL2
-//     * @return
-//     */
-//    private static boolean byClusterClass(ICluster clL1, ICluster clL2){
-//        if( clL1.getClass() == clL2.getClass() ){ return true; }
-//        else return false;
-//    }
 //
 //    /**
 //     * compare Clusters by Cluster Parent

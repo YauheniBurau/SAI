@@ -1,6 +1,5 @@
 package core.old.workflowPlugins.algo;
 
-import core.old.graphController.GraphModelController;
 import core.old.workflowModel.*;
 import core.old.workflowPlugins.param.FileEDG;
 

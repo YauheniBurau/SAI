@@ -1,9 +1,10 @@
 package core.old;
 
+import com.orientechnologies.orient.core.record.OVertex;
+import core.application.gui.graphFxComponent.odb.GraphDb;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class OrientDB_Test {
     String dirIn = "D:\\temp\\in\\";
@@ -35,85 +36,43 @@ public class OrientDB_Test {
     String ascii2 = new String(" and now I add more different data clusters. Кластер (англ. cluster");
     String ascii3 = new String("Кластер (нгл. cluster — скопление, кисть, рой) cluster");
 
-    IGraph graph;
-
-//    @Test
-//    public void create_graph() {
-//        IGraph graph = new Graph();
-//        graph.connectDB("remote:localhost", "ai", "root", "12345678");
-//
-//        OVertex v_J = graph.createClusterDataChar("J");
-//        OVertex v_o = graph.createClusterDataChar("o");
-//        OVertex v_h = graph.createClusterDataChar("h");
-//        OVertex v_n = graph.createClusterDataChar("n");
-//        OVertex v_c = graph.createClusterDataChar("c");
-//        OVertex v_k = graph.createClusterDataChar("k");
-//        OVertex v_e = graph.createClusterDataChar("e");
-//        OVertex v_r = graph.createClusterDataChar("r");
-//        OVertex v_space = graph.createClusterDataChar(" ");
-//
-//        graph.closeDB();
-//    }
-
-//    @Test
-//    public void selectClusterDataChar() {
-//        Graph graph = new Graph();
-//        graph.connectDB("remote:localhost", "ai", "root", "12345678");
-//
-//        OVertex v = graph.selectClusterDataCharByValue("o");
-//
-//        System.out.println(v.getIdentity().toString());
-//        System.out.println(v.getProperty("value").toString());
-//    }
-
-//    @Test
-//    public void createClusterLinks_SelectByValue() {
-//        IGraph graph = new Graph();
-//        graph.connectDB("remote:localhost", "ai", "root", "12345678");
-//        graph.beginTx();
-//        OVertex v_h = graph.createClusterDataChar("h");
-//        OVertex v_n = graph.createClusterDataChar("n");
-//        OVertex vL1 = graph.createClusterLink(v_h);
-//        OVertex vL2 = graph.createClusterLink(v_n);
-//        graph.commitTx();
-//
-//        List<OVertex> result;
-//        result = graph.selectClusterLinksByValue(v_h);
-//        System.out.println(result);
-//        result = graph.selectClusterLinksByValue(v_n);
-//        System.out.println(result);
-//    }
+    GraphDb graphDb;
 
     @Before
     public void beforTest() {
-        this.graph = new Graph();
-        graph.connectDB("remote:localhost", "ai", "root", "12345678");
+        this.graphDb = new GraphDb("remote:localhost", "ai", "root", "12345678");
+        graphDb.connect();
     }
 
     @After
     public void afterTest() {
-        graph.closeDB();
+        graphDb.disconnect();
     }
 
-//    @Test
-//    public void createClusterSequenceFromString() {
-////        String str = "dogs and cats live together.";
+    @Test
+    public void strToGraphDb() {
+        String str = "dogs and cats live together.";
 //        String str = "dogs";
-//        Cluster clSeq = this.graph.stringToClusterSequence(str);
-//        this.graph.save(clSeq);
-//    }
-//
+        OVertex parentV = this.graphDb.strToGraph(str);
+        System.out.println(parentV.getIdentity());
+    }
+
+    @Test
+    public void deleteAllEdgesAndVertes() {
+        this.graphDb.deleteAllEdges(GraphDb.oClassEPrevNext);
+        this.graphDb.deleteAllEdges(GraphDb.oClassEParent);
+        this.graphDb.deleteAllEdges(GraphDb.oClassELink);
+
+        this.graphDb.deleteAllVertexes(GraphDb.oClassVLink);
+        this.graphDb.deleteAllVertexes(GraphDb.oClassVParent);
+        this.graphDb.deleteAllVertexes(GraphDb.oClassVDataChar);
+    }
+
 //    @Test
 //    public void createClusterSequenceFromTxtFileUtf8() {
 //        Cluster clSeq = this.graph.txtFileUtf8ToClusterSequence(new File(dirIn + asciiFile4));
 //        this.graph.save(clSeq);
 //    }
 
-    @Test
-    public void deleteAllEdgesAndVertes() {
-        this.graph.deleteAllEdges(Graph.oClassEdgePrevNext);
-        this.graph.deleteAllVertexes(Graph.oClassClusterLink);
-        this.graph.deleteAllVertexes(Graph.oClassClusterSequence);
-    }
-
 }
+

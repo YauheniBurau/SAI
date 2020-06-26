@@ -1,14 +1,12 @@
 package core.application.gui.graphFxComponent.model;
 
-import core.old.Decart3d;
-
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class Polar3d {
-    double r;
-    double latitudeAngle;
-    double longitudeAngle;
+    private double r;
+    private double latitudeAngle;
+    private double longitudeAngle;
 
     public Polar3d(double r, double latitudeAngle, double longitudeAngle) {
         this.r = r;
@@ -42,7 +40,7 @@ public class Polar3d {
 
     /**
      * convert to Decart3d
-     * @return
+     * @return converted Polar2d into Decart3d
      */
     public Decart3d toDecart3d(){
         return new Decart3d(

@@ -3,13 +3,14 @@ package core.application;
 /**
  * Created by anonymous on 24.09.2018.
  */
-import core.application.gui.graphFxComponent.view.Graph2dFx;
+import core.application.gui.graphFxComponent.odb.GraphDb;
 import core.application.gui.controller.StageController;
 import core.application.gui.view.builder.BorderPaneFxBuilder;
 import core.application.gui.view.builder.SceneFxBuilder;
 import core.application.gui.view.builder.StageFxBuilder;
 import core.application.gui.view.factory.ButtonFxFactory;
 import core.application.gui.view.factory.MenuBarFxFactory;
+import core.application.gui.view.stage.Graph2dViewStage;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
@@ -19,10 +20,11 @@ import javafx.stage.StageStyle;
 public class AI_Application extends Application {
     public static String APPLICATION_MENU_BAR = "app.menubar";
     public static String APPLICATION_ROOT = "app.root";
-
+    private GraphDb globalGraphDb = new GraphDb("remote:localhost", "ai", "root", "12345678");
 
     @Override
     public void start(Stage stage) {
+        this.globalGraphDb.connect();
         StageFxBuilder stg = new StageFxBuilder(stage);
         // ======================================= create main scene ===================================================
         BorderPaneFxBuilder root = new BorderPaneFxBuilder(APPLICATION_ROOT);
@@ -32,9 +34,14 @@ public class AI_Application extends Application {
         stg.withTitle("As Kon - Code GIAS(Global Intelligence Artificial System)");
         stg.withScene(scene.build());
         // ============= add test button into main window with event to open core.old.graph visualization window =======
-        Stage testStage = createTestStage(stage);
-        Button btnTest = ButtonFxFactory.createButton("testButton", "testBtn", e-> StageController.showStage(testStage) );
+        Button btnTest = ButtonFxFactory.createButton(
+                "testButton",
+                "testBtn",
+                e-> { Graph2dViewStage testStage = new Graph2dViewStage(stage, this.globalGraphDb);
+                    StageController.showStage(testStage);}
+        );
         root.build().setCenter(btnTest);
+        stage.setOnCloseRequest(e-> globalGraphDb.disconnect());
         stg.show();
     }
 
@@ -42,35 +49,7 @@ public class AI_Application extends Application {
         launch(args);
     }
 
-
-    public static Stage createTestStage(Stage stgOwner){
-        StageFxBuilder stg = new StageFxBuilder();
-        BorderPaneFxBuilder root = new BorderPaneFxBuilder("testRootPane");
-        Graph2dFx grPanel = new Graph2dFx();
-        SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root.build(), 1024, 640);
-        stg.withScene(scene.build()).withTitle("Utility1 instruments")
-                .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
-                .withOwner(stgOwner)
-                .withOnCloseRequest( (e)-> StageController.hideStage(stg.build()) );
-        root.build().getChildren().add(grPanel);
-
-        grPanel.generate(20, 10);
-        grPanel.orderVertexesInSphere(500);
-        grPanel.setTranslateX(520);
-        grPanel.setTranslateY(340);
-        return stg.build();
-
-    }
-
 }
-
-
-
-
-
-
-
-
 
 //        ApplicationControllers.showNodesPalleteStageFX();
 
@@ -121,12 +100,3 @@ public class AI_Application extends Application {
 //            stg.show();
 //        });
 //        first.setCenter(btnTest);
-
-//        // ============= add test button into main window with event to open core.old.graph visualization window ===============
-//        ButtonFX btnTest = new ButtonFX().withText("testBtn").withOnAction(e->{
-//            ClusterGraphFX clusterGraphFX;
-//            clusterGraphFX = new ClusterGraphFX(clusterGraph);
-//            clusterGraphFX.init();
-//            clusterGraphFX.showAndWait();
-//        });
-//        root.setCenter(btnTest);
