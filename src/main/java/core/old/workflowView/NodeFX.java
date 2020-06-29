@@ -1,37 +1,15 @@
 package core.old.workflowView;
 
-import core.application.gui.view.builder.ButtonFxBuilder;
-import core.old.workflowModel.Data;
-import core.old.workflowModel.Node;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-
-import java.util.LinkedList;
-
 /**
  * Created by anonymous on 20.03.2019.
  */
 //public class NodeFX extends BorderPane implements INodeFX{
-//    public static final int cornerRadii = 10;
 //    // TODO: try remove that code from NodeFX
 //    private class Delta {
 //        public double x;
 //        public double y;
 //    }
-//
-//    private Node node;
-//    private WorkflowFX workflowFX;
-//    private LinkedList<InputFX> inputsFX = new LinkedList<>();
-//    private LinkedList<OutputFX> outputsFX = new LinkedList<>();
-//
+
 //    // TODO: try remove
 //    private HBox headerButtons;
 //    protected ButtonFxBuilder closeBtn;
@@ -74,13 +52,6 @@ import java.util.LinkedList;
 //        this.setLayoutX(node.getLayoutX());
 //        this.setLayoutY(node.getLayoutY());
 //
-//        this.setBorder( new Border(new BorderStroke(Color.BLACK,
-//                BorderStrokeStyle.SOLID, new CornerRadii(cornerRadii),
-//                new BorderWidths(2,2,2,2, false, false, false, false))) );
-//        //this.setStyle("-fx-background-color: LIGHTGREEN");
-//        // add inputsFX and outputsFX
-//        VBox boxInputs = new VBox();
-//        boxInputs.setMaxWidth(100);
 //
 //        VBox boxOutputs = new VBox();
 //        boxOutputs.setMaxWidth(100);
@@ -115,51 +86,6 @@ import java.util.LinkedList;
 //        this.title.setOnMouseReleased(hOnMouseReleasedTitle);
 //
 //        DragResizerNodeFX.makeResizable(this);
-//    }
-//
-//    public void addInputFX(Data e){
-//        InputFX inputFX = new InputFX(e);
-//        inputFX.setNodeFX(this);
-//        this.inputsFX.add(inputFX);
-//    }
-//
-//    public void addOutputFX(Data e){
-//        OutputFX outputFX = new OutputFX(e);
-//        outputFX.setNodeFX(this);
-//        this.outputsFX.add(outputFX);
-//    }
-//
-//    public InputFX getInput(Integer id) {
-//        return this.inputsFX.get(id);
-//    }
-//
-//    public OutputFX getOutput(Integer id) {
-//        return this.outputsFX.get(id);
-//    }
-//
-//    @Override
-//    public LinkedList<InputFX> getInputsFX(){
-//        return this.inputsFX;
-//    }
-//
-//    @Override
-//    public LinkedList<OutputFX> getOutputsFX(){
-//        return this.outputsFX;
-//    }
-//
-//    @Override
-//    public void setWorkflowFX(WorkflowFX workflowFX) {
-//        this.workflowFX = workflowFX;
-//    }
-//
-//    @Override
-//    public WorkflowFX getWorkflowFX() {
-//        return this.workflowFX;
-//    }
-//
-//
-//    public Node getNode() {
-//        return node;
 //    }
 //
 //    public void updateState(){

@@ -1,16 +1,6 @@
 package core.old.VertexValue.segments;
 
 
-import core.old.VertexValue.color.ARGB;
-import core.old.VertexValue.contour.ContourParams;
-import core.old.VertexValue.contour.IContour;
-import core.old.VertexValue.file.PngFile;
-import core.old.VertexValue.matrix.Matrix2d;
-import core.old.VertexValue.matrix.Matrix2dBool;
-import core.old.process.PrimitiveToPrimitive.LongToHexString;
-
-import java.util.ArrayList;
-
 /**
  * Created by anonymous on 09.11.2018.
  */

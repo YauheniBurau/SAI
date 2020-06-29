@@ -1,6 +1,5 @@
 package core.old.VertexValue.cloud;
 
-import core.old.VertexValue.file.PngFile;
 import core.old.VertexValue.matrix.Matrix2dBool;
 import core.old.VertexValue.matrix.Matrix2dByte;
 import java.util.ArrayList;

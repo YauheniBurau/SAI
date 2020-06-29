@@ -1,18 +1,5 @@
 package core.old.workflowView;
 
-import core.application.gui.view.builder.ButtonFxBuilder;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.*;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
-
-import java.util.Date;
-import java.util.logging.*;
-
 //public class CurrentTaskWorkflowStageFX extends StageFX {
 //    private WorkflowFX workflowFX;
 //    private Logger logger;

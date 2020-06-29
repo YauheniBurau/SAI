@@ -13,11 +13,7 @@ import com.orientechnologies.orient.core.record.OVertex;
 import com.orientechnologies.orient.core.sql.executor.OResult;
 import com.orientechnologies.orient.core.sql.executor.OResultSet;
 import core.application.gui.graphFxComponent.model.GraphModel;
-import org.jgrapht.Graph;
-
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 public class GraphDb {
     public static String OCLASS_V_DATA_CHAR = "V_DATA_CHAR";
@@ -302,6 +298,8 @@ public class GraphDb {
 
 
 }
+
+// TODO: remove later
 
 // "remote:localhost", "ai", "root", "12345678"
 //oClassClusterDataChar.createIndex(UID_CLUSTER_DATA_CHAR, OClass.INDEX_TYPE.UNIQUE, PROPERTY_VALUE);

@@ -1,9 +1,5 @@
 package core.old.workflowView;
 
-import core.old.workflowModel.ThreadAlgoProcess;
-import java.util.ArrayList;
-import java.util.logging.Logger;
-
 public class ThreadProcessWorkflowFX extends Thread {
 //    private NodeFX nodeFX;
 //

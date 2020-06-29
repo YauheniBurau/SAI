@@ -1,10 +1,5 @@
 package core.old.workflowView;
 
-import core.old.workflowModel.ThreadAlgoUnprocess;
-
-import java.util.ArrayList;
-import java.util.logging.Logger;
-
 //public class ThreadUnprocessWorkflowFX extends Thread {
 //    private NodeFX nodeFX;
 //

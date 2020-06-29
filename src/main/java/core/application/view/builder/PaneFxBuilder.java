@@ -1,0 +1,12 @@
+package core.application.view.builder;
+
+import javafx.scene.layout.Pane;
+
+public class PaneFxBuilder  extends AbstractBaseFxBuilder<Pane> {
+
+    public PaneFxBuilder(String id) {
+        this.value = new Pane();
+        this.value.setId(id);
+    }
+
+}

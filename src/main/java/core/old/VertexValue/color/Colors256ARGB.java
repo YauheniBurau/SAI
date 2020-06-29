@@ -1,6 +1,6 @@
 package core.old.VertexValue.color;
 
-import core.old.process.ColorToColor.ArgbToLab;
+import core.old.process.ArgbToLab;
 
 import java.util.HashMap;
 
