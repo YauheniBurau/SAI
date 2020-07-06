@@ -1,123 +1,150 @@
 package core.application.gui.workflowFxComponent.view;
 
-public class WorkflowEdge2dFx {
+import core.application.gui.graphFxComponent.view.Arrow2dFx;
+import core.application.gui.graphFxComponent.view.UtilitiesBindings;
+import core.application.gui.workflowFxComponent.model.WorkflowEdge;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+
+public class WorkflowEdge2dFx extends Group {
+    private WorkflowEdge model;
+    private VertexConnect2dFx from;
+    private VertexConnect2dFx to;
+    private Line curve = new Line();
+    private Text text = new Text();
+    private Arrow2dFx arrow = new Arrow2dFx();
+
+    public WorkflowEdge2dFx(WorkflowEdge model, VertexConnect2dFx c1, VertexConnect2dFx c2) {
+        this.model = model;
+        this.from = c1;
+        this.to = c2;
+        this.attachCurve(c1, c2);
+        this.attachArrow();
+        this.attachText();
+        this.getChildren().addAll(curve, arrow, text);
+        this.updateFromModel();
+    }
+
+    public Line curve() {
+        return curve;
+    }
+
+    public Text text() {
+        return text;
+    }
+
+    public Arrow2dFx arrow() {
+        return arrow;
+    }
+
+    public void setCurveFill(Paint paint) {
+        this.curve.setFill(paint);
+        this.curve.setStroke(paint);
+        this.arrow.setFill(paint);
+        this.arrow.setStroke(paint);
+    }
+
+    public void setTextFill(Paint paint) {
+        this.text.setFill(paint);
+    }
+
+    public void setText(String text){
+        this.text.setText(text);
+    }
+
+    public void setArrowVisible(boolean isVisible){
+        this.arrow.setVisible(isVisible);
+    }
+
+    public void setTextVisible(boolean isVisible){
+        this.text.setVisible(isVisible);
+    }
+
+    private void attachText() {
+        text.layoutXProperty().bind(this.curve.startXProperty().add(this.curve.endXProperty()).divide(2).subtract(text.getLayoutBounds().getWidth() / 2));
+        text.layoutYProperty().bind(this.curve.startYProperty().add(this.curve.endYProperty()).divide(2).add(text.getLayoutBounds().getHeight() / 1.5));
+    }
+
+    private void attachArrow() {
+        /* attach arrow to line's endpoint */
+        arrow.layoutXProperty().bind(curve.endXProperty());
+        arrow.layoutYProperty().bind(curve.endYProperty());
+        /* rotate arrow around itself based on this line's angle */
+        Rotate rotation = new Rotate();
+        rotation.angleProperty().bind( UtilitiesBindings.toDegrees(
+                UtilitiesBindings.atan2( this.curve.endYProperty().subtract(this.curve.startYProperty()),
+                        this.curve.endXProperty().subtract(this.curve.startXProperty()))
+        ));
+        arrow.getTransforms().add(rotation);
+    }
+
+    private void attachCurve(VertexConnect2dFx v1, VertexConnect2dFx v2) {
+        Pane vFx;
+        VertexConnect2dFx cFx;
+        vFx = (Pane)v1.getParent();
+        cFx = this.getFrom();
+        curve.startXProperty().bind(vFx.layoutXProperty().add(
+                vFx.widthProperty()
+                        .divide(2)
+                        .add(vFx.widthProperty().divide(2).multiply(cFx.getModel().getX()))
+        ));
+        curve.startYProperty().bind(vFx.layoutYProperty().add(
+                vFx.heightProperty()
+                        .divide(2)
+                        .add(vFx.heightProperty().divide(2).multiply(cFx.getModel().getY()))
+        ));
+        vFx = (Pane)v2.getParent();
+        cFx = this.getTo();
+        curve.endXProperty().bind(vFx.layoutXProperty().add(
+                vFx.widthProperty()
+                        .divide(2)
+                        .add(vFx.widthProperty().divide(2).multiply(cFx.getModel().getX()))
+        ));
+        curve.endYProperty().bind(vFx.layoutYProperty().add(
+                vFx.heightProperty()
+                        .divide(2)
+                        .add(vFx.heightProperty().divide(2).multiply(cFx.getModel().getY()))
+        ));
+    }
+
+    public VertexConnect2dFx getFrom() {
+        return from;
+    }
+
+    public void setFrom(VertexConnect2dFx from) {
+        this.from = from;
+    }
+
+    public VertexConnect2dFx getTo() {
+        return to;
+    }
+
+    public void setTo(VertexConnect2dFx to) {
+        this.to = to;
+    }
+
+    public void updateToModel(){
+        throw new RuntimeException("Not implemented");
+    }
+
+    public void updateFromModel(){
+        this.setText(model.getText());
+        this.setTextFill(model.getTextColor());
+        this.setCurveFill(model.getEdgeColor());
+        this.setArrowVisible(model.isVisibleArrow());
+        this.setTextVisible(model.isVisibleText());
+        this.attachCurve(this.from, this.to);
+    }
 }
 
-//    private IConnection connection = null;
-//    private OutputFX start = null;
-//    private InputFX end = null;
-//    private Circle end1 = null;
-////    private WorkflowFX workflowFX = null;
-//
-//    private StartXBinding sX = null;
-//    private StartYBinding sY = null;
-//    private EndXBinding eX = null;
-//    private EndYBinding eY = null;
-//    private EndX1Binding eX1 = null;
-//    private EndY1Binding eY1 = null;
-//
-//    public class StartXBinding extends DoubleBinding{
-//        public StartXBinding() {
-//            super.bind(start.getParent().getParent().layoutXProperty(),
-//                    start.getParent().layoutXProperty(),
-//                    start.layoutXProperty(),
-//                    start.getCircle().layoutXProperty(),
-//                    start.getCircle().translateXProperty(),
-//                    start.getCircle().centerXProperty());
-//        }
-//
-//        @Override
-//        protected double computeValue() {
-//            return start.getParent().getParent().layoutXProperty().get() +
-//                    start.getParent().layoutXProperty().get() +
-//                    start.layoutXProperty().get() +
-//                    start.getCircle().layoutXProperty().get() +
-//                    start.getCircle().translateXProperty().get() +
-//                    start.getCircle().centerXProperty().get();
-//        }
-//    }
-//
-//    public class StartYBinding extends DoubleBinding{
-//        public StartYBinding() {
-//            super.bind(start.getParent().getParent().layoutYProperty(),
-//                    start.getParent().layoutYProperty(),
-//                    start.layoutYProperty(),
-//                    start.getCircle().layoutYProperty(),
-//                    start.getCircle().translateYProperty(),
-//                    start.getCircle().centerYProperty());
-//        }
-//
-//        @Override
-//        protected double computeValue() {
-//            return start.getParent().getParent().layoutYProperty().get() +
-//                    start.getParent().layoutYProperty().get() +
-//                    start.layoutYProperty().get() +
-//                    start.getCircle().layoutYProperty().get() +
-//                    start.getCircle().translateYProperty().get() +
-//                    start.getCircle().centerYProperty().get();
-//        }
-//    }
-//
-//    public class EndXBinding extends DoubleBinding{
-//        public EndXBinding() {
-//            super.bind(end.getParent().getParent().layoutXProperty(),
-//                    end.getParent().layoutXProperty(),
-//                    end.layoutXProperty(),
-//                    end.getCircle().layoutXProperty(),
-//                    end.getCircle().translateXProperty(),
-//                    end.getCircle().centerXProperty());
-//        }
-//
-//        @Override
-//        protected double computeValue() {
-//            return end.getParent().getParent().layoutXProperty().get() +
-//                    end.getParent().layoutXProperty().get() +
-//                    end.layoutXProperty().get() +
-//                    end.getCircle().layoutXProperty().get() +
-//                    end.getCircle().translateXProperty().get() +
-//                    end.getCircle().centerXProperty().get();
-//        }
-//    }
-//
-//    public class EndYBinding extends DoubleBinding {
-//        public EndYBinding() {
-//            super.bind(end.getParent().getParent().layoutYProperty(),
-//                    end.getParent().layoutYProperty(),
-//                    end.layoutYProperty(),
-//                    end.getCircle().layoutYProperty(),
-//                    end.getCircle().translateYProperty(),
-//                    end.getCircle().centerYProperty());
-//        }
-//
-//        @Override
-//        protected double computeValue() {
-//            return end.getParent().getParent().layoutYProperty().get() +
-//                    end.getParent().layoutYProperty().get() +
-//                    end.layoutYProperty().get() +
-//                    end.getCircle().layoutYProperty().get() +
-//                    end.getCircle().translateYProperty().get() +
-//                    end.getCircle().centerYProperty().get();
-//        }
-//    }
-//
-//    public class EndX1Binding extends DoubleBinding{
-//        public EndX1Binding() { super.bind(end1.layoutXProperty(), end1.translateXProperty(), end1.centerXProperty());}
-//
-//        @Override
-//        protected double computeValue() {
-//            return end1.layoutXProperty().get() + end1.translateXProperty().get() + end1.centerXProperty().get();
-//        }
-//    }
-//
-//    public class EndY1Binding extends DoubleBinding {
-//        public EndY1Binding() { super.bind(end1.layoutYProperty(), end1.translateYProperty(), end1.centerYProperty()); }
-//
-//        @Override
-//        protected double computeValue() {
-//            return end1.layoutYProperty().get() + end1.translateYProperty().get() + end1.centerYProperty().get();
-//        }
-//    }
-//
+// TODO: remove later
+
 //    public ConnectionFX() {
 //        this.setOnMouseEntered(hOnMouseEntered);
 //        this.setOnMouseExited(hOnMouseExited);
@@ -126,50 +153,8 @@ public class WorkflowEdge2dFx {
 //        // style
 //        this.setStrokeWidth(2);
 //    }
-//
-////    @Override
-////    public void setWorkflowFX(WorkflowFX workflowFX) {
-////        this.workflowFX = workflowFX;
-////    }
-////
-////    @Override
-////    public WorkflowFX getWorkflowFX() {
-////        return this.workflowFX;
-////    }
-//
-//    public OutputFX getStart() {
-//        return start;
-//    }
-//
-//    public ConnectionFX setStart(OutputFX start) {
-//        this.start = start;
-//        start.addConnectionFX(this);
-//        this.sX = new StartXBinding();
-//        this.sY = new StartYBinding();
-//        this.startXProperty().bind(this.sX);
-//        this.startYProperty().bind(this.sY);
-//        return this;
-//    }
-//
-//    public InputFX getEnd() {
-//        return end;
-//    }
-//
-//    public ConnectionFX setEnd(InputFX end) {
-//        this.end = end;
-//        end.setConnectionFX(this);
-//        this.eX = new EndXBinding();
-//        this.eY = new EndYBinding();
-//        this.endXProperty().bind(this.eX);
-//        this.endYProperty().bind(this.eY);
-//        if( this.end1!=null){ this.end1.setVisible(false); }
-//        return this;
-//    }
-//
-//    public Circle getEnd1() {
-//        return end1;
-//    }
-//
+
+
 //    public ConnectionFX setEnd1(Circle end1) {
 //        if(end1==null){
 //            this.end1 = null;
@@ -185,15 +170,7 @@ public class WorkflowEdge2dFx {
 //        if( this.end1!=null){ this.end1.setVisible(true); }
 //        return this;
 //    }
-//
-//    public IConnection getConnection() {
-//        return connection;
-//    }
-//
-//    public void setConnection(IConnection connection) {
-//        this.connection = connection;
-//    }
-//
+
 //    /**
 //     * change Connection color if mouse on it
 //     */
@@ -219,25 +196,22 @@ public class WorkflowEdge2dFx {
 //    /**
 //     * on click show alert to choose delete on leave connection
 //     */
-////    private EventHandler<MouseEvent> hOnMousePressed = (e) -> {
-////        e.consume();
-////        WorkflowController.showRemoveConnectionDialog(this.workflowFX.getStage(), this);
-////    };
-////
-////    /**
-////     * finish connectionFX for OutputFX and inputFX.
-////     * add ConnectionFX to WorkflowFX GUI
-////     * add Connection to Workflow Model
-////     */
-////    private EventHandler<DragEvent> hOnDragDone = (e) ->{
-////        WorkflowFX wfFX = this.getWorkflowFX();
-////        if(this.getEnd1()==null && this.getEnd()!=null){
-////            ConnectionFX conn = new ConnectionFX().setStart(start).setEnd(end);
-////            WorkflowController.addConnection(wfFX.getStage(), conn);
-////        }
-////        wfFX.removeTempConnectionFX();
-////        e.consume();
-////    };
+//    private EventHandler<MouseEvent> hOnMousePressed = (e) -> {
+//        e.consume();
+//        WorkflowController.showRemoveConnectionDialog(this.workflowFX.getStage(), this);
+//    };
 //
-//}
-
+//    /**
+//     * finish connectionFX for OutputFX and inputFX.
+//     * add ConnectionFX to WorkflowFX GUI
+//     * add Connection to Workflow Model
+//     */
+//    private EventHandler<DragEvent> hOnDragDone = (e) ->{
+//        WorkflowFX wfFX = this.getWorkflowFX();
+//        if(this.getEnd1()==null && this.getEnd()!=null){
+//            ConnectionFX conn = new ConnectionFX().setStart(start).setEnd(end);
+//            WorkflowController.addConnection(wfFX.getStage(), conn);
+//        }
+//        wfFX.removeTempConnectionFX();
+//        e.consume();
+//    };

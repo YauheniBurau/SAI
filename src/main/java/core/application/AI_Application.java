@@ -1,12 +1,10 @@
-package core.application;
-
-/**
+package core.application; /**
  * Created by anonymous on 24.09.2018.
  */
 import core.application.gui.graphFxComponent.odb.GraphDb;
 import core.application.controller.StageController;
-import core.application.gui.workflowFxComponent.view.WorkflowVertex2dFxFactory;
-import core.application.gui.workflowFxComponent.view.WorkflowVertex2dFx;
+import core.application.gui.workflowFxComponent.io.WorkflowIO;
+import core.application.gui.workflowFxComponent.view.Workflow2dFxStage;
 import core.application.view.builder.BorderPaneFxBuilder;
 import core.application.view.builder.SceneFxBuilder;
 import core.application.view.builder.StageFxBuilder;
@@ -43,9 +41,13 @@ public class AI_Application extends Application {
         );
         root.build().setTop(btnTest);
 
-        WorkflowVertex2dFx wfv = WorkflowVertex2dFxFactory.newVDefault();
-        wfv.setLayoutXY(400, 100);
-        root.build().setCenter(wfv);
+        Button btnOpenWorkflowStage = ButtonFxFactory.createButton(
+                "btnOpenWorkflowStage",
+                "btnOpenWorkflowStage",
+                e-> { Workflow2dFxStage workflowStage = new Workflow2dFxStage(stage, new WorkflowIO());
+                    StageController.showStage(workflowStage);}
+        );
+        root.build().setCenter(btnOpenWorkflowStage);
 
         stage.setOnCloseRequest(e-> globalGraphDb.disconnect());
         stg.show();
@@ -61,6 +63,6 @@ public class AI_Application extends Application {
 // TODO: remove later
 
 // ApplicationControllers.showNodesPalleteStageFX();
-// scene.getStylesheets().add(getClass().getResource("AI_Application.css").getFile() );
-// scene.getStylesheets().add(getClass().getResource("AI_Application.css").toExternalForm() );
+// scene.getStylesheets().add(getClass().getResource("core.application.AI_Application.css").getFile() );
+// scene.getStylesheets().add(getClass().getResource("core.application.AI_Application.css").toExternalForm() );
 // ApplicationController.showFileOpenDialog(this);

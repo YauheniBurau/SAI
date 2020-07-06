@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>0.1.2-SNAPSHOT</version>
     <build>
-        <finalName>AI_Application</finalName>
+        <finalName>core.application.AI_Application</finalName>
         <plugins>
             <!-- COMPILER PLUGIN -->
             <plugin>
@@ -114,9 +114,6 @@
             <artifactId>fxyz3d</artifactId>
             <version>0.5.2</version>
         </dependency>
-
-
-
         <!-- https://mvnrepository.com/artifact/org.jzy3d/jzy3d-javafx -->
         <dependency>
             <groupId>org.jzy3d</groupId>
@@ -129,7 +126,6 @@
             <artifactId>jzy3d-api</artifactId>
             <version>1.0.2</version>
         </dependency>
-
 
 
         <!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core -->
@@ -247,6 +243,7 @@
             <artifactId>controlsfx</artifactId>
             <version>11.0.1</version>
         </dependency>
+
     </dependencies>
 </project>
 
@@ -320,4 +317,39 @@
 <!--<groupId>org.jetbrains.kotlin</groupId>-->
 <!--<artifactId>kotlin-stdlib</artifactId>-->
 <!--<version>1.3.72</version>-->
+<!--</dependency>-->
+
+        <!-- LOMBOK PLUGIN -->
+<!--<plugin>-->
+<!--<groupId>org.projectlombok</groupId>-->
+<!--<artifactId>lombok-maven-plugin</artifactId>-->
+<!--<version>1.18.12.0</version>-->
+<!--<executions>-->
+<!--    <execution>-->
+<!--        <phase>generate-sources</phase>-->
+<!--        <goals>-->
+<!--            <goal>delombok</goal>-->
+<!--        </goals>-->
+<!--    </execution>-->
+<!--</executions>-->
+<!--</plugin>-->
+
+        <!--                    <annotationProcessorPaths>-->
+        <!--                        <path>-->
+        <!--                            <groupId>org.projectlombok</groupId>-->
+        <!--                            <artifactId>lombok</artifactId>-->
+        <!--                            <version>1.18.12</version>-->
+        <!--                        </path>-->
+        <!--                    </annotationProcessorPaths>-->
+
+<!--<dependency>-->
+<!--<groupId>org.projectlombok</groupId>-->
+<!--<artifactId>lombok</artifactId>-->
+<!--<version>1.18.12</version>-->
+<!--<scope>provided</scope>-->
+<!--</dependency>-->
+<!--<dependency>-->
+<!--<groupId>org.projectlombok</groupId>-->
+<!--<artifactId>lombok-maven-plugin</artifactId>-->
+<!--<version>1.18.12.0</version>-->
 <!--</dependency>-->

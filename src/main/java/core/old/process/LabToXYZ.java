@@ -2,11 +2,13 @@ package core.old.process;
 
 import core.old.VertexValue.color.Lab;
 import core.old.VertexValue.color.XYZ;
+import javafx.scene.paint.Color;
 
 /**
  * Created by anonymous on 29.10.2018.
  */
 public class LabToXYZ {
+    Color fx;
     /**
      * default convert, where whitePoint = D65
      * Convert LAB to XYZ.

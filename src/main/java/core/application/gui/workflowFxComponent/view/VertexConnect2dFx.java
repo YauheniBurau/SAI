@@ -1,15 +1,20 @@
 package core.application.gui.workflowFxComponent.view;
 
+import core.application.gui.workflowFxComponent.model.VertexConnect;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class WorkflowVertexConnect2dFx extends Pane {
+public class VertexConnect2dFx extends Pane {
+    private WorkflowVertex2dFx vertex2dFx;
+    private VertexConnect model;
 
-    public WorkflowVertexConnect2dFx(){
-
+    public VertexConnect2dFx(WorkflowVertex2dFx vertex2dFx, VertexConnect model){
+        this.vertex2dFx = vertex2dFx;
+        this.model = model;
+        this.updateFromModel();
     }
 
-    public void setStyle(String shape_svg_path, String fx_background_color){
+    public void setStyles(String shape_svg_path, String fx_background_color){
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, new CornerRadii(0),
                 new BorderWidths(2,2,2,2, false, false, false, false))) );
@@ -22,12 +27,53 @@ public class WorkflowVertexConnect2dFx extends Pane {
         this.setMaxSize(size, size);
     }
 
-    public void setLayoutXY(double x, double y){
-        this.setLayoutX(x);
-        this.setLayoutY(y);
+    /**
+     * this type of set is like binding with parent layout in expression of relative coordinates
+     * @param x -1..+1
+     * @param y -1..+1
+     */
+    public void setRelativeLayoutXY(double x, double y){
+        this.layoutXProperty().bind(vertex2dFx.widthProperty()
+                .divide(2)
+                .subtract(this.widthProperty().divide(2))
+                .add(vertex2dFx.widthProperty().divide(2).multiply(x))
+        );
+        this.layoutYProperty().bind(vertex2dFx.heightProperty()
+                .divide(2)
+                .subtract(this.heightProperty().divide(2))
+                .add(vertex2dFx.heightProperty().divide(2).multiply(y))
+        );
     }
 
+    public WorkflowVertex2dFx getVertex2dFx() {
+        return vertex2dFx;
+    }
+
+    public void setVertex2dFx(WorkflowVertex2dFx vertex2dFx) {
+        this.vertex2dFx = vertex2dFx;
+    }
+
+    public VertexConnect getModel() {
+        return model;
+    }
+
+    public void setModel(VertexConnect model) {
+        this.model = model;
+    }
+
+
+    public void updateToModel(){
+        throw new RuntimeException("Not implemented");
+    }
+
+    public void updateFromModel(){
+        this.setSize(model.getSize());
+        this.setStyles(model.getShape_svg_path(), "yellow");
+        this.setRelativeLayoutXY(model.getX(), model.getY());
+    }
 }
+
+
 
 // TODO: remove later
 
@@ -81,23 +127,13 @@ public class WorkflowVertexConnect2dFx extends Pane {
 //        e.setDropCompleted(isSuccess);
 //        //e.consume();
 //    };
-//
 
 //    private void init(T value) {
-//        this.value = value;
-//        this.setMaxWidth(80);
-//        this.circle = new Circle(CircleFX.radius);
-//        //this.circle.setUserData(Boolean.FALSE);
-//        this.label = new Label(value.getName());
-//        this.getChildren().addAll(this.circle, this.label);
-//        this.setAlignment(Pos.CENTER_LEFT);
-//
 //        this.circle.setOnDragEntered(hOnDragEntered);
 //        this.circle.setOnDragExited(hOnDragExited);
 //        this.circle.setOnDragDropped(hOnDragDropped);
 //    }
 
-//
 //    private EventHandler<MouseEvent> hOnDragDetected = (e)->{
 //        WorkflowFX wfFX = this.getNodeFX().getWorkflowFX();
 //        ConnectionFX tempConnectionFX;

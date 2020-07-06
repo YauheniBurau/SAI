@@ -1,4 +1,4 @@
-package core.old.workflowView;
+package core.application.gui.zoomDrugScrollFxComponent;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -10,14 +10,14 @@ import javafx.scene.transform.Scale;
 /**
  * Created by anonymous on 25.03.2019.
  */
-public class ZoomableScrollPaneFX extends ScrollPane {
+public class ZoomDrugScrollFx extends ScrollPane {
     Group zoomGroup;
     Scale scaleTransform;
     Node content;
     double scaleValue = 1.0;
     double delta = 0.1;
 
-    public ZoomableScrollPaneFX(Node content) {
+    public ZoomDrugScrollFx(Node content) {
         this.content = content;
         Group contentGroup = new Group();
         zoomGroup = new Group();
@@ -27,6 +27,9 @@ public class ZoomableScrollPaneFX extends ScrollPane {
         scaleTransform = new Scale(scaleValue, scaleValue, 0, 0);
         zoomGroup.getTransforms().add(scaleTransform);
         zoomGroup.setOnScroll(new ZoomHandler());
+        this.setPannable(true);
+        this.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        this.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 
     public double getScaleValue() {
@@ -67,8 +70,8 @@ public class ZoomableScrollPaneFX extends ScrollPane {
     /**
      *
      * @param minimizeOnly
-     *            If the content fits already into the viewport, then we don't
-     *            zoom if this parameter is true.
+     * If the content fits already into the viewport, then we don't
+     * zoom if this parameter is true.
      */
     public void zoomToFit(boolean minimizeOnly) {
         double scaleX = getViewportBounds().getWidth() / getContent().getBoundsInLocal().getWidth();

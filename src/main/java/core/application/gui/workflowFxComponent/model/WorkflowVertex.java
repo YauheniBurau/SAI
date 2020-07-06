@@ -3,54 +3,172 @@ package core.application.gui.workflowFxComponent.model;
 import java.util.HashSet;
 
 public class WorkflowVertex {
-    public static String SHAPE_SVG_PATH_RECTANGLE = "'M 0 1 L 8 1 L 8 5 L 0 5 L 0 1'";
-    public static String SHAPE_SVG_PATH_ANGLE_DIAGONAL_RECTANGLE = "'M 0 2 L 1 1 L 7 1 L 8 2 L 8 4 L 7 5 L 1 5 L 0 4 L 0 2'";
-    public static String SHAPE_SVG_PATH_ANGLE_ROUNDED_RECTANGLE = "'M 0 2 Q 0 1 1 1 L 7 1 Q 8 1 8 2 L 8 4 Q 8 5 7 5 L 1 5 Q 0 5 0 4 L 0 2'";
-    public static String SHAPE_SVG_PATH_ROMBIC_RECTANGLE = "'M 0 3 L 1 1 L 7 1 L 8 3 L 7 5 L 1 5 L 0 3'";
-    public static String SHAPE_SVG_PATH_ROUNDED_RECTANGLE = "'M 20 10 L 60 10 A 5 5 0 1 1 60 50 L 20 50 A 5 5 0 1 1 20 10'";
-    public static String SHAPE_SVG_PATH_OVAL = "'M 4 1 Q 6 1 6 3 Q 6 5 4 5 Q 2 5 2 3 Q 2 1 4 1'";
-    public static String SHAPE_SVG_PATH_ROMB = "'M 4 1 L 8 3 L 4 5 L 0 3 L 4 1'";
+    private String name = "";
+    private double nameRelativeX = 0;
+    private double nameRelativeY = 0;
 
-    private String name;
-    private String algorithmName;
-    private String algorithmDescription;
+    private String algorithmName = "";
 
-    private HashSet<WorkflowVertexConnect> connects = new HashSet<>();
+    private String algorithmDescription = "";
 
+    private String classPath = "";
+
+    private String backgroundColor = "";
+    private String shape_svg_path = "";
+    private double sizeX = 0;
+    private double sizeY = 0;
+    private double minSizeX = 0;
+    private double minSizeY = 0;
+    private double layoutX = 0;
+    private double layoutY = 0;
+
+    private HashSet<VertexConnect> connects = new HashSet<>();
+
+    public WorkflowVertex() {
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getNameRelativeX() {
+        return nameRelativeX;
+    }
+
+    public void setNameRelativeX(double nameRelativeX) {
+        this.nameRelativeX = nameRelativeX;
+    }
+
+    public double getNameRelativeY() {
+        return nameRelativeY;
+    }
+
+    public void setNameRelativeY(double nameRelativeY) {
+        this.nameRelativeY = nameRelativeY;
+    }
+
+    public String getAlgorithmName() {
+        return algorithmName;
+    }
+
+    public void setAlgorithmName(String algorithmName) {
+        this.algorithmName = algorithmName;
+    }
+
+    public String getAlgorithmDescription() {
+        return algorithmDescription;
+    }
+
+    public void setAlgorithmDescription(String algorithmDescription) {
+        this.algorithmDescription = algorithmDescription;
+    }
+
+    public String getClassPath() {
+        return classPath;
+    }
+
+    public void setClassPath(String classPath) {
+        this.classPath = classPath;
+    }
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public String getShape_svg_path() {
+        return shape_svg_path;
+    }
+
+    public void setShape_svg_path(String shape_svg_path) {
+        this.shape_svg_path = shape_svg_path;
+    }
+
+    public double getMinSizeX() {
+        return minSizeX;
+    }
+
+    public void setMinSizeX(double minSizeX) {
+        this.minSizeX = minSizeX;
+    }
+
+    public double getMinSizeY() {
+        return minSizeY;
+    }
+
+    public void setMinSizeY(double minSizeY) {
+        this.minSizeY = minSizeY;
+    }
+
+    public double getSizeX() {
+        return sizeX;
+    }
+
+    public void setSizeX(double sizeX) {
+        if(sizeX>=this.minSizeX) {
+            this.sizeX = sizeX;
+        }else{
+            this.sizeX = this.minSizeX;
+        }
+    }
+
+    public double getSizeY() {
+        return sizeY;
+    }
+
+    public void setSizeY(double sizeY) {
+        if(sizeY>=this.minSizeY) {
+            this.sizeY = sizeY;
+        }else{
+            this.sizeY = this.minSizeY;
+        }
+    }
+
+    public double getLayoutX() {
+        return layoutX;
+    }
+
+    public void setLayoutX(double layoutX) {
+        this.layoutX = layoutX;
+    }
+
+    public double getLayoutY() {
+        return layoutY;
+    }
+
+    public void setLayoutY(double layoutY) {
+        this.layoutY = layoutY;
+    }
+
+    public void setLayoutXY(double layoutX, double layoutY) {
+        this.layoutX = layoutX;
+        this.layoutY = layoutY;
+    }
+
+    public HashSet<VertexConnect> getConnects() {
+        return connects;
+    }
+
+    public void addConnect(VertexConnect connect) {
+        this.connects.add(connect);
+        connect.setVertex(this);
+    }
 
 }
+
+
 
 // TODO: remove later
 
 //    private transient AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
-//
-//    /**
-//     * get that "description" value from annotation @Algo
-//     * @return
-//     */
-//    public String getName() {
-//        Algo a = this.getClass().getAnnotation(Algo.class);
-//        return a.name();
-//    }
-//
-//    /**
-//     * get that "description" value from annotation @Algo
-//     * @return
-//     */
-//    public String getDescription() {
-//        Algo a = this.getClass().getAnnotation(Algo.class);
-//        return a.description();
-//    }
-//
-//    /**
-//     * get that "group" value from annotation @Algo
-//     * @return
-//     */
-//    public String getGroup() {
-//        Algo a = this.getClass().getAnnotation(Algo.class);
-//        return a.group();
-//    }
-//
 //    /**
 //     * returb state of algo
 //     * @return

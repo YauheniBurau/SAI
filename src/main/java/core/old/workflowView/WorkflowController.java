@@ -14,43 +14,6 @@ import java.util.logging.Logger;
  */
 //public class WorkflowController {
 //
-//    /**
-//     * load file and deserialize to workflowModel object
-//     * @param file
-//     */
-//    public static Workflow loadWorkflow(File file) {
-//        Workflow workflow =null;
-//        try {
-//            FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath());
-//            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-//            workflow = (Workflow) objectInputStream.readObject();
-//            workflow.setLogger(Logger.getLogger(workflow.getClass().toString()));
-//            objectInputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return workflow;
-//    }
-//
-//    /**
-//     * serialize and save workflowModel object to File
-//     *
-//     * @param file
-//     */
-//    public static void saveWorkflow(WorkflowStageFX workflowStageFX, File file) {
-////        try {
-////            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath());
-////            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-////            objectOutputStream.writeObject(workflowStageFX.getWorkflowFX().getWorkflow());
-////            objectOutputStream.close();
-////            workflowStageFX.setFile(file);
-////            workflowStageFX.setTitle(file.getAbsolutePath());
-////        } catch (IOException e) {
-////            e.printStackTrace();
-////        }
-//    }
 //
 //    /**
 //     * show AddNodeDialog, where you can setup node Name and click ok - update model and view

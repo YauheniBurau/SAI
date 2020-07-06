@@ -1,19 +1,38 @@
 package core.application.gui.workflowFxComponent.view;
 
-import core.application.gui.workflowFxComponent.model.WorkflowVertexConnect;
+import core.application.gui.workflowFxComponent.model.VertexConnect;
+import core.application.gui.workflowFxComponent.model.WorkflowVertex;
+import core.application.view.factory.ContextMenuFxFactory;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
 import java.util.HashSet;
 
 public class WorkflowVertex2dFx extends Pane {
+    private WorkflowVertex model;
+    private Label textNameFx = new Label("");
+    private HashSet<VertexConnect2dFx> connects2dFx = new HashSet<>();
 
-    private HashSet<WorkflowVertexConnect2dFx> connects2dFx = new HashSet<>();
-
-    public WorkflowVertex2dFx() {
-
+    public WorkflowVertex2dFx(WorkflowVertex model) {
+        this.model = model;
+        VertexConnect2dFx cFx;
+        for (VertexConnect c: model.getConnects() ) {
+            cFx = new VertexConnect2dFx(this, c);
+            this.addConnect2dFx(cFx);
+        }
+        this.getChildren().add(textNameFx);
+        this.updateFromModel();
+        this.textNameFx.setContextMenu(ContextMenuFxFactory.createWorkflowVertexContextMenu(this));
+        MakeWorkflowVertexFxResizable.makeResizable(this);
+        MakeWorkflowVertexFxDruggable.makeDruggable(this);
     }
 
-    public void setStyle(String shape_svg_path, String fx_background_color){
+    public Label getTextNameFx() {
+        return textNameFx;
+    }
+
+    private void setStyles(String shape_svg_path, String fx_background_color){
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, new CornerRadii(0),
                 new BorderWidths(2,2,2,2, false, false, false, false))) );
@@ -22,66 +41,76 @@ public class WorkflowVertex2dFx extends Pane {
     }
 
 
-    public void setSize(double x, double y){
+    private void setSize(double x, double y){
         this.setMinSize(x, y);
         this.setMaxSize(x, y);
     }
 
-    public void setLayoutXY(double x, double y){
+    private void setLayoutXY(double x, double y){
         this.setLayoutX(x);
         this.setLayoutY(y);
     }
 
-    /**
-     * for circle value is angle
-     * @param connect2dFx
-     * @param place
-     * @param value -1 .. +1; where -1 mean left or up, +1 mean right or down, and 0 mean center
-     */
-    public void addConnect2dFx(WorkflowVertexConnect2dFx connect2dFx, int place, double value){
-        this.connects2dFx.add(connect2dFx);
-        this.getChildren().add(connect2dFx);
-        this.setConnect2dFxCoords(connect2dFx, place, value);
+    private void setName(String name){
+        this.textNameFx.setText(name);
     }
 
     /**
-     * @param x -1 .. +1; where -1 mean left or up, +1 mean right or down, and 0 mean center
-     * @param y -1 .. +1; where -1 mean left or up, +1 mean right or down, and 0 mean center
-     * @param connect2dFx
+     * this type of set is like binding with parent layout in expression of relative coordinates
+     * @param x -1..+1
+     * @param y -1..+1
      */
-    public void addConnect2dFx(double x, double y, WorkflowVertexConnect2dFx connect2dFx){
-        this.connects2dFx.add(connect2dFx);
-        this.getChildren().add(connect2dFx);
-        this.setConnect2dFxCoords(x, y, connect2dFx);
+    private void setNameRelativeXY(double x, double y){
+        textNameFx.layoutXProperty().bind(this.widthProperty()
+                .divide(2)
+                .subtract(textNameFx.widthProperty().divide(2))
+                .add(this.widthProperty().divide(2).multiply(x))
+        );
+        textNameFx.layoutYProperty().bind(this.heightProperty()
+                .divide(2)
+                .subtract(textNameFx.heightProperty().divide(2))
+                .add(this.heightProperty().divide(2).multiply(y))
+        );
     }
 
 
-    private void setConnect2dFxCoords(WorkflowVertexConnect2dFx connect2dFx, int place, double value){
-        switch(place){
-            case WorkflowVertexConnect.PLACE_CIRCLE: throw new RuntimeException("Not implemented");
-            case WorkflowVertexConnect.PLACE_LEFT_CENTER: this.setConnect2dFxCoords(-1, 0, connect2dFx); break;
-            case WorkflowVertexConnect.PLACE_RIGHT_CENTER: this.setConnect2dFxCoords(1, 0, connect2dFx); break;
-            case WorkflowVertexConnect.PLACE_TOP_CENTER: this.setConnect2dFxCoords(0, -1, connect2dFx); break;
-            case WorkflowVertexConnect.PLACE_BOTTOM_CENTER: this.setConnect2dFxCoords(0, 1, connect2dFx); break;
+    /**
+     * @param connect2dFx
+     */
+    public void addConnect2dFx(VertexConnect2dFx connect2dFx){
+        this.connects2dFx.add(connect2dFx);
+        this.getChildren().add(connect2dFx);
+    }
 
-            case WorkflowVertexConnect.PLACE_LEFT_VERTICAL: this.setConnect2dFxCoords(-1, value, connect2dFx); break;
-            case WorkflowVertexConnect.PLACE_RIGHT_VERTICAL: this.setConnect2dFxCoords(1, value, connect2dFx); break;
-            case WorkflowVertexConnect.PLACE_TOP_HORIZONTAL: this.setConnect2dFxCoords(value, -1, connect2dFx); break;
-            case WorkflowVertexConnect.PLACE_BOTTOM_HORIZONTAL: this.setConnect2dFxCoords(value, 1, connect2dFx); break;
+    public HashSet<VertexConnect2dFx> getConnects2dFx() {
+        return connects2dFx;
+    }
+
+    public WorkflowVertex getModel() {
+        return model;
+    }
+
+    public void setModel(WorkflowVertex model) {
+        this.model = model;
+    }
+
+    public void updateToModel(){
+        throw new RuntimeException("Not implemented");
+    }
+
+    public void updateFromModel(){
+        // update workflowVertex
+        this.setSize(this.model.getSizeX(), this.model.getSizeY());
+        this.setStyles(this.model.getShape_svg_path(), this.model.getBackgroundColor());
+        this.setLayoutXY(this.model.getLayoutX(), this.model.getLayoutY());
+        this.setName(this.model.getName());
+        // update vertexConnects
+        for (VertexConnect2dFx vcFx: this.getConnects2dFx() ) {
+            vcFx.updateFromModel();
         }
-    }
-
-    private void setConnect2dFxCoords(double x, double y, WorkflowVertexConnect2dFx connect2dFx) {
-        connect2dFx.layoutXProperty().bind(this.widthProperty()
-                        .divide(2)
-                        .subtract(connect2dFx.widthProperty().divide(2))
-                        .add(this.widthProperty().divide(2).multiply(x))
-                );
-        connect2dFx.layoutYProperty().bind(this.heightProperty()
-                        .divide(2)
-                        .subtract(connect2dFx.heightProperty().divide(2))
-                        .add(this.heightProperty().divide(2).multiply(y))
-                );
+        // update label 'Name'
+        this.setName(this.model.getName());
+        this.setNameRelativeXY(this.model.getNameRelativeX(), this.model.getNameRelativeY());
     }
 
 }

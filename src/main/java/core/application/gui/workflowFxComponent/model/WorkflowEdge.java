@@ -1,34 +1,81 @@
 package core.application.gui.workflowFxComponent.model;
 
+import javafx.scene.paint.Color;
+
 import java.io.Serializable;
 
 public class WorkflowEdge implements Serializable {
-    private WorkflowVertexConnect from = null;
-    private WorkflowVertexConnect to = null;
+    private VertexConnect from = null;
+    private VertexConnect to = null;
+    private String text = "";
+    private boolean isVisibleText = true;
+    private boolean isVisibleArrow = true;
+    private Color textColor = Color.BLACK;
+    private Color edgeColor = Color.BLACK;
 
     public WorkflowEdge() {
 
     }
 
-    public WorkflowEdge(WorkflowVertexConnect from, WorkflowVertexConnect to) {
+    public WorkflowEdge(VertexConnect from, VertexConnect to) {
         this.from = from;
         this.to = to;
     }
 
-    public WorkflowVertexConnect getFrom() {
-        return this.from;
+    public VertexConnect getFrom() {
+        return from;
     }
 
-    public WorkflowVertexConnect getTo() {
-        return this.to;
-    }
-
-    public void setFrom(WorkflowVertexConnect from) {
+    public void setFrom(VertexConnect from) {
         this.from = from;
     }
 
-    public void setTo(WorkflowVertexConnect to) {
+    public VertexConnect getTo() {
+        return to;
+    }
+
+    public void setTo(VertexConnect to) {
         this.to = to;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public boolean isVisibleText() {
+        return isVisibleText;
+    }
+
+    public void setVisibleText(boolean visibleText) {
+        isVisibleText = visibleText;
+    }
+
+    public boolean isVisibleArrow() {
+        return isVisibleArrow;
+    }
+
+    public void setVisibleArrow(boolean visibleArrow) {
+        isVisibleArrow = visibleArrow;
+    }
+
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
+
+    public Color getEdgeColor() {
+        return edgeColor;
+    }
+
+    public void setEdgeColor(Color edgeColor) {
+        this.edgeColor = edgeColor;
     }
 
 }

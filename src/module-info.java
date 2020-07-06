@@ -1,8 +1,8 @@
 module SAI {
     requires javafx;
-//    requires javafx.fxml;
-//    requires javafx.controls;
-//    requires javafx.graphics;
+    requires javafx.fxml;
+    requires javafx.controls;
+    requires javafx.graphics;
 //    requires javafx.runtime;
     requires java.logging;
     requires java.se;
@@ -17,6 +17,8 @@ module SAI {
     requires org.fxyz3d;
     requires org.jzy3d;
     requires gremlin.java;
+//    requires lombok;
+//    requires lombok.maven.plugin;
 
     opens core.application;
 }

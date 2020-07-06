@@ -4,7 +4,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-class Arrow2dFx extends Path {
+public class Arrow2dFx extends Path {
 
     public Arrow2dFx() {
         /* Create this arrow shape */

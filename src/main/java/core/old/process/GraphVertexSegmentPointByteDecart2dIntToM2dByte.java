@@ -5,11 +5,6 @@ package core.old.process;
  */
 public class GraphVertexSegmentPointByteDecart2dIntToM2dByte {
 
-//    @Override
-//    public Boolean process() {
-//        return null;
-//    }
-
 //    /**
 //     * GraphVertexSegmentPointByteDecart2dInt -> Matrix2d<Byte>
 //     * @return

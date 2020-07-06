@@ -1,16 +1,31 @@
 package core.application.gui.workflowFxComponent.view;
 
-import core.application.gui.graphFxComponent.view.Edge2dFx;
+import core.application.gui.workflowFxComponent.model.VertexConnect;
+import core.application.gui.workflowFxComponent.model.WorkflowEdge;
+import core.application.gui.workflowFxComponent.model.WorkflowModel;
+import core.application.gui.workflowFxComponent.model.WorkflowVertex;
 import javafx.scene.layout.Pane;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Workflow2dFx extends Pane{
+    private WorkflowModel model;
     private HashSet<WorkflowVertex2dFx> vertexes = new HashSet<>();
     private HashSet<WorkflowEdge2dFx> edges = new HashSet<>();
 
-    public Workflow2dFx() {
+    public Workflow2dFx(WorkflowModel model) {
+        this.model = model;
+        this.updateFromModel();
+    }
 
+    public WorkflowModel getModel() {
+        return model;
+    }
+
+    public void setModel(WorkflowModel model) {
+        this.model = model;
+        this.updateFromModel();
     }
 
     public HashSet<WorkflowVertex2dFx> getVertexes() {
@@ -21,20 +36,42 @@ public class Workflow2dFx extends Pane{
         return edges;
     }
 
+    public double getSizeX() {
+        return this.getMinWidth();
+    }
+
+    public void setSizeX(double sizeX) {
+        this.setMinWidth(sizeX);
+        this.setMaxWidth(sizeX);
+        this.model.setSizeX(sizeX);
+    }
+
+    public double getSizeY() {
+        return this.getMinHeight();
+    }
+
+    public void setSizeY(double sizeY) {
+        this.setMinHeight(sizeY);
+        this.setMaxHeight(sizeY);
+        this.model.setSizeY(sizeY);
+    }
+
     public void addVertex(WorkflowVertex2dFx v){
         this.getChildren().add(v);
+        this.vertexes.add(v);
     }
 
-    public void addEdge(Edge2dFx e){
+    public void addEdge(WorkflowEdge2dFx e){
         this.getChildren().add(e);
+        this.edges.add(e);
     }
 
-    public void deleteVertex(WorkflowVertex2dFx v){
+    public void removeVertex(WorkflowVertex2dFx v){
         this.getChildren().remove(v);
         this.vertexes.remove(v);
     }
 
-    public void deleteEdge(WorkflowEdge2dFx e){
+    public void removeEdge(WorkflowEdge2dFx e){
         this.getChildren().remove(e);
         this.edges.remove(e);
     }
@@ -46,6 +83,31 @@ public class Workflow2dFx extends Pane{
         this.getChildren().clear();
         this.edges.clear();
         this.vertexes.clear();
+    }
+
+    public void updateToModel(){
+        throw new RuntimeException("Not implemented");
+    }
+
+    public void updateFromModel(){
+        HashMap<VertexConnect, VertexConnect2dFx> connects = new HashMap<>();
+        WorkflowVertex2dFx vFx;
+        WorkflowEdge2dFx eFx;
+        VertexConnect2dFx cFxFrom, cFxTo;
+        for (WorkflowVertex v: model.getVertexes()) {
+            vFx = new WorkflowVertex2dFx(v);
+            this.addVertex(vFx);
+            for (VertexConnect2dFx cFx: vFx.getConnects2dFx()) {
+                connects.put(cFx.getModel(), cFx);
+            }
+        }
+        for (WorkflowEdge e: model.getEdges()) {
+            cFxFrom = connects.get(e.getFrom());
+            cFxTo = connects.get(e.getTo());
+            eFx = new WorkflowEdge2dFx(e, cFxFrom, cFxTo);
+            this.addEdge(eFx);
+        }
+
     }
 
 }

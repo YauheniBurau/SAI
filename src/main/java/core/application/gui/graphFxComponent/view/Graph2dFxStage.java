@@ -5,7 +5,6 @@ import core.application.controller.StageController;
 import core.application.gui.graphFxComponent.binding.GraphFacade;
 import core.application.gui.graphFxComponent.model.GraphModel;
 import core.application.gui.graphFxComponent.odb.GraphDb;
-import core.application.gui.graphFxComponent.view.Graph2dFx;
 import core.application.view.builder.BorderPaneFxBuilder;
 import core.application.view.builder.SceneFxBuilder;
 import core.application.view.builder.StageFxBuilder;
@@ -34,22 +33,11 @@ public class Graph2dFxStage extends Stage {
         stg.build().setOnShown(e -> System.out.println("Set on shown"));
         stg.build().setOnHiding(e -> System.out.println("Set on hiding"));
         stg.build().setOnHidden(e -> System.out.println("Set on hidden"));
-        stg.build().setOnCloseRequest(e -> System.out.println("Set on CloseReuest"));
+        stg.build().setOnCloseRequest(e -> System.out.println("Set on CloseRequest"));
     }
 
     public void initialize(){
         System.out.println("setOnShowing");
-        //==============================================================================================================
-//        String str = "dogs and cats live together.______________________________________________________________________" +
-//                "jjdvnjs dsjvjn ssadjv sdvjsdv dakjsvnd vsdjvnv ajkj djv sdjnjkj4853 fhf adsv sdajv v jsdv jsnvjsdn vjnv" +
-//                "jv djfnds jdjvfs vsdjvnjd valiewaf viae viejivj zxk iedij iwc zxc ;ovvj sjwe vsdjfoas;c wej jv sivj eij" +
-//                "cjsdkv kekfjvd lvjsdlkjvievwvsdjv ewjv dsclzjiefj vfr4893 5694 g9df 9302 g00d ffvxclv vi03945034 r09 gf" +
-//                "jjdvnjs dsjvjn ssadjv sdvjsdv dakjsvnd vsdjvnv ajkj djv sdjnjkj4853 fhf adsv sdajv v jsdv jsnvjsdn vjnv" +
-//                "jv djfnds jdjvfs vsdjvnjd valiewaf viae viejivj zxk iedij iwc zxc ;ovvj sjwe vsdjfoas;c wej jv sivj eij" +
-//                "cjsdkv kekfjvd lvjsdlkjvievwvsdjv ewjv dsclzjiefj vfr4893 5694 g9df 9302 g00d ffvxclv vi03945034 r09 gf" +
-//                "jjdvnjs dsjvjn ssadjv sdvjsdv dakjsvnd vsdjvnv ajkj djv sdjnjkj4853 fhf adsv sdajv v jsdv jsnvjsdn vjnv" +
-//                "jv djfnds jdjvfs vsdjvnjd valiewaf viae viejivj zxk iedij iwc zxc ;ovvj sjwe vsdjfoas;c wej jv sivj eij" +
-//                "cjsdkv kekfjvd lvjsdlkjvievwvsdjv ewjv dsclzjiefj vfr4893 5694 g9df 9302 g00d ffvxclv vi03945034 r09 gf";
         String str = "dogs and cats live together.____";
         OVertex v = graphFacade.db_strToGraphDb(str);
         GraphModel gM = graphFacade.db_selectAllChildrenWithParent(v);
@@ -59,4 +47,7 @@ public class Graph2dFxStage extends Stage {
         //==============================================================================================================
     }
 
+    public GraphFacade getGraphFacade() {
+        return graphFacade;
+    }
 }

@@ -36,8 +36,8 @@ public class StageFxBuilder extends AbstractBaseFxBuilder<Stage> {
 
     public StageFxBuilder withScene(Scene scene){
         this.value.setScene(scene);
-        // this.getScene().getStylesheets().add(getClass().getResource("AI_Application.css").getFile() );
-        // this.getScene().getStylesheets().add(getClass().getResource("AI_Application.css").toExternalForm());
+        // this.getScene().getStylesheets().add(getClass().getResource("core.application.AI_Application.css").getFile() );
+        // this.getScene().getStylesheets().add(getClass().getResource("core.application.AI_Application.css").toExternalForm());
         return this;
     }
 
