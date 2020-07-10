@@ -3,13 +3,12 @@ package core.application.gui.workflowFxComponent.view;
 import core.application.gui.graphFxComponent.view.Arrow2dFx;
 import core.application.gui.graphFxComponent.view.UtilitiesBindings;
 import core.application.gui.workflowFxComponent.model.WorkflowEdge;
+import core.application.view.factory.ContextMenuFxFactory;
 import javafx.scene.Group;
-import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 
 public class WorkflowEdge2dFx extends Group {
@@ -17,7 +16,7 @@ public class WorkflowEdge2dFx extends Group {
     private VertexConnect2dFx from;
     private VertexConnect2dFx to;
     private Line curve = new Line();
-    private Text text = new Text();
+    private Label text = new Label();
     private Arrow2dFx arrow = new Arrow2dFx();
 
     public WorkflowEdge2dFx(WorkflowEdge model, VertexConnect2dFx c1, VertexConnect2dFx c2) {
@@ -29,13 +28,18 @@ public class WorkflowEdge2dFx extends Group {
         this.attachText();
         this.getChildren().addAll(curve, arrow, text);
         this.updateFromModel();
+        this.text.setContextMenu(ContextMenuFxFactory.createWorkflowEdgeContextMenu(this));
+    }
+
+    public WorkflowEdge getModel() {
+        return model;
     }
 
     public Line curve() {
         return curve;
     }
 
-    public Text text() {
+    public Label text() {
         return text;
     }
 
@@ -51,7 +55,7 @@ public class WorkflowEdge2dFx extends Group {
     }
 
     public void setTextFill(Paint paint) {
-        this.text.setFill(paint);
+        this.text.setTextFill(paint);
     }
 
     public void setText(String text){
@@ -134,7 +138,7 @@ public class WorkflowEdge2dFx extends Group {
     }
 
     public void updateFromModel(){
-        this.setText(model.getText());
+        this.setText(model.getName());
         this.setTextFill(model.getTextColor());
         this.setCurveFill(model.getEdgeColor());
         this.setArrowVisible(model.isVisibleArrow());

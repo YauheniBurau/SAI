@@ -7,9 +7,8 @@ import javafx.scene.control.Tooltip;
 
 public class ButtonFxBuilder extends AbstractBaseFxBuilder<Button> {
 
-    public ButtonFxBuilder(String id) {
+    public ButtonFxBuilder() {
         this.value = new Button();
-        this.value.setId(id);
     }
 
     public ButtonFxBuilder withText(String text){

@@ -4,6 +4,8 @@ import core.application.gui.workflowFxComponent.model.VertexConnect;
 import core.application.gui.workflowFxComponent.model.WorkflowEdge;
 import core.application.gui.workflowFxComponent.model.WorkflowModel;
 import core.application.gui.workflowFxComponent.model.WorkflowVertex;
+import core.application.view.factory.ContextMenuFxFactory;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.Pane;
 
 import java.util.HashMap;
@@ -17,6 +19,10 @@ public class Workflow2dFx extends Pane{
     public Workflow2dFx(WorkflowModel model) {
         this.model = model;
         this.updateFromModel();
+        this.setOnContextMenuRequested(e->{
+            ContextMenu cm = ContextMenuFxFactory.createWorkflowContextMenu(this);
+            cm.show(this.getScene().getWindow(), e.getX(), e.getY());
+        });
     }
 
     public WorkflowModel getModel() {

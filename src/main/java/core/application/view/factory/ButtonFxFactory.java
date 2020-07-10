@@ -8,11 +8,10 @@ public class ButtonFxFactory {
 
     /**
      * create button with set up eventHandler onClick event
-     * @param id
      * @return
      */
-    public static Button createButton(String id, String title, EventHandler controller) {
-        ButtonFxBuilder btn = new ButtonFxBuilder(id)
+    public static Button createButton(String title, EventHandler controller) {
+        ButtonFxBuilder btn = new ButtonFxBuilder()
             .withText(title)
             .withOnAction(controller);
         return btn.build();

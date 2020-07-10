@@ -1,6 +1,10 @@
 package core.application.gui.workflowFxComponent.model;
 
+import javafx.scene.paint.Color;
+
+import java.lang.reflect.Method;
 import java.util.HashSet;
+
 
 public class WorkflowVertex {
     private String name = "";
@@ -8,13 +12,12 @@ public class WorkflowVertex {
     private double nameRelativeY = 0;
 
     private String algorithmName = "";
-
     private String algorithmDescription = "";
+    private Method method;
 
-    private String classPath = "";
-
-    private String backgroundColor = "";
-    private String shape_svg_path = "";
+    private Color backgroundColor = Color.BLACK;
+    private ShapeSvgPathEnum shapeSvgPathEnum;
+    private String shapeSvgPath = "";
     private double sizeX = 0;
     private double sizeY = 0;
     private double minSizeX = 0;
@@ -68,28 +71,57 @@ public class WorkflowVertex {
         this.algorithmDescription = algorithmDescription;
     }
 
-    public String getClassPath() {
-        return classPath;
+    //==================================================================================================================
+    public Method getMethod() {
+        return method;
     }
 
-    public void setClassPath(String classPath) {
-        this.classPath = classPath;
+    public void setMethod(Method method) {
+        this.method = method;
     }
 
-    public String getBackgroundColor() {
+    public String getSimpleClassName() {
+        return method.getDeclaringClass().getSimpleName();
+    }
+
+    public String getStaticMethodName() {
+        return this.method.getName();
+    }
+
+    public Class<?>[] _getParameterTypes() {
+        return this.method.getParameterTypes();
+    }
+
+    public Class<?> getReturnType() {
+        return this.method.getReturnType();
+    }
+    //==================================================================================================================
+
+    public Color getBackgroundColor() {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
+    public void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
-    public String getShape_svg_path() {
-        return shape_svg_path;
+    public ShapeSvgPathEnum getShapeSvgPathEnum() {
+        return shapeSvgPathEnum;
     }
 
-    public void setShape_svg_path(String shape_svg_path) {
-        this.shape_svg_path = shape_svg_path;
+    public void setShapeSvgPathEnum(ShapeSvgPathEnum shapeSvgPathEnum) {
+        this.shapeSvgPathEnum = shapeSvgPathEnum;
+        if(shapeSvgPathEnum!=ShapeSvgPathEnum.CUSTOM){
+            this.setShapeSvgPath(shapeSvgPathEnum.value());
+        }
+    }
+
+    public String getShapeSvgPath() {
+        return shapeSvgPath;
+    }
+
+    public void setShapeSvgPath(String shapeSvgPath) {
+        this.shapeSvgPath = shapeSvgPath;
     }
 
     public double getMinSizeX() {
@@ -153,20 +185,58 @@ public class WorkflowVertex {
         this.layoutY = layoutY;
     }
 
-    public HashSet<VertexConnect> getConnects() {
+    public HashSet<VertexConnect> selectVertexConnects() {
         return connects;
     }
 
-    public void addConnect(VertexConnect connect) {
+    public VertexConnect[] selectVertexConnects(VertexConnectTypeEnum type) {
+        int size = this.countVertexConnects(type);
+        VertexConnect[] connects = new VertexConnect[size];
+        for (int i = 0; i<size; i++){
+            connects[i] = this.selectVertexConnect(i, VertexConnectTypeEnum.IN);
+        }
+        return connects;
+    }
+
+    public void addVertexConnect(VertexConnect connect) {
         this.connects.add(connect);
         connect.setVertex(this);
     }
 
+    public VertexConnect selectVertexConnect(int number, VertexConnectTypeEnum type){
+        VertexConnect vc = null;
+        for (VertexConnect c: this.selectVertexConnects()) {
+            if(c.getParamNumber()==number && c.getType()==type){
+                vc = c;
+                break;
+            }
+        }
+        return vc;
+    }
+
+    private int countVertexConnects(VertexConnectTypeEnum type){
+        int n = 0;
+        for (VertexConnect c: this.selectVertexConnects()) {
+            if(c.getType()==type){
+                n+=1;
+            }
+        }
+        return n;
+    }
 }
 
-
-
 // TODO: remove later
+
+//    private FileParam fileParam = FileParamFactory.fileDirectory();
+//    public FileParam getFileParam() {
+//        return fileParam;
+//    }
+//    public void setFileParam(FileParam fileParam) {
+//        this.fileParam = fileParam;
+//    }
+
+//        this.propertySheet.setSearchBoxVisible(false);
+//        this.propertySheet.setModeSwitcherVisible(false);
 
 //    private transient AlgorithmStateEnum state = AlgorithmStateEnum.NOT_PROCESSED; // for storing state of algo node during processing all workflowModel
 //    /**

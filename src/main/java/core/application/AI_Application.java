@@ -34,7 +34,6 @@ public class AI_Application extends Application {
         stg.withScene(scene.build());
         // ============= add test button into main window with event to open core.old.graph visualization window =======
         Button btnTest = ButtonFxFactory.createButton(
-                "testButton",
                 "testBtn",
                 e-> { Graph2dFxStage testStage = new Graph2dFxStage(stage, this.globalGraphDb);
                     StageController.showStage(testStage);}
@@ -42,7 +41,6 @@ public class AI_Application extends Application {
         root.build().setTop(btnTest);
 
         Button btnOpenWorkflowStage = ButtonFxFactory.createButton(
-                "btnOpenWorkflowStage",
                 "btnOpenWorkflowStage",
                 e-> { Workflow2dFxStage workflowStage = new Workflow2dFxStage(stage, new WorkflowIO());
                     StageController.showStage(workflowStage);}

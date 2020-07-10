@@ -3,9 +3,11 @@ package core.application.gui.workflowFxComponent.view;
 import core.application.gui.workflowFxComponent.model.VertexConnect;
 import core.application.gui.workflowFxComponent.model.WorkflowVertex;
 import core.application.view.factory.ContextMenuFxFactory;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 
 import java.util.HashSet;
 
@@ -17,7 +19,7 @@ public class WorkflowVertex2dFx extends Pane {
     public WorkflowVertex2dFx(WorkflowVertex model) {
         this.model = model;
         VertexConnect2dFx cFx;
-        for (VertexConnect c: model.getConnects() ) {
+        for (VertexConnect c: model.selectVertexConnects() ) {
             cFx = new VertexConnect2dFx(this, c);
             this.addConnect2dFx(cFx);
         }
@@ -32,12 +34,18 @@ public class WorkflowVertex2dFx extends Pane {
         return textNameFx;
     }
 
-    private void setStyles(String shape_svg_path, String fx_background_color){
+    private void setStyles(String shape_svg_path, Color fx_background_color){
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, new CornerRadii(0),
                 new BorderWidths(2,2,2,2, false, false, false, false))) );
-        this.setStyle("-fx-background-color: " + fx_background_color +"; " +
-                "-fx-shape: "+ shape_svg_path);
+        this.setBackground(
+                new Background(
+                        new BackgroundFill(fx_background_color, CornerRadii.EMPTY, Insets.EMPTY)
+                )
+        );
+        SVGPath path = new SVGPath();
+        path.setContent(shape_svg_path);
+        this.setShape(path);
     }
 
 
@@ -101,9 +109,8 @@ public class WorkflowVertex2dFx extends Pane {
     public void updateFromModel(){
         // update workflowVertex
         this.setSize(this.model.getSizeX(), this.model.getSizeY());
-        this.setStyles(this.model.getShape_svg_path(), this.model.getBackgroundColor());
+        this.setStyles(this.model.getShapeSvgPath(), this.model.getBackgroundColor());
         this.setLayoutXY(this.model.getLayoutX(), this.model.getLayoutY());
-        this.setName(this.model.getName());
         // update vertexConnects
         for (VertexConnect2dFx vcFx: this.getConnects2dFx() ) {
             vcFx.updateFromModel();

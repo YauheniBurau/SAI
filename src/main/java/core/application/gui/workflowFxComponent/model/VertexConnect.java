@@ -1,20 +1,28 @@
 package core.application.gui.workflowFxComponent.model;
 
+import javafx.scene.paint.Color;
+
 import java.io.Serializable;
 
 /**
  * x -1 .. +1; where -1 mean left or up, +1 mean right or down, and 0 mean center
  * y -1 .. +1; where -1 mean left or up, +1 mean right or down, and 0 mean center
  */
-public class VertexConnect implements Serializable {
+public class VertexConnect<T> implements Serializable {
     private WorkflowVertex vertex;
-    private String shape_svg_path = "";
-    private String fx_background_color;
+    private ShapeSvgPathEnum shapeSvgPathEnum;
+    private String shapeSvgPath = "";
+    private Color backgroundColor = Color.YELLOW;
     private double size = 0;
     private String label = "";
-    private String labelColor = "black";
+    private Color labelColor = Color.BLACK;
     private double x = 0;
     private double y = 0;
+
+    private int paramNumber;
+    private VertexConnectTypeEnum type;
+    private Class<?> typeValue;
+    private T value;
 
     public VertexConnect() {
 
@@ -28,20 +36,31 @@ public class VertexConnect implements Serializable {
         this.vertex = vertex;
     }
 
-    public String getShape_svg_path() {
-        return shape_svg_path;
+    public String getShapeSvgPath() {
+        return shapeSvgPath;
     }
 
-    public void setShape_svg_path(String shape_svg_path) {
-        this.shape_svg_path = shape_svg_path;
+    public void setShapeSvgPath(String shapeSvgPath) {
+        this.shapeSvgPath = shapeSvgPath;
     }
 
-    public String getFx_background_color() {
-        return fx_background_color;
+    public ShapeSvgPathEnum getShapeSvgPathEnum() {
+        return shapeSvgPathEnum;
     }
 
-    public void setFx_background_color(String fx_background_color) {
-        this.fx_background_color = fx_background_color;
+    public void setShapeSvgPathEnum(ShapeSvgPathEnum shapeSvgPathEnum) {
+        this.shapeSvgPathEnum = shapeSvgPathEnum;
+        if(shapeSvgPathEnum!=ShapeSvgPathEnum.CUSTOM){
+            this.setShapeSvgPath(shapeSvgPathEnum.value());
+        }
+    }
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     public double getSize() {
@@ -60,11 +79,11 @@ public class VertexConnect implements Serializable {
         this.label = label;
     }
 
-    public String getLabelColor() {
+    public Color getLabelColor() {
         return labelColor;
     }
 
-    public void setLabelColor(String labelColor) {
+    public void setLabelColor(Color labelColor) {
         this.labelColor = labelColor;
     }
 
@@ -84,4 +103,36 @@ public class VertexConnect implements Serializable {
         this.y = y;
     }
 
+    //==================================================================================================================
+    public int getParamNumber() {
+        return paramNumber;
+    }
+
+    public void _setParamNumber(int paramNumber) {
+        this.paramNumber = paramNumber;
+    }
+
+    public VertexConnectTypeEnum getType() {
+        return type;
+    }
+
+    public void _setType(VertexConnectTypeEnum type) {
+        this.type = type;
+    }
+
+    public Class<?> getTypeValue() {
+        return typeValue;
+    }
+
+    public void _setTypeValue(Class<?> typeValue) {
+        this.typeValue = typeValue;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
 }

@@ -17,8 +17,9 @@ module SAI {
     requires org.fxyz3d;
     requires org.jzy3d;
     requires gremlin.java;
-//    requires lombok;
-//    requires lombok.maven.plugin;
+    requires jcl.core;
 
+    //    requires lombok;
+    //    requires lombok.maven.plugin;
     opens core.application;
 }

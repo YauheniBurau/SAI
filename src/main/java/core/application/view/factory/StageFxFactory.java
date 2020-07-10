@@ -13,7 +13,7 @@ public class StageFxFactory {
 
     public static Stage createUtilityStage1FX(Stage stgOwner){
         StageFxBuilder stg = new StageFxBuilder();
-        PaneFxBuilder root = new PaneFxBuilder(STAGE1FX_ROOT);
+        PaneFxBuilder root = new PaneFxBuilder().withId(STAGE1FX_ROOT);
         SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root.build(), 240, 320);
         stg.withScene(scene.build()).withTitle("Utility1 instruments")
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
@@ -24,7 +24,7 @@ public class StageFxFactory {
 
     public static Stage createUtilityStage2FX(Stage stgOwner){
         StageFxBuilder stg = new StageFxBuilder();
-        PaneFxBuilder root = new PaneFxBuilder(STAGE2FX_ROOT);
+        PaneFxBuilder root = new PaneFxBuilder().withId(STAGE2FX_ROOT);
         SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root.build(), 240, 320);
         stg.withScene(scene.build()).withTitle("Utility2 instruments")
                 .withInitStyle(StageStyle.UTILITY).withAlwaysOnTop(true)
@@ -33,8 +33,12 @@ public class StageFxFactory {
         return stg.build();
     }
 
-    public static Stage createNodesPaletteStageFX(Stage stgOwner) {
-        // 1. stage window
+}
+
+// TODO: remove later
+
+//    public static Stage createNodesPaletteStageFX(Stage stgOwner) {
+//        // 1. stage window
 //        ScrollPane root = new ScrollPane();
 //        StageFxBuilder stg = new StageFxBuilder(view, id);
 //        stg.withScene(root, 300, 640).withTitle("Nodes palette")
@@ -78,7 +82,5 @@ public class StageFxFactory {
 //        root.setFitToHeight(true);
 //        root.setFitToWidth(true);
 //        root.setContent(tree);
-        return null;
-    }
-
-}
+//        return null;
+//    }

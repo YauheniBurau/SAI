@@ -7,15 +7,11 @@ import java.io.Serializable;
 public class WorkflowEdge implements Serializable {
     private VertexConnect from = null;
     private VertexConnect to = null;
-    private String text = "";
+    private String name = "data";
     private boolean isVisibleText = true;
     private boolean isVisibleArrow = true;
     private Color textColor = Color.BLACK;
     private Color edgeColor = Color.BLACK;
-
-    public WorkflowEdge() {
-
-    }
 
     public WorkflowEdge(VertexConnect from, VertexConnect to) {
         this.from = from;
@@ -38,12 +34,12 @@ public class WorkflowEdge implements Serializable {
         this.to = to;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isVisibleText() {

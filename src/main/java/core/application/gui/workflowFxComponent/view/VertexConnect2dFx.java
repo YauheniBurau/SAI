@@ -1,8 +1,10 @@
 package core.application.gui.workflowFxComponent.view;
 
 import core.application.gui.workflowFxComponent.model.VertexConnect;
+import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 
 public class VertexConnect2dFx extends Pane {
     private WorkflowVertex2dFx vertex2dFx;
@@ -14,12 +16,18 @@ public class VertexConnect2dFx extends Pane {
         this.updateFromModel();
     }
 
-    public void setStyles(String shape_svg_path, String fx_background_color){
+    public void setStyles(String shape_svg_path, Color backgroundColor){
         this.setBorder( new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, new CornerRadii(0),
                 new BorderWidths(2,2,2,2, false, false, false, false))) );
-        this.setStyle("-fx-background-color: " + fx_background_color +";" +
-                "-fx-shape: "+ shape_svg_path);
+        this.setBackground(
+                new Background(
+                        new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)
+                )
+        );
+        SVGPath path = new SVGPath();
+        path.setContent(shape_svg_path);
+        this.setShape(path);
     }
 
     public void setSize(double size){
@@ -68,7 +76,7 @@ public class VertexConnect2dFx extends Pane {
 
     public void updateFromModel(){
         this.setSize(model.getSize());
-        this.setStyles(model.getShape_svg_path(), "yellow");
+        this.setStyles(model.getShapeSvgPath(), model.getBackgroundColor());
         this.setRelativeLayoutXY(model.getX(), model.getY());
     }
 }

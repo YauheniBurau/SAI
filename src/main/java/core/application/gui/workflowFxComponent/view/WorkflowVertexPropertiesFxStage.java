@@ -2,44 +2,51 @@ package core.application.gui.workflowFxComponent.view;
 
 import core.application.controller.StageController;
 import core.application.gui.workflowFxComponent.model.WorkflowVertex;
+import core.application.gui.workflowFxComponent.param.PropertyEditorFactory;
+import core.application.view.builder.ButtonFxBuilder;
 import core.application.view.builder.SceneFxBuilder;
 import core.application.view.builder.StageFxBuilder;
+import core.application.view.factory.ButtonFxFactory;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.control.PropertySheet;
+import org.controlsfx.property.BeanPropertyUtils;
 
 public class WorkflowVertexPropertiesFxStage extends Stage {
-    private WorkflowVertex vertex;
+    private WorkflowVertex2dFx v2dFx;
+    private Pane root;
     private PropertySheet propertySheet;
+    private Button btnClose;
+    private Button btnApply;
 
-    public WorkflowVertexPropertiesFxStage(Stage owner, WorkflowVertex vertex) {
+    public WorkflowVertexPropertiesFxStage(Stage owner, WorkflowVertex2dFx v2dFx) {
+        this.v2dFx = v2dFx;
         StageFxBuilder stg = new StageFxBuilder(this);
-        propertySheet = new PropertySheet();
-        SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(propertySheet, 1024, 640);
-        stg.withScene(scene.build()).withTitle("Workflow vertex properties")
+        this.root = new Pane();
+        SceneFxBuilder scene = new SceneFxBuilder().withRootAndSize(root, 480, 640);
+        stg.withScene(scene.build()).withTitle("Workflow vertex properties:"+v2dFx.getModel().getName())
                 .withInitStyle(StageStyle.UNIFIED).withAlwaysOnTop(false)
                 .withOwner(owner)
                 .withModality(Modality.WINDOW_MODAL)
                 .withOnCloseRequest( (e)-> StageController.hideStage(stg.build()) );
         stg.build().setOnShowing(e -> initialize());
-        stg.build().setOnShown(e -> System.out.println("Set on shown"));
-        stg.build().setOnHiding(e -> System.out.println("Set on hiding"));
-        stg.build().setOnHidden(e -> System.out.println("Set on hidden"));
-        stg.build().setOnCloseRequest(e -> System.out.println("Set on CloseRequest"));
-
     }
 
     public void initialize(){
-
+        btnClose = ButtonFxFactory.createButton("close", e->StageController.hideStage(this) );
+        btnApply = ButtonFxFactory.createButton("apply", e->{this.v2dFx.updateFromModel();} );
+        propertySheet = new PropertySheet();
+        propertySheet.setPropertyEditorFactory(new PropertyEditorFactory());
+        this.propertySheet.getItems().addAll(BeanPropertyUtils.getProperties(this.v2dFx.getModel()));
+        // add to root
+        HBox boxButtons = new HBox(btnClose, btnApply);
+        VBox boxAll = new VBox(propertySheet, boxButtons);
+        this.root.getChildren().add(boxAll);
     }
-
-    public static void mapVertexIntoPropertySheet(WorkflowVertex vertex, PropertySheet propertySheet){
-
-    }
-
-    public void clear(){
-        this.propertySheet.getItems().clear();
-    }
-
 }
