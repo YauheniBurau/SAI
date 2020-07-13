@@ -5,13 +5,16 @@ import javafx.scene.paint.Color;
 import java.io.Serializable;
 
 public class WorkflowEdge implements Serializable {
+    private static final long serialVersionUID = 1L;
     private VertexConnect from = null;
     private VertexConnect to = null;
     private String name = "data";
     private boolean isVisibleText = true;
     private boolean isVisibleArrow = true;
-    private Color textColor = Color.BLACK;
-    private Color edgeColor = Color.BLACK;
+    private transient Color textColor = Color.BLACK;
+    private SerializableColor sTextColor;
+    private transient Color edgeColor = Color.BLACK;
+    private SerializableColor sEdgeColor;
 
     public WorkflowEdge(VertexConnect from, VertexConnect to) {
         this.from = from;
@@ -59,19 +62,23 @@ public class WorkflowEdge implements Serializable {
     }
 
     public Color getTextColor() {
+        if(this.textColor==null){ this.textColor = this.sTextColor.getColor();}
         return textColor;
     }
 
-    public void setTextColor(Color textColor) {
-        this.textColor = textColor;
+    public void setTextColor(Color color) {
+        this.textColor = color;
+        this.sTextColor = new SerializableColor(color);
     }
 
     public Color getEdgeColor() {
+        if(this.edgeColor==null){ this.edgeColor = this.sEdgeColor.getColor();}
         return edgeColor;
     }
 
-    public void setEdgeColor(Color edgeColor) {
-        this.edgeColor = edgeColor;
+    public void setEdgeColor(Color color) {
+        this.edgeColor = color;
+        this.sEdgeColor = new SerializableColor(color);
     }
 
 }

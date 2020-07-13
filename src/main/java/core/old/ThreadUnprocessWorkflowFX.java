@@ -1,6 +1,6 @@
 package core.old;
 
-//public class ThreadUnprocessWorkflowFX extends Thread {
+public class ThreadUnprocessWorkflowFX extends Thread {
 //    private NodeFX nodeFX;
 //
 //    public ThreadUnprocessWorkflowFX(NodeFX nodeFX) {
@@ -28,6 +28,4 @@ package core.old;
 //        }
 //        log.info("workflowModel process finished for end Node: " + this.getName() + "\n");
 //    }
-//
-//
-//}
+}

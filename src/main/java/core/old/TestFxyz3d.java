@@ -92,23 +92,3 @@ public class TestFxyz3d  extends Application {
     }
 
 }
-
-
-//            case A: cmr.setRotate(-10, 0, 0); break;
-//            case D: cmr.setRotate(+10, 0, 0); break;
-//
-//            case W: cmr.setRotate(0, +10, 0); break;
-//            case S: cmr.setRotate(0, -10, 0); break;
-//
-//            case Q: cmr.setRotate(0, 0, +10); break;
-//            case E: cmr.setRotate(0, 0, -10); break;
-
-//            case F: this.translateCamera(-10, 0, 0); break;
-//            case H: this.translateCamera(+10, 0, 0); break;
-//
-//            case T: this.translateCamera(0, +10, 0); break;
-//            case G: this.translateCamera(0, -10, 0); break;
-//
-//            case R: this.translateCamera(0, 0, -10); break;
-//            case Y: this.translateCamera(0, 0, +10); break;
-//        }

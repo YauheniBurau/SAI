@@ -3,7 +3,7 @@ package core.old;
 /**
  * Created by anonymous on 20.12.2018.
  */
-public class Polar2dByte implements ICoords {
+public class Polar2dByte {
     public byte a;
     public byte r;
 

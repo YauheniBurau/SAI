@@ -99,21 +99,6 @@ import java.util.logging.Logger;
 ////        workflowFX.addNodeFX(new NodeFX(node));
 //    }
 //
-//    /**
-//     * open dialog of confirmation, remove node or leave node, if remove then remove from model and view
-//     * @param nodeFX
-//     */
-//    public static void showRemoveNodeDialog(WorkflowStageFX workflowStageFX, NodeFX nodeFX){
-////        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-////        alert.setTitle("Delete node from workflowModel");
-////        alert.setHeaderText("It will remove Node and all own connections from Workflow");
-////        alert.setContentText("You can't discard that changes. Are you sure?");
-////        Optional<ButtonType> result = alert.showAndWait();
-////        if (result.get() == ButtonType.OK) {
-////            workflowStageFX.getWorkflowFX().removeNodeFX(nodeFX);
-////            workflowStageFX.getWorkflowFX().getWorkflow().removeNode(nodeFX.getNode());
-////        }
-//    }
 //
 //    /**
 //     * show dialog for confirmation delete connection, if ok then delete from view and model

@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class Reflection {
 
-
     private static Class[] filterClasses(Class[] classes, Class<? extends Annotation> annotationClass){
         ArrayList<Class> outClasses = new ArrayList<>();
         for (Class cl: classes) {

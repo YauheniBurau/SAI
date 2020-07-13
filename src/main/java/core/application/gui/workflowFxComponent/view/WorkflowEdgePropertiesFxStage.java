@@ -1,9 +1,9 @@
 package core.application.gui.workflowFxComponent.view;
 
 import core.application.controller.StageController;
-import core.application.view.builder.SceneFxBuilder;
-import core.application.view.builder.StageFxBuilder;
-import core.application.view.factory.ButtonFxFactory;
+import core.application.gui.builderFx.SceneFxBuilder;
+import core.application.gui.builderFx.StageFxBuilder;
+import core.application.gui.factoryFx.ButtonFxFactory;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;

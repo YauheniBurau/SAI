@@ -49,16 +49,6 @@ public class GraphODB{
 //        OEdge e = this.createEdge(source, destination, oClassEdgePrevNext);
 //        return e;
 //    }
-//
-//    @Override
-//    public List<OEdge> connectClusterBetween(OVertex source, OVertex destStart, OVertex destEnd) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void removeEdge(OVertex destStart, OVertex destEnd) {
-//
-//    }
 
 //    /**
 //     * Convert txt file of chars UTF-8 into Cluster(ClusterSequence)

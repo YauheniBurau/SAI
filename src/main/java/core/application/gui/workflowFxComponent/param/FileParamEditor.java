@@ -1,7 +1,7 @@
 package core.application.gui.workflowFxComponent.param;
 
-import core.application.view.builder.ButtonFxBuilder;
-import core.application.view.factory.FileChooserFxFactory;
+import core.application.gui.builderFx.ButtonFxBuilder;
+import core.application.gui.factoryFx.FileChooserFxFactory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

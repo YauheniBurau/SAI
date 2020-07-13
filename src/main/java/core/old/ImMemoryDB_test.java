@@ -39,5 +39,4 @@ public class ImMemoryDB_test {
         orientDBEmbedded.close();
     }
 
-
 }

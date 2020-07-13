@@ -8,10 +8,12 @@ import org.controlsfx.control.PropertySheet;
 import org.controlsfx.property.editor.Editors;
 import org.controlsfx.property.editor.PropertyEditor;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 
 public class PropertyEditorFactory implements Callback<PropertySheet.Item, PropertyEditor<?>> {
@@ -29,6 +31,12 @@ public class PropertyEditorFactory implements Callback<PropertySheet.Item, Prope
         //==========================ADD YOURS PERSONAL RETURN EDITORS===================================================
         if(type == FileParam.class){
             return new FileParamEditor(item);
+        }
+        if(type == Method.class) {
+            return new StaticMethodEditor(item);
+//            if (type != null && type.isEnum()) {
+//                return Editors.createChoiceEditor(item, Arrays.asList(((StaticMethod) item.getValue()).getStaticMethods()));
+//            }
         }
         //==============================================================================================================
         if (type == String.class) {

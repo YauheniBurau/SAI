@@ -9,20 +9,23 @@ import java.io.Serializable;
  * y -1 .. +1; where -1 mean left or up, +1 mean right or down, and 0 mean center
  */
 public class VertexConnect<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
     private WorkflowVertex vertex;
     private ShapeSvgPathEnum shapeSvgPathEnum;
     private String shapeSvgPath = "";
-    private Color backgroundColor = Color.YELLOW;
+    private transient Color backgroundColor = Color.YELLOW;
+    private SerializableColor sBackgroundColor;
     private double size = 0;
     private String label = "";
-    private Color labelColor = Color.BLACK;
+    private transient Color labelColor = Color.BLACK;
+    private SerializableColor sLabelColor;
     private double x = 0;
     private double y = 0;
 
     private int paramNumber;
     private VertexConnectTypeEnum type;
     private Class<?> typeValue;
-    private T value;
+    private transient T value;
 
     public VertexConnect() {
 
@@ -56,11 +59,13 @@ public class VertexConnect<T> implements Serializable {
     }
 
     public Color getBackgroundColor() {
+        if(this.backgroundColor==null){ this.backgroundColor = this.sBackgroundColor.getColor();}
         return backgroundColor;
     }
 
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public void setBackgroundColor(Color color) {
+        this.backgroundColor = color;
+        this.sBackgroundColor = new SerializableColor(color);
     }
 
     public double getSize() {
@@ -80,11 +85,13 @@ public class VertexConnect<T> implements Serializable {
     }
 
     public Color getLabelColor() {
+        if(this.labelColor==null){ this.labelColor = this.sLabelColor.getColor();}
         return labelColor;
     }
 
-    public void setLabelColor(Color labelColor) {
-        this.labelColor = labelColor;
+    public void setLabelColor(Color color) {
+        this.labelColor = color;
+        this.sLabelColor = new SerializableColor(color);
     }
 
     public double getX() {

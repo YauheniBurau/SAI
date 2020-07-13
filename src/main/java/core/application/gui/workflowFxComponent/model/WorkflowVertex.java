@@ -1,21 +1,30 @@
 package core.application.gui.workflowFxComponent.model;
 
+import core.application.gui.workflowFxComponent.classLoader.ClassLoader;
+import core.application.gui.workflowFxComponent.reflection.Reflections;
 import javafx.scene.paint.Color;
+import org.xeustechnologies.jcl.JarClassLoader;
+import org.xeustechnologies.jcl.context.JclContext;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashSet;
 
-
-public class WorkflowVertex {
+public class WorkflowVertex implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String name = "";
-    private double nameRelativeX = 0;
-    private double nameRelativeY = 0;
+    private double nameRelativeX = 0.0;
+    private double nameRelativeY = 0.0;
 
     private String algorithmName = "";
     private String algorithmDescription = "";
-    private Method method;
+    private String fullClassName;
+    private transient Method staticMethod;
+    private SerializableMethod sStaticMethod;
 
-    private Color backgroundColor = Color.BLACK;
+    private transient Color backgroundColor = Color.BLACK;
+    private SerializableColor sBackgroundColor;
     private ShapeSvgPathEnum shapeSvgPathEnum;
     private String shapeSvgPath = "";
     private double sizeX = 0;
@@ -71,38 +80,46 @@ public class WorkflowVertex {
         this.algorithmDescription = algorithmDescription;
     }
 
-    //==================================================================================================================
-    public Method getMethod() {
-        return method;
+    public String getFullClassName() {
+        return fullClassName;
     }
 
-    public void setMethod(Method method) {
-        this.method = method;
+    public void setFullClassName(String fullClassName) {
+        if(this.fullClassName != fullClassName && ClassLoader.isFoundClass(fullClassName)){
+            this.fullClassName = fullClassName;
+            this.setStaticMethod(fullClassName);
+        }
     }
 
-    public String getSimpleClassName() {
-        return method.getDeclaringClass().getSimpleName();
+    public Method getStaticMethod() {
+        if(this.staticMethod==null && this.sStaticMethod!=null){ this.staticMethod = this.sStaticMethod.getMethod();}
+        return this.staticMethod;
     }
 
-    public String getStaticMethodName() {
-        return this.method.getName();
+    public void setStaticMethod(Method method) {
+        this.sStaticMethod = new SerializableMethod(method);
+        this.staticMethod = method;
+        // also from List<VertexConnect> from method and add all input and output params of method
+        this.updateVertexConnects();
     }
 
-    public Class<?>[] _getParameterTypes() {
-        return this.method.getParameterTypes();
+    public void setStaticMethod(String fullClassName) {
+        // also update StaticMethod
+        Class<?> clazz = ClassLoader.loadClass(fullClassName);
+        Collection<Method> sM = Reflections.getClassStaticMethods(clazz);
+        if(sM.size()>0) {
+            this.setStaticMethod(sM.iterator().next());
+        }
     }
-
-    public Class<?> getReturnType() {
-        return this.method.getReturnType();
-    }
-    //==================================================================================================================
 
     public Color getBackgroundColor() {
+        if(this.backgroundColor==null){ this.backgroundColor = this.sBackgroundColor.getColor();}
         return backgroundColor;
     }
 
     public void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
+        this.sBackgroundColor = new SerializableColor(backgroundColor);
     }
 
     public ShapeSvgPathEnum getShapeSvgPathEnum() {
@@ -201,6 +218,25 @@ public class WorkflowVertex {
     public void addVertexConnect(VertexConnect connect) {
         this.connects.add(connect);
         connect.setVertex(this);
+    }
+
+    /**
+     * update all VertexConnects from vertex staticMethod
+     */
+    public void updateVertexConnects() {
+        this.connects = new HashSet<>();
+        if(this.getStaticMethod()!=null) {
+            Class<?>[] parameterTypes = this.getStaticMethod().getParameterTypes();
+            int size = parameterTypes.length;
+            int n = 0;
+            for (Class<?> paramType : parameterTypes) {
+                this.addVertexConnect(VertexConnectFactory.newDefault(-1, -1 + (2 / (double) (size + 1)) * (n + 1), VertexConnectTypeEnum.IN, n, paramType, null));
+                n += 1;
+            }
+            // OUTPUT CONNECT
+            Class<?> retType = this.staticMethod.getReturnType();
+            this.addVertexConnect(VertexConnectFactory.newDefault(+1, 0, VertexConnectTypeEnum.OUT, 0, retType, null));
+        }
     }
 
     public VertexConnect selectVertexConnect(int number, VertexConnectTypeEnum type){

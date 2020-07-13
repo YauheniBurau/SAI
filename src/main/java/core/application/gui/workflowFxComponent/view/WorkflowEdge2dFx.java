@@ -3,7 +3,6 @@ package core.application.gui.workflowFxComponent.view;
 import core.application.gui.graphFxComponent.view.Arrow2dFx;
 import core.application.gui.graphFxComponent.view.UtilitiesBindings;
 import core.application.gui.workflowFxComponent.model.WorkflowEdge;
-import core.application.view.factory.ContextMenuFxFactory;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -28,7 +27,7 @@ public class WorkflowEdge2dFx extends Group {
         this.attachText();
         this.getChildren().addAll(curve, arrow, text);
         this.updateFromModel();
-        this.text.setContextMenu(ContextMenuFxFactory.createWorkflowEdgeContextMenu(this));
+        this.text.setContextMenu(WorkflowContextMenusFxFactory.workflowEdgeContextMenu(this));
     }
 
     public WorkflowEdge getModel() {

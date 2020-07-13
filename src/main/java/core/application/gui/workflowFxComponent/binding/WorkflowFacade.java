@@ -83,18 +83,18 @@ public class WorkflowFacade {
 
     public void load(File f){
         this.clearAll();
-        this.workflowModel = this.workflowIO.load(this.workflowIO.getFile());
+        this.workflowModel = this.workflowIO.loadWorkflow(this.workflowIO.getFile());
         this.workflow2dFx.clear();
         this.workflow2dFx.setModel(this.workflowModel);
         this.workflowIO.setFile(f);
     }
 
     public void save(){
-        this.workflowIO.save(this.workflowModel, this.workflowIO.getFile());
+        this.workflowIO.saveWorkflow(this.workflowModel, this.workflowIO.getFile());
     }
 
     public void saveAs(File f){
-        this.workflowIO.save(this.workflowModel, f);
+        this.workflowIO.saveWorkflow(this.workflowModel, f);
         this.workflowIO.setFile(f);
     }
 

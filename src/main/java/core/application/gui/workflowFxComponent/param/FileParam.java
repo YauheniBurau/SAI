@@ -1,11 +1,8 @@
 package core.application.gui.workflowFxComponent.param;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.property.editor.PropertyEditor;
-
-import java.beans.Beans;
 import java.io.File;
 import java.util.Optional;
 
@@ -13,13 +10,14 @@ import java.util.Optional;
  * Created by anonymous on 26.03.2019.
  * start refactor 09.07.2020
  */
-public class FileParam extends Beans implements PropertySheet.Item{
+public class FileParam implements PropertySheet.Item{
     private File file;
     private String fileChooserTitle;
     private File FileChooserInitialDirectory;
     private String FileChooserComment;
     private String[] extensions;
     private String category, name;
+    private ShowDialogEnum showDialogType;
     //private transient FileChooser.ExtensionFilter extensionFilter;
 
     public FileParam setFileChooserTitle(String fileChooserTitle) {
@@ -84,6 +82,15 @@ public class FileParam extends Beans implements PropertySheet.Item{
 
     public FileParam setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public ShowDialogEnum getShowDialogType() {
+        return showDialogType;
+    }
+
+    public FileParam setShowDialogType(ShowDialogEnum showDialogType) {
+        this.showDialogType = showDialogType;
         return this;
     }
 

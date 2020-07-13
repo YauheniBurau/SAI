@@ -37,18 +37,6 @@ public class AI_Test {
         client.disconnect();
     }
 
-    //    @Test
-//    public void Png_Contour() {
-//        PngFile pngFileIn = new PngFile(dirIn + imageFile);
-//        Matrix2d<ARGB> m2dArgb = PngFileToM2dArgb.transform(pngFileIn);
-//        Matrix2dByte m2dByte = M2dArgbToM2dByte256Colors.transform(m2dArgb);
-//        InputDataSensor inputDataSensor = new InputDataSensor();
-//        inputDataSensor.setInputM2d(m2dByte);
-//        inputDataSensor.countContourM2d(400, 250);
-//        PngFile pngFileOut = new PngFile(dirOut + "C_" + imageFile);
-//        M2dDecart2dIntLinksToPngFile.transform(inputDataSensor.contourM2d, pngFileOut);
-//    }
-
 //    @Test
 //    public void saveCurrent(){
 //        Webcam webcam = Webcam.getDefault();
@@ -82,9 +70,9 @@ public class AI_Test {
 //        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        window.pack();
 //        window.setVisible(true);
-////    public static void main(String[] args) throws InterruptedException {
-////        new WebCameraTest().windowWithCamData();
-////    }
+//    public static void main(String[] args) throws InterruptedException {
+//        new WebCameraTest().windowWithCamData();
+//    }
 //    }
 
     public static void main ( String [] arguments ) {

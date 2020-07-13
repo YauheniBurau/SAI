@@ -3,7 +3,7 @@ module SAI {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
-//    requires javafx.runtime;
+    requires javafx.event;
     requires java.logging;
     requires java.se;
     requires commons.net;

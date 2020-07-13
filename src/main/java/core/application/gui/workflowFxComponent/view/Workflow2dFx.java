@@ -4,7 +4,6 @@ import core.application.gui.workflowFxComponent.model.VertexConnect;
 import core.application.gui.workflowFxComponent.model.WorkflowEdge;
 import core.application.gui.workflowFxComponent.model.WorkflowModel;
 import core.application.gui.workflowFxComponent.model.WorkflowVertex;
-import core.application.view.factory.ContextMenuFxFactory;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.Pane;
 
@@ -20,7 +19,7 @@ public class Workflow2dFx extends Pane{
         this.model = model;
         this.updateFromModel();
         this.setOnContextMenuRequested(e->{
-            ContextMenu cm = ContextMenuFxFactory.createWorkflowContextMenu(this);
+            ContextMenu cm = WorkflowContextMenusFxFactory.workflowContextMenu(this);
             cm.show(this.getScene().getWindow(), e.getX(), e.getY());
         });
     }
@@ -31,6 +30,7 @@ public class Workflow2dFx extends Pane{
 
     public void setModel(WorkflowModel model) {
         this.model = model;
+        this.clear();
         this.updateFromModel();
     }
 
@@ -38,8 +38,26 @@ public class Workflow2dFx extends Pane{
         return vertexes;
     }
 
+    public WorkflowVertex2dFx getVertex(WorkflowVertex v) {
+        for( WorkflowVertex2dFx v2dFx: this.getVertexes() ) {
+            if(v2dFx.getModel()==v){
+                return v2dFx;
+            }
+        }
+        return null;
+    }
+
     public HashSet<WorkflowEdge2dFx> getEdges() {
         return edges;
+    }
+
+    public WorkflowEdge2dFx getEdge(WorkflowEdge e) {
+        for( WorkflowEdge2dFx e2dFx: this.getEdges() ) {
+            if(e2dFx.getModel()==e){
+                return e2dFx;
+            }
+        }
+        return null;
     }
 
     public double getSizeX() {
@@ -100,37 +118,33 @@ public class Workflow2dFx extends Pane{
         WorkflowVertex2dFx vFx;
         WorkflowEdge2dFx eFx;
         VertexConnect2dFx cFxFrom, cFxTo;
+        // vertexes
         for (WorkflowVertex v: model.getVertexes()) {
-            vFx = new WorkflowVertex2dFx(v);
-            this.addVertex(vFx);
+            vFx = getVertex(v);
+            if(vFx==null){
+                vFx = new WorkflowVertex2dFx(v);
+                this.addVertex(vFx);
+            }
             for (VertexConnect2dFx cFx: vFx.getConnects2dFx()) {
                 connects.put(cFx.getModel(), cFx);
             }
         }
+        // edges
         for (WorkflowEdge e: model.getEdges()) {
-            cFxFrom = connects.get(e.getFrom());
-            cFxTo = connects.get(e.getTo());
-            eFx = new WorkflowEdge2dFx(e, cFxFrom, cFxTo);
-            this.addEdge(eFx);
+            eFx = getEdge(e);
+            if(eFx==null) {
+                cFxFrom = connects.get(e.getFrom());
+                cFxTo = connects.get(e.getTo());
+                eFx = new WorkflowEdge2dFx(e, cFxFrom, cFxTo);
+                this.addEdge(eFx);
+            }
         }
-
     }
 
 }
 
 
 // TODO: clear and remove
-
-//    public ArrayList<NodeFX> getNodesFX() {
-//        ArrayList<NodeFX> list = new ArrayList<>();
-//        for(javafx.scene.Node node: this.getChildren()){
-//            if(node.getClass() == NodeFX.class){
-//                list.add((NodeFX)node );
-//            }
-//        }
-//        return list;
-//    }
-//
 
 //    public ArrayList<ConnectionFX> getConnectionsFX() {
 //        ArrayList<ConnectionFX> list = new ArrayList<>();

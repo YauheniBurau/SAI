@@ -3,7 +3,8 @@ Strong fast self studying Artificial intelligence
 in development, pre-alpha
 
 For run project in debug mode you need to add in run configuration
-VM-OPTIONS: --module-path "D:\workspace\openjfx-14.0.1_windows-x64_bin-sdk\javafx-sdk-14.0.1\lib" --add-modules javafx.controls
+VM-OPTIONS: 
+--module-path "D:\workspace\openjfx-14.0.1_windows-x64_bin-sdk\javafx-sdk-14.0.1\lib" --add-modules javafx.controls --add-exports=javafx.base/com.sun.javafx.event=ALL-UNNAMED
 
 1. parse text and create graph -
 

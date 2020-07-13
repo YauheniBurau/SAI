@@ -2,7 +2,6 @@ package core.application.gui.workflowFxComponent.view;
 
 import core.application.gui.workflowFxComponent.model.VertexConnect;
 import core.application.gui.workflowFxComponent.model.WorkflowVertex;
-import core.application.view.factory.ContextMenuFxFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -18,14 +17,8 @@ public class WorkflowVertex2dFx extends Pane {
 
     public WorkflowVertex2dFx(WorkflowVertex model) {
         this.model = model;
-        VertexConnect2dFx cFx;
-        for (VertexConnect c: model.selectVertexConnects() ) {
-            cFx = new VertexConnect2dFx(this, c);
-            this.addConnect2dFx(cFx);
-        }
         this.getChildren().add(textNameFx);
-        this.updateFromModel();
-        this.textNameFx.setContextMenu(ContextMenuFxFactory.createWorkflowVertexContextMenu(this));
+        this.updateFromModel(false);
         MakeWorkflowVertexFxResizable.makeResizable(this);
         MakeWorkflowVertexFxDruggable.makeDruggable(this);
     }
@@ -69,11 +62,13 @@ public class WorkflowVertex2dFx extends Pane {
      * @param y -1..+1
      */
     private void setNameRelativeXY(double x, double y){
+        textNameFx.layoutXProperty().unbind();
         textNameFx.layoutXProperty().bind(this.widthProperty()
                 .divide(2)
                 .subtract(textNameFx.widthProperty().divide(2))
                 .add(this.widthProperty().divide(2).multiply(x))
         );
+        textNameFx.layoutXProperty().unbind();
         textNameFx.layoutYProperty().bind(this.heightProperty()
                 .divide(2)
                 .subtract(textNameFx.heightProperty().divide(2))
@@ -106,18 +101,31 @@ public class WorkflowVertex2dFx extends Pane {
         throw new RuntimeException("Not implemented");
     }
 
-    public void updateFromModel(){
+    /**
+     *
+     * @param isUpdateVertexConnects that parameter is for loading serializable object because if you load
+     *                               WorkflowVertex you don't need create VertexConnects agains from 'staticMethod'
+     */
+    public void updateFromModel(boolean isUpdateVertexConnects){
         // update workflowVertex
         this.setSize(this.model.getSizeX(), this.model.getSizeY());
         this.setStyles(this.model.getShapeSvgPath(), this.model.getBackgroundColor());
         this.setLayoutXY(this.model.getLayoutX(), this.model.getLayoutY());
-        // update vertexConnects
-        for (VertexConnect2dFx vcFx: this.getConnects2dFx() ) {
-            vcFx.updateFromModel();
-        }
         // update label 'Name'
         this.setName(this.model.getName());
         this.setNameRelativeXY(this.model.getNameRelativeX(), this.model.getNameRelativeY());
+        // update vertexConnects
+        if( isUpdateVertexConnects ){
+            this.model.updateVertexConnects();
+        }
+        this.getChildren().removeAll(this.connects2dFx);
+        this.connects2dFx.clear();
+        VertexConnect2dFx cFx;
+        for (VertexConnect c: model.selectVertexConnects() ) {
+            cFx = new VertexConnect2dFx(this, c);
+            this.addConnect2dFx(cFx);
+        }
+        this.textNameFx.setContextMenu(WorkflowContextMenusFxFactory.workflowVertexContextMenu(this));
     }
 
 }

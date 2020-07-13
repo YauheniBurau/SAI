@@ -27,7 +27,7 @@ public class FileParamFactory {
                 .setFileChooserTitle( "Select file *.wfv" )
                 .setFileChooserInitialDirectory( new File(System.getProperty("user.home")) )
                 .setFileChooserComment("select *.wfv")
-                .setExtensions( new String[]{"*.png"} );
+                .setExtensions( new String[]{"*.wfv"} );
     }
 
     /**
@@ -54,6 +54,19 @@ public class FileParamFactory {
                 .setFileChooserInitialDirectory( new File(System.getProperty("user.home")) )
                 .setFileChooserComment( "select Directory" )
                 .setExtensions( new String[]{"."} );
+    }
+
+    /**
+     *
+     * @return file *.class java
+     */
+    public static FileParam fileClass(){
+        return new FileParam()
+                .setFile( new File(System.getProperty("user.home")) )
+                .setFileChooserTitle( "Select file *.class" )
+                .setFileChooserInitialDirectory( new File(System.getProperty("user.home")) )
+                .setFileChooserComment( "Select file *.class" )
+                .setExtensions( new String[]{"*.class"} );
     }
 
 }

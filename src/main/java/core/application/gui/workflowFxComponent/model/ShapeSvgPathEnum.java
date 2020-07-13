@@ -1,6 +1,8 @@
 package core.application.gui.workflowFxComponent.model;
 
-public enum ShapeSvgPathEnum {
+import java.io.Serializable;
+
+public enum ShapeSvgPathEnum implements Serializable {
     SQUARE {
         public String value(){return "M 0 1 L 8 1 L 8 5 L 0 5 L 0 1";}
     },

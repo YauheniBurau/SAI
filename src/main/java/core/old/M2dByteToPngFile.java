@@ -3,23 +3,8 @@ package core.old;
 /**
  * Created by anonymous on 09.11.2018.
  */
-//public class M2dByteToPngFile {
-//
-//    /**
-//     * Matrix2dByte -> PngFile
-//     * @return
-//     */
-//    @Override
-//    public Boolean process() {
-//        return Boolean.TRUE;
-//    }
-//
-//    /**
-//     * save matrix2dArgb to Png-file
-//     * @param in
-//     * @param out
-//     * @return
-//     */
+public class M2dByteToPngFile {
+
 //    public static PngFile transform(Matrix2d<Byte> in, PngFile out) {
 //        BufferedImage image;
 //        Colors256ARGB colors256 = new Colors256ARGB();
@@ -48,5 +33,4 @@ package core.old;
 //        }
 //        return out;
 //    }
-//
-//}
+}

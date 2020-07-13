@@ -5,16 +5,26 @@ import core.application.gui.graphFxComponent.odb.GraphDb;
 import core.application.controller.StageController;
 import core.application.gui.workflowFxComponent.io.WorkflowIO;
 import core.application.gui.workflowFxComponent.view.Workflow2dFxStage;
-import core.application.view.builder.BorderPaneFxBuilder;
-import core.application.view.builder.SceneFxBuilder;
-import core.application.view.builder.StageFxBuilder;
-import core.application.view.factory.ButtonFxFactory;
-import core.application.view.factory.MenuBarFxFactory;
+import core.application.gui.builderFx.BorderPaneFxBuilder;
+import core.application.gui.builderFx.SceneFxBuilder;
+import core.application.gui.builderFx.StageFxBuilder;
+import core.application.gui.factoryFx.ButtonFxFactory;
+import core.application.gui.factoryFx.MenuBarFxFactory;
 import core.application.gui.graphFxComponent.view.Graph2dFxStage;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
+import org.xeustechnologies.jcl.JarClassLoader;
+import org.xeustechnologies.jcl.context.DefaultContextLoader;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 public class AI_Application extends Application {
     public static String APPLICATION_MENU_BAR = "app.menubar";
@@ -24,6 +34,14 @@ public class AI_Application extends Application {
     @Override
     public void start(Stage stage) {
         this.globalGraphDb.connect();
+
+        // ===========================================================
+        JarClassLoader jcl = new JarClassLoader();
+        //jcl.add("myjarlib/");
+        DefaultContextLoader context=new DefaultContextLoader(jcl);
+        context.loadContext();
+        // ============================================================
+
         StageFxBuilder stg = new StageFxBuilder(stage);
         // ======================================= create main scene ===================================================
         BorderPaneFxBuilder root = new BorderPaneFxBuilder(APPLICATION_ROOT);
@@ -38,15 +56,21 @@ public class AI_Application extends Application {
                 e-> { Graph2dFxStage testStage = new Graph2dFxStage(stage, this.globalGraphDb);
                     StageController.showStage(testStage);}
         );
-        root.build().setTop(btnTest);
-
+        //==============================================================================================================
+        TextField textField1 = new TextField();
+        TextFields.bindAutoCompletion(textField1, jcl.getParent().getDefinedPackages());
+//        TextField textField2 = new TextField();
+//        TextFields.bindAutoCompletion(textField2, jcl.getParent().getDefinedPackages());
+        //==============================================================================================================
         Button btnOpenWorkflowStage = ButtonFxFactory.createButton(
                 "btnOpenWorkflowStage",
                 e-> { Workflow2dFxStage workflowStage = new Workflow2dFxStage(stage, new WorkflowIO());
                     StageController.showStage(workflowStage);}
         );
-        root.build().setCenter(btnOpenWorkflowStage);
-
+        // =============================================================================================================
+        VBox centerVBox = new VBox(btnTest, btnOpenWorkflowStage, textField1 /*, textField2*/);
+        root.build().setCenter(centerVBox);
+        // =============================================================================================================
         stage.setOnCloseRequest(e-> globalGraphDb.disconnect());
         stg.show();
     }

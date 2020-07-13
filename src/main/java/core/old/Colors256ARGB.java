@@ -7,7 +7,6 @@ import java.util.HashMap;
  */
 public class Colors256ARGB {
     private ARGB[] listArgbColors;
-    private Lab[] listLabColors;
 
     private HashMap<String, ARGB> mapArgbColors;
 
@@ -531,61 +530,22 @@ public class Colors256ARGB {
         mapArgbColors.put("_254_Grey89",	_254_Grey89	);
         mapArgbColors.put("_255_Grey93",	_255_Grey93	);
         this.listArgbColors = this.mapArgbColors.values().toArray(new ARGB[256]);
-        this.listLabColors = new Lab[256];
         for(int i =0; i<256;i++){
 //            this.listLabColors[i] = ArgbToLab.transform(this.listArgbColors[i]);
         }
         return mapArgbColors;
     }
 
-    public ARGB getArgbColor(int index) {
-        return this.listArgbColors[index];
-    }
-
-    public Lab getLabColor(int index) {
-        return this.listLabColors[index];
-    }
-
-    public static ARGB removeAlpha(ARGB foreground, ARGB background)
-    {
-        if (foreground.a == 255)
-            return foreground;
-
-        double alpha = foreground.a / 255.0;
-        double diff = 1.0 - alpha;
-        return new ARGB(255,
-                (byte)(foreground.r * alpha + background.r * diff),
-                (byte)(foreground.g * alpha + background.g * diff),
-                (byte)(foreground.b * alpha + background.b * diff));
-    }
 
     public static double countColourDistance(ARGB p1, ARGB p2){
         return Math.sqrt( (p2.r - p1.r)*(p2.r - p1.r) + (p2.g - p1.g)*(p2.g - p1.g) + (p2.b - p1.b)*(p2.b - p1.b) );
 //        return Math.abs((p2.r - p1.r) + (p2.g - p1.g) + (p2.b - p1.b));
     }
 
-    // TODO: refactoring or remove
-//    public static double countColourDistance(Lab e1, Lab e2)
-//    {
-//        double l = e1.L - e2.L;
-//        double a = e1.a - e2.a;
-//        double b = e1.b - e2.b;
-//        return Math.sqrt(l*l + a*a + b*b);
-//    }
-
-//    public static double countColourDistance(ARGB e1, ARGB e2)
-//    {
-//        long rmean = ( (long)e1.r + (long)e2.r ) / 2;
-//        long r = (long)e1.r - (long)e2.r;
-//        long g = (long)e1.g - (long)e2.g;
-//        long b = (long)e1.b - (long)e2.b;
-//        return Math.sqrt((((512+rmean)*r*r)>>8) + 4*g*g + (((767-rmean)*b*b)>>8));
-//    }
 
     public ARGB findClosestColor256(ARGB in){
         ARGB out = null, argbColor;
         ARGB in1, background = new ARGB(0xffffffff);
-        Lab labColor;
         double dist, minDist = 1024;
         //in1 = Colors256ARGB.removeAlpha(in, background);
         for(int i =0; i<256; i++){
